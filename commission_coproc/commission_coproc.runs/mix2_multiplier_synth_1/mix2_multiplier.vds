@@ -1,0 +1,466 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Jun 24 09:12:59 2026
+# Process ID         : 5118
+# Current directory  : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_multiplier_synth_1
+# Command line       : vivado -log mix2_multiplier.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mix2_multiplier.tcl
+# Log file           : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_multiplier_synth_1/mix2_multiplier.vds
+# Journal file       : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_multiplier_synth_1/vivado.jou
+# Running On         : death
+# Platform           : cachyos
+# Operating System   : CachyOS
+# Processor Detail   : 12th Gen Intel(R) Core(TM) i7-12700K
+# CPU Frequency      : 4993.975 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 20
+# Host memory        : 33396 MB
+# Swap memory        : 33396 MB
+# Total Virtual      : 66792 MB
+# Available Virtual  : 4921 MB
+#-----------------------------------------------------------
+source mix2_multiplier.tcl -notrace
+Command: synth_design -top mix2_multiplier -part xc7k480tffg1156-2 -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k480t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k480t'
+INFO: [Device 21-403] Loading part xc7k480tffg1156-2
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 5221
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2267.297 ; gain = 482.875 ; free physical = 1016 ; free virtual = 3426
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'mix2_multiplier' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/synth/mix2_multiplier.vhd:67]
+WARNING: [Synth 8-5640] Port 'zero_detect' is missing in component declaration [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/synth/mix2_multiplier.vhd:70]
+WARNING: [Synth 8-5640] Port 'pcasc' is missing in component declaration [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/synth/mix2_multiplier.vhd:70]
+WARNING: [Synth 8-5640] Port 'pcasc_ext' is missing in component declaration [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/synth/mix2_multiplier.vhd:70]
+	Parameter C_VERBOSITY bound to: 0 - type: integer 
+	Parameter C_MODEL_TYPE bound to: 0 - type: integer 
+	Parameter C_OPTIMIZE_GOAL bound to: 1 - type: integer 
+	Parameter C_XDEVICEFAMILY bound to: kintex7 - type: string 
+	Parameter C_HAS_CE bound to: 0 - type: integer 
+	Parameter C_HAS_SCLR bound to: 0 - type: integer 
+	Parameter C_LATENCY bound to: 18 - type: integer 
+	Parameter C_A_WIDTH bound to: 64 - type: integer 
+	Parameter C_A_TYPE bound to: 1 - type: integer 
+	Parameter C_B_WIDTH bound to: 64 - type: integer 
+	Parameter C_B_TYPE bound to: 1 - type: integer 
+	Parameter C_OUT_HIGH bound to: 63 - type: integer 
+	Parameter C_OUT_LOW bound to: 0 - type: integer 
+	Parameter C_MULT_TYPE bound to: 2 - type: integer 
+	Parameter C_CE_OVERRIDES_SCLR bound to: 0 - type: integer 
+	Parameter C_CCM_IMP bound to: 2 - type: integer 
+	Parameter C_B_VALUE bound to: 1001010011010000010010011011101100010011001100010001000111101011 - type: string 
+	Parameter C_HAS_ZERO_DETECT bound to: 0 - type: integer 
+	Parameter C_ROUND_OUTPUT bound to: 0 - type: integer 
+	Parameter C_ROUND_PT bound to: 0 - type: integer 
+INFO: [Synth 8-3491] module 'mult_gen_v12_0_24' declared at '/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/hdl/mult_gen_v12_0_vh_rfs.vhd:21527' bound to instance 'U0' of component 'mult_gen_v12_0_24' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/synth/mix2_multiplier.vhd:122]
+INFO: [Synth 8-256] done synthesizing module 'mix2_multiplier' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/synth/mix2_multiplier.vhd:67]
+INFO: [Synth 8-7129] Port CLK in module delay_line__parameterized23 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized23 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized23 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized22 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized22 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized17 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized17 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized21 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized21 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized20 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized20 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized19 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized19 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized18 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized18 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized16 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized16 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CLK in module delay_line__parameterized15 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized15 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized15 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized14 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized14 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized13 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized13 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized12 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized12 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized11 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized11 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized6 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized6 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized5 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized5 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized3 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized3 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized1 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized1 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized4 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized10 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized10 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CLK in module delay_line is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized9 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized9 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized8 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized8 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized7 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized7 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[24] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[23] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[22] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[21] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[20] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[19] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[18] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[17] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[16] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[15] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[14] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[13] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[12] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[11] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[10] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[9] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[8] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[7] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[6] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[5] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[4] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[3] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[2] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[1] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port D_PORT[0] in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port CARRY_IN in module dsp is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[63] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[62] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[61] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[60] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[59] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[58] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[57] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[56] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[55] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[54] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[53] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[52] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[51] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[50] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[49] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[48] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[47] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[46] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[45] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[44] in module ccm is either unconnected or has no load
+INFO: [Synth 8-7129] Port B[43] in module ccm is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2541.234 ; gain = 756.812 ; free physical = 761 ; free virtual = 3233
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2553.109 ; gain = 768.688 ; free physical = 780 ; free virtual = 3234
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2553.109 ; gain = 768.688 ; free physical = 780 ; free virtual = 3234
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2556.078 ; gain = 0.000 ; free physical = 775 ; free virtual = 3231
+INFO: [Netlist 29-17] Analyzing 16 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/mix2_multiplier_ooc.xdc] for cell 'U0'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/mix2_multiplier_ooc.xdc] for cell 'U0'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_multiplier_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_multiplier_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2623.914 ; gain = 0.000 ; free physical = 800 ; free virtual = 3206
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2623.949 ; gain = 0.000 ; free physical = 798 ; free virtual = 3204
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2623.949 ; gain = 839.527 ; free physical = 2192 ; free virtual = 4818
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k480tffg1156-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2631.918 ; gain = 847.496 ; free physical = 2192 ; free virtual = 4818
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2631.918 ; gain = 847.496 ; free physical = 2192 ; free virtual = 4818
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2631.918 ; gain = 847.496 ; free physical = 2154 ; free virtual = 4797
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 1920 (col length:160)
+BRAMs: 1910 (col length: RAMB18 160 RAMB36 80)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[0].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[0].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[1].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[1].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[2].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[2].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[3].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[3].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[4].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[4].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[5].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[5].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[6].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[6].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[7].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[7].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[8].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[1].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[8].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[0].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[0].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[1].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[1].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[2].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[2].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[3].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[3].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[4].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[4].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[5].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[5].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[6].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[6].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[7].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[7].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[8].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[8].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[0].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[0].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[1].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[1].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[2].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[2].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[3].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[3].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[4].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[4].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[5].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[5].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[6].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[6].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[7].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[7].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[8].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[2].iAdely[3].use_delay_line.Adelay/dN_hlutnm.srl_loop[8].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[0].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[0].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[1].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[1].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[2].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[2].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[3].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[3].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[4].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[4].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[5].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[5].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[6].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iAdelx[3].iAdely[2].use_delay_line.Adelay/dN_hlutnm.srl_loop[6].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[0].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[0].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[1].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[1].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[2].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[2].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[3].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[3].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[4].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[4].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[5].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[5].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[6].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[6].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[7].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[7].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[8].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[1].iBdely[3].need_delay_line.Bdelay/dN_hlutnm.srl_loop[8].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[0].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[0].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[1].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[1].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[2].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[2].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[3].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[3].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[4].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[4].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[5].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[5].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[6].i_fdre0) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Synth 8-3332] Sequential element (gCCM.iCCM/emb_mult_ccm.dsp_ccm.dsp48_array/use_prim.iBdelx[2].iBdely[2].need_delay_line.Bdelay/dN_hlutnm.srl_loop[6].i_fdre1) is unused and will be removed from module mult_gen_v12_0_24_viv.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2631.918 ; gain = 847.496 ; free physical = 2132 ; free virtual = 4804
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2631.918 ; gain = 847.496 ; free physical = 2068 ; free virtual = 4947
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2631.918 ; gain = 847.496 ; free physical = 2068 ; free virtual = 4948
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2631.918 ; gain = 847.496 ; free physical = 2068 ; free virtual = 4948
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2779.730 ; gain = 995.309 ; free physical = 1898 ; free virtual = 4819
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2779.730 ; gain = 995.309 ; free physical = 1898 ; free virtual = 4819
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2779.730 ; gain = 995.309 ; free physical = 1898 ; free virtual = 4819
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2779.730 ; gain = 995.309 ; free physical = 1898 ; free virtual = 4819
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2779.730 ; gain = 995.309 ; free physical = 1898 ; free virtual = 4819
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2779.730 ; gain = 995.309 ; free physical = 1898 ; free virtual = 4819
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------+--------------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping              | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+--------------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|dsp         | (C+(A'*B')')'            | 17     | 17     | 0      | -      | 17     | 1    | 1    | 0    | -    | -     | 1    | 1    | 
+|dsp         | (PCIN>>17+(A'*B'')')'    | 0      | 17     | -      | -      | 0      | 1    | 2    | -    | -    | -     | 1    | 1    | 
+|dsp         | (PCIN+(A''*B'')')'       | 18     | 18     | -      | -      | 17     | 2    | 2    | -    | -    | -     | 1    | 1    | 
+|dsp         | (PCIN>>17+(A'*B'')')'    | 0      | 18     | -      | -      | 0      | 1    | 2    | -    | -    | -     | 1    | 1    | 
+|dsp         | (PCIN+((A'')'*B'')')'    | 17     | 17     | -      | -      | 17     | 2    | 2    | -    | -    | 1     | 1    | 1    | 
+|dsp         | (PCIN+(A''*B'')')'       | 18     | 18     | -      | -      | 0      | 2    | 2    | -    | -    | -     | 1    | 1    | 
+|dsp         | (PCIN+(A''*B'')')'       | 18     | 18     | -      | -      | 0      | 2    | 2    | -    | -    | -     | 1    | 1    | 
+|dsp         | (PCIN>>17+((A'')'*B')')' | 17     | 0      | -      | -      | 0      | 2    | 1    | -    | -    | 1     | 1    | 1    | 
+|dsp         | (PCIN+(A''*B'')')'       | 18     | 18     | -      | -      | 0      | 2    | 2    | -    | -    | -     | 1    | 1    | 
+|dsp         | (PCIN+(A''*B'')')'       | 25     | 18     | -      | -      | 17     | 2    | 2    | -    | -    | -     | 1    | 1    | 
++------------+--------------------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |DSP48E1 |    10|
+|6     |SRL16E  |   258|
+|7     |FDRE    |   276|
++------+--------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2779.730 ; gain = 995.309 ; free physical = 1898 ; free virtual = 4819
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2779.730 ; gain = 924.469 ; free physical = 1868 ; free virtual = 4819
+Synthesis Optimization Complete : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2779.738 ; gain = 995.309 ; free physical = 1868 ; free virtual = 4821
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2779.738 ; gain = 0.000 ; free physical = 1901 ; free virtual = 4823
+INFO: [Netlist 29-17] Analyzing 10 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2779.738 ; gain = 0.000 ; free physical = 2006 ; free virtual = 4940
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 70ce640e
+INFO: [Common 17-83] Releasing license: Synthesis
+222 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:23 ; elapsed = 00:00:23 . Memory (MB): peak = 2779.766 ; gain = 1177.273 ; free physical = 1983 ; free virtual = 4946
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1775.562; main = 1732.387; forked = 219.119
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3614.602; main = 2779.734; forked = 990.684
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2803.742 ; gain = 0.000 ; free physical = 1977 ; free virtual = 4948
+INFO: [Common 17-1381] The checkpoint '/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_multiplier_synth_1/mix2_multiplier.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP mix2_multiplier, cache-ID = c0cc71de932fc3fa
+INFO: [Coretcl 2-1174] Renamed 21 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2803.742 ; gain = 0.000 ; free physical = 1891 ; free virtual = 4921
+INFO: [Common 17-1381] The checkpoint '/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_multiplier_synth_1/mix2_multiplier.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file mix2_multiplier_utilization_synth.rpt -pb mix2_multiplier_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Jun 24 09:13:25 2026...

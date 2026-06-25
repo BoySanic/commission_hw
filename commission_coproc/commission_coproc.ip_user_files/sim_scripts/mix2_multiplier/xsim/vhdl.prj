@@ -1,0 +1,5 @@
+vhdl xil_defaultlib  \
+"../../../../commission_coproc.gen/sources_1/ip/mix2_multiplier/sim/mix2_multiplier.vhd" \
+
+# Do not sort compile order
+nosort

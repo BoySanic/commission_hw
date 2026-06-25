@@ -1,0 +1,5 @@
+vhdl xil_defaultlib  \
+"../../../../commission_coproc.gen/sources_1/ip/add_goldenratio/sim/add_goldenratio.vhd" \
+
+# Do not sort compile order
+nosort

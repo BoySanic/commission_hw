@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7k480tffg1156-2" LaunchTime="1782366706">
+  <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
+  <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS" Name="XrsrNextInternal_postroute_physopted.rqs"/>
+  <File Type="ROUTE-RQS" Name="XrsrNextInternal_routed.rqs"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="RDI-RDI" Name="XrsrNextInternal.vdi"/>
+  <File Type="BG-DRC" Name="XrsrNextInternal.drc"/>
+  <File Type="BG-BGN" Name="XrsrNextInternal.bgn"/>
+  <File Type="BITSTR-SYSDEF" Name="XrsrNextInternal.sysdef"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="XrsrNextInternal.ltx"/>
+  <File Type="PL-LTX-FILE" Name="XrsrNextInternal_pld.ltx"/>
+  <File Type="BOOT-LTX-FILE" Name="XrsrNextInternal_boot.ltx"/>
+  <File Type="LTX-FILE" Name="XrsrNextInternal.ltx"/>
+  <File Type="PL-BIF-FILE" Name="XrsrNextInternal_pld.bif"/>
+  <File Type="BOOT-BIF-FILE" Name="XrsrNextInternal_boot.bif"/>
+  <File Type="BIF-FILE" Name="XrsrNextInternal.bif"/>
+  <File Type="MMI-FILE" Name="XrsrNextInternal.mmi"/>
+  <File Type="RBD_FILE" Name="XrsrNextInternal.rbd"/>
+  <File Type="NPI_FILE" Name="XrsrNextInternal.npi"/>
+  <File Type="PL_UNMASK_RCDO_FILE" Name="XrsrNextInternal_pld_unmask.rcdo"/>
+  <File Type="PL_UNMASK_MARKER_RCDO_FILE" Name="XrsrNextInternal_pld_unmask_markers.rcdo"/>
+  <File Type="PL_MASK_RCDO_FILE" Name="XrsrNextInternal_pld_mask.rcdo"/>
+  <File Type="PL_MARKER_RCDO_FILE" Name="XrsrNextInternal_pld_markers.rcdo"/>
+  <File Type="PL-CLEAR-RCDO-FILE" Name="XrsrNextInternal_pld_clear.rcdo"/>
+  <File Type="PL-RCDO-FILE" Name="XrsrNextInternal_pld.rcdo"/>
+  <File Type="PL_UNMASK_RNPI_FILE" Name="XrsrNextInternal_pld_unmask.rnpi"/>
+  <File Type="PL_SHUTDOWN_RNPI_FILE" Name="XrsrNextInternal_pld_shutdown.rnpi"/>
+  <File Type="PL_MASK_RNPI_FILE" Name="XrsrNextInternal_pld_mask.rnpi"/>
+  <File Type="PL_MARKER_RNPI_FILE" Name="XrsrNextInternal_pld_markers.rnpi"/>
+  <File Type="PL_RNPI_FILE" Name="XrsrNextInternal_pld.rnpi"/>
+  <File Type="BOOT_MARKER_RNPI_FILE" Name="XrsrNextInternal_boot_markers.rnpi"/>
+  <File Type="BOOT_RNPI_FILE" Name="XrsrNextInternal_boot.rnpi"/>
+  <File Type="MARKER-RCDO-FILE" Name="XrsrNextInternal_markers.rcdo"/>
+  <File Type="MARKER-RNPI-FILE" Name="XrsrNextInternal_markers.rnpi"/>
+  <File Type="RCDO-FILE" Name="XrsrNextInternal.rcdo"/>
+  <File Type="RNPI_FILE" Name="XrsrNextInternal.rnpi"/>
+  <File Type="CFI_FILE" Name="XrsrNextInternal.cfi"/>
+  <File Type="RCFI_FILE" Name="XrsrNextInternal.rcfi"/>
+  <File Type="PL-PDI-FILE" Name="XrsrNextInternal_pld.pdi"/>
+  <File Type="BOOT-PDI-FILE" Name="XrsrNextInternal_boot.pdi"/>
+  <File Type="PDI-FILE" Name="XrsrNextInternal.pdi"/>
+  <File Type="BITSTR-MMI" Name="XrsrNextInternal.mmi"/>
+  <File Type="BITSTR-BMM" Name="XrsrNextInternal_bd.bmm"/>
+  <File Type="BITSTR-NKY" Name="XrsrNextInternal.nky"/>
+  <File Type="BITSTR-RBT" Name="XrsrNextInternal.rbt"/>
+  <File Type="BITSTR-MSK" Name="XrsrNextInternal.msk"/>
+  <File Type="BG-BIN" Name="XrsrNextInternal.bin"/>
+  <File Type="BG-BIT" Name="XrsrNextInternal.bit"/>
+  <File Type="NOC_SOLUTION_FILE" Name="XrsrNextInternal.ncr"/>
+  <File Type="NOC_TRAFFIC_SPEC_FILE" Name="XrsrNextInternal.nts"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="XrsrNextInternal_bus_skew_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="XrsrNextInternal_bus_skew_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="XrsrNextInternal_bus_skew_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="XrsrNextInternal_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="XrsrNextInternal_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="XrsrNextInternal_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="XrsrNextInternal_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="XrsrNextInternal_postroute_physopt.dcp"/>
+  <File Type="ROUTE-RQS-PB" Name="XrsrNextInternal_rqs_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="XrsrNextInternal_bus_skew_routed.rpx"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="XrsrNextInternal_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW" Name="XrsrNextInternal_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="XrsrNextInternal_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-SIMILARITY" Name="XrsrNextInternal_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-TIMING-RPX" Name="XrsrNextInternal_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-TIMING-PB" Name="XrsrNextInternal_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="XrsrNextInternal_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="XrsrNextInternal_route_status.pb"/>
+  <File Type="ROUTE-STATUS" Name="XrsrNextInternal_route_status.rpt"/>
+  <File Type="ROUTE-PWR-RPX" Name="XrsrNextInternal_power_routed.rpx"/>
+  <File Type="ROUTE-PWR-SUM" Name="XrsrNextInternal_power_summary_routed.pb"/>
+  <File Type="ROUTE-PWR" Name="XrsrNextInternal_power_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="XrsrNextInternal_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="XrsrNextInternal_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="XrsrNextInternal_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-RPX" Name="XrsrNextInternal_drc_routed.rpx"/>
+  <File Type="ROUTE-DRC-PB" Name="XrsrNextInternal_drc_routed.pb"/>
+  <File Type="ROUTE-DRC" Name="XrsrNextInternal_drc_routed.rpt"/>
+  <File Type="ROUTE-UTIL-PB" Name="XrsrNextInternal_utilization_routed.pb"/>
+  <File Type="ROUTE-UTIL" Name="XrsrNextInternal_utilization_routed.rpt"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="XrsrNextInternal_routed_bb.dcp"/>
+  <File Type="ROUTE-DCP" Name="XrsrNextInternal_routed.dcp"/>
+  <File Type="ROUTE-ERROR-DCP" Name="XrsrNextInternal_routed_error.dcp"/>
+  <File Type="PHYSOPT-TIMING" Name="XrsrNextInternal_timing_summary_physopted.rpt"/>
+  <File Type="PHYSOPT-DRC" Name="XrsrNextInternal_drc_physopted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="XrsrNextInternal_physopt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="XrsrNextInternal_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="XrsrNextInternal_postplace_pwropt.dcp"/>
+  <File Type="PLACE-RQA-PB" Name="XrsrNextInternal_rqa_placed.pb"/>
+  <File Type="PLACE-TIMING" Name="XrsrNextInternal_timing_summary_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="XrsrNextInternal_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="XrsrNextInternal_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-CTRL" Name="XrsrNextInternal_control_sets_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="XrsrNextInternal_utilization_placed.pb"/>
+  <File Type="PLACE-UTIL" Name="XrsrNextInternal_utilization_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="XrsrNextInternal_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-IO" Name="XrsrNextInternal_io_placed.rpt"/>
+  <File Type="PLACE-DCP" Name="XrsrNextInternal_placed.dcp"/>
+  <File Type="PWROPT-TIMING" Name="XrsrNextInternal_timing_summary_pwropted.rpt"/>
+  <File Type="PWROPT-DRC" Name="XrsrNextInternal_drc_pwropted.rpt"/>
+  <File Type="PWROPT-DCP" Name="XrsrNextInternal_pwropt.dcp"/>
+  <File Type="OPT-RQA-PB" Name="XrsrNextInternal_rqa_opted.pb"/>
+  <File Type="OPT-TIMING" Name="XrsrNextInternal_timing_summary_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="XrsrNextInternal.hwdef"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="XrsrNextInternal_methodology_drc_opted.rpt"/>
+  <File Type="OPT-UTIL-PB" Name="XrsrNextInternal_utilization_opted.pb"/>
+  <File Type="OPT-UTIL" Name="XrsrNextInternal_utilization_opted.rpt"/>
+  <File Type="OPT-DRC" Name="XrsrNextInternal_drc_opted.rpt"/>
+  <File Type="OPT-DCP" Name="XrsrNextInternal_opt.dcp"/>
+  <File Type="INIT-TIMING" Name="XrsrNextInternal_timing_summary_init.rpt"/>
+  <File Type="REPORTS-TCL" Name="XrsrNextInternal_reports.tcl"/>
+  <File Type="PA-TCL" Name="XrsrNextInternal.tcl"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/filter_seeds_core.sv">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/XrsrRandom_seed_fork.sv">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/XrsrNextInternal.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="XrsrNextInternal"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/Downloads/ypcb003381p1.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../Downloads/ypcb003381p1.xdc"/>
+        <Attr Name="ImportTime" Val="1775376923"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
+    <Filter Type="Utils"/>
+    <File Path="$PSRCDIR/utils_1/imports/synth_1/XrsrRandom_seed_fork.dcp">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedInSteps" Val="synth_1"/>
+        <Attr Name="AutoDcp" Val="1"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
+      <Desc>Default settings for Implementation.</Desc>
+    </StratHandle>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="add_u64"/>
+</GenRun>

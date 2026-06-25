@@ -1,0 +1,1 @@
+add_u64.vhd,vhdl,xil_defaultlib,../../../../commission_coproc.gen/sources_1/ip/add_u64/sim/add_u64.vhd,incdir="../../../../../../.vivado/2025.2/data/rsb/busdef"

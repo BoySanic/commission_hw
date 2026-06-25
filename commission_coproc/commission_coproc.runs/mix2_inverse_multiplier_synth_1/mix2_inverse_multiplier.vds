@@ -1,0 +1,351 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue Jun 23 17:35:50 2026
+# Process ID         : 3741335
+# Current directory  : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_inverse_multiplier_synth_1
+# Command line       : vivado -log mix2_inverse_multiplier.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mix2_inverse_multiplier.tcl
+# Log file           : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_inverse_multiplier_synth_1/mix2_inverse_multiplier.vds
+# Journal file       : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_inverse_multiplier_synth_1/vivado.jou
+# Running On         : death
+# Platform           : cachyos
+# Operating System   : CachyOS
+# Processor Detail   : 12th Gen Intel(R) Core(TM) i7-12700K
+# CPU Frequency      : 5000.865 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 20
+# Host memory        : 33396 MB
+# Swap memory        : 33396 MB
+# Total Virtual      : 66792 MB
+# Available Virtual  : 7485 MB
+#-----------------------------------------------------------
+source mix2_inverse_multiplier.tcl -notrace
+Command: synth_design -top mix2_inverse_multiplier -part xc7k480tffg1156-2 -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k480t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k480t'
+INFO: [Device 21-403] Loading part xc7k480tffg1156-2
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 3741418
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2275.219 ; gain = 482.875 ; free physical = 3863 ; free virtual = 5943
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'mix2_inverse_multiplier' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_inverse_multiplier/synth/mix2_inverse_multiplier.vhd:67]
+WARNING: [Synth 8-5640] Port 'zero_detect' is missing in component declaration [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_inverse_multiplier/synth/mix2_inverse_multiplier.vhd:70]
+WARNING: [Synth 8-5640] Port 'pcasc' is missing in component declaration [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_inverse_multiplier/synth/mix2_inverse_multiplier.vhd:70]
+WARNING: [Synth 8-5640] Port 'pcasc_ext' is missing in component declaration [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_inverse_multiplier/synth/mix2_inverse_multiplier.vhd:70]
+	Parameter C_VERBOSITY bound to: 0 - type: integer 
+	Parameter C_MODEL_TYPE bound to: 0 - type: integer 
+	Parameter C_OPTIMIZE_GOAL bound to: 1 - type: integer 
+	Parameter C_XDEVICEFAMILY bound to: kintex7 - type: string 
+	Parameter C_HAS_CE bound to: 0 - type: integer 
+	Parameter C_HAS_SCLR bound to: 0 - type: integer 
+	Parameter C_LATENCY bound to: 5 - type: integer 
+	Parameter C_A_WIDTH bound to: 64 - type: integer 
+	Parameter C_A_TYPE bound to: 1 - type: integer 
+	Parameter C_B_WIDTH bound to: 62 - type: integer 
+	Parameter C_B_TYPE bound to: 1 - type: integer 
+	Parameter C_OUT_HIGH bound to: 63 - type: integer 
+	Parameter C_OUT_LOW bound to: 0 - type: integer 
+	Parameter C_MULT_TYPE bound to: 2 - type: integer 
+	Parameter C_CE_OVERRIDES_SCLR bound to: 0 - type: integer 
+	Parameter C_CCM_IMP bound to: 0 - type: integer 
+	Parameter C_B_VALUE bound to: 11000110010110010000101011001011010010010011011000111011000011 - type: string 
+	Parameter C_HAS_ZERO_DETECT bound to: 0 - type: integer 
+	Parameter C_ROUND_OUTPUT bound to: 0 - type: integer 
+	Parameter C_ROUND_PT bound to: 0 - type: integer 
+INFO: [Synth 8-3491] module 'mult_gen_v12_0_24' declared at '/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_inverse_multiplier/hdl/mult_gen_v12_0_vh_rfs.vhd:21527' bound to instance 'U0' of component 'mult_gen_v12_0_24' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_inverse_multiplier/synth/mix2_inverse_multiplier.vhd:122]
+INFO: [Synth 8-256] done synthesizing module 'mix2_inverse_multiplier' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_inverse_multiplier/synth/mix2_inverse_multiplier.vhd:67]
+INFO: [Synth 8-7129] Port CLK in module delay_line__parameterized1 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized1 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized1 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADD in module ccm_scaled_adder__parameterized3 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADD_IN_CE in module ccm_scaled_adder__parameterized3 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ROM_CE in module ccm_scaled_adder__parameterized3 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADD in module ccm_scaled_adder__parameterized2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADD_IN_CE in module ccm_scaled_adder__parameterized2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ROM_CE in module ccm_scaled_adder__parameterized2 is either unconnected or has no load
+INFO: [Synth 8-7129] Port CE in module delay_line is either unconnected or has no load
+INFO: [Synth 8-7129] Port SCLR in module delay_line is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[65] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[64] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[63] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[62] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[61] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[60] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[59] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[58] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[57] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[56] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[55] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[54] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[53] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[52] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[51] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[50] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[49] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[48] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[47] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[46] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[45] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[44] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[43] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[42] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[41] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[40] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[39] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[38] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[37] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[36] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[35] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[34] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[33] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[32] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[31] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[30] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[29] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[28] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[27] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[26] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[25] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[24] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[23] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[22] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[21] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[20] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[19] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[18] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[17] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[16] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[15] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[14] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[13] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[12] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[11] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[10] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[9] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[8] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[7] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[6] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[5] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[4] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[3] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[2] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[1] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[0] in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port WE in module ccm_dist_mem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADDR_B0[5] in module ccm_syncmem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADDR_B0[4] in module ccm_syncmem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADDR_B0[3] in module ccm_syncmem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADDR_B0[2] in module ccm_syncmem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADDR_B0[1] in module ccm_syncmem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADDR_B0[0] in module ccm_syncmem__parameterized0 is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADD in module ccm_scaled_adder is either unconnected or has no load
+INFO: [Synth 8-7129] Port ADD_IN_CE in module ccm_scaled_adder is either unconnected or has no load
+INFO: [Synth 8-7129] Port ROM_CE in module ccm_scaled_adder is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[67] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[66] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[65] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[64] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[63] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[62] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[61] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[60] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[59] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[58] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Synth 8-7129] Port D[57] in module ccm_dist_mem is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2409.156 ; gain = 616.812 ; free physical = 3838 ; free virtual = 5796
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2412.125 ; gain = 619.781 ; free physical = 3822 ; free virtual = 5795
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2412.125 ; gain = 619.781 ; free physical = 3822 ; free virtual = 5795
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.03 . Memory (MB): peak = 2412.125 ; gain = 0.000 ; free physical = 3751 ; free virtual = 5793
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_inverse_multiplier/mix2_inverse_multiplier_ooc.xdc] for cell 'U0'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_inverse_multiplier/mix2_inverse_multiplier_ooc.xdc] for cell 'U0'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_inverse_multiplier_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_inverse_multiplier_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2515.594 ; gain = 0.000 ; free physical = 3560 ; free virtual = 5733
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2515.629 ; gain = 0.000 ; free physical = 3559 ; free virtual = 5744
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2515.629 ; gain = 723.285 ; free physical = 3760 ; free virtual = 5774
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k480tffg1156-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2523.598 ; gain = 731.254 ; free physical = 3757 ; free virtual = 5773
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2523.598 ; gain = 731.254 ; free physical = 3755 ; free virtual = 5774
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2523.598 ; gain = 731.254 ; free physical = 3709 ; free virtual = 5775
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 1920 (col length:160)
+BRAMs: 1910 (col length: RAMB18 160 RAMB36 80)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 2523.598 ; gain = 731.254 ; free physical = 3791 ; free virtual = 5774
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 2546.598 ; gain = 754.254 ; free physical = 3680 ; free virtual = 5679
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 2548.598 ; gain = 756.254 ; free physical = 3662 ; free virtual = 5681
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 2558.621 ; gain = 766.277 ; free physical = 3668 ; free virtual = 5679
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2744.434 ; gain = 952.090 ; free physical = 3582 ; free virtual = 5536
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2744.434 ; gain = 952.090 ; free physical = 3576 ; free virtual = 5537
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 2744.434 ; gain = 952.090 ; free physical = 3527 ; free virtual = 5525
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 2744.434 ; gain = 952.090 ; free physical = 3559 ; free virtual = 5526
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 2744.434 ; gain = 952.090 ; free physical = 3536 ; free virtual = 5526
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 2744.434 ; gain = 952.090 ; free physical = 3535 ; free virtual = 5526
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |CARRY4 |    80|
+|2     |LUT2   |   321|
+|3     |LUT3   |    11|
+|4     |LUT4   |    18|
+|5     |LUT5   |    17|
+|6     |LUT6   |   306|
+|7     |SRL16E |    24|
+|8     |FDRE   |   776|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 2744.434 ; gain = 952.090 ; free physical = 3534 ; free virtual = 5526
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 2744.434 ; gain = 848.586 ; free physical = 3519 ; free virtual = 5525
+Synthesis Optimization Complete : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 2744.441 ; gain = 952.090 ; free physical = 3490 ; free virtual = 5523
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2744.441 ; gain = 0.000 ; free physical = 3370 ; free virtual = 5518
+INFO: [Netlist 29-17] Analyzing 80 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2800.461 ; gain = 0.000 ; free physical = 3453 ; free virtual = 5678
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: f5022dbc
+INFO: [Common 17-83] Releasing license: Synthesis
+119 Infos, 3 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2800.496 ; gain = 1225.840 ; free physical = 3498 ; free virtual = 5678
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1635.621; main = 1635.621; forked = 168.594
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3506.281; main = 2800.465; forked = 990.684
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2824.473 ; gain = 0.000 ; free physical = 3487 ; free virtual = 5678
+INFO: [Common 17-1381] The checkpoint '/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_inverse_multiplier_synth_1/mix2_inverse_multiplier.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP mix2_inverse_multiplier, cache-ID = 2dbd392aee1611a6
+INFO: [Coretcl 2-1174] Renamed 38 cell refs.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2824.473 ; gain = 0.000 ; free physical = 3538 ; free virtual = 5666
+INFO: [Common 17-1381] The checkpoint '/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/mix2_inverse_multiplier_synth_1/mix2_inverse_multiplier.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file mix2_inverse_multiplier_utilization_synth.rpt -pb mix2_inverse_multiplier_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Jun 23 17:36:17 2026...
