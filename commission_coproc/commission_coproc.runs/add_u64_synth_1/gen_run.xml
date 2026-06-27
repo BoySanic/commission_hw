@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="add_u64_synth_1" LaunchPart="xc7k480tffg1156-2" LaunchTime="1782263560">
-  <File Type="VDS-TIMINGSUMMARY" Name="add_u64_timing_summary_synth.rpt"/>
   <File Type="RDS-DCP" Name="add_u64.dcp"/>
-  <File Type="RDS-UTIL-PB" Name="add_u64_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="add_u64_utilization_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="add_u64_timing_summary_synth.pb"/>
-  <File Type="PA-TCL" Name="add_u64.tcl"/>
-  <File Type="REPORTS-TCL" Name="add_u64_reports.tcl"/>
   <File Type="RDS-RDS" Name="add_u64.vds"/>
-  <File Type="RDS-PROPCONSTRS" Name="add_u64_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="add_u64_reports.tcl"/>
+  <File Type="PA-TCL" Name="add_u64.tcl"/>
+  <File Type="RDS-UTIL" Name="add_u64_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="add_u64_utilization_synth.pb"/>
   <FileSet Name="sources" Type="BlockSrcs" RelSrcDir="$PSRCDIR/add_u64" RelGenDir="$PGENDIR/add_u64">
     <File Path="$PSRCDIR/sources_1/ip/add_u64/add_u64.xci">
       <FileInfo>
@@ -42,9 +39,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
     <Step Id="synth_design"/>
   </Strategy>
 </GenRun>

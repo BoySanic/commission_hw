@@ -1,4 +1,0 @@
-Running: xsim.dir/sim_xrsrrandom_seed_fork_behav/xsimk -simmode gui -wdb sim_xrsrrandom_seed_fork_behav.wdb -simrunnum 0 -socket 53305
-Design successfully loaded
-Design Loading Memory Usage: 224264 KB (Peak: 224264 KB)
-Design Loading CPU Usage: 720 ms

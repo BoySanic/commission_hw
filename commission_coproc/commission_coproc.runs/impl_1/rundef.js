@@ -30,7 +30,7 @@ eval( EAInclude(ISEJScriptLib) );
 // pre-commands:
 ISETouchFile( "init_design", "begin" );
 ISEStep( "vivado",
-         "-log XrsrNextInternal.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source XrsrNextInternal.tcl -notrace" );
+         "-log filter_seeds_core.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source filter_seeds_core.tcl -notrace" );
 
 
 

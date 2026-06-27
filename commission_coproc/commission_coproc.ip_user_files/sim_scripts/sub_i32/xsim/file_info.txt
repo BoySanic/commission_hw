@@ -1,0 +1,1 @@
+sub_i32.vhd,vhdl,xil_defaultlib,../../../../commission_coproc.gen/sources_1/ip/sub_i32/sim/sub_i32.vhd,incdir="../../../../../../.vivado/2025.2/data/rsb/busdef"

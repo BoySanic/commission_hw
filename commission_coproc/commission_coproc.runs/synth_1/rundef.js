@@ -28,7 +28,7 @@ eval( EAInclude(ISEJScriptLib) );
 
 
 ISEStep( "vivado",
-         "-log XrsrNextInternal.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source XrsrNextInternal.tcl" );
+         "-log filter_seeds_core.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source filter_seeds_core.tcl" );
 
 
 

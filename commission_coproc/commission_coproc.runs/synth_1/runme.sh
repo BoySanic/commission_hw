@@ -37,4 +37,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log XrsrNextInternal.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source XrsrNextInternal.tcl
+EAStep vivado -log filter_seeds_core.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source filter_seeds_core.tcl

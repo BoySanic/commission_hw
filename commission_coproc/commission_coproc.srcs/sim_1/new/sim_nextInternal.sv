@@ -36,7 +36,7 @@ module sim_nextInternal();
     );
     task test1();
         #10;
-        xr_state = 128'h
+        xr_state = 128'h6627ee9e27b8f0e978bafb00158517e;
     endtask
 
     initial begin

@@ -1,0 +1,661 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Sat Jun 27 12:21:09 2026
+# Process ID         : 3557092
+# Current directory  : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1
+# Command line       : vivado -log filter_seeds_core.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source filter_seeds_core.tcl
+# Log file           : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/filter_seeds_core.vds
+# Journal file       : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/vivado.jou
+# Running On         : death
+# Platform           : cachyos
+# Operating System   : CachyOS
+# Processor Detail   : 12th Gen Intel(R) Core(TM) i7-12700K
+# CPU Frequency      : 4500.000 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 20
+# Host memory        : 33396 MB
+# Swap memory        : 33396 MB
+# Total Virtual      : 66792 MB
+# Available Virtual  : 15648 MB
+#-----------------------------------------------------------
+source filter_seeds_core.tcl -notrace
+Command: read_checkpoint -auto_incremental -incremental /home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/utils_1/imports/synth_1/XrsrRandom_seed_fork.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/utils_1/imports/synth_1/XrsrRandom_seed_fork.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top filter_seeds_core -part xc7k480tffg1156-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k480t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k480t'
+INFO: [Device 21-403] Loading part xc7k480tffg1156-2
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 3557351
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2277.426 ; gain = 481.875 ; free physical = 8006 ; free virtual = 13474
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'filter_seeds_core' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:22]
+WARNING: [Synth 8-6896] index 5 out of range inside initial block, initial block items will be ignored [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'XrsrRandom_seed_fork' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/XrsrRandom_seed_fork.sv:29]
+WARNING: [Synth 8-6896] index 3 out of range inside initial block, initial block items will be ignored [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/XrsrRandom_seed_fork.sv:262]
+INFO: [Synth 8-6157] synthesizing module 'mix1_multiplier' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/mix1_multiplier_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'mix1_multiplier' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/mix1_multiplier_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'mix2_multiplier' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/mix2_multiplier_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'mix2_multiplier' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/mix2_multiplier_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'add_goldenratio' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/add_goldenratio_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'add_goldenratio' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/add_goldenratio_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'add_u64' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/add_u64_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'add_u64' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/add_u64_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'XrsrRandom_seed_fork' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/XrsrRandom_seed_fork.sv:29]
+INFO: [Synth 8-6157] synthesizing module 'XrsrNextInternal' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/XrsrNextInternal.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'XrsrNextInternal' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/XrsrNextInternal.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'octave_yo_mod1' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/octave_yo_mod1.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'octave_yo_mod1' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/octave_yo_mod1.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'sub_i32' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/sub_i32_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'sub_i32' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/sub_i32_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'add_i32' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/add_i32_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'add_i32' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/add_i32_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'mul_u32' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/mul_u32_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'mul_u32' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/mul_u32_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'add_u32' [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/add_u32_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'add_u32' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/.Xil/Vivado-3557092-death/realtime/add_u32_stub.v:6]
+WARNING: [Synth 8-324] index 33 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:404]
+WARNING: [Synth 8-324] index 33 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:405]
+WARNING: [Synth 8-324] index 34 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:405]
+WARNING: [Synth 8-324] index 34 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:406]
+WARNING: [Synth 8-324] index 35 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:406]
+WARNING: [Synth 8-324] index 35 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:407]
+WARNING: [Synth 8-324] index 36 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:407]
+WARNING: [Synth 8-324] index 36 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:408]
+WARNING: [Synth 8-324] index 37 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:408]
+WARNING: [Synth 8-324] index 37 out of range [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:409]
+INFO: [Synth 8-6155] done synthesizing module 'filter_seeds_core' (0#1) [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:22]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'seed_forker'. This will prevent further optimization [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:68]
+WARNING: [Synth 8-6014] Unused sequential element h_stages_reg[0] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/XrsrRandom_seed_fork.sv:57]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'noiserandom_a_nextInternalLo'. This will prevent further optimization [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:74]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'noiserandom_a_nextInternalHi'. This will prevent further optimization [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:81]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'noiserandom_b_nextInternalLo'. This will prevent further optimization [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:88]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'noiserandom_b_nextInternalHi'. This will prevent further optimization [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:95]
+WARNING: [Synth 8-6014] Unused sequential element h_stages_reg[12] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/XrsrNextInternal.sv:37]
+WARNING: [Synth 8-6014] Unused sequential element h_stages_reg[11] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/XrsrNextInternal.sv:37]
+WARNING: [Synth 8-6014] Unused sequential element h_stages_reg[10] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/XrsrNextInternal.sv:37]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[75] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[74] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[73] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[72] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[71] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[70] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[69] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[68] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[67] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[66] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[65] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[64] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[63] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[62] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[61] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[60] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[59] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[58] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[57] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[56] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[55] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[54] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[53] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[52] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_a_yo_fork_reg[51] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:103]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[25] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[24] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[23] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[22] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[21] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[20] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[19] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[18] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[17] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[16] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[15] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[14] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[13] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[12] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[11] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[10] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[9] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[8] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[7] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[6] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[5] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[4] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[3] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[2] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element noise_b_fork_stages_lo_reg[1] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:92]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[32] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[31] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[30] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[29] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[28] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[27] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[26] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[25] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[24] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[23] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[22] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[21] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[20] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[19] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[18] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[17] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[16] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[15] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[14] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[13] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[12] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[11] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[10] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[9] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[8] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+WARNING: [Synth 8-6014] Unused sequential element c_0A_yo_reg[7] was removed.  [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/sources_1/new/filter_seeds_core.sv:106]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2374.395 ; gain = 578.844 ; free physical = 7915 ; free virtual = 13339
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2386.270 ; gain = 590.719 ; free physical = 7915 ; free virtual = 13330
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2386.270 ; gain = 590.719 ; free physical = 7915 ; free virtual = 13330
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.07 . Memory (MB): peak = 2392.207 ; gain = 0.000 ; free physical = 7926 ; free virtual = 13335
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix1_multiplier/mix1_multiplier/mix1_multiplier_in_context.xdc] for cell 'seed_forker/mix64_1_l'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix1_multiplier/mix1_multiplier/mix1_multiplier_in_context.xdc] for cell 'seed_forker/mix64_1_l'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix1_multiplier/mix1_multiplier/mix1_multiplier_in_context.xdc] for cell 'seed_forker/mix64_1_h'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix1_multiplier/mix1_multiplier/mix1_multiplier_in_context.xdc] for cell 'seed_forker/mix64_1_h'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/mix2_multiplier/mix2_multiplier_in_context.xdc] for cell 'seed_forker/mix64_2_l'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/mix2_multiplier/mix2_multiplier_in_context.xdc] for cell 'seed_forker/mix64_2_l'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/mix2_multiplier/mix2_multiplier_in_context.xdc] for cell 'seed_forker/mix64_2_h'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mix2_multiplier/mix2_multiplier/mix2_multiplier_in_context.xdc] for cell 'seed_forker/mix64_2_h'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_goldenratio/add_goldenratio/add_goldenratio_in_context.xdc] for cell 'seed_forker/mix64_gr_1'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_goldenratio/add_goldenratio/add_goldenratio_in_context.xdc] for cell 'seed_forker/mix64_gr_1'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'seed_forker/add_l_plus_h'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'seed_forker/add_l_plus_h'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'seed_forker/add_l_to_r1'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'seed_forker/add_l_to_r1'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'seed_forker/add_l2_to_h2'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'seed_forker/add_l2_to_h2'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'seed_forker/add_l2_to_r2'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'seed_forker/add_l2_to_r2'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_a_nextInternalLo/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_a_nextInternalLo/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_a_nextInternalLo/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_a_nextInternalLo/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_a_nextInternalHi/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_a_nextInternalHi/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_a_nextInternalHi/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_a_nextInternalHi/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_b_nextInternalLo/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_b_nextInternalLo/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_b_nextInternalLo/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_b_nextInternalLo/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_b_nextInternalHi/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_b_nextInternalHi/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_b_nextInternalHi/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'noiserandom_b_nextInternalHi/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_0a/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_0a/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_0a/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_0a/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_1a/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_1a/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_1a/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_1a/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_2a/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_2a/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_2a/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_2a/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_0b/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_0b/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_0b/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_0b/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_1b/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_1b/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_1b/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_1b/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_2b/add_lr'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_2b/add_lr'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_2b/add_lh'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u64/add_u64/add_u64_in_context.xdc] for cell 'oym_2b/add_lh'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_0a'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_0a'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_1a'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_1a'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_2a'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_2a'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_0b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_0b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_1b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_1b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_2b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/sub_i32/sub_i32/sub_i32_in_context.xdc] for cell 'sub_2b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_0a'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_0a'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_1a'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_1a'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_2a'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_2a'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_0b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_0b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_1b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_1b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_2b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_i32/add_i32/add_i32_in_context.xdc] for cell 'add_mask_2b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_35_0a'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_35_0a'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_35_0b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_35_0b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_11_1a'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_11_1a'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_11_1b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_11_1b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_4_2a'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_4_2a'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_4_2b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32/mul_u32_in_context.xdc] for cell 'mul_4_2b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u32/add_u32/add_u32_in_context.xdc] for cell 'add_0a_0b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u32/add_u32/add_u32_in_context.xdc] for cell 'add_0a_0b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u32/add_u32/add_u32_in_context.xdc] for cell 'add_1a_1b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u32/add_u32/add_u32_in_context.xdc] for cell 'add_1a_1b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u32/add_u32/add_u32_in_context.xdc] for cell 'add_2a_2b'
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/add_u32/add_u32/add_u32_in_context.xdc] for cell 'add_2a_2b'
+Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc]
+WARNING: [Vivado 12-584] No ports matched 'pci_express_x8_txp[0]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:2]
+WARNING: [Vivado 12-584] No ports matched 'pci_express_x8_txp[1]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:3]
+WARNING: [Vivado 12-584] No ports matched 'pci_express_x8_txp[2]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:4]
+WARNING: [Vivado 12-584] No ports matched 'pci_express_x8_txp[3]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:5]
+WARNING: [Vivado 12-584] No ports matched 'pci_express_x8_txp[4]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:6]
+WARNING: [Vivado 12-584] No ports matched 'pci_express_x8_txp[5]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:7]
+WARNING: [Vivado 12-584] No ports matched 'pci_express_x8_txp[6]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:8]
+WARNING: [Vivado 12-584] No ports matched 'pci_express_x8_txp[7]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:9]
+WARNING: [Vivado 12-584] No ports matched 'pcie_refclk_clk_p'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:10]
+WARNING: [Vivado 12-584] No ports matched 'pcie_perstn'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:11]
+WARNING: [Vivado 12-584] No ports matched 'pcie_perstn'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:12]
+WARNING: [Vivado 12-584] No ports matched 'alert_lm73_tri_i'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:15]
+WARNING: [Vivado 12-584] No ports matched 'alert_lm73_tri_i'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:16]
+WARNING: [Vivado 12-584] No ports matched 'iic_lm73_scl_io'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:17]
+WARNING: [Vivado 12-584] No ports matched 'iic_lm73_scl_io'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:18]
+WARNING: [Vivado 12-584] No ports matched 'iic_lm73_sda_io'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:19]
+WARNING: [Vivado 12-584] No ports matched 'iic_lm73_sda_io'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:20]
+WARNING: [Vivado 12-584] No ports matched 'iic_pcie_scl_io'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:23]
+WARNING: [Vivado 12-584] No ports matched 'iic_pcie_sda_io'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:24]
+WARNING: [Vivado 12-584] No ports matched 'iic_pcie_scl_io'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:25]
+WARNING: [Vivado 12-584] No ports matched 'iic_pcie_sda_io'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:26]
+WARNING: [Vivado 12-584] No ports matched 'led_3bits_tri_o[0]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:29]
+WARNING: [Vivado 12-584] No ports matched 'led_3bits_tri_o[1]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:30]
+WARNING: [Vivado 12-584] No ports matched 'led_3bits_tri_o[2]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:31]
+WARNING: [Vivado 12-584] No ports matched 'led_3bits_tri_o[2]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:32]
+WARNING: [Vivado 12-584] No ports matched 'led_3bits_tri_o[1]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:33]
+WARNING: [Vivado 12-584] No ports matched 'led_3bits_tri_o[0]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:34]
+WARNING: [Vivado 12-584] No ports matched 'SYS_CLK'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:37]
+WARNING: [Vivado 12-584] No ports matched 'SYS_CLK'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:38]
+WARNING: [Vivado 12-584] No ports matched 'SYS_RSTN'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:39]
+WARNING: [Vivado 12-584] No ports matched 'SYS_RSTN'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:40]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[1]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:43]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[2]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:44]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[3]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:45]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[4]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:46]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[5]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:47]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[6]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:48]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[7]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:49]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[8]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:50]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[9]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:51]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[10]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:52]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[11]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:53]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[12]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:54]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[13]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:55]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[14]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:56]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[15]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:57]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[16]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:58]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[17]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:59]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[18]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:60]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[19]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:61]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[20]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:62]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[21]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:63]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[22]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:64]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[23]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:65]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[24]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:66]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[25]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:67]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[0]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:68]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[1]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:69]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[2]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:70]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[3]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:71]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[4]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:72]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[5]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:73]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[6]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:74]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[7]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:75]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[8]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:76]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[9]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:77]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[10]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:78]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[11]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:79]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[12]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:80]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[13]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:81]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[14]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:82]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_wen'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:83]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_oen'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:84]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_ce_n'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:85]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_dq_io[15]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:86]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_adv_ldn'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:87]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[25]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:88]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[24]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:89]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[23]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:90]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[22]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:91]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[21]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:92]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[20]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:93]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[19]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:94]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[18]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:95]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[17]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:96]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[16]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:97]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[15]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:98]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[14]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:99]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[13]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:100]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[12]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:101]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[11]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:102]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[10]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:103]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[9]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:104]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[8]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:105]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[7]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:106]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[6]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:107]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[5]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:108]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[4]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:109]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[3]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:110]
+WARNING: [Vivado 12-584] No ports matched 'bpi_flash_addr[2]'. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:111]
+INFO: [Common 17-14] Message 'Vivado 12-584' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings. [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc:111]
+Finished Parsing XDC File [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc]
+WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [/home/boysanic/commission_hw/commission_coproc/commission_coproc.srcs/constrs_1/imports/Downloads/ypcb003381p1.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/filter_seeds_core_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2502.977 ; gain = 0.000 ; free physical = 7843 ; free virtual = 13331
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2503.012 ; gain = 0.000 ; free physical = 7841 ; free virtual = 13330
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'add_0a_0b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'add_1a_1b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'add_2a_2b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'add_mask_0a' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'add_mask_0b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'add_mask_1a' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'add_mask_1b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'add_mask_2a' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'add_mask_2b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'mul_11_1a' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'mul_11_1b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'mul_35_0a' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'mul_35_0b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'mul_4_2a' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'mul_4_2b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'sub_0a' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'sub_0b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'sub_1a' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'sub_1b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'sub_2a' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'sub_2b' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'noiserandom_a_nextInternalHi/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'noiserandom_a_nextInternalHi/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'noiserandom_a_nextInternalLo/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'noiserandom_a_nextInternalLo/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'noiserandom_b_nextInternalHi/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'noiserandom_b_nextInternalHi/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'noiserandom_b_nextInternalLo/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'noiserandom_b_nextInternalLo/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_0a/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_0a/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_0b/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_0b/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_1a/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_1a/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_1b/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_1b/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_2a/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_2a/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_2b/add_lh' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'oym_2b/add_lr' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'seed_forker/add_l2_to_h2' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'seed_forker/add_l2_to_r2' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'seed_forker/add_l_plus_h' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'seed_forker/add_l_to_r1' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'seed_forker/mix64_1_h' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'seed_forker/mix64_1_l' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'seed_forker/mix64_2_h' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '100.000' specified during out-of-context synthesis of instance 'seed_forker/mix64_2_l' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+WARNING: [Timing 38-316] Clock period '10.000' specified during out-of-context synthesis of instance 'seed_forker/mix64_gr_1' at clock pin 'CLK' is different from the actual clock period '2.500', this can lead to different synthesis results.
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2503.012 ; gain = 707.461 ; free physical = 7726 ; free virtual = 13302
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k480tffg1156-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2510.980 ; gain = 715.430 ; free physical = 7725 ; free virtual = 13302
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2510.980 ; gain = 715.430 ; free physical = 7725 ; free virtual = 13302
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2510.980 ; gain = 715.430 ; free physical = 7715 ; free virtual = 13295
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input    128 Bit         XORs := 1     
+	   2 Input     64 Bit         XORs := 22    
+	   3 Input     64 Bit         XORs := 4     
+	   2 Input     32 Bit         XORs := 6     
++---Registers : 
+	              128 Bit    Registers := 53    
+	               64 Bit    Registers := 312   
+	               32 Bit    Registers := 42    
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   4 Input  128 Bit        Muxes := 6     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 1920 (col length:160)
+BRAMs: 1910 (col length: RAMB18 160 RAMB36 80)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2510.980 ; gain = 715.430 ; free physical = 7750 ; free virtual = 13341
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 2587.980 ; gain = 792.430 ; free physical = 7859 ; free virtual = 13279
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2608.980 ; gain = 813.430 ; free physical = 7912 ; free virtual = 13262
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 2628.012 ; gain = 832.461 ; free physical = 8255 ; free virtual = 13229
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2782.824 ; gain = 987.273 ; free physical = 8320 ; free virtual = 13047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2782.824 ; gain = 987.273 ; free physical = 8323 ; free virtual = 13047
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2782.824 ; gain = 987.273 ; free physical = 8339 ; free virtual = 13039
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2782.824 ; gain = 987.273 ; free physical = 8341 ; free virtual = 13038
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2782.824 ; gain = 987.273 ; free physical = 8341 ; free virtual = 13035
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2782.824 ; gain = 987.273 ; free physical = 8341 ; free virtual = 13035
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Static Shift Register Report:
++---------------------+------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|Module Name          | RTL Name                     | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
++---------------------+------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|XrsrRandom_seed_fork | r1_stages_reg[29][63]        | 26     | 64    | NO           | NO                 | YES               | 0      | 64      | 
+|XrsrRandom_seed_fork | l_stages_reg[11][63]         | 7      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|XrsrRandom_seed_fork | h_stages_reg[12][63]         | 6      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|XrsrRandom_seed_fork | h_stages_reg[16][63]         | 4      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|XrsrRandom_seed_fork | l_stages_reg[19][63]         | 8      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|XrsrRandom_seed_fork | l2_stages_reg[12][63]        | 8      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|XrsrRandom_seed_fork | h2_stages_reg[2][27]         | 3      | 21    | NO           | NO                 | YES               | 21     | 0       | 
+|XrsrNextInternal     | h_stages_reg[7][63]          | 7      | 256   | NO           | NO                 | YES               | 256    | 0       | 
+|XrsrNextInternal     | l_stages_reg[8][63]          | 8      | 256   | NO           | NO                 | YES               | 256    | 0       | 
+|filter_seeds_core    | noise_a_yo_fork_reg[50][127] | 51     | 64    | NO           | NO                 | YES               | 0      | 128     | 
+|filter_seeds_core    | noise_a_yo_fork_reg[50][63]  | 76     | 64    | NO           | NO                 | YES               | 0      | 192     | 
+|filter_seeds_core    | oym_0a/l_stages_reg[8][63]   | 8      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|filter_seeds_core    | oym_1a/l_stages_reg[8][63]   | 8      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|filter_seeds_core    | oym_2a/l_stages_reg[8][63]   | 8      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|filter_seeds_core    | oym_0b/l_stages_reg[8][63]   | 8      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|filter_seeds_core    | oym_1b/l_stages_reg[8][63]   | 8      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|filter_seeds_core    | oym_2b/l_stages_reg[8][63]   | 8      | 64    | NO           | NO                 | YES               | 64     | 0       | 
+|filter_seeds_core    | c_0A_mask_reg[3][0]          | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|filter_seeds_core    | c_0B_mask_reg[3][0]          | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|filter_seeds_core    | c_1A_mask_reg[3][0]          | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|filter_seeds_core    | c_1B_mask_reg[3][0]          | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|filter_seeds_core    | c_2A_mask_reg[3][0]          | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
+|filter_seeds_core    | c_2B_mask_reg[3][0]          | 3      | 1     | NO           | NO                 | YES               | 1      | 0       | 
++---------------------+------------------------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+----------------+----------+
+|      |BlackBox name   |Instances |
++------+----------------+----------+
+|1     |mix1_multiplier |         2|
+|2     |mix2_multiplier |         2|
+|3     |add_goldenratio |         1|
+|4     |add_u64         |        24|
+|5     |sub_i32         |         6|
+|6     |add_i32         |         6|
+|7     |mul_u32         |         6|
+|8     |add_u32         |         3|
++------+----------------+----------+
+
+Report Cell Usage: 
++------+----------------+------+
+|      |Cell            |Count |
++------+----------------+------+
+|1     |add_goldenratio |     1|
+|2     |add_i32         |     6|
+|8     |add_u32         |     3|
+|11    |add_u64         |    24|
+|35    |mix1_multiplier |     2|
+|37    |mix2_multiplier |     2|
+|39    |mul_u32         |     6|
+|45    |sub_i32         |     6|
+|51    |BUFG            |     1|
+|52    |LUT1            |   274|
+|53    |LUT2            |   469|
+|54    |LUT3            |   172|
+|55    |SRL16E          |  1243|
+|56    |SRLC32E         |   384|
+|57    |FDRE            |  8435|
+|58    |IBUF            |    65|
+|59    |OBUF            |    65|
++------+----------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2782.824 ; gain = 987.273 ; free physical = 8341 ; free virtual = 13035
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:16 ; elapsed = 00:00:16 . Memory (MB): peak = 2782.824 ; gain = 870.531 ; free physical = 8341 ; free virtual = 13035
+Synthesis Optimization Complete : Time (s): cpu = 00:00:19 ; elapsed = 00:00:19 . Memory (MB): peak = 2782.832 ; gain = 987.273 ; free physical = 8341 ; free virtual = 13036
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2782.832 ; gain = 0.000 ; free physical = 8547 ; free virtual = 13205
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2838.852 ; gain = 0.000 ; free physical = 8747 ; free virtual = 13141
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 5df6e1a8
+INFO: [Common 17-83] Releasing license: Synthesis
+48 Infos, 243 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:25 ; elapsed = 00:00:24 . Memory (MB): peak = 2838.887 ; gain = 1269.965 ; free physical = 8792 ; free virtual = 13133
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2082.563; main = 2082.563; forked = 335.476
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3501.672; main = 2838.855; forked = 990.688
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2862.863 ; gain = 0.000 ; free physical = 8792 ; free virtual = 13133
+INFO: [Common 17-1381] The checkpoint '/home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/synth_1/filter_seeds_core.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file filter_seeds_core_utilization_synth.rpt -pb filter_seeds_core_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sat Jun 27 12:21:37 2026...

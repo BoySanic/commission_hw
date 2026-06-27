@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7k480tffg1156-2" LaunchTime="1782366676" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/XrsrRandom_seed_fork.dcp">
-  <File Type="VDS-TIMINGSUMMARY" Name="XrsrNextInternal_timing_summary_synth.rpt"/>
-  <File Type="RDS-DCP" Name="XrsrNextInternal.dcp"/>
-  <File Type="RDS-UTIL-PB" Name="XrsrNextInternal_utilization_synth.pb"/>
-  <File Type="RDS-UTIL" Name="XrsrNextInternal_utilization_synth.rpt"/>
-  <File Type="RDS-PROPCONSTRS" Name="XrsrNextInternal_drc_synth.rpt"/>
-  <File Type="RDS-RDS" Name="XrsrNextInternal.vds"/>
-  <File Type="REPORTS-TCL" Name="XrsrNextInternal_reports.tcl"/>
-  <File Type="VDS-TIMING-PB" Name="XrsrNextInternal_timing_summary_synth.pb"/>
-  <File Type="PA-TCL" Name="XrsrNextInternal.tcl"/>
+<GenRun Id="synth_1" LaunchPart="xc7k480tffg1156-2" LaunchTime="1782588067" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/XrsrRandom_seed_fork.dcp">
+  <File Type="VDS-TIMINGSUMMARY" Name="filter_seeds_core_timing_summary_synth.rpt"/>
+  <File Type="RDS-DCP" Name="filter_seeds_core.dcp"/>
+  <File Type="RDS-UTIL-PB" Name="filter_seeds_core_utilization_synth.pb"/>
+  <File Type="RDS-UTIL" Name="filter_seeds_core_utilization_synth.rpt"/>
+  <File Type="RDS-PROPCONSTRS" Name="filter_seeds_core_drc_synth.rpt"/>
+  <File Type="RDS-RDS" Name="filter_seeds_core.vds"/>
+  <File Type="REPORTS-TCL" Name="filter_seeds_core_reports.tcl"/>
+  <File Type="VDS-TIMING-PB" Name="filter_seeds_core_timing_summary_synth.pb"/>
+  <File Type="PA-TCL" Name="filter_seeds_core.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
-    <File Path="$PSRCDIR/sources_1/new/filter_seeds_core.sv">
-      <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
-    <File Path="$PSRCDIR/sources_1/new/XrsrRandom_seed_fork.sv">
+    <File Path="$PSRCDIR/sources_1/new/noise_yo_fork.sv">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -34,9 +26,30 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PSRCDIR/sources_1/new/XrsrRandom_seed_fork.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/octave_yo_mod1.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/filter_seeds_core.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="XrsrNextInternal"/>
+      <Option Name="TopModule" Val="filter_seeds_core"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
@@ -68,10 +81,15 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-      <Desc>Vivado Synthesis Defaults</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
     <Step Id="synth_design"/>
   </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="add_u32"/>
+  <BlockFileSet Type="BlockSrcs" Name="mul_u32"/>
+  <BlockFileSet Type="BlockSrcs" Name="sub_i32"/>
   <BlockFileSet Type="BlockSrcs" Name="add_u64"/>
+  <BlockFileSet Type="BlockSrcs" Name="add_goldenratio"/>
+  <BlockFileSet Type="BlockSrcs" Name="add_i32"/>
+  <BlockFileSet Type="BlockSrcs" Name="mix2_multiplier"/>
+  <BlockFileSet Type="BlockSrcs" Name="mix1_multiplier"/>
 </GenRun>

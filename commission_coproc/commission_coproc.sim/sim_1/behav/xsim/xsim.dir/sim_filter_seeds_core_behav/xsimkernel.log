@@ -1,0 +1,7 @@
+Running: xsim.dir/sim_filter_seeds_core_behav/xsimk -simmode gui -wdb sim_filter_seeds_core_behav.wdb -simrunnum 0 -socket 43827
+Design successfully loaded
+Design Loading Memory Usage: 249356 KB (Peak: 249356 KB)
+Design Loading CPU Usage: 800 ms
+Simulation completed
+Simulation Memory Usage: 338260 KB (Peak: 388624 KB)
+Simulation CPU Usage: 1510 ms

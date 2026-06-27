@@ -1,0 +1,5 @@
+vhdl xil_defaultlib  \
+"../../../../commission_coproc.gen/sources_1/ip/add_i32/sim/add_i32.vhd" \
+
+# Do not sort compile order
+nosort
