@@ -5,26 +5,22 @@
    <db_ref_list>
       <db_ref path="sim_filter_seeds_core_behav.wdb" id="1">
          <top_modules>
-            <top_module name="\$unit_XrsrNextInternal_sv_3984506801 " />
+            <top_module name="\$unit_XrsrNextInternal_sv_3687563173 " />
             <top_module name="glbl" />
             <top_module name="sim_filter_seeds_core" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="1,700.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="2,559.641 ns"></ZoomEndTime>
-      <Cursor1Time time="2,152.125 ns"></Cursor1Time>
+      <ZoomStartTime time="337.250 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,110.251 ns"></ZoomEndTime>
+      <Cursor1Time time="890.750 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="392"></NameColumnWidth>
-      <ValueColumnWidth column_width="736"></ValueColumnWidth>
+      <NameColumnWidth column_width="391"></NameColumnWidth>
+      <ValueColumnWidth column_width="617"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="11" />
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/input_seed">
-      <obj_property name="ElementShortName">input_seed[63:0]</obj_property>
-      <obj_property name="ObjectShortName">input_seed[63:0]</obj_property>
-   </wvobject>
+   <WVObjectSize size="13" />
    <wvobject type="logic" fp_name="/sim_filter_seeds_core/clock">
       <obj_property name="ElementShortName">clock</obj_property>
       <obj_property name="ObjectShortName">clock</obj_property>
@@ -33,36 +29,50 @@
       <obj_property name="ElementShortName">valid</obj_property>
       <obj_property name="ObjectShortName">valid</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/output_seed">
-      <obj_property name="ElementShortName">output_seed[63:0]</obj_property>
-      <obj_property name="ObjectShortName">output_seed[63:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/input_seed">
+      <obj_property name="ElementShortName">input_seed[63:0]</obj_property>
+      <obj_property name="ObjectShortName">input_seed[63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo[6]">
-      <obj_property name="ElementShortName">[6][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[6][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/noise_a_yo_fork">
+      <obj_property name="ElementShortName">noise_a_yo_fork[76:0][127:0]</obj_property>
+      <obj_property name="ObjectShortName">noise_a_yo_fork[76:0][127:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo[5]">
-      <obj_property name="ElementShortName">[5][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[5][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/noise_b_yo_fork">
+      <obj_property name="ElementShortName">noise_b_yo_fork[2:0][127:0]</obj_property>
+      <obj_property name="ObjectShortName">noise_b_yo_fork[2:0][127:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo[4]">
-      <obj_property name="ElementShortName">[4][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[4][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/noise_random">
+      <obj_property name="ElementShortName">noise_random[4:0][127:0]</obj_property>
+      <obj_property name="ObjectShortName">noise_random[4:0][127:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo[3]">
-      <obj_property name="ElementShortName">[3][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[3][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/seed_fork">
+      <obj_property name="ElementShortName">seed_fork[127:0]</obj_property>
+      <obj_property name="ObjectShortName">seed_fork[127:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo[2]">
-      <obj_property name="ElementShortName">[2][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[2][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo">
+      <obj_property name="ElementShortName">c_0A_yo[40:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">c_0A_yo[40:0][31:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo[1]">
-      <obj_property name="ElementShortName">[1][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[1][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0B_yo">
+      <obj_property name="ElementShortName">c_0B_yo[40:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">c_0B_yo[40:0][31:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo[0]">
-      <obj_property name="ElementShortName">[0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[0][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_1A_yo">
+      <obj_property name="ElementShortName">c_1A_yo[40:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">c_1A_yo[40:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_1B_yo">
+      <obj_property name="ElementShortName">c_1B_yo[40:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">c_1B_yo[40:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_2A_yo">
+      <obj_property name="ElementShortName">c_2A_yo[40:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">c_2A_yo[40:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_2B_yo">
+      <obj_property name="ElementShortName">c_2B_yo[40:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">c_2B_yo[40:0][31:0]</obj_property>
    </wvobject>
 </wave_config>

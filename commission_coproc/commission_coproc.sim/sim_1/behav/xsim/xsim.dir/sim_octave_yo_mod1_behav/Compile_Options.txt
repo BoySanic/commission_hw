@@ -1,0 +1,1 @@
+--incr --debug "typical" --relax --mt "8" -L "xil_defaultlib" -L "xbip_utils_v3_0_15" -L "c_reg_fd_v12_0_11" -L "xbip_dsp48_wrapper_v3_0_7" -L "xbip_pipe_v3_0_11" -L "c_addsub_v12_0_21" -L "uvm" -L "unisims_ver" -L "unimacro_ver" -L "secureip" -L "xpm" --snapshot "sim_octave_yo_mod1_behav" "xil_defaultlib.sim_octave_yo_mod1" "xil_defaultlib.glbl" -log "elaborate.log" 

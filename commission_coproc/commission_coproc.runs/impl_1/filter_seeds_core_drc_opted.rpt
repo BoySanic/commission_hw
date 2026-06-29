@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Sat Jun 27 12:21:54 2026
+| Date         : Sat Jun 27 15:16:01 2026
 | Host         : death running 64-bit CachyOS
 | Command      : report_drc -file filter_seeds_core_drc_opted.rpt -pb filter_seeds_core_drc_opted.pb -rpx filter_seeds_core_drc_opted.rpx
 | Design       : filter_seeds_core
@@ -24,14 +24,16 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 3
-+----------+------------------+-----------------------------------------------------+--------+
-| Rule     | Severity         | Description                                         | Checks |
-+----------+------------------+-----------------------------------------------------+--------+
-| NSTD-1   | Critical Warning | Unspecified I/O Standard                            | 1      |
-| UCIO-1   | Critical Warning | Unconstrained Logical Port                          | 1      |
-| CFGBVS-1 | Warning          | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1      |
-+----------+------------------+-----------------------------------------------------+--------+
+             Checks found: 9
++----------+------------------+-------------------------------------------------------------------+--------+
+| Rule     | Severity         | Description                                                       | Checks |
++----------+------------------+-------------------------------------------------------------------+--------+
+| NSTD-1   | Critical Warning | Unspecified I/O Standard                                          | 1      |
+| UCIO-1   | Critical Warning | Unconstrained Logical Port                                        | 1      |
+| CFGBVS-1 | Warning          | Missing CFGBVS and CONFIG_VOLTAGE Design Properties               | 1      |
+| AVAL-4   | Advisory         | enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND | 3      |
+| AVAL-5   | Advisory         | enum_USE_MULT_NONE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND   | 3      |
++----------+------------------+-------------------------------------------------------------------+--------+
 
 2. REPORT DETAILS
 -----------------
@@ -56,6 +58,36 @@ Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_des
  #where value2 is the voltage provided to configuration bank 0
 
 Refer to the device configuration user guide for more information.
+Related violations: <none>
+
+AVAL-4#1 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_0a_0b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#2 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_1a_1b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#3 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_2a_2b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-5#1 Advisory
+enum_USE_MULT_NONE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_0a_0b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the Multiplier (USE_MULT = NONE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-5#2 Advisory
+enum_USE_MULT_NONE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_1a_1b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the Multiplier (USE_MULT = NONE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-5#3 Advisory
+enum_USE_MULT_NONE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_2a_2b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the Multiplier (USE_MULT = NONE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
 Related violations: <none>
 
 

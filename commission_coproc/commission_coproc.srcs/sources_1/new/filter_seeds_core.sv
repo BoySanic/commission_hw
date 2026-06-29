@@ -31,17 +31,25 @@ module filter_seeds_core(
     reg  [127:0] hash_continentalness;
     reg  [127:0] seed_fork, noise_a_hi, noise_b_hi;
     reg  [127:0] noise_random[4:0];
-    reg  [127:0] noise_a_yo_fork[100:0], noise_b_yo_fork[100:0];
-    reg  [63:0] noise_a_fork_stages_lo[32:0], noise_a_fork_stages_hi[32:0];
-    reg  [63:0] noise_b_fork_stages_lo[32:0], noise_b_fork_stages_hi[32:0];
-    reg  [31:0] c_0A_yo[32:0], c_0B_yo[32:0], c_1A_yo[32:0], c_1B_yo[32:0], c_2A_yo[32:0], c_2B_yo[32:0];
-    reg  [31:0] c_0A_mask[32:0], c_0B_mask[32:0], c_1A_mask[32:0], c_1B_mask[32:0], c_2A_mask[32:0], c_2B_mask[32:0];
-    
+    reg  [127:0] noise_a_yo_fork[76:0], noise_b_yo_fork[2:0];
+    reg  [63:0] noise_a_fork_stages_lo[40:0], noise_a_fork_stages_hi[40:0];
+    reg  [63:0] noise_b_fork_stages_lo[40:0], noise_b_fork_stages_hi[40:0];
+    reg  [31:0] c_0A_yo[40:0], c_0B_yo[40:0], c_1A_yo[40:0], c_1B_yo[40:0], c_2A_yo[40:0], c_2B_yo[40:0];
+    reg  [31:0] c_0A_mask, c_0B_mask, c_1A_mask, c_1B_mask, c_2A_mask, c_2B_mask;
+
     initial begin
         integer index;
         seed_fork = 128'd0;
         noise_a_hi = 128'd0;
         noise_b_hi = 128'd0;
+       
+        
+        c_0A_mask = 32'd0;
+        c_1A_mask = 32'd0;
+        c_2A_mask = 32'd0;
+        c_0B_mask = 32'd0;
+        c_1B_mask = 32'd0;
+        c_2B_mask = 32'd0;
         for (index = 0; index < 100; index = index + 1) begin
             noise_random[index] = 128'd0;
             noise_a_yo_fork[index] = 128'd0;
@@ -56,12 +64,6 @@ module filter_seeds_core(
             c_0B_yo[index] = 32'd0;
             c_1B_yo[index] = 32'd0;
             c_2B_yo[index] = 32'd0;
-            c_0A_mask[index] = 32'd0;
-            c_1A_mask[index] = 32'd0;
-            c_2A_mask[index] = 32'd0;
-            c_0B_mask[index] = 32'd0;
-            c_1B_mask[index] = 32'd0;
-            c_2B_mask[index] = 32'd0;
         end
     end
     // 88 clocks each iirc 
@@ -99,49 +101,61 @@ module filter_seeds_core(
         .next_long (noise_b_fork_stages_hi[0])
     );
     
+    noise_yo_fork nyf_a (
+        .noise_fork_in (noise_a_yo_fork[75]),
+        .ret (noise_a_yo_fork[76]),
+        .clock (clock)
+    );
+    
+    noise_yo_fork nyf_b (
+        .noise_fork_in (noise_b_yo_fork[0]),
+        .ret (noise_b_yo_fork[1]),
+        .clock (clock)
+    );
+
     octave_yo_mod1 oym_0a (
-        .noise_yo_fork (noise_a_yo_fork[50]),
+        .noise_yo_fork (noise_a_yo_fork[76]),
         .clock (clock),
-        .octave (0),
+        .octave (2'd0),
         .score_yo_mama (c_0A_yo[0])
     );
 
     octave_yo_mod1 oym_1a (
     
-        .noise_yo_fork (noise_a_yo_fork[50]),
+        .noise_yo_fork (noise_a_yo_fork[76]),
         .clock (clock),
-        .octave (1),
+        .octave (2'd1),
         .score_yo_mama (c_1A_yo[0])
     );
 
     octave_yo_mod1 oym_2a (
     
-        .noise_yo_fork (noise_a_yo_fork[50]),
+        .noise_yo_fork (noise_a_yo_fork[76]),
         .clock (clock),
-        .octave (2),
+        .octave (2'd2),
         .score_yo_mama (c_2A_yo[0])
     );
 
     octave_yo_mod1 oym_0b (
-        .noise_yo_fork (noise_a_yo_fork[50]),
+        .noise_yo_fork (noise_b_yo_fork[1]),
         .clock (clock),
-        .octave (0),
+        .octave (2'd0),
         .score_yo_mama (c_0B_yo[0])
     );
 
     octave_yo_mod1 oym_1b (
     
-        .noise_yo_fork (noise_a_yo_fork[50]),
+        .noise_yo_fork (noise_b_yo_fork[1]),
         .clock (clock),
-        .octave (1),
+        .octave (2'd1),
         .score_yo_mama (c_1B_yo[0])
     );
 
     octave_yo_mod1 oym_2b (
     
-        .noise_yo_fork (noise_a_yo_fork[50]),
+        .noise_yo_fork (noise_b_yo_fork[1]),
         .clock (clock),
-        .octave (2),
+        .octave (2'd2),
         .score_yo_mama (c_2B_yo[0])
     );
     
@@ -192,84 +206,84 @@ module filter_seeds_core(
     
     add_i32 add_mask_0a (
         .A (c_0A_yo[2]),
-        .B (c_0A_mask[0]),
+        .B (c_0A_mask),
         .S (c_0A_yo[3]),
         .CE (1),
         .CLK (clock)
     );
     add_i32 add_mask_1a (
         .A (c_1A_yo[2]),
-        .B (c_1A_mask[0]),
+        .B (c_1A_mask),
         .S (c_1A_yo[3]),
         .CE (1),
         .CLK (clock)
     );
     add_i32 add_mask_2a (
         .A (c_2A_yo[2]),
-        .B (c_2A_mask[0]),
+        .B (c_2A_mask),
         .S (c_2A_yo[3]),
         .CE (1),
         .CLK (clock)
     );
     add_i32 add_mask_0b (
         .A (c_0B_yo[2]),
-        .B (c_0B_mask[0]),
+        .B (c_0B_mask),
         .S (c_0B_yo[3]),
         .CE (1),
         .CLK (clock)
     );
     add_i32 add_mask_1b (
         .A (c_1B_yo[2]),
-        .B (c_1B_mask[0]),
+        .B (c_1B_mask),
         .S (c_1B_yo[3]),
         .CE (1),
         .CLK (clock)
     );
     add_i32 add_mask_2b (
         .A (c_2B_yo[2]),
-        .B (c_2B_mask[0]),
+        .B (c_2B_mask),
         .S (c_2B_yo[3]),
         .CE (1),
         .CLK (clock)
     );
     mul_u32 mul_35_0a (
         .A (c_0A_yo[4]),
-        .B (35),
+        .B (32'd35),
         .P (c_0A_yo[5]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_35_0b (
         .A (c_0B_yo[4]),
-        .B (35),
+        .B (32'd35),
         .P (c_0B_yo[5]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_11_1a (
         .A (c_1A_yo[4]),
-        .B (11),
+        .B (32'd11),
         .P (c_1A_yo[5]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_11_1b (
         .A (c_1B_yo[4]),
-        .B (11),
+        .B (32'd11),
         .P (c_1B_yo[5]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_4_2a (
         .A (c_2A_yo[4]),
-        .B (4),
+        .B (32'd4),
         .P (c_2A_yo[5]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_4_2b (
         .A (c_2B_yo[4]),
-        .B (4),
+        .B (32'd4),
         .P (c_2B_yo[5]),
         .CLK (clock),
         .CE (1)
@@ -312,7 +326,7 @@ module filter_seeds_core(
 //    );
     initial begin
 
-        hash_continentalness = 128'h7b84cad43ef7b5a8b198de63a8012672;
+        hash_continentalness = 128'hafa638a61b42e8ad83886c9d0ae3a662;
     end
     
     always @(posedge clock) begin
@@ -339,12 +353,14 @@ module filter_seeds_core(
         for (b_fork_index = 1; b_fork_index < 26; b_fork_index = b_fork_index + 1) begin
             noise_b_fork_stages_lo[b_fork_index] <= noise_b_fork_stages_lo[b_fork_index-1];
         end
-        c_0A_mask[0] <= c_0A_yo[1] >> 31;
-        c_1A_mask[0] <= c_1A_yo[1] >> 31;
-        c_2A_mask[0] <= c_2A_yo[1] >> 31;
-        c_0B_mask[0] <= c_0B_yo[1] >> 31;
-        c_1B_mask[0] <= c_1B_yo[1] >> 31;
-        c_2B_mask[0] <= c_2B_yo[1] >> 31;
+        
+        noise_b_yo_fork[0] <= {noise_b_fork_stages_hi[0], noise_b_fork_stages_lo[25]};
+        c_0A_mask <= c_0A_yo[1] >> 31;
+        c_1A_mask <= c_1A_yo[1] >> 31;
+        c_2A_mask <= c_2A_yo[1] >> 31;
+        c_0B_mask <= c_0B_yo[1] >> 31;
+        c_1B_mask <= c_1B_yo[1] >> 31;
+        c_2B_mask <= c_2B_yo[1] >> 31;
         c_0A_yo[2] <= c_0A_yo[1];
         c_1A_yo[2] <= c_1A_yo[1];
         c_2A_yo[2] <= c_2A_yo[1];
@@ -413,6 +429,10 @@ module filter_seeds_core(
         end
     end
     
+    
+    always @(posedge clock) begin
+        
+    end
     initial begin
         seed_out = 64'd0;
     end

@@ -35,7 +35,7 @@ module sim_xrsrrandom_seed_fork(
     
     task test1;
         #10;
-        input_seed = 1234;
+        input_seed = 64'd8798644962863425869;
         
     endtask
     initial begin

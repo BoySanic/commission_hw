@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-| Date         : Sat Jun 27 12:22:31 2026
+| Date         : Sat Jun 27 15:16:54 2026
 | Host         : death running 64-bit CachyOS
 | Command      : report_drc -file filter_seeds_core_drc_routed.rpt -pb filter_seeds_core_drc_routed.pb -rpx filter_seeds_core_drc_routed.rpx
 | Design       : filter_seeds_core
@@ -24,15 +24,18 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max checks: <unlimited>
-             Checks found: 4
-+-----------+------------------+-----------------------------------------------------+--------+
-| Rule      | Severity         | Description                                         | Checks |
-+-----------+------------------+-----------------------------------------------------+--------+
-| NSTD-1    | Critical Warning | Unspecified I/O Standard                            | 1      |
-| UCIO-1    | Critical Warning | Unconstrained Logical Port                          | 1      |
-| CFGBVS-1  | Warning          | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1      |
-| RTSTAT-10 | Warning          | No routable loads                                   | 1      |
-+-----------+------------------+-----------------------------------------------------+--------+
+             Checks found: 13
++-----------+------------------+-------------------------------------------------------------------+--------+
+| Rule      | Severity         | Description                                                       | Checks |
++-----------+------------------+-------------------------------------------------------------------+--------+
+| NSTD-1    | Critical Warning | Unspecified I/O Standard                                          | 1      |
+| UCIO-1    | Critical Warning | Unconstrained Logical Port                                        | 1      |
+| CFGBVS-1  | Warning          | Missing CFGBVS and CONFIG_VOLTAGE Design Properties               | 1      |
+| DPOP-1    | Warning          | PREG Output pipelining                                            | 3      |
+| RTSTAT-10 | Warning          | No routable loads                                                 | 1      |
+| AVAL-4    | Advisory         | enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND | 3      |
+| AVAL-5    | Advisory         | enum_USE_MULT_NONE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND   | 3      |
++-----------+------------------+-------------------------------------------------------------------+--------+
 
 2. REPORT DETAILS
 -----------------
@@ -59,13 +62,54 @@ Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_des
 Refer to the device configuration user guide for more information.
 Related violations: <none>
 
+DPOP-1#1 Warning
+PREG Output pipelining  
+DSP add_0a_0b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive output add_0a_0b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#2 Warning
+PREG Output pipelining  
+DSP add_1a_1b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive output add_1a_1b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#3 Warning
+PREG Output pipelining  
+DSP add_2a_2b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive output add_2a_2b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
 RTSTAT-10#1 Warning
 No routable loads  
-384 net(s) have no routable loads. The problem bus(es) and/or net(s) are noiserandom_a_nextInternalHi/next_long[63:0],
-noiserandom_a_nextInternalLo/next_long[63:0],
-noiserandom_b_nextInternalHi/next_long[63:0],
-noiserandom_b_nextInternalHi/xrsr_state_out[127:0]
-noiserandom_b_nextInternalLo/next_long[63:0].
+128 net(s) have no routable loads. The problem bus(es) and/or net(s) are noiserandom_b_nextInternalHi/xrsr_state_out[127:0].
+Related violations: <none>
+
+AVAL-4#1 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_0a_0b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#2 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_1a_1b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#3 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_2a_2b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-5#1 Advisory
+enum_USE_MULT_NONE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_0a_0b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the Multiplier (USE_MULT = NONE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-5#2 Advisory
+enum_USE_MULT_NONE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_1a_1b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the Multiplier (USE_MULT = NONE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-5#3 Advisory
+enum_USE_MULT_NONE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+add_2a_2b/U0/xst_addsub/xbip_addsub.i_a_b_nogrowth.not_unsigned_max_width.i_dsp_addsub/opt_vx7.i_add/i_primitive: DSP48E1 is not using the Multiplier (USE_MULT = NONE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
 Related violations: <none>
 
 

@@ -39,6 +39,6 @@ module sim_filter_seeds_core();
     end
     
     always begin
-        #5 clock = ~clock;
+        #1.25 clock = ~clock;
     end
 endmodule

@@ -30,7 +30,15 @@ module noise_yo_fork(
     reg [127:0] h_states [32:0];
     reg [127:0] hi_states [32:0];
     reg [127:0] lo_states [32:0];
-    
+    initial begin
+        integer index;
+        for (index = 0; index < 33; index = index + 1) begin
+            l_states[index] = 128'd0;
+            h_states[index] = 128'd0;
+            hi_states[index] = 128'd0;
+            lo_states[index] = 128'd0;
+        end
+    end
     always @(posedge clock) begin
         l_states[0] <= noise_fork_in[63:0];
         h_states[0] <= noise_fork_in[127:64];
@@ -45,7 +53,7 @@ module noise_yo_fork(
         lo_states[3] <= lo_states[2];
         // Output
         ret[63:0] <= lo_states[3] ^ h_states[3] ^ (h_states[3] << 21);
-        ret[127:064] <= hi_states[2];
+        ret[127:64] <= hi_states[2];
     end
     
     

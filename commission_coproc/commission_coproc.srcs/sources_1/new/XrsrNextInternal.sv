@@ -68,30 +68,31 @@ module XrsrNextInternal(
         // xor h
         h_stages[1] <= h_stages[0] ^ l_stages[0];
         // Skip 5 cycles left of lh add
-        h_stages[1] <= h_stages[0];
         h_stages[2] <= h_stages[1];
         h_stages[3] <= h_stages[2];
         h_stages[4] <= h_stages[3];
         h_stages[5] <= h_stages[4];
-        
-        // Skip 2 cycles of r rol64
         h_stages[6] <= h_stages[5];
+        // Skip 2 cycles of r rol64
         h_stages[7] <= h_stages[6];
-        
-        // Skip 6 cycles of add lr
         h_stages[8] <= h_stages[7];
+        // Skip 6 cycles of add lr
         h_stages[9] <= h_stages[8];
         h_stages[10] <= h_stages[9];
         h_stages[11] <= h_stages[10];
         h_stages[12] <= h_stages[11];
+
+        h_stages[13] <= h_stages[12];
+
+        h_stages[14] <= h_stages[13];
         // Skip 2 cycles of l2 rol64
-        h_stages[8] <= h_stages[7];
-        h_stages[9] <= h_stages[8];
+        h_stages[15] <= h_stages[14];
+        h_stages[16] <= h_stages[15];
         r_stages[4] <= r_stages[3];
         r_stages[5] <= r_stages[4];
         
         next_long <= r_stages[5];
-        xrsr_state_out[63:0] <= l2_stages[2] ^ h_stages[9] ^ h_stages[9] << 21;        
+        xrsr_state_out[63:0] <= l2_stages[2] ^ h_stages[16] ^ (h_stages[16] << 21);        
     end
     
     // r rol64
@@ -111,8 +112,8 @@ module XrsrNextInternal(
     
     // h2 rol64
     always @(posedge clock) begin
-        h2_stages[0] <= h_stages[7] << 28;
-        h2_stages[1] <= h_stages[7] >> 36;
+        h2_stages[0] <= h_stages[15] << 28;
+        h2_stages[1] <= h_stages[15] >> 36;
         xrsr_state_out[127:64] <= h2_stages[0] | h2_stages[1];
     end
 endmodule

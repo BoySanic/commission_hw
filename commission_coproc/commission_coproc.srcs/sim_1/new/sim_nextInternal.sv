@@ -25,7 +25,8 @@ module sim_nextInternal();
     reg clk;
     reg [127:0] xr_state;
     wire [127:0] xr_state_out;
-    wire [63:0] nl;
+    wire [127:0] a_xr_state;
+    wire [63:0] nl, nl2;
      
     XrsrNextInternal ni_core (
         .xrsr_state_in (xr_state),
@@ -34,16 +35,15 @@ module sim_nextInternal();
         .xrsr_state_out (xr_state_out)
     
     );
-    task test1();
-        #10;
-        xr_state = 128'h6627ee9e27b8f0e978bafb00158517e;
-    endtask
-
+    XrsrNextInternal ni_core2 (
+        .xrsr_state_in (xr_state_out),
+        .xrsr_state_out (a_xr_state),
+        .clock (clk),
+        .next_long (nl2)
+    );
     initial begin
-    
         clk = 0;
-        xr_state = 128'd0;
-        test1();
+        xr_state = 128'hd40fdb435240627c8ce2344d519734f3;
     end
     
     

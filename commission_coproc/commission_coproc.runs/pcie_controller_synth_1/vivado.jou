@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Sat Jun 27 15:59:33 2026
+# Process ID         : 3798068
+# Current directory  : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/pcie_controller_synth_1
+# Command line       : vivado -log pcie_controller.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source pcie_controller.tcl
+# Log file           : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/pcie_controller_synth_1/pcie_controller.vds
+# Journal file       : /home/boysanic/commission_hw/commission_coproc/commission_coproc.runs/pcie_controller_synth_1/vivado.jou
+# Running On         : death
+# Platform           : cachyos
+# Operating System   : CachyOS
+# Processor Detail   : 12th Gen Intel(R) Core(TM) i7-12700K
+# CPU Frequency      : 5000.289 MHz
+# CPU Physical cores : 12
+# CPU Logical cores  : 20
+# Host memory        : 33396 MB
+# Swap memory        : 33396 MB
+# Total Virtual      : 66792 MB
+# Available Virtual  : 10627 MB
+#-----------------------------------------------------------
+source pcie_controller.tcl -notrace

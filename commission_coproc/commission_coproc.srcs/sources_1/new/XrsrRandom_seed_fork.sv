@@ -109,8 +109,8 @@ module XrsrRandom_seed_fork(
         l_stages[0] <= seed_init;
         h_stages[0] <= seed_init;
         
-        xoroshiro_state[127:64] <= r1_stages[29];
-        xoroshiro_state[63:0] <= r2_stages[3];
+        xoroshiro_state[63:0] <= r1_stages[29];
+        xoroshiro_state[127:64] <= r2_stages[3];
     end
     
     // Carry forward l
