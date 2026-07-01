@@ -1,7 +1,0 @@
-Running: xsim.dir/sim_noise_yo_fork_behav/xsimk -simmode gui -wdb sim_noise_yo_fork_behav.wdb -simrunnum 0 -socket 44219
-Design successfully loaded
-Design Loading Memory Usage: 197080 KB (Peak: 197136 KB)
-Design Loading CPU Usage: 700 ms
-Simulation completed
-Simulation Memory Usage: 278816 KB (Peak: 336348 KB)
-Simulation CPU Usage: 710 ms
