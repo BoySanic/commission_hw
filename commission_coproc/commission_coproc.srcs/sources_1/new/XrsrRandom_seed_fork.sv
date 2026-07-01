@@ -35,7 +35,7 @@ module XrsrRandom_seed_fork(
     reg [63:0] h2_stages[2:0];
     reg [63:0] l_stages[19:0];
     reg [63:0] l2_stages[12:0];
-    reg [63:0] r1_stages[29:0];
+    reg [63:0] r1_stages[23:0];
     reg [63:0] r2_stages[4:0];
 
     reg [63:0] seed_init, lh, l2h2;
@@ -91,13 +91,13 @@ module XrsrRandom_seed_fork(
     
     add_u64 add_l2_to_h2 (
         .A (h2_stages[2]),
-        .B (l2_stages[4]),
+        .B (l2_stages[3]),
         .S (l2h2),
         .CLK (clock),
         .CE (1)
     );
     add_u64 add_l2_to_r2 (
-        .A (l2_stages[12]),
+        .A (l2_stages[11]),
         .B (r2_stages[2]),
         .S (r2_stages[3]),
         .CLK (clock),
@@ -109,7 +109,7 @@ module XrsrRandom_seed_fork(
         l_stages[0] <= seed_init;
         h_stages[0] <= seed_init;
         
-        xoroshiro_state[63:0] <= r1_stages[29];
+        xoroshiro_state[63:0] <= r1_stages[14];
         xoroshiro_state[127:64] <= r2_stages[3];
     end
     
@@ -136,18 +136,18 @@ module XrsrRandom_seed_fork(
         l_stages[19] <= l_stages[18];
         // Use l_stages[19] in l2's rotl and then we're done with l_stages. Move onto l2_stages.
         // xor with h
-        l2_stages[3] <= l2_stages[2] ^ h_stages[16];
-        l2_stages[4] <= l2_stages[3] ^ (h_stages[17] << 21);
+
+        l2_stages[3] <= l2_stages[2] ^ h_stages[16] ^ (h_stages[16] << 21);
         // Delay 6 clocks for the add
+        l2_stages[4] <= l2_stages[3];
         l2_stages[5] <= l2_stages[4];
         l2_stages[6] <= l2_stages[5];
         l2_stages[7] <= l2_stages[6];
         l2_stages[8] <= l2_stages[7];
         l2_stages[9] <= l2_stages[8];
-        l2_stages[10] <= l2_stages[9];
         // Delay 2 clocks for the rotl
+        l2_stages[10] <= l2_stages[9];
         l2_stages[11] <= l2_stages[10];
-        l2_stages[12] <= l2_stages[11];
         
     end
     
@@ -159,15 +159,12 @@ module XrsrRandom_seed_fork(
         h_stages[10] <= h_stages[9];
         h_stages[11] <= h_stages[10];
         h_stages[12] <= h_stages[11];
-        // Xor h with l
-        h_stages[13] <= h_stages[12] ^ l_stages[11];
-        // Delay for l2 rotl
+        // Delay for lh rotl
+        h_stages[13] <= h_stages[12];
         h_stages[14] <= h_stages[13];
-        h_stages[15] <= h_stages[14];
-        // Delay to xor against again
+        // Xor with l_stages[19], then delay 1 extra cycle for xor with l2 stuff.
+        h_stages[15] <= h_stages[14] ^ l_stages[19];
         h_stages[16] <= h_stages[15];
-        
-        h_stages[17] <= h_stages[16];
         
     end
     
@@ -187,21 +184,6 @@ module XrsrRandom_seed_fork(
         r1_stages[12] <= r1_stages[11];
         r1_stages[13] <= r1_stages[12];
         r1_stages[14] <= r1_stages[13];
-        r1_stages[15] <= r1_stages[14];
-        r1_stages[16] <= r1_stages[15];
-        r1_stages[17] <= r1_stages[16];
-        r1_stages[18] <= r1_stages[17];
-        r1_stages[19] <= r1_stages[18];
-        r1_stages[20] <= r1_stages[19];
-        r1_stages[21] <= r1_stages[20];
-        r1_stages[22] <= r1_stages[21];
-        r1_stages[23] <= r1_stages[22];
-        r1_stages[24] <= r1_stages[23];
-        r1_stages[25] <= r1_stages[24];
-        r1_stages[26] <= r1_stages[25];
-        r1_stages[27] <= r1_stages[26];
-        r1_stages[28] <= r1_stages[27];
-        r1_stages[29] <= r1_stages[28];
     end
     // Mix64 for l 
     always @(posedge clock) begin
@@ -237,10 +219,11 @@ module XrsrRandom_seed_fork(
     end
     
     // Third rol64 (h2)
-    // Using h_stages[13] as that's after the xor
+    // Using h_stages[16] as that's after the xor
+    // Technically we need to only wait one more cycle if e use 16 instead of 17... Does that put us out of sync?
     always @(posedge clock) begin
-        h2_stages[0] <= h_stages[17] << 28;
-        h2_stages[1] <= h_stages[17] >> 36;
+        h2_stages[0] <= h_stages[15] << 28;
+        h2_stages[1] <= h_stages[15] >> 36;
         h2_stages[2] <= h2_stages[0] | h2_stages[1];
     end
     

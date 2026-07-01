@@ -34,14 +34,16 @@ module sim_xrsrrandom_seed_fork(
     );
     
     task test1;
-        #10;
         input_seed = 64'd8798644962863425869;
-        
+        @(negedge CLK);
+        input_seed = 64'd1234;
+        @(negedge CLK);
+        input_seed = 64'd2446138407026763098;
+        @(negedge CLK);
     endtask
     initial begin
     
         CLK = 0;
-        input_seed = 0;
         test1();
         
     end

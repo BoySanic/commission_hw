@@ -2,3 +2,6 @@ Running: xsim.dir/sim_nextInternal_behav/xsimk -simmode gui -wdb sim_nextInterna
 Design successfully loaded
 Design Loading Memory Usage: 200428 KB (Peak: 200436 KB)
 Design Loading CPU Usage: 720 ms
+Simulation completed
+Simulation Memory Usage: 290364 KB (Peak: 339696 KB)
+Simulation CPU Usage: 740 ms

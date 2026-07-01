@@ -37,6 +37,7 @@ module filter_seeds_core(
     reg  [31:0] c_0A_yo[40:0], c_0B_yo[40:0], c_1A_yo[40:0], c_1B_yo[40:0], c_2A_yo[40:0], c_2B_yo[40:0];
     reg  [31:0] c_0A_mask, c_0B_mask, c_1A_mask, c_1B_mask, c_2A_mask, c_2B_mask;
 
+    reg  [63:0] prop_seed [300:0];
     initial begin
         integer index;
         seed_fork = 128'd0;
@@ -202,128 +203,71 @@ module filter_seeds_core(
         .CE (1),
         .CLK (clock)
     );
-    
-    
-    add_i32 add_mask_0a (
-        .A (c_0A_yo[2]),
-        .B (c_0A_mask),
-        .S (c_0A_yo[3]),
-        .CE (1),
-        .CLK (clock)
-    );
-    add_i32 add_mask_1a (
-        .A (c_1A_yo[2]),
-        .B (c_1A_mask),
-        .S (c_1A_yo[3]),
-        .CE (1),
-        .CLK (clock)
-    );
-    add_i32 add_mask_2a (
-        .A (c_2A_yo[2]),
-        .B (c_2A_mask),
-        .S (c_2A_yo[3]),
-        .CE (1),
-        .CLK (clock)
-    );
-    add_i32 add_mask_0b (
-        .A (c_0B_yo[2]),
-        .B (c_0B_mask),
-        .S (c_0B_yo[3]),
-        .CE (1),
-        .CLK (clock)
-    );
-    add_i32 add_mask_1b (
-        .A (c_1B_yo[2]),
-        .B (c_1B_mask),
-        .S (c_1B_yo[3]),
-        .CE (1),
-        .CLK (clock)
-    );
-    add_i32 add_mask_2b (
-        .A (c_2B_yo[2]),
-        .B (c_2B_mask),
-        .S (c_2B_yo[3]),
-        .CE (1),
-        .CLK (clock)
-    );
+
     mul_u32 mul_35_0a (
-        .A (c_0A_yo[4]),
+        .A (c_0A_yo[2]),
         .B (32'd35),
-        .P (c_0A_yo[5]),
+        .P (c_0A_yo[3]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_35_0b (
-        .A (c_0B_yo[4]),
+        .A (c_0B_yo[2]),
         .B (32'd35),
-        .P (c_0B_yo[5]),
+        .P (c_0B_yo[3]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_11_1a (
-        .A (c_1A_yo[4]),
+        .A (c_1A_yo[2]),
         .B (32'd11),
-        .P (c_1A_yo[5]),
+        .P (c_1A_yo[3]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_11_1b (
-        .A (c_1B_yo[4]),
+        .A (c_1B_yo[2]),
         .B (32'd11),
-        .P (c_1B_yo[5]),
+        .P (c_1B_yo[3]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_4_2a (
-        .A (c_2A_yo[4]),
+        .A (c_2A_yo[2]),
         .B (32'd4),
-        .P (c_2A_yo[5]),
+        .P (c_2A_yo[3]),
         .CLK (clock),
         .CE (1)
     );
     mul_u32 mul_4_2b (
-        .A (c_2B_yo[4]),
+        .A (c_2B_yo[2]),
         .B (32'd4),
-        .P (c_2B_yo[5]),
+        .P (c_2B_yo[3]),
         .CLK (clock),
         .CE (1)
     );
     add_u32 add_0a_0b (
-        .A (c_0A_yo[5]),
-        .B (c_0B_yo[5]),
-        .S (c_0A_yo[6]),
+        .A (c_0A_yo[3]),
+        .B (c_0B_yo[3]),
+        .S (c_0A_yo[4]),
         .CLK (clock),
         .CE (1)
     );
     add_u32 add_1a_1b (
-        .A (c_1A_yo[5]),
-        .B (c_1B_yo[5]),
-        .S (c_1A_yo[6]),
+        .A (c_1A_yo[3]),
+        .B (c_1B_yo[3]),
+        .S (c_1A_yo[4]),
         .CLK (clock),
         .CE (1)
     );
     add_u32 add_2a_2b (
-        .A (c_2A_yo[5]),
-        .B (c_2B_yo[5]),
-        .S (c_2A_yo[6]),
+        .A (c_2A_yo[3]),
+        .B (c_2B_yo[3]),
+        .S (c_2A_yo[4]),
         .CLK (clock),
         .CE (1)
     );
-    
-//    add_u32 add_0A_1A (
-//        .A (c_0A_yo[6]),
-//        .B (c_1A_yo[6]),
-//        .S (c_0A_yo[7]),
-//        .CLK (clock),
-//        .CE (1)
-//    );
-//    add_u32 add_0A_2A (
-//        .A (c_0A_yo[7]),
-//        .B (c_2A_yo[12]),
-//        .S (c_0A_yo[8]),
-//        .CLK (clock),
-//        .CE (1)
-//    );
+
     initial begin
 
         hash_continentalness = 128'hafa638a61b42e8ad83886c9d0ae3a662;
@@ -332,6 +276,7 @@ module filter_seeds_core(
     always @(posedge clock) begin
         // seed_fork.from(hash_continentalness)
         noise_random[0] <= seed_fork ^ hash_continentalness;
+        prop_seed[0] <= seed_in;
     end
     
     always @(posedge clock) begin
@@ -340,6 +285,11 @@ module filter_seeds_core(
         integer a_yo_fork_index;
         integer b_fork_index;
         integer mask_index;
+        integer seed_index;
+        for (seed_index = 1; seed_index < 274; seed_index = seed_index + 1) begin
+            prop_seed[seed_index] <= prop_seed[seed_index-1];
+        end
+        seed_out <= prop_seed[273];
         for (a_fork_index = 1; a_fork_index < 26; a_fork_index = a_fork_index + 1) begin
             noise_a_fork_stages_lo[a_fork_index] <= noise_a_fork_stages_lo[a_fork_index-1];
         end
@@ -355,35 +305,42 @@ module filter_seeds_core(
         end
         
         noise_b_yo_fork[0] <= {noise_b_fork_stages_hi[0], noise_b_fork_stages_lo[25]};
-        c_0A_mask <= c_0A_yo[1] >> 31;
-        c_1A_mask <= c_1A_yo[1] >> 31;
-        c_2A_mask <= c_2A_yo[1] >> 31;
-        c_0B_mask <= c_0B_yo[1] >> 31;
-        c_1B_mask <= c_1B_yo[1] >> 31;
-        c_2B_mask <= c_2B_yo[1] >> 31;
-        c_0A_yo[2] <= c_0A_yo[1];
-        c_1A_yo[2] <= c_1A_yo[1];
-        c_2A_yo[2] <= c_2A_yo[1];
-        c_0B_yo[2] <= c_0B_yo[1];
-        c_1B_yo[2] <= c_1B_yo[1];
-        c_2B_yo[2] <= c_2B_yo[1];
         
-        // Skip mask_add
-        for (mask_index = 1; mask_index < 4; mask_index = mask_index + 1) begin
-            c_0A_mask[mask_index] <= c_0A_mask[mask_index-1];
-            c_1A_mask[mask_index] <= c_1A_mask[mask_index-1];
-            c_2A_mask[mask_index] <= c_2A_mask[mask_index-1];
-            c_0B_mask[mask_index] <= c_0B_mask[mask_index-1];
-            c_1B_mask[mask_index] <= c_1B_mask[mask_index-1];
-            c_2B_mask[mask_index] <= c_2B_mask[mask_index-1];
+        if (c_0A_yo[1][31] == 1) begin
+            c_0A_yo[2] <= -c_0A_yo[1];
+        end else begin
+            c_0A_yo[2] <= c_0A_yo[1];
         end
-        c_0A_yo[4] <= c_0A_yo[3] ^ c_0A_mask[3];
-        c_1A_yo[4] <= c_1A_yo[3] ^ c_1A_mask[3];
-        c_2A_yo[4] <= c_2A_yo[3] ^ c_2A_mask[3];
-        c_0B_yo[4] <= c_0B_yo[3] ^ c_0B_mask[3];
-        c_1B_yo[4] <= c_1B_yo[3] ^ c_1B_mask[3];
-        c_2B_yo[4] <= c_2B_yo[3] ^ c_2B_mask[3];
-        
+
+        if (c_0B_yo[1][31] == 1) begin
+            c_0B_yo[2] <= -c_0B_yo[1];
+        end else begin
+            c_0B_yo[2] <= c_0B_yo[1];
+        end
+
+        if (c_1A_yo[1][31] == 1) begin
+            c_1A_yo[2] <= -c_1A_yo[1];
+        end else begin
+            c_1A_yo[2] <= c_1A_yo[1];
+        end
+
+        if (c_1B_yo[1][31] == 1) begin
+            c_1B_yo[2] <= -c_1B_yo[1];
+        end else begin
+            c_1B_yo[2] <= c_1B_yo[1];
+        end
+
+        if (c_2A_yo[1][31] == 1) begin
+            c_2A_yo[2] <= -c_2A_yo[1];
+        end else begin
+            c_2A_yo[2] <= c_2A_yo[1];
+        end
+
+        if (c_2B_yo[1][31] == 1) begin
+            c_2B_yo[2] <= -c_2B_yo[1];
+        end else begin
+            c_2B_yo[2] <= c_2B_yo[1];
+        end
 //        // Skip 0a/1a add
 //        c_2A_yo[7] <= c_2A_yo[6];
 //        c_2A_yo[8] <= c_2A_yo[7];
@@ -391,7 +348,9 @@ module filter_seeds_core(
 //        c_2A_yo[10] <= c_2A_yo[9];
 //        c_2A_yo[11] <= c_2A_yo[10];
 //        c_2A_yo[12] <= c_2A_yo[11];
-        c_0A_yo[7] <= c_0A_yo[6] + c_1A_yo[6] + c_2A_yo[6];
+        c_0A_yo[5] <= c_0A_yo[4] + c_1A_yo[4] + c_2A_yo[4];
+        c_0A_yo[6] <= c_0A_yo[5];
+        c_0A_yo[7] <= c_0A_yo[6];
         c_0A_yo[8] <= c_0A_yo[7];
         c_0A_yo[9] <= c_0A_yo[8];
         c_0A_yo[10] <= c_0A_yo[9];
@@ -420,9 +379,7 @@ module filter_seeds_core(
         c_0A_yo[33] <= c_0A_yo[32];
         c_0A_yo[34] <= c_0A_yo[33];
         c_0A_yo[35] <= c_0A_yo[34];
-        c_0A_yo[36] <= c_0A_yo[35];
-        c_0A_yo[37] <= c_0A_yo[36];
-        if (c_0A_yo[37] > maxScore) begin
+        if (c_0A_yo[35] > maxScore) begin
             valid <= 0;
         end else begin
             valid <= 1;

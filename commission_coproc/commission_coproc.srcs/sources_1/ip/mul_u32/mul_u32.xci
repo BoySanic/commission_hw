@@ -10,9 +10,9 @@
         "InternalUser": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "Component_Name": [ { "value": "mul_u32", "resolve_type": "user", "usage": "all" } ],
         "MultType": [ { "value": "Parallel_Multiplier", "resolve_type": "user", "usage": "all" } ],
-        "PortAType": [ { "value": "Unsigned", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
+        "PortAType": [ { "value": "Signed", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
         "PortAWidth": [ { "value": "32", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
-        "PortBType": [ { "value": "Unsigned", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
+        "PortBType": [ { "value": "Signed", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
         "PortBWidth": [ { "value": "32", "value_src": "user", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "ConstValue": [ { "value": "129", "resolve_type": "user", "enabled": false, "usage": "all" } ],
         "CcmImp": [ { "value": "Distributed_Memory", "resolve_type": "user", "usage": "all" } ],
@@ -38,9 +38,9 @@
         "C_HAS_SCLR": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_LATENCY": [ { "value": "6", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_A_WIDTH": [ { "value": "32", "resolve_type": "generated", "format": "long", "usage": "all" } ],
-        "C_A_TYPE": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_A_TYPE": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_B_WIDTH": [ { "value": "32", "resolve_type": "generated", "format": "long", "usage": "all" } ],
-        "C_B_TYPE": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_B_TYPE": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_OUT_HIGH": [ { "value": "31", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_OUT_LOW": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
         "C_MULT_TYPE": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
@@ -159,5 +159,5 @@
       }
     }
   },
-  "checksum": "00ebb300"
+  "checksum": "768e1cff"
 }

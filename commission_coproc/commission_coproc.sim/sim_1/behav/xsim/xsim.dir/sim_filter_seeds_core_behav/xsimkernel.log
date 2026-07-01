@@ -1,4 +1,4 @@
-Running: xsim.dir/sim_filter_seeds_core_behav/xsimk -simmode gui -wdb sim_filter_seeds_core_behav.wdb -simrunnum 0 -socket 37237
+Running: xsim.dir/sim_filter_seeds_core_behav/xsimk -simmode gui -wdb sim_filter_seeds_core_behav.wdb -simrunnum 0 -socket 45389
 Design successfully loaded
-Design Loading Memory Usage: 249388 KB (Peak: 249388 KB)
-Design Loading CPU Usage: 830 ms
+Design Loading Memory Usage: 247664 KB (Peak: 247664 KB)
+Design Loading CPU Usage: 810 ms

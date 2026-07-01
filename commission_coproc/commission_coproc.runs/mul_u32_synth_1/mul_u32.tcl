@@ -59,7 +59,7 @@ OPTRACE "mul_u32_synth_1" START { ROLLUP_AUTO }
 set_param checkpoint.writeSynthRtdsInDcp 1
 set_param chipscope.maxJobs 5
 set_param general.usePosixSpawnForFork 1
-set_param synth.incrementalSynthesisCache ./.Xil/Vivado-3695395-death/incrSyn
+set_param synth.incrementalSynthesisCache ./.Xil/Vivado-3423650-death/incrSyn
 set_msg_config -id {Common 17-41} -limit 10000000
 set_msg_config -id {Synth 8-256} -limit 10000
 set_msg_config -id {Synth 8-638} -limit 10000

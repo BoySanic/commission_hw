@@ -3,76 +3,66 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="sim_filter_seeds_core_behav.wdb" id="1">
+      <db_ref path="sim_xrsrrandom_seed_fork_behav.wdb" id="1">
          <top_modules>
-            <top_module name="\$unit_XrsrNextInternal_sv_3687563173 " />
+            <top_module name="\$unit_XrsrRandom_seed_fork_sv_3049587140 " />
             <top_module name="glbl" />
-            <top_module name="sim_filter_seeds_core" />
+            <top_module name="sim_xrsrrandom_seed_fork" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="337.250 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,110.251 ns"></ZoomEndTime>
-      <Cursor1Time time="890.750 ns"></Cursor1Time>
+      <ZoomStartTime time="523.207 ns"></ZoomStartTime>
+      <ZoomEndTime time="840.808 ns"></ZoomEndTime>
+      <Cursor1Time time="640.607 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="391"></NameColumnWidth>
-      <ValueColumnWidth column_width="617"></ValueColumnWidth>
+      <ValueColumnWidth column_width="575"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="13" />
-   <wvobject type="logic" fp_name="/sim_filter_seeds_core/clock">
-      <obj_property name="ElementShortName">clock</obj_property>
-      <obj_property name="ObjectShortName">clock</obj_property>
+   <WVObjectSize size="11" />
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/xrsr_state">
+      <obj_property name="ElementShortName">xrsr_state[127:0]</obj_property>
+      <obj_property name="ObjectShortName">xrsr_state[127:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/sim_filter_seeds_core/valid">
-      <obj_property name="ElementShortName">valid</obj_property>
-      <obj_property name="ObjectShortName">valid</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/input_seed">
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/input_seed">
       <obj_property name="ElementShortName">input_seed[63:0]</obj_property>
       <obj_property name="ObjectShortName">input_seed[63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/noise_a_yo_fork">
-      <obj_property name="ElementShortName">noise_a_yo_fork[76:0][127:0]</obj_property>
-      <obj_property name="ObjectShortName">noise_a_yo_fork[76:0][127:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/core/seed_init">
+      <obj_property name="ElementShortName">seed_init[63:0]</obj_property>
+      <obj_property name="ObjectShortName">seed_init[63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/noise_b_yo_fork">
-      <obj_property name="ElementShortName">noise_b_yo_fork[2:0][127:0]</obj_property>
-      <obj_property name="ObjectShortName">noise_b_yo_fork[2:0][127:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/core/h_stages">
+      <obj_property name="ElementShortName">h_stages[15:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">h_stages[15:0][63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/noise_random">
-      <obj_property name="ElementShortName">noise_random[4:0][127:0]</obj_property>
-      <obj_property name="ObjectShortName">noise_random[4:0][127:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/core/l_stages">
+      <obj_property name="ElementShortName">l_stages[19:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">l_stages[19:0][63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/seed_fork">
-      <obj_property name="ElementShortName">seed_fork[127:0]</obj_property>
-      <obj_property name="ObjectShortName">seed_fork[127:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/core/lh">
+      <obj_property name="ElementShortName">lh[63:0]</obj_property>
+      <obj_property name="ObjectShortName">lh[63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo">
-      <obj_property name="ElementShortName">c_0A_yo[40:0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">c_0A_yo[40:0][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/core/l2h2">
+      <obj_property name="ElementShortName">l2h2[63:0]</obj_property>
+      <obj_property name="ObjectShortName">l2h2[63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0B_yo">
-      <obj_property name="ElementShortName">c_0B_yo[40:0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">c_0B_yo[40:0][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/core/r1_stages">
+      <obj_property name="ElementShortName">r1_stages[23:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">r1_stages[23:0][63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_1A_yo">
-      <obj_property name="ElementShortName">c_1A_yo[40:0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">c_1A_yo[40:0][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/core/r2_stages">
+      <obj_property name="ElementShortName">r2_stages[4:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">r2_stages[4:0][63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_1B_yo">
-      <obj_property name="ElementShortName">c_1B_yo[40:0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">c_1B_yo[40:0][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/core/l2_stages">
+      <obj_property name="ElementShortName">l2_stages[12:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">l2_stages[12:0][63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_2A_yo">
-      <obj_property name="ElementShortName">c_2A_yo[40:0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">c_2A_yo[40:0][31:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_2B_yo">
-      <obj_property name="ElementShortName">c_2B_yo[40:0][31:0]</obj_property>
-      <obj_property name="ObjectShortName">c_2B_yo[40:0][31:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_xrsrrandom_seed_fork/core/h2_stages">
+      <obj_property name="ElementShortName">h2_stages[2:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">h2_stages[2:0][63:0]</obj_property>
    </wvobject>
 </wave_config>

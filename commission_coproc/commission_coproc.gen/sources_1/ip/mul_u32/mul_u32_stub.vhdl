@@ -2,7 +2,7 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
--- Date        : Sat Jun 27 00:21:20 2026
+-- Date        : Mon Jun 29 09:28:24 2026
 -- Host        : death running 64-bit CachyOS
 -- Command     : write_vhdl -force -mode synth_stub
 --               /home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/mul_u32/mul_u32_stub.vhdl
@@ -25,7 +25,7 @@ entity mul_u32 is
   attribute CHECK_LICENSE_TYPE : string;
   attribute CHECK_LICENSE_TYPE of mul_u32 : entity is "mul_u32,mult_gen_v12_0_24,{}";
   attribute core_generation_info : string;
-  attribute core_generation_info of mul_u32 : entity is "mul_u32,mult_gen_v12_0_24,{x_ipProduct=Vivado 2025.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=mult_gen,x_ipVersion=12.0,x_ipCoreRevision=24,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_VERBOSITY=0,C_MODEL_TYPE=0,C_OPTIMIZE_GOAL=1,C_XDEVICEFAMILY=kintex7,C_HAS_CE=1,C_HAS_SCLR=0,C_LATENCY=6,C_A_WIDTH=32,C_A_TYPE=1,C_B_WIDTH=32,C_B_TYPE=1,C_OUT_HIGH=31,C_OUT_LOW=0,C_MULT_TYPE=1,C_CE_OVERRIDES_SCLR=0,C_CCM_IMP=0,C_B_VALUE=10000001,C_HAS_ZERO_DETECT=0,C_ROUND_OUTPUT=0,C_ROUND_PT=0}";
+  attribute core_generation_info of mul_u32 : entity is "mul_u32,mult_gen_v12_0_24,{x_ipProduct=Vivado 2025.2,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=mult_gen,x_ipVersion=12.0,x_ipCoreRevision=24,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_VERBOSITY=0,C_MODEL_TYPE=0,C_OPTIMIZE_GOAL=1,C_XDEVICEFAMILY=kintex7,C_HAS_CE=1,C_HAS_SCLR=0,C_LATENCY=6,C_A_WIDTH=32,C_A_TYPE=0,C_B_WIDTH=32,C_B_TYPE=0,C_OUT_HIGH=31,C_OUT_LOW=0,C_MULT_TYPE=1,C_CE_OVERRIDES_SCLR=0,C_CCM_IMP=0,C_B_VALUE=10000001,C_HAS_ZERO_DETECT=0,C_ROUND_OUTPUT=0,C_ROUND_PT=0}";
   attribute downgradeipidentifiedwarnings : string;
   attribute downgradeipidentifiedwarnings of mul_u32 : entity is "yes";
 end mul_u32;
