@@ -3,53 +3,51 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="sim_nextInternal_behav.wdb" id="1">
+      <db_ref path="sim_filter_seeds_core_behav.wdb" id="1">
          <top_modules>
+            <top_module name="\$unit_XrsrNextInternal_sv_3687563173 " />
             <top_module name="glbl" />
-            <top_module name="sim_nextInternal" />
+            <top_module name="sim_filter_seeds_core" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="284.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="444.601 ns"></ZoomEndTime>
-      <Cursor1Time time="357.800 ns"></Cursor1Time>
+      <ZoomStartTime time="1,700.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="2,089.201 ns"></ZoomEndTime>
+      <Cursor1Time time="1,810.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="391"></NameColumnWidth>
-      <ValueColumnWidth column_width="557"></ValueColumnWidth>
+      <NameColumnWidth column_width="259"></NameColumnWidth>
+      <ValueColumnWidth column_width="349"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
-   <wvobject type="array" fp_name="/sim_nextInternal/nl">
-      <obj_property name="ElementShortName">nl[63:0]</obj_property>
-      <obj_property name="ObjectShortName">nl[63:0]</obj_property>
+   <WVObjectSize size="7" />
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/output_seed">
+      <obj_property name="ElementShortName">output_seed[63:0]</obj_property>
+      <obj_property name="ObjectShortName">output_seed[63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_nextInternal/nl2">
-      <obj_property name="ElementShortName">nl2[63:0]</obj_property>
-      <obj_property name="ObjectShortName">nl2[63:0]</obj_property>
+   <wvobject type="logic" fp_name="/sim_filter_seeds_core/valid">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_nextInternal/ni_core/l_stages">
-      <obj_property name="ElementShortName">l_stages[32:0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">l_stages[32:0][63:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0A_yo">
+      <obj_property name="ElementShortName">c_0A_yo[40:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">c_0A_yo[40:0][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_nextInternal/ni_core/h_stages">
-      <obj_property name="ElementShortName">h_stages[32:0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">h_stages[32:0][63:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/c_0B_yo">
+      <obj_property name="ElementShortName">c_0B_yo[40:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">c_0B_yo[40:0][31:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_nextInternal/ni_core/l2_stages">
-      <obj_property name="ElementShortName">l2_stages[32:0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">l2_stages[32:0][63:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/noise_b_fork_stages_lo">
+      <obj_property name="ElementShortName">noise_b_fork_stages_lo[40:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">noise_b_fork_stages_lo[40:0][63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_nextInternal/ni_core/h2_stages">
-      <obj_property name="ElementShortName">h2_stages[1:0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">h2_stages[1:0][63:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/noise_b_fork_stages_hi">
+      <obj_property name="ElementShortName">noise_b_fork_stages_hi[40:0][63:0]</obj_property>
+      <obj_property name="ObjectShortName">noise_b_fork_stages_hi[40:0][63:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/sim_nextInternal/ni_core/lh">
-      <obj_property name="ElementShortName">lh[63:0]</obj_property>
-      <obj_property name="ObjectShortName">lh[63:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/sim_nextInternal/ni_core/r_stages">
-      <obj_property name="ElementShortName">r_stages[32:0][63:0]</obj_property>
-      <obj_property name="ObjectShortName">r_stages[32:0][63:0]</obj_property>
+   <wvobject type="array" fp_name="/sim_filter_seeds_core/fsc/noise_a_yo_fork">
+      <obj_property name="ElementShortName">noise_a_yo_fork[40:0][127:0]</obj_property>
+      <obj_property name="ObjectShortName">noise_a_yo_fork[40:0][127:0]</obj_property>
    </wvobject>
 </wave_config>

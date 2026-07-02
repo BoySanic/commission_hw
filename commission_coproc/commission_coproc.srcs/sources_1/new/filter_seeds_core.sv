@@ -31,7 +31,7 @@ module filter_seeds_core(
     reg  [127:0] hash_continentalness;
     reg  [127:0] seed_fork, noise_a_hi, noise_b_hi;
     reg  [127:0] noise_random[4:0];
-    reg  [127:0] noise_a_yo_fork[76:0], noise_b_yo_fork[2:0];
+    reg  [127:0] noise_a_yo_fork[41:0], noise_b_yo_fork[2:0];
     reg  [63:0] noise_a_fork_stages_lo[40:0], noise_a_fork_stages_hi[40:0];
     reg  [63:0] noise_b_fork_stages_lo[40:0], noise_b_fork_stages_hi[40:0];
     reg  [31:0] c_0A_yo[40:0], c_0B_yo[40:0], c_1A_yo[40:0], c_1B_yo[40:0], c_2A_yo[40:0], c_2B_yo[40:0];
@@ -73,38 +73,38 @@ module filter_seeds_core(
         .clock (clock),
         .xoroshiro_state (seed_fork)
     );
-    // 25 clocks each?
+    // 18 clocks each?
     XrsrNextInternal noiserandom_a_nextInternalLo (
         .xrsr_state_in (noise_random[0]),
         .xrsr_state_out (noise_random[1]),
         .clock (clock),
         .next_long (noise_a_fork_stages_lo[0])
     );
-    // 25 clocks each?
+    // 18 clocks each?
     XrsrNextInternal noiserandom_a_nextInternalHi (
         .xrsr_state_in (noise_random[1]),
         .xrsr_state_out (noise_random[2]),
         .clock (clock),
         .next_long (noise_a_fork_stages_hi[0])
     );
-    // 25 clocks each?
+    // 18 clocks each?
     XrsrNextInternal noiserandom_b_nextInternalLo (
         .xrsr_state_in (noise_random[2]),
         .xrsr_state_out (noise_random[3]),
         .clock (clock),
         .next_long (noise_b_fork_stages_lo[0])
     );
-    // 25 clocks each?
+    // 18 clocks each?
     XrsrNextInternal noiserandom_b_nextInternalHi (
         .xrsr_state_in (noise_random[3]),
         .xrsr_state_out (noise_random[4]),
         .clock (clock),
         .next_long (noise_b_fork_stages_hi[0])
     );
-    
+    // 3 clocks
     noise_yo_fork nyf_a (
-        .noise_fork_in (noise_a_yo_fork[75]),
-        .ret (noise_a_yo_fork[76]),
+        .noise_fork_in (noise_a_yo_fork[36]),
+        .ret (noise_a_yo_fork[37]),
         .clock (clock)
     );
     
@@ -115,7 +115,7 @@ module filter_seeds_core(
     );
 
     octave_yo_mod1 oym_0a (
-        .noise_yo_fork (noise_a_yo_fork[76]),
+        .noise_yo_fork (noise_a_yo_fork[37]),
         .clock (clock),
         .octave (2'd0),
         .score_yo_mama (c_0A_yo[0])
@@ -123,7 +123,7 @@ module filter_seeds_core(
 
     octave_yo_mod1 oym_1a (
     
-        .noise_yo_fork (noise_a_yo_fork[76]),
+        .noise_yo_fork (noise_a_yo_fork[37]),
         .clock (clock),
         .octave (2'd1),
         .score_yo_mama (c_1A_yo[0])
@@ -131,7 +131,7 @@ module filter_seeds_core(
 
     octave_yo_mod1 oym_2a (
     
-        .noise_yo_fork (noise_a_yo_fork[76]),
+        .noise_yo_fork (noise_a_yo_fork[37]),
         .clock (clock),
         .octave (2'd2),
         .score_yo_mama (c_2A_yo[0])
@@ -280,31 +280,33 @@ module filter_seeds_core(
     end
     
     always @(posedge clock) begin
-        // Skip 25 cycles
         integer a_fork_index;
         integer a_yo_fork_index;
         integer b_fork_index;
         integer mask_index;
         integer seed_index;
-        for (seed_index = 1; seed_index < 274; seed_index = seed_index + 1) begin
+        for (seed_index = 1; seed_index < 211; seed_index = seed_index + 1) begin
             prop_seed[seed_index] <= prop_seed[seed_index-1];
         end
-        seed_out <= prop_seed[273];
-        for (a_fork_index = 1; a_fork_index < 26; a_fork_index = a_fork_index + 1) begin
+        seed_out <= prop_seed[210];
+        // Skip 18 cycles
+        for (a_fork_index = 1; a_fork_index < 19; a_fork_index = a_fork_index + 1) begin
             noise_a_fork_stages_lo[a_fork_index] <= noise_a_fork_stages_lo[a_fork_index-1];
         end
-        noise_a_yo_fork[0] <= {noise_a_fork_stages_hi[0], noise_a_fork_stages_lo[25]};
+        noise_a_yo_fork[0] <= {noise_a_fork_stages_hi[0], noise_a_fork_stages_lo[18]};
         
-        // Skip 75 cycles for b to catch up
-        for (a_yo_fork_index = 1; a_yo_fork_index < 76; a_yo_fork_index = a_yo_fork_index + 1) begin
+        // Skip 75 cycles for b to catch up why??????? 2 nextInternals = 36 cycles...? Used to think it was 50....?
+        // Where did 75 come from...
+        // Skipping 36 - 18 for each nextInternal
+        for (a_yo_fork_index = 1; a_yo_fork_index < 37; a_yo_fork_index = a_yo_fork_index + 1) begin
             noise_a_yo_fork[a_yo_fork_index] <= noise_a_yo_fork[a_yo_fork_index-1];
         end
-        // Skip 25 cycles for b_hi to catch up to b_lo
-        for (b_fork_index = 1; b_fork_index < 26; b_fork_index = b_fork_index + 1) begin
+        // Skip 18 cycles for b_hi to catch up to b_lo
+        for (b_fork_index = 1; b_fork_index < 19; b_fork_index = b_fork_index + 1) begin
             noise_b_fork_stages_lo[b_fork_index] <= noise_b_fork_stages_lo[b_fork_index-1];
         end
         
-        noise_b_yo_fork[0] <= {noise_b_fork_stages_hi[0], noise_b_fork_stages_lo[25]};
+        noise_b_yo_fork[0] <= {noise_b_fork_stages_hi[0], noise_b_fork_stages_lo[18]};
         
         if (c_0A_yo[1][31] == 1) begin
             c_0A_yo[2] <= -c_0A_yo[1];
