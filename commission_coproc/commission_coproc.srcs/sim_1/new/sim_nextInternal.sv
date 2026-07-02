@@ -44,6 +44,10 @@ module sim_nextInternal();
     initial begin
         clk = 0;
         xr_state = 128'hd40fdb435240627c8ce2344d519734f3;
+        #10;
+        xr_state = 128'h6627ee9e27b8f0e978bafb00158517e;
+        #10;
+        xr_state = 128'hba8ab822b1f973f15bfb8546e1660ff0;
     end
     
     

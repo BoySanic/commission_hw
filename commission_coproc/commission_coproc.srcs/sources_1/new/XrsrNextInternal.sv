@@ -62,9 +62,13 @@ module XrsrNextInternal(
         // Skip 2 cycles of rol64
         l_stages[7] <= l_stages[6];
         l_stages[8] <= l_stages[7];
-        
-        
-        
+        // Skip lr add
+        l_stages[9] <= l_stages[8];
+        l_stages[10] <= l_stages[9];
+        l_stages[11] <= l_stages[10];
+        l_stages[12] <= l_stages[11];
+        l_stages[13] <= l_stages[12];
+        l_stages[14] <= l_stages[13]; // Pass in l_stages[14] for the lo rol64
         // xor h
         h_stages[1] <= h_stages[0] ^ l_stages[0];
         // Skip 5 cycles left of lh add
@@ -105,8 +109,8 @@ module XrsrNextInternal(
     // l2 rol64
     
     always @(posedge clock) begin
-        l2_stages[0] <= l_stages[8] << 49;
-        l2_stages[1] <= l_stages[8] >> 15;
+        l2_stages[0] <= l_stages[14] << 49;
+        l2_stages[1] <= l_stages[14] >> 15;
         l2_stages[2] <= l2_stages[0] | l2_stages[1];
     end
     

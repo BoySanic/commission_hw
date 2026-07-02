@@ -33,8 +33,12 @@ module sim_octave_yo_mod1;
     );
     
     initial begin
-        fork_hash = 128'h6e3a4a1667fde9767eadbbf4389da18d;
         clock = 0;
+        fork_hash = 128'h6e3a4a1667fde9767eadbbf4389da18d;
+        #10;
+        fork_hash = 128'hda79ec42f3cdee7ad3dffd0bccd140cc;
+        #10;
+        fork_hash = 128'h59651d1e4a25b261191041b2f2da03b4;
     end
     
     always begin
