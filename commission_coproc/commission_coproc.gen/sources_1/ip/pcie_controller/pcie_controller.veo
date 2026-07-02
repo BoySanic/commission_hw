@@ -79,14 +79,14 @@ pcie_controller your_instance_name (
   .tx_cfg_req(tx_cfg_req),                                                                  // output wire tx_cfg_req
   .tx_err_drop(tx_err_drop),                                                                // output wire tx_err_drop
   .s_axis_tx_tready(s_axis_tx_tready),                                                      // output wire s_axis_tx_tready
-  .s_axis_tx_tdata(s_axis_tx_tdata),                                                        // input wire [63 : 0] s_axis_tx_tdata
-  .s_axis_tx_tkeep(s_axis_tx_tkeep),                                                        // input wire [7 : 0] s_axis_tx_tkeep
+  .s_axis_tx_tdata(s_axis_tx_tdata),                                                        // input wire [127 : 0] s_axis_tx_tdata
+  .s_axis_tx_tkeep(s_axis_tx_tkeep),                                                        // input wire [15 : 0] s_axis_tx_tkeep
   .s_axis_tx_tlast(s_axis_tx_tlast),                                                        // input wire s_axis_tx_tlast
   .s_axis_tx_tvalid(s_axis_tx_tvalid),                                                      // input wire s_axis_tx_tvalid
   .s_axis_tx_tuser(s_axis_tx_tuser),                                                        // input wire [3 : 0] s_axis_tx_tuser
   .tx_cfg_gnt(tx_cfg_gnt),                                                                  // input wire tx_cfg_gnt
-  .m_axis_rx_tdata(m_axis_rx_tdata),                                                        // output wire [63 : 0] m_axis_rx_tdata
-  .m_axis_rx_tkeep(m_axis_rx_tkeep),                                                        // output wire [7 : 0] m_axis_rx_tkeep
+  .m_axis_rx_tdata(m_axis_rx_tdata),                                                        // output wire [127 : 0] m_axis_rx_tdata
+  .m_axis_rx_tkeep(m_axis_rx_tkeep),                                                        // output wire [15 : 0] m_axis_rx_tkeep
   .m_axis_rx_tlast(m_axis_rx_tlast),                                                        // output wire m_axis_rx_tlast
   .m_axis_rx_tvalid(m_axis_rx_tvalid),                                                      // output wire m_axis_rx_tvalid
   .m_axis_rx_tready(m_axis_rx_tready),                                                      // input wire m_axis_rx_tready

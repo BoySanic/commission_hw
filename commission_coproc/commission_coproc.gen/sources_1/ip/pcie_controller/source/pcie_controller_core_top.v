@@ -60,12 +60,12 @@
 
 `timescale 1ps/1ps
 
-(* CORE_GENERATION_INFO = "pcie_controller,pcie_7x_v3_3_25,{LINK_CAP_MAX_LINK_SPEED=1,LINK_CAP_MAX_LINK_WIDTH=8,PCIE_CAP_DEVICE_PORT_TYPE=0000,DEV_CAP_MAX_PAYLOAD_SUPPORTED=2,USER_CLK_FREQ=3,REF_CLK_FREQ=0,MSI_CAP_ON=TRUE,MSI_CAP_MULTIMSGCAP=0,MSI_CAP_MULTIMSG_EXTENSION=0,MSIX_CAP_ON=FALSE,TL_TX_RAM_RADDR_LATENCY=0,TL_TX_RAM_RDATA_LATENCY=2,TL_RX_RAM_RADDR_LATENCY=0,TL_RX_RAM_RDATA_LATENCY=2,TL_RX_RAM_WRITE_LATENCY=0,\
-VC0_TX_LASTPACKET=29,VC0_RX_RAM_LIMIT=7FF,VC0_TOTAL_CREDITS_PH=32,VC0_TOTAL_CREDITS_PD=437,VC0_TOTAL_CREDITS_NPH=12,VC0_TOTAL_CREDITS_NPD=24,VC0_TOTAL_CREDITS_CH=36,VC0_TOTAL_CREDITS_CD=461,VC0_CPL_INFINITE=TRUE,DEV_CAP_PHANTOM_FUNCTIONS_SUPPORT=0,DEV_CAP_EXT_TAG_SUPPORTED=FALSE,LINK_STATUS_SLOT_CLOCK_CONFIG=TRUE,DISABLE_LANE_REVERSAL=TRUE,DISABLE_SCRAMBLING=FALSE,DSN_CAP_ON=TRUE,REVISION_ID=00,VC_CAP_ON=FALSE}" *)
+(* CORE_GENERATION_INFO = "pcie_controller,pcie_7x_v3_3_25,{LINK_CAP_MAX_LINK_SPEED=2,LINK_CAP_MAX_LINK_WIDTH=8,PCIE_CAP_DEVICE_PORT_TYPE=0000,DEV_CAP_MAX_PAYLOAD_SUPPORTED=1,USER_CLK_FREQ=4,REF_CLK_FREQ=0,MSI_CAP_ON=TRUE,MSI_CAP_MULTIMSGCAP=0,MSI_CAP_MULTIMSG_EXTENSION=0,MSIX_CAP_ON=FALSE,TL_TX_RAM_RADDR_LATENCY=0,TL_TX_RAM_RDATA_LATENCY=2,TL_RX_RAM_RADDR_LATENCY=0,TL_RX_RAM_RDATA_LATENCY=2,TL_RX_RAM_WRITE_LATENCY=0,\
+VC0_TX_LASTPACKET=28,VC0_RX_RAM_LIMIT=3FF,VC0_TOTAL_CREDITS_PH=32,VC0_TOTAL_CREDITS_PD=181,VC0_TOTAL_CREDITS_NPH=12,VC0_TOTAL_CREDITS_NPD=24,VC0_TOTAL_CREDITS_CH=36,VC0_TOTAL_CREDITS_CD=205,VC0_CPL_INFINITE=TRUE,DEV_CAP_PHANTOM_FUNCTIONS_SUPPORT=0,DEV_CAP_EXT_TAG_SUPPORTED=FALSE,LINK_STATUS_SLOT_CLOCK_CONFIG=TRUE,DISABLE_LANE_REVERSAL=TRUE,DISABLE_SCRAMBLING=FALSE,DSN_CAP_ON=TRUE,REVISION_ID=00,VC_CAP_ON=FALSE}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module pcie_controller_core_top # (
   parameter         CFG_VEND_ID        = 16'h10EE,
-  parameter         CFG_DEV_ID         = 16'h7018,
+  parameter         CFG_DEV_ID         = 16'h7028,
   parameter         CFG_REV_ID         =  8'h00,
   parameter         CFG_SUBSYS_VEND_ID = 16'h10EE,
   parameter         CFG_SUBSYS_ID      = 16'h0007,
@@ -73,7 +73,7 @@ module pcie_controller_core_top # (
 
   parameter         EXT_PIPE_SIM = "FALSE",
 
-  parameter         ALLOW_X8_GEN2 = "FALSE",
+  parameter         ALLOW_X8_GEN2 = "TRUE",
   parameter         PIPE_PIPELINE_STAGES = 1,
   parameter [11:0]  AER_BASE_PTR = 12'h000,
   parameter         AER_CAP_ECRC_CHECK_CAPABLE = "FALSE",
@@ -91,7 +91,7 @@ module pcie_controller_core_top # (
   parameter [31:0]  BAR4 = 32'h00000000,
   parameter [31:0]  BAR5 = 32'h00000000,
 
-  parameter         C_DATA_WIDTH = 64,
+  parameter         C_DATA_WIDTH = 128,
   parameter [31:0]  CARDBUS_CIS_POINTER = 32'h00000000,
   parameter [23:0]  CLASS_CODE = 24'h0B4000,
   parameter         CMD_INTX_IMPLEMENTED = "TRUE",
@@ -101,7 +101,7 @@ module pcie_controller_core_top # (
   parameter integer DEV_CAP_ENDPOINT_L0S_LATENCY = 0,
   parameter integer DEV_CAP_ENDPOINT_L1_LATENCY = 7,
   parameter         DEV_CAP_EXT_TAG_SUPPORTED = "FALSE",
-  parameter integer DEV_CAP_MAX_PAYLOAD_SUPPORTED = 2,
+  parameter integer DEV_CAP_MAX_PAYLOAD_SUPPORTED = 1,
   parameter integer DEV_CAP_PHANTOM_FUNCTIONS_SUPPORT = 0,
 
   parameter         DEV_CAP2_ARI_FORWARDING_SUPPORTED = "FALSE",
@@ -131,12 +131,12 @@ module pcie_controller_core_top # (
   parameter         LINK_CAP_ASPM_OPTIONALITY = "FALSE",
   parameter         LINK_CAP_DLL_LINK_ACTIVE_REPORTING_CAP = "FALSE",
   parameter         LINK_CAP_LINK_BANDWIDTH_NOTIFICATION_CAP = "FALSE",
-  parameter [3:0]   LINK_CAP_MAX_LINK_SPEED = 4'h1,
+  parameter [3:0]   LINK_CAP_MAX_LINK_SPEED = 4'h2,
   parameter [5:0]   LINK_CAP_MAX_LINK_WIDTH = 6'h8,
 
   parameter         LINK_CTRL2_DEEMPHASIS = "FALSE",
   parameter         LINK_CTRL2_HW_AUTONOMOUS_SPEED_DISABLE = "FALSE",
-  parameter [3:0]   LINK_CTRL2_TARGET_LINK_SPEED = 4'h0,
+  parameter [3:0]   LINK_CTRL2_TARGET_LINK_SPEED = 4'h2,
   parameter         LINK_STATUS_SLOT_CLOCK_CONFIG = "TRUE",
 
   parameter [14:0]  LL_ACK_TIMEOUT = 15'h0000,
@@ -223,15 +223,15 @@ module pcie_controller_core_top # (
   parameter         TL_RX_RAM_RDATA_LATENCY = 2,
   parameter         TL_TX_RAM_RDATA_LATENCY = 2,
   parameter         TRN_NP_FC = "TRUE",
-  parameter         TRN_DW = "FALSE",
+  parameter         TRN_DW = "TRUE",
 
   parameter         UPCONFIG_CAPABLE = "TRUE",
   parameter         UPSTREAM_FACING = "TRUE",
   parameter         UR_ATOMIC = "FALSE",
   parameter         UR_INV_REQ = "TRUE",
   parameter         UR_PRS_RESPONSE = "TRUE",
-  parameter         USER_CLK_FREQ = 3,
-  parameter         USER_CLK2_DIV2 = "FALSE",
+  parameter         USER_CLK_FREQ = 4,
+  parameter         USER_CLK2_DIV2 = "TRUE",
 
   parameter [11:0]  VC_BASE_PTR = 12'h000,
   parameter [11:0]  VC_CAP_NEXTPTR = 12'h000,
@@ -239,14 +239,14 @@ module pcie_controller_core_top # (
   parameter         VC_CAP_REJECT_SNOOP_TRANSACTIONS = "FALSE",
 
   parameter         VC0_CPL_INFINITE = "TRUE",
-  parameter [12:0]  VC0_RX_RAM_LIMIT = 13'h7FF,
-  parameter         VC0_TOTAL_CREDITS_CD = 461,
+  parameter [12:0]  VC0_RX_RAM_LIMIT = 13'h3FF,
+  parameter         VC0_TOTAL_CREDITS_CD = 205,
   parameter         VC0_TOTAL_CREDITS_CH = 36,
   parameter         VC0_TOTAL_CREDITS_NPH = 12,
   parameter         VC0_TOTAL_CREDITS_NPD = 24,
-  parameter         VC0_TOTAL_CREDITS_PD = 437,
+  parameter         VC0_TOTAL_CREDITS_PD = 181,
   parameter         VC0_TOTAL_CREDITS_PH = 32,
-  parameter         VC0_TX_LASTPACKET = 29,
+  parameter         VC0_TX_LASTPACKET = 28,
 
   parameter [11:0]  VSEC_BASE_PTR = 12'h000,
   parameter [11:0]  VSEC_CAP_NEXTPTR = 12'h000,

@@ -61,8 +61,8 @@
 // INCLUDE_TAG_END ------  End cut for INTERFACE INSTANTIATION Include  ------
 
 // INTF_TAG     ------ Begin cut for INTERFACE INSTANTIATION Template ------
-vivado_axis_v1_0 #(.TDATA_NUM_BYTES(8), .TDEST_WIDTH(0), .TID_WIDTH(0), .TUSER_WIDTH(22)) m_axis_rx();
-vivado_axis_v1_0 #(.TDATA_NUM_BYTES(8), .TDEST_WIDTH(0), .TID_WIDTH(0), .TUSER_WIDTH(4)) s_axis_tx();
+vivado_axis_v1_0 #(.TDATA_NUM_BYTES(16), .TDEST_WIDTH(0), .TID_WIDTH(0), .TUSER_WIDTH(22)) m_axis_rx();
+vivado_axis_v1_0 #(.TDATA_NUM_BYTES(16), .TDEST_WIDTH(0), .TID_WIDTH(0), .TUSER_WIDTH(4)) s_axis_tx();
 // INTF_TAG_END ------  End cut for INTERFACE INSTANTIATION Template  ------
 
 // INST_TAG     ------ Begin cut for WRAPPER INSTANTIATION Template ------

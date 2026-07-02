@@ -2,7 +2,7 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.2 (lin64) Build 6299465 Fri Nov 14 12:34:56 MST 2025
-// Date        : Sat Jun 27 16:00:18 2026
+// Date        : Thu Jul  2 00:11:13 2026
 // Host        : death running 64-bit CachyOS
 // Command     : write_verilog -force -mode funcsim
 //               /home/boysanic/commission_hw/commission_coproc/commission_coproc.gen/sources_1/ip/pcie_controller/pcie_controller_sim_netlist.v
@@ -215,15 +215,15 @@ module pcie_controller
   (* X_INTERFACE_INFO = "xilinx.com:interface:pcie2_cfg_status:1.0 pcie2_cfg_status tx_buf_av" *) (* X_INTERFACE_MODE = "master" *) output [5:0]tx_buf_av;
   (* X_INTERFACE_INFO = "xilinx.com:interface:pcie2_cfg_status:1.0 pcie2_cfg_status tx_cfg_req" *) output tx_cfg_req;
   (* X_INTERFACE_INFO = "xilinx.com:interface:pcie2_cfg_status:1.0 pcie2_cfg_status tx_err_drop" *) output tx_err_drop;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TREADY" *) (* X_INTERFACE_MODE = "slave" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_axis_tx, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 4, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *) output s_axis_tx_tready;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TDATA" *) input [63:0]s_axis_tx_tdata;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TKEEP" *) input [7:0]s_axis_tx_tkeep;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TREADY" *) (* X_INTERFACE_MODE = "slave" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_axis_tx, TDATA_NUM_BYTES 16, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 4, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *) output s_axis_tx_tready;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TDATA" *) input [127:0]s_axis_tx_tdata;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TKEEP" *) input [15:0]s_axis_tx_tkeep;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TLAST" *) input s_axis_tx_tlast;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TVALID" *) input s_axis_tx_tvalid;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TUSER" *) input [3:0]s_axis_tx_tuser;
   (* X_INTERFACE_INFO = "xilinx.com:interface:pcie2_cfg_control:1.0 pcie2_cfg_control tx_cfg_gnt" *) (* X_INTERFACE_MODE = "slave" *) input tx_cfg_gnt;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TDATA" *) (* X_INTERFACE_MODE = "master" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m_axis_rx, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 22, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *) output [63:0]m_axis_rx_tdata;
-  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TKEEP" *) output [7:0]m_axis_rx_tkeep;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TDATA" *) (* X_INTERFACE_MODE = "master" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m_axis_rx, TDATA_NUM_BYTES 16, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 22, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *) output [127:0]m_axis_rx_tdata;
+  (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TKEEP" *) output [15:0]m_axis_rx_tkeep;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TLAST" *) output m_axis_rx_tlast;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TVALID" *) output m_axis_rx_tvalid;
   (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TREADY" *) input m_axis_rx_tready;
@@ -476,9 +476,7 @@ module pcie_controller
   wire [11:0]fc_pd;
   wire [7:0]fc_ph;
   wire [2:0]fc_sel;
-  wire [63:0]m_axis_rx_tdata;
-  wire [7:4]\^m_axis_rx_tkeep ;
-  wire m_axis_rx_tlast;
+  wire [127:0]m_axis_rx_tdata;
   wire m_axis_rx_tready;
   wire [21:0]\^m_axis_rx_tuser ;
   wire m_axis_rx_tvalid;
@@ -526,8 +524,8 @@ module pcie_controller
   wire pl_upstream_prefer_deemph;
   wire rx_np_ok;
   wire rx_np_req;
-  wire [63:0]s_axis_tx_tdata;
-  wire [7:0]s_axis_tx_tkeep;
+  wire [127:0]s_axis_tx_tdata;
+  wire [15:0]s_axis_tx_tkeep;
   wire s_axis_tx_tlast;
   wire s_axis_tx_tready;
   wire [3:0]s_axis_tx_tuser;
@@ -549,6 +547,7 @@ module pcie_controller
   wire NLW_inst_int_pipe_rxusrclk_out_UNCONNECTED;
   wire NLW_inst_int_userclk1_out_UNCONNECTED;
   wire NLW_inst_int_userclk2_out_UNCONNECTED;
+  wire NLW_inst_m_axis_rx_tlast_UNCONNECTED;
   wire NLW_inst_pipe_qrst_idle_UNCONNECTED;
   wire NLW_inst_pipe_rate_idle_UNCONNECTED;
   wire NLW_inst_pipe_rst_idle_UNCONNECTED;
@@ -579,8 +578,8 @@ module pcie_controller
   wire [1:0]NLW_inst_int_qplloutclk_out_UNCONNECTED;
   wire [1:0]NLW_inst_int_qplloutrefclk_out_UNCONNECTED;
   wire [7:0]NLW_inst_int_rxoutclk_out_UNCONNECTED;
-  wire [3:0]NLW_inst_m_axis_rx_tkeep_UNCONNECTED;
-  wire [20:9]NLW_inst_m_axis_rx_tuser_UNCONNECTED;
+  wire [15:0]NLW_inst_m_axis_rx_tkeep_UNCONNECTED;
+  wire [16:9]NLW_inst_m_axis_rx_tuser_UNCONNECTED;
   wire [7:0]NLW_inst_pipe_cpll_lock_UNCONNECTED;
   wire [31:0]NLW_inst_pipe_debug_UNCONNECTED;
   wire [7:0]NLW_inst_pipe_debug_0_UNCONNECTED;
@@ -692,18 +691,27 @@ module pcie_controller
   assign cfg_status[2] = \<const0> ;
   assign cfg_status[1] = \<const0> ;
   assign cfg_status[0] = \<const0> ;
-  assign m_axis_rx_tkeep[7:4] = \^m_axis_rx_tkeep [7:4];
+  assign m_axis_rx_tkeep[15] = \<const1> ;
+  assign m_axis_rx_tkeep[14] = \<const1> ;
+  assign m_axis_rx_tkeep[13] = \<const1> ;
+  assign m_axis_rx_tkeep[12] = \<const1> ;
+  assign m_axis_rx_tkeep[11] = \<const1> ;
+  assign m_axis_rx_tkeep[10] = \<const1> ;
+  assign m_axis_rx_tkeep[9] = \<const1> ;
+  assign m_axis_rx_tkeep[8] = \<const1> ;
+  assign m_axis_rx_tkeep[7] = \<const1> ;
+  assign m_axis_rx_tkeep[6] = \<const1> ;
+  assign m_axis_rx_tkeep[5] = \<const1> ;
+  assign m_axis_rx_tkeep[4] = \<const1> ;
   assign m_axis_rx_tkeep[3] = \<const1> ;
   assign m_axis_rx_tkeep[2] = \<const1> ;
   assign m_axis_rx_tkeep[1] = \<const1> ;
   assign m_axis_rx_tkeep[0] = \<const1> ;
-  assign m_axis_rx_tuser[21] = \^m_axis_rx_tuser [21];
-  assign m_axis_rx_tuser[20] = \<const0> ;
-  assign m_axis_rx_tuser[19:17] = \^m_axis_rx_tuser [19:17];
+  assign m_axis_rx_tlast = \<const0> ;
+  assign m_axis_rx_tuser[21:17] = \^m_axis_rx_tuser [21:17];
   assign m_axis_rx_tuser[16] = \<const0> ;
   assign m_axis_rx_tuser[15] = \<const0> ;
-  assign m_axis_rx_tuser[14] = \^m_axis_rx_tuser [14];
-  assign m_axis_rx_tuser[13] = \<const0> ;
+  assign m_axis_rx_tuser[14:13] = \^m_axis_rx_tuser [14:13];
   assign m_axis_rx_tuser[12] = \<const0> ;
   assign m_axis_rx_tuser[11] = \<const0> ;
   assign m_axis_rx_tuser[10] = \<const0> ;
@@ -719,14 +727,14 @@ module pcie_controller
   (* CFG_MGMT_IF = "TRUE" *) 
   (* CFG_STATUS_IF = "TRUE" *) 
   (* CLASS_CODE = "0B4000" *) 
-  (* C_DATA_WIDTH = "64" *) 
+  (* C_DATA_WIDTH = "128" *) 
   (* DowngradeIPIdentifiedWarnings = "yes" *) 
   (* ENABLE_JTAG_DBG = "FALSE" *) 
   (* ERR_REPORTING_IF = "TRUE" *) 
   (* EXT_CH_GT_DRP = "FALSE" *) 
   (* EXT_PIPE_INTERFACE = "FALSE" *) 
   (* EXT_STARTUP_PRIMITIVE = "FALSE" *) 
-  (* KEEP_WIDTH = "8" *) 
+  (* KEEP_WIDTH = "16" *) 
   (* LINK_CAP_MAX_LINK_WIDTH = "8" *) 
   (* PCIE_ASYNC_EN = "FALSE" *) 
   (* PCIE_EXT_CLK = "TRUE" *) 
@@ -785,13 +793,13 @@ module pcie_controller
   (* c_ep_l1_accpt_lat = "7" *) 
   (* c_ext_pci_cfg_space_addr = "3FF" *) 
   (* c_external_clocking = "TRUE" *) 
-  (* c_fc_cpld = "461" *) 
+  (* c_fc_cpld = "205" *) 
   (* c_fc_cplh = "36" *) 
   (* c_fc_npd = "24" *) 
   (* c_fc_nph = "12" *) 
-  (* c_fc_pd = "437" *) 
+  (* c_fc_pd = "181" *) 
   (* c_fc_ph = "32" *) 
-  (* c_gen1 = "1'b0" *) 
+  (* c_gen1 = "1'b1" *) 
   (* c_header_type = "00" *) 
   (* c_hw_auton_spd_disable = "FALSE" *) 
   (* c_int_width = "64" *) 
@@ -854,7 +862,7 @@ module pcie_controller
   (* c_rev_gt_order = "FALSE" *) 
   (* c_root_cap_crs = "FALSE" *) 
   (* c_rx_raddr_lat = "0" *) 
-  (* c_rx_ram_limit = "7FF" *) 
+  (* c_rx_ram_limit = "3FF" *) 
   (* c_rx_rdata_lat = "2" *) 
   (* c_rx_write_lat = "0" *) 
   (* c_silicon_rev = "2" *) 
@@ -871,9 +879,9 @@ module pcie_controller
   (* c_slot_cap_pwr_limit_scale = "0" *) 
   (* c_slot_cap_pwr_limit_value = "0" *) 
   (* c_surprise_dn_err_cap = "FALSE" *) 
-  (* c_trgt_lnk_spd = "0" *) 
+  (* c_trgt_lnk_spd = "2" *) 
   (* c_trn_np_fc = "TRUE" *) 
-  (* c_tx_last_tlp = "29" *) 
+  (* c_tx_last_tlp = "28" *) 
   (* c_tx_raddr_lat = "0" *) 
   (* c_tx_rdata_lat = "2" *) 
   (* c_tx_write_lat = "0" *) 
@@ -892,7 +900,7 @@ module pcie_controller
   (* c_xlnx_ref_board = "NONE" *) 
   (* cap_ver = "2" *) 
   (* cardbus_cis_ptr = "00000000" *) 
-  (* cmps = "2" *) 
+  (* cmps = "1" *) 
   (* con_scl_fctr_d0_state = "0" *) 
   (* con_scl_fctr_d1_state = "0" *) 
   (* con_scl_fctr_d2_state = "0" *) 
@@ -900,7 +908,7 @@ module pcie_controller
   (* cost_table = "1" *) 
   (* d1_sup = "0" *) 
   (* d2_sup = "0" *) 
-  (* dev_id = "7018" *) 
+  (* dev_id = "7028" *) 
   (* dev_port_type = "0000" *) 
   (* dis_scl_fctr_d0_state = "0" *) 
   (* dis_scl_fctr_d1_state = "0" *) 
@@ -912,9 +920,9 @@ module pcie_controller
   (* ext_tag_fld_sup = "FALSE" *) 
   (* int_pin = "1" *) 
   (* intx = "TRUE" *) 
-  (* max_lnk_spd = "1" *) 
+  (* max_lnk_spd = "2" *) 
   (* max_lnk_wdt = "001000" *) 
-  (* mps = "010" *) 
+  (* mps = "001" *) 
   (* no_soft_rst = "TRUE" *) 
   (* pci_exp_int_freq = "3" *) 
   (* pci_exp_ref_freq = "0" *) 
@@ -1076,8 +1084,8 @@ module pcie_controller
         .int_userclk1_out(NLW_inst_int_userclk1_out_UNCONNECTED),
         .int_userclk2_out(NLW_inst_int_userclk2_out_UNCONNECTED),
         .m_axis_rx_tdata(m_axis_rx_tdata),
-        .m_axis_rx_tkeep({\^m_axis_rx_tkeep ,NLW_inst_m_axis_rx_tkeep_UNCONNECTED[3:0]}),
-        .m_axis_rx_tlast(m_axis_rx_tlast),
+        .m_axis_rx_tkeep(NLW_inst_m_axis_rx_tkeep_UNCONNECTED[15:0]),
+        .m_axis_rx_tlast(NLW_inst_m_axis_rx_tlast_UNCONNECTED),
         .m_axis_rx_tready(m_axis_rx_tready),
         .m_axis_rx_tuser(\^m_axis_rx_tuser ),
         .m_axis_rx_tvalid(m_axis_rx_tvalid),
@@ -1201,7 +1209,7 @@ module pcie_controller
         .rx_np_ok(rx_np_ok),
         .rx_np_req(rx_np_req),
         .s_axis_tx_tdata(s_axis_tx_tdata),
-        .s_axis_tx_tkeep({s_axis_tx_tkeep[7],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .s_axis_tx_tkeep({s_axis_tx_tkeep[15],1'b0,1'b0,1'b0,s_axis_tx_tkeep[11],1'b0,1'b0,1'b0,s_axis_tx_tkeep[7],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .s_axis_tx_tlast(s_axis_tx_tlast),
         .s_axis_tx_tready(s_axis_tx_tready),
         .s_axis_tx_tuser(s_axis_tx_tuser),
@@ -1233,69 +1241,67 @@ module pcie_controller
 endmodule
 
 module pcie_controller_axi_basic_rx
-   (E,
-    trn_rsrc_dsc_d,
+   (trn_rsrc_dsc_d,
     m_axis_rx_tvalid_reg,
-    m_axis_rx_tkeep,
-    m_axis_rx_tlast,
+    E,
     trn_in_packet,
     reg_dsc_detect_reg,
-    m_axis_rx_tuser,
     Q,
-    \trn_rbar_hit_prev_reg[0] ,
+    \m_axis_rx_tuser_reg[21] ,
+    m_axis_rx_tuser,
+    SR,
     pipe_userclk2_in,
-    trn_rrem,
     trn_rsrc_dsc,
     rsrc_rdy_filtered,
-    trn_reof,
-    trn_rsrc_dsc_prev0,
     trn_rsof,
+    trn_rsrc_dsc_prev0,
     trn_recrc_err,
     trn_rerrfwd,
+    trn_reof,
     trn_in_packet_reg,
     m_axis_rx_tready,
+    trn_rrem,
     dsc_detect,
     trn_rd,
     trn_rbar_hit);
-  output [0:0]E;
   output trn_rsrc_dsc_d;
   output m_axis_rx_tvalid_reg;
-  output [0:0]m_axis_rx_tkeep;
-  output m_axis_rx_tlast;
+  output [0:0]E;
   output trn_in_packet;
   output reg_dsc_detect_reg;
-  output [12:0]m_axis_rx_tuser;
-  output [63:0]Q;
-  input \trn_rbar_hit_prev_reg[0] ;
+  output [127:0]Q;
+  output [5:0]\m_axis_rx_tuser_reg[21] ;
+  output [8:0]m_axis_rx_tuser;
+  input [0:0]SR;
   input pipe_userclk2_in;
-  input [0:0]trn_rrem;
   input trn_rsrc_dsc;
   input rsrc_rdy_filtered;
-  input trn_reof;
-  input trn_rsrc_dsc_prev0;
   input trn_rsof;
+  input trn_rsrc_dsc_prev0;
   input trn_recrc_err;
   input trn_rerrfwd;
+  input trn_reof;
   input trn_in_packet_reg;
   input m_axis_rx_tready;
+  input [1:0]trn_rrem;
   input dsc_detect;
-  input [63:0]trn_rd;
+  input [127:0]trn_rd;
   input [6:0]trn_rbar_hit;
 
   wire [0:0]E;
-  wire [63:0]Q;
+  wire [127:0]Q;
+  wire [0:0]SR;
+  wire cur_state;
   wire dsc_detect;
-  wire [0:0]m_axis_rx_tkeep;
-  wire m_axis_rx_tlast;
   wire m_axis_rx_tready;
-  wire [12:0]m_axis_rx_tuser;
+  wire [8:0]m_axis_rx_tuser;
+  wire [5:0]\m_axis_rx_tuser_reg[21] ;
   wire m_axis_rx_tvalid_reg;
-  wire [10:0]new_pkt_len;
+  wire next_state;
   wire null_mux_sel;
   wire pipe_userclk2_in;
   wire reg_dsc_detect_reg;
   wire rsrc_rdy_filtered;
-  wire rx_null_gen_inst_n_0;
   wire rx_null_gen_inst_n_1;
   wire rx_null_gen_inst_n_2;
   wire rx_null_gen_inst_n_3;
@@ -1303,71 +1309,100 @@ module pcie_controller_axi_basic_rx
   wire rx_null_gen_inst_n_5;
   wire rx_null_gen_inst_n_6;
   wire rx_null_gen_inst_n_7;
-  wire rx_null_gen_inst_n_8;
-  wire rx_pipeline_inst_n_73;
-  wire rx_pipeline_inst_n_74;
+  wire rx_pipeline_inst_n_144;
+  wire rx_pipeline_inst_n_145;
+  wire rx_pipeline_inst_n_146;
+  wire rx_pipeline_inst_n_147;
+  wire rx_pipeline_inst_n_148;
+  wire rx_pipeline_inst_n_149;
+  wire rx_pipeline_inst_n_150;
+  wire rx_pipeline_inst_n_151;
+  wire rx_pipeline_inst_n_152;
+  wire rx_pipeline_inst_n_153;
+  wire rx_pipeline_inst_n_154;
+  wire rx_pipeline_inst_n_155;
+  wire rx_pipeline_inst_n_156;
+  wire rx_pipeline_inst_n_157;
+  wire rx_pipeline_inst_n_158;
+  wire rx_pipeline_inst_n_159;
+  wire rx_pipeline_inst_n_160;
+  wire rx_pipeline_inst_n_161;
+  wire rx_pipeline_inst_n_162;
+  wire rx_pipeline_inst_n_164;
+  wire rx_pipeline_inst_n_165;
+  wire rx_pipeline_inst_n_6;
+  wire rx_pipeline_inst_n_7;
   wire rx_pipeline_inst_n_8;
+  wire rx_pipeline_inst_n_9;
   wire trn_in_packet;
   wire trn_in_packet_reg;
   wire [6:0]trn_rbar_hit;
-  wire \trn_rbar_hit_prev_reg[0] ;
-  wire [63:0]trn_rd;
+  wire [127:0]trn_rd;
   wire trn_recrc_err;
   wire trn_reof;
   wire trn_rerrfwd;
-  wire [0:0]trn_rrem;
+  wire [1:0]trn_rrem;
   wire trn_rsof;
   wire trn_rsrc_dsc;
   wire trn_rsrc_dsc_d;
   wire trn_rsrc_dsc_prev0;
 
   pcie_controller_axi_basic_rx_null_gen rx_null_gen_inst
-       (.D({rx_null_gen_inst_n_0,rx_null_gen_inst_n_1}),
-        .Q({Q[30:29],Q[15],Q[1:0]}),
-        .S({rx_null_gen_inst_n_7,rx_null_gen_inst_n_8}),
-        .cur_state_reg_0(\trn_rbar_hit_prev_reg[0] ),
-        .cur_state_reg_1(m_axis_rx_tvalid_reg),
+       (.D(rx_null_gen_inst_n_4),
+        .DI({rx_pipeline_inst_n_6,rx_pipeline_inst_n_7,rx_pipeline_inst_n_8,rx_pipeline_inst_n_9}),
+        .S({rx_pipeline_inst_n_151,rx_pipeline_inst_n_152,rx_pipeline_inst_n_153,rx_pipeline_inst_n_154}),
+        .SR(SR),
+        .cur_state(cur_state),
         .m_axis_rx_tready(m_axis_rx_tready),
-        .m_axis_rx_tuser(m_axis_rx_tuser[12]),
-        .\m_axis_rx_tuser_reg[19] (rx_pipeline_inst_n_74),
-        .\m_axis_rx_tuser_reg[21] (rx_pipeline_inst_n_73),
-        .new_pkt_len(new_pkt_len),
+        .\m_axis_rx_tuser[21]_i_9_0 (rx_null_gen_inst_n_2),
+        .\m_axis_rx_tuser_reg[21] (rx_pipeline_inst_n_165),
+        .next_state(next_state),
         .null_mux_sel(null_mux_sel),
-        .null_mux_sel_reg(rx_null_gen_inst_n_5),
-        .null_mux_sel_reg_0(rx_null_gen_inst_n_6),
-        .null_mux_sel_reg_1(rx_pipeline_inst_n_8),
+        .null_mux_sel_reg(rx_null_gen_inst_n_1),
+        .null_mux_sel_reg_0(rx_null_gen_inst_n_5),
+        .null_mux_sel_reg_1(rx_pipeline_inst_n_155),
         .pipe_userclk2_in(pipe_userclk2_in),
-        .\reg_pkt_len_counter_reg[0]_0 (rx_null_gen_inst_n_4),
-        .\reg_pkt_len_counter_reg[3]_0 (rx_null_gen_inst_n_3),
-        .\reg_tkeep[4]_i_7_0 (rx_null_gen_inst_n_2));
+        .\reg_pkt_len_counter_reg[0]_0 (rx_null_gen_inst_n_3),
+        .\reg_pkt_len_counter_reg[10]_0 (rx_pipeline_inst_n_164),
+        .\reg_pkt_len_counter_reg[11]_0 ({rx_pipeline_inst_n_160,rx_pipeline_inst_n_161,rx_pipeline_inst_n_162}),
+        .\reg_pkt_len_counter_reg[11]_1 ({rx_pipeline_inst_n_148,rx_pipeline_inst_n_149,rx_pipeline_inst_n_150}),
+        .\reg_pkt_len_counter_reg[2]_0 (rx_null_gen_inst_n_7),
+        .\reg_pkt_len_counter_reg[7]_0 ({rx_pipeline_inst_n_156,rx_pipeline_inst_n_157,rx_pipeline_inst_n_158,rx_pipeline_inst_n_159}),
+        .\reg_pkt_len_counter_reg[7]_1 ({rx_pipeline_inst_n_144,rx_pipeline_inst_n_145,rx_pipeline_inst_n_146,rx_pipeline_inst_n_147}),
+        .user_reset_out_reg(rx_null_gen_inst_n_6));
   pcie_controller_axi_basic_rx_pipeline rx_pipeline_inst
-       (.D({rx_null_gen_inst_n_0,rx_null_gen_inst_n_1}),
+       (.D(rx_null_gen_inst_n_4),
+        .DI({rx_pipeline_inst_n_6,rx_pipeline_inst_n_7,rx_pipeline_inst_n_8,rx_pipeline_inst_n_9}),
         .E(E),
         .Q(Q),
-        .S({rx_null_gen_inst_n_7,rx_null_gen_inst_n_8}),
+        .S({rx_pipeline_inst_n_151,rx_pipeline_inst_n_152,rx_pipeline_inst_n_153,rx_pipeline_inst_n_154}),
+        .SR(SR),
+        .cur_state(cur_state),
+        .cur_state_reg(rx_pipeline_inst_n_164),
+        .cur_state_reg_0(rx_null_gen_inst_n_7),
         .dsc_detect(dsc_detect),
-        .m_axis_rx_tkeep(m_axis_rx_tkeep),
-        .m_axis_rx_tlast(m_axis_rx_tlast),
+        .\m_axis_rx_tdata_reg[6]_0 ({rx_pipeline_inst_n_144,rx_pipeline_inst_n_145,rx_pipeline_inst_n_146,rx_pipeline_inst_n_147}),
+        .\m_axis_rx_tdata_reg[94]_0 ({rx_pipeline_inst_n_156,rx_pipeline_inst_n_157,rx_pipeline_inst_n_158,rx_pipeline_inst_n_159}),
+        .\m_axis_rx_tdata_reg[94]_1 ({rx_pipeline_inst_n_160,rx_pipeline_inst_n_161,rx_pipeline_inst_n_162}),
+        .\m_axis_rx_tdata_reg[9]_0 ({rx_pipeline_inst_n_148,rx_pipeline_inst_n_149,rx_pipeline_inst_n_150}),
         .m_axis_rx_tready(m_axis_rx_tready),
         .m_axis_rx_tuser(m_axis_rx_tuser),
+        .\m_axis_rx_tuser_reg[19]_0 (rx_null_gen_inst_n_6),
+        .\m_axis_rx_tuser_reg[20]_0 (rx_null_gen_inst_n_5),
+        .\m_axis_rx_tuser_reg[21]_0 (\m_axis_rx_tuser_reg[21] ),
         .m_axis_rx_tvalid_reg_0(m_axis_rx_tvalid_reg),
-        .new_pkt_len(new_pkt_len),
+        .next_state(next_state),
         .null_mux_sel(null_mux_sel),
-        .null_mux_sel_reg_0(rx_null_gen_inst_n_5),
-        .pcie_block_i(rx_pipeline_inst_n_73),
-        .pcie_block_i_0(rx_pipeline_inst_n_74),
+        .null_mux_sel_reg_0(rx_null_gen_inst_n_1),
         .pipe_userclk2_in(pipe_userclk2_in),
         .reg_dsc_detect_reg_0(reg_dsc_detect_reg),
-        .\reg_tkeep_reg[4]_0 (rx_null_gen_inst_n_3),
-        .reg_tlast_reg_0(rx_null_gen_inst_n_6),
         .rsrc_rdy_filtered(rsrc_rdy_filtered),
         .trn_in_packet(trn_in_packet),
         .trn_in_packet_reg_0(trn_in_packet_reg),
         .trn_rbar_hit(trn_rbar_hit),
-        .\trn_rbar_hit_prev_reg[0]_0 (\trn_rbar_hit_prev_reg[0] ),
         .trn_rd(trn_rd),
         .trn_rdst_rdy_reg_0(rx_null_gen_inst_n_2),
-        .trn_rdst_rdy_reg_1(rx_null_gen_inst_n_4),
+        .trn_rdst_rdy_reg_1(rx_null_gen_inst_n_3),
         .trn_recrc_err(trn_recrc_err),
         .trn_reof(trn_reof),
         .trn_rerrfwd(trn_rerrfwd),
@@ -1376,66 +1411,93 @@ module pcie_controller_axi_basic_rx
         .trn_rsrc_dsc(trn_rsrc_dsc),
         .trn_rsrc_dsc_d(trn_rsrc_dsc_d),
         .trn_rsrc_dsc_prev0(trn_rsrc_dsc_prev0),
-        .user_reset_out_reg(rx_pipeline_inst_n_8));
+        .user_reset_out_reg(rx_pipeline_inst_n_155),
+        .user_reset_out_reg_0(rx_pipeline_inst_n_165));
 endmodule
 
 module pcie_controller_axi_basic_rx_null_gen
-   (D,
-    \reg_tkeep[4]_i_7_0 ,
-    \reg_pkt_len_counter_reg[3]_0 ,
-    \reg_pkt_len_counter_reg[0]_0 ,
+   (cur_state,
     null_mux_sel_reg,
+    \m_axis_rx_tuser[21]_i_9_0 ,
+    \reg_pkt_len_counter_reg[0]_0 ,
+    D,
     null_mux_sel_reg_0,
-    S,
-    cur_state_reg_0,
+    user_reset_out_reg,
+    \reg_pkt_len_counter_reg[2]_0 ,
+    SR,
+    next_state,
     pipe_userclk2_in,
-    null_mux_sel,
-    \m_axis_rx_tuser_reg[19] ,
-    new_pkt_len,
+    DI,
+    S,
+    \reg_pkt_len_counter_reg[7]_0 ,
+    \reg_pkt_len_counter_reg[7]_1 ,
+    \reg_pkt_len_counter_reg[11]_0 ,
+    \reg_pkt_len_counter_reg[11]_1 ,
     m_axis_rx_tready,
+    null_mux_sel,
     null_mux_sel_reg_1,
-    cur_state_reg_1,
-    m_axis_rx_tuser,
     \m_axis_rx_tuser_reg[21] ,
-    Q);
-  output [1:0]D;
-  output \reg_tkeep[4]_i_7_0 ;
-  output \reg_pkt_len_counter_reg[3]_0 ;
-  output \reg_pkt_len_counter_reg[0]_0 ;
+    \reg_pkt_len_counter_reg[10]_0 );
+  output cur_state;
   output null_mux_sel_reg;
+  output \m_axis_rx_tuser[21]_i_9_0 ;
+  output \reg_pkt_len_counter_reg[0]_0 ;
+  output [0:0]D;
   output null_mux_sel_reg_0;
-  output [1:0]S;
-  input cur_state_reg_0;
+  output user_reset_out_reg;
+  output \reg_pkt_len_counter_reg[2]_0 ;
+  input [0:0]SR;
+  input next_state;
   input pipe_userclk2_in;
-  input null_mux_sel;
-  input \m_axis_rx_tuser_reg[19] ;
-  input [10:0]new_pkt_len;
+  input [3:0]DI;
+  input [3:0]S;
+  input [3:0]\reg_pkt_len_counter_reg[7]_0 ;
+  input [3:0]\reg_pkt_len_counter_reg[7]_1 ;
+  input [2:0]\reg_pkt_len_counter_reg[11]_0 ;
+  input [2:0]\reg_pkt_len_counter_reg[11]_1 ;
   input m_axis_rx_tready;
+  input null_mux_sel;
   input null_mux_sel_reg_1;
-  input cur_state_reg_1;
-  input [0:0]m_axis_rx_tuser;
   input \m_axis_rx_tuser_reg[21] ;
-  input [4:0]Q;
+  input \reg_pkt_len_counter_reg[10]_0 ;
 
-  wire [1:0]D;
-  wire [4:0]Q;
-  wire [1:0]S;
+  wire [0:0]D;
+  wire [3:0]DI;
+  wire [3:0]S;
+  wire [0:0]SR;
   wire cur_state;
-  wire cur_state_reg_0;
-  wire cur_state_reg_1;
+  wire cur_state_i_4_n_0;
+  wire cur_state_i_5_n_0;
   wire m_axis_rx_tready;
-  wire [0:0]m_axis_rx_tuser;
-  wire \m_axis_rx_tuser_reg[19] ;
+  wire \m_axis_rx_tuser[21]_i_3_n_0 ;
+  wire \m_axis_rx_tuser[21]_i_6_n_0 ;
+  wire \m_axis_rx_tuser[21]_i_7_n_0 ;
+  wire \m_axis_rx_tuser[21]_i_8_n_0 ;
+  wire \m_axis_rx_tuser[21]_i_9_0 ;
+  wire \m_axis_rx_tuser[21]_i_9_n_0 ;
   wire \m_axis_rx_tuser_reg[21] ;
   wire [10:0]new_pkt_len;
+  wire new_pkt_len_carry__0_n_0;
+  wire new_pkt_len_carry__0_n_1;
+  wire new_pkt_len_carry__0_n_2;
+  wire new_pkt_len_carry__0_n_3;
+  wire new_pkt_len_carry__1_n_1;
+  wire new_pkt_len_carry__1_n_2;
+  wire new_pkt_len_carry__1_n_3;
+  wire new_pkt_len_carry__1_n_4;
+  wire new_pkt_len_carry_n_0;
+  wire new_pkt_len_carry_n_1;
+  wire new_pkt_len_carry_n_2;
+  wire new_pkt_len_carry_n_3;
   wire next_state;
   wire null_mux_sel;
   wire null_mux_sel_reg;
   wire null_mux_sel_reg_0;
   wire null_mux_sel_reg_1;
   wire pipe_userclk2_in;
-  wire [11:1]pkt_len_counter;
-  wire [1:0]pkt_len_counter_0;
+  wire [11:3]pkt_len_counter;
+  wire [2:0]pkt_len_counter_0;
+  wire [11:2]pkt_len_counter__0;
   wire pkt_len_counter_dec__0_carry__0_i_1_n_0;
   wire pkt_len_counter_dec__0_carry__0_i_2_n_0;
   wire pkt_len_counter_dec__0_carry__0_i_3_n_0;
@@ -1446,8 +1508,6 @@ module pcie_controller_axi_basic_rx_null_gen
   wire pkt_len_counter_dec__0_carry__0_n_3;
   wire pkt_len_counter_dec__0_carry__1_i_1_n_0;
   wire pkt_len_counter_dec__0_carry__1_i_2_n_0;
-  wire pkt_len_counter_dec__0_carry__1_i_3_n_0;
-  wire pkt_len_counter_dec__0_carry__1_n_2;
   wire pkt_len_counter_dec__0_carry__1_n_3;
   wire pkt_len_counter_dec__0_carry_i_1_n_0;
   wire pkt_len_counter_dec__0_carry_i_2_n_0;
@@ -1460,112 +1520,211 @@ module pcie_controller_axi_basic_rx_null_gen
   wire pkt_len_counter_dec__0_carry_n_3;
   wire [11:0]reg_pkt_len_counter;
   wire \reg_pkt_len_counter[11]_i_2_n_0 ;
-  wire \reg_pkt_len_counter[11]_i_3_n_0 ;
-  wire \reg_pkt_len_counter[11]_i_4_n_0 ;
   wire \reg_pkt_len_counter_reg[0]_0 ;
-  wire \reg_pkt_len_counter_reg[3]_0 ;
-  wire \reg_tkeep[4]_i_4_n_0 ;
-  wire \reg_tkeep[4]_i_5_n_0 ;
-  wire \reg_tkeep[4]_i_6_n_0 ;
-  wire \reg_tkeep[4]_i_7_0 ;
-  wire \reg_tkeep[4]_i_7_n_0 ;
-  wire [11:2]sel0;
-  wire [3:2]NLW_pkt_len_counter_dec__0_carry__1_CO_UNCONNECTED;
-  wire [3:3]NLW_pkt_len_counter_dec__0_carry__1_O_UNCONNECTED;
+  wire \reg_pkt_len_counter_reg[10]_0 ;
+  wire [2:0]\reg_pkt_len_counter_reg[11]_0 ;
+  wire [2:0]\reg_pkt_len_counter_reg[11]_1 ;
+  wire \reg_pkt_len_counter_reg[2]_0 ;
+  wire [3:0]\reg_pkt_len_counter_reg[7]_0 ;
+  wire [3:0]\reg_pkt_len_counter_reg[7]_1 ;
+  wire user_reset_out_reg;
+  wire [3:3]NLW_new_pkt_len_carry__1_CO_UNCONNECTED;
+  wire [3:1]NLW_pkt_len_counter_dec__0_carry__1_CO_UNCONNECTED;
+  wire [3:2]NLW_pkt_len_counter_dec__0_carry__1_O_UNCONNECTED;
 
   LUT5 #(
-    .INIT(32'hAAAAAAEA)) 
-    cur_state_i_1
-       (.I0(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I1(m_axis_rx_tready),
-        .I2(cur_state_reg_1),
-        .I3(cur_state),
-        .I4(m_axis_rx_tuser),
-        .O(next_state));
+    .INIT(32'h02020222)) 
+    cur_state_i_2
+       (.I0(cur_state_i_4_n_0),
+        .I1(cur_state_i_5_n_0),
+        .I2(reg_pkt_len_counter[2]),
+        .I3(reg_pkt_len_counter[0]),
+        .I4(reg_pkt_len_counter[1]),
+        .O(\reg_pkt_len_counter_reg[2]_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    cur_state_i_4
+       (.I0(reg_pkt_len_counter[8]),
+        .I1(reg_pkt_len_counter[6]),
+        .I2(reg_pkt_len_counter[3]),
+        .I3(reg_pkt_len_counter[9]),
+        .I4(reg_pkt_len_counter[7]),
+        .I5(reg_pkt_len_counter[5]),
+        .O(cur_state_i_4_n_0));
+  LUT4 #(
+    .INIT(16'hFFEF)) 
+    cur_state_i_5
+       (.I0(reg_pkt_len_counter[10]),
+        .I1(reg_pkt_len_counter[11]),
+        .I2(m_axis_rx_tready),
+        .I3(reg_pkt_len_counter[4]),
+        .O(cur_state_i_5_n_0));
   FDRE cur_state_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(next_state),
         .Q(cur_state),
-        .R(cur_state_reg_0));
-  LUT6 #(
-    .INIT(64'h5555555500000400)) 
-    \m_axis_rx_tuser[19]_i_1 
-       (.I0(cur_state_reg_0),
-        .I1(\reg_tkeep[4]_i_7_0 ),
-        .I2(\reg_pkt_len_counter_reg[3]_0 ),
-        .I3(null_mux_sel),
-        .I4(pkt_len_counter_0[0]),
-        .I5(\m_axis_rx_tuser_reg[19] ),
-        .O(D[0]));
-  LUT6 #(
-    .INIT(64'h00000000FF80FF08)) 
-    \m_axis_rx_tuser[21]_i_2 
-       (.I0(\reg_tkeep[4]_i_7_0 ),
-        .I1(null_mux_sel),
-        .I2(\reg_pkt_len_counter_reg[3]_0 ),
-        .I3(\m_axis_rx_tuser_reg[21] ),
-        .I4(pkt_len_counter_0[0]),
-        .I5(cur_state_reg_0),
-        .O(D[1]));
-  LUT6 #(
-    .INIT(64'h0000000077F7FFFF)) 
-    null_mux_sel_i_1
-       (.I0(\reg_tkeep[4]_i_7_0 ),
+        .R(SR));
+  LUT5 #(
+    .INIT(32'hFFFBFBFF)) 
+    \m_axis_rx_tuser[19]_i_2 
+       (.I0(SR),
         .I1(null_mux_sel),
         .I2(pkt_len_counter_0[0]),
-        .I3(\reg_pkt_len_counter_reg[3]_0 ),
-        .I4(m_axis_rx_tready),
-        .I5(null_mux_sel_reg_1),
+        .I3(pkt_len_counter_0[2]),
+        .I4(pkt_len_counter_0[1]),
+        .O(user_reset_out_reg));
+  LUT5 #(
+    .INIT(32'hFFFDDFFF)) 
+    \m_axis_rx_tuser[20]_i_2 
+       (.I0(null_mux_sel),
+        .I1(SR),
+        .I2(pkt_len_counter_0[0]),
+        .I3(pkt_len_counter_0[1]),
+        .I4(pkt_len_counter_0[2]),
+        .O(null_mux_sel_reg_0));
+  LUT6 #(
+    .INIT(64'hFFFFFFFF40040000)) 
+    \m_axis_rx_tuser[21]_i_2 
+       (.I0(SR),
+        .I1(null_mux_sel),
+        .I2(\m_axis_rx_tuser[21]_i_3_n_0 ),
+        .I3(pkt_len_counter_0[2]),
+        .I4(\m_axis_rx_tuser[21]_i_9_0 ),
+        .I5(\m_axis_rx_tuser_reg[21] ),
+        .O(D));
+  LUT5 #(
+    .INIT(32'h00053305)) 
+    \m_axis_rx_tuser[21]_i_3 
+       (.I0(reg_pkt_len_counter[1]),
+        .I1(new_pkt_len[1]),
+        .I2(reg_pkt_len_counter[0]),
+        .I3(\reg_pkt_len_counter[11]_i_2_n_0 ),
+        .I4(new_pkt_len[0]),
+        .O(\m_axis_rx_tuser[21]_i_3_n_0 ));
+  LUT5 #(
+    .INIT(32'h00000001)) 
+    \m_axis_rx_tuser[21]_i_4 
+       (.I0(\m_axis_rx_tuser[21]_i_6_n_0 ),
+        .I1(pkt_len_counter[9]),
+        .I2(\m_axis_rx_tuser[21]_i_7_n_0 ),
+        .I3(\m_axis_rx_tuser[21]_i_8_n_0 ),
+        .I4(\m_axis_rx_tuser[21]_i_9_n_0 ),
+        .O(\m_axis_rx_tuser[21]_i_9_0 ));
+  LUT5 #(
+    .INIT(32'hFFFACCFA)) 
+    \m_axis_rx_tuser[21]_i_6 
+       (.I0(pkt_len_counter__0[5]),
+        .I1(new_pkt_len[5]),
+        .I2(pkt_len_counter__0[7]),
+        .I3(\reg_pkt_len_counter[11]_i_2_n_0 ),
+        .I4(new_pkt_len[7]),
+        .O(\m_axis_rx_tuser[21]_i_6_n_0 ));
+  LUT5 #(
+    .INIT(32'hFFFACCFA)) 
+    \m_axis_rx_tuser[21]_i_7 
+       (.I0(pkt_len_counter__0[3]),
+        .I1(new_pkt_len[3]),
+        .I2(pkt_len_counter__0[4]),
+        .I3(\reg_pkt_len_counter[11]_i_2_n_0 ),
+        .I4(new_pkt_len[4]),
+        .O(\m_axis_rx_tuser[21]_i_7_n_0 ));
+  LUT5 #(
+    .INIT(32'hFFFACCFA)) 
+    \m_axis_rx_tuser[21]_i_8 
+       (.I0(pkt_len_counter__0[11]),
+        .I1(new_pkt_len_carry__1_n_4),
+        .I2(pkt_len_counter__0[10]),
+        .I3(\reg_pkt_len_counter[11]_i_2_n_0 ),
+        .I4(new_pkt_len[10]),
+        .O(\m_axis_rx_tuser[21]_i_8_n_0 ));
+  LUT5 #(
+    .INIT(32'hFFFACCFA)) 
+    \m_axis_rx_tuser[21]_i_9 
+       (.I0(pkt_len_counter__0[8]),
+        .I1(new_pkt_len[8]),
+        .I2(pkt_len_counter__0[6]),
+        .I3(\reg_pkt_len_counter[11]_i_2_n_0 ),
+        .I4(new_pkt_len[6]),
+        .O(\m_axis_rx_tuser[21]_i_9_n_0 ));
+  CARRY4 new_pkt_len_carry
+       (.CI(1'b0),
+        .CO({new_pkt_len_carry_n_0,new_pkt_len_carry_n_1,new_pkt_len_carry_n_2,new_pkt_len_carry_n_3}),
+        .CYINIT(1'b0),
+        .DI(DI),
+        .O(new_pkt_len[3:0]),
+        .S(S));
+  CARRY4 new_pkt_len_carry__0
+       (.CI(new_pkt_len_carry_n_0),
+        .CO({new_pkt_len_carry__0_n_0,new_pkt_len_carry__0_n_1,new_pkt_len_carry__0_n_2,new_pkt_len_carry__0_n_3}),
+        .CYINIT(1'b0),
+        .DI(\reg_pkt_len_counter_reg[7]_0 ),
+        .O(new_pkt_len[7:4]),
+        .S(\reg_pkt_len_counter_reg[7]_1 ));
+  CARRY4 new_pkt_len_carry__1
+       (.CI(new_pkt_len_carry__0_n_0),
+        .CO({NLW_new_pkt_len_carry__1_CO_UNCONNECTED[3],new_pkt_len_carry__1_n_1,new_pkt_len_carry__1_n_2,new_pkt_len_carry__1_n_3}),
+        .CYINIT(1'b0),
+        .DI({1'b0,\reg_pkt_len_counter_reg[11]_0 }),
+        .O({new_pkt_len_carry__1_n_4,new_pkt_len[10:8]}),
+        .S({1'b1,\reg_pkt_len_counter_reg[11]_1 }));
+  LUT5 #(
+    .INIT(32'h0000DFFF)) 
+    null_mux_sel_i_1
+       (.I0(\m_axis_rx_tuser[21]_i_9_0 ),
+        .I1(\reg_pkt_len_counter_reg[0]_0 ),
+        .I2(null_mux_sel),
+        .I3(m_axis_rx_tready),
+        .I4(null_mux_sel_reg_1),
         .O(null_mux_sel_reg));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 pkt_len_counter_dec__0_carry
        (.CI(1'b0),
         .CO({pkt_len_counter_dec__0_carry_n_0,pkt_len_counter_dec__0_carry_n_1,pkt_len_counter_dec__0_carry_n_2,pkt_len_counter_dec__0_carry_n_3}),
         .CYINIT(1'b0),
-        .DI({reg_pkt_len_counter[3:2],pkt_len_counter_dec__0_carry_i_1_n_0,1'b0}),
-        .O(pkt_len_counter[4:1]),
+        .DI({reg_pkt_len_counter[4:3],pkt_len_counter_dec__0_carry_i_1_n_0,1'b0}),
+        .O(pkt_len_counter__0[5:2]),
         .S({pkt_len_counter_dec__0_carry_i_2_n_0,pkt_len_counter_dec__0_carry_i_3_n_0,pkt_len_counter_dec__0_carry_i_4_n_0,pkt_len_counter_dec__0_carry_i_5_n_0}));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 pkt_len_counter_dec__0_carry__0
        (.CI(pkt_len_counter_dec__0_carry_n_0),
         .CO({pkt_len_counter_dec__0_carry__0_n_0,pkt_len_counter_dec__0_carry__0_n_1,pkt_len_counter_dec__0_carry__0_n_2,pkt_len_counter_dec__0_carry__0_n_3}),
         .CYINIT(1'b0),
-        .DI(reg_pkt_len_counter[7:4]),
-        .O(pkt_len_counter[8:5]),
+        .DI(reg_pkt_len_counter[8:5]),
+        .O(pkt_len_counter__0[9:6]),
         .S({pkt_len_counter_dec__0_carry__0_i_1_n_0,pkt_len_counter_dec__0_carry__0_i_2_n_0,pkt_len_counter_dec__0_carry__0_i_3_n_0,pkt_len_counter_dec__0_carry__0_i_4_n_0}));
   LUT2 #(
     .INIT(4'h9)) 
     pkt_len_counter_dec__0_carry__0_i_1
-       (.I0(reg_pkt_len_counter[7]),
-        .I1(reg_pkt_len_counter[8]),
+       (.I0(reg_pkt_len_counter[8]),
+        .I1(reg_pkt_len_counter[9]),
         .O(pkt_len_counter_dec__0_carry__0_i_1_n_0));
   LUT2 #(
     .INIT(4'h9)) 
     pkt_len_counter_dec__0_carry__0_i_2
-       (.I0(reg_pkt_len_counter[6]),
-        .I1(reg_pkt_len_counter[7]),
+       (.I0(reg_pkt_len_counter[7]),
+        .I1(reg_pkt_len_counter[8]),
         .O(pkt_len_counter_dec__0_carry__0_i_2_n_0));
   LUT2 #(
     .INIT(4'h9)) 
     pkt_len_counter_dec__0_carry__0_i_3
-       (.I0(reg_pkt_len_counter[5]),
-        .I1(reg_pkt_len_counter[6]),
+       (.I0(reg_pkt_len_counter[6]),
+        .I1(reg_pkt_len_counter[7]),
         .O(pkt_len_counter_dec__0_carry__0_i_3_n_0));
   LUT2 #(
     .INIT(4'h9)) 
     pkt_len_counter_dec__0_carry__0_i_4
-       (.I0(reg_pkt_len_counter[4]),
-        .I1(reg_pkt_len_counter[5]),
+       (.I0(reg_pkt_len_counter[5]),
+        .I1(reg_pkt_len_counter[6]),
         .O(pkt_len_counter_dec__0_carry__0_i_4_n_0));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 pkt_len_counter_dec__0_carry__1
        (.CI(pkt_len_counter_dec__0_carry__0_n_0),
-        .CO({NLW_pkt_len_counter_dec__0_carry__1_CO_UNCONNECTED[3:2],pkt_len_counter_dec__0_carry__1_n_2,pkt_len_counter_dec__0_carry__1_n_3}),
+        .CO({NLW_pkt_len_counter_dec__0_carry__1_CO_UNCONNECTED[3:1],pkt_len_counter_dec__0_carry__1_n_3}),
         .CYINIT(1'b0),
-        .DI({1'b0,1'b0,reg_pkt_len_counter[9:8]}),
-        .O({NLW_pkt_len_counter_dec__0_carry__1_O_UNCONNECTED[3],pkt_len_counter[11:9]}),
-        .S({1'b0,pkt_len_counter_dec__0_carry__1_i_1_n_0,pkt_len_counter_dec__0_carry__1_i_2_n_0,pkt_len_counter_dec__0_carry__1_i_3_n_0}));
+        .DI({1'b0,1'b0,1'b0,reg_pkt_len_counter[9]}),
+        .O({NLW_pkt_len_counter_dec__0_carry__1_O_UNCONNECTED[3:2],pkt_len_counter__0[11:10]}),
+        .S({1'b0,1'b0,pkt_len_counter_dec__0_carry__1_i_1_n_0,pkt_len_counter_dec__0_carry__1_i_2_n_0}));
   LUT2 #(
     .INIT(4'h9)) 
     pkt_len_counter_dec__0_carry__1_i_1
@@ -1579,422 +1738,328 @@ module pcie_controller_axi_basic_rx_null_gen
         .I1(reg_pkt_len_counter[10]),
         .O(pkt_len_counter_dec__0_carry__1_i_2_n_0));
   LUT2 #(
-    .INIT(4'h9)) 
-    pkt_len_counter_dec__0_carry__1_i_3
-       (.I0(reg_pkt_len_counter[8]),
-        .I1(reg_pkt_len_counter[9]),
-        .O(pkt_len_counter_dec__0_carry__1_i_3_n_0));
-  LUT2 #(
     .INIT(4'hB)) 
     pkt_len_counter_dec__0_carry_i_1
-       (.I0(reg_pkt_len_counter[1]),
+       (.I0(reg_pkt_len_counter[2]),
         .I1(m_axis_rx_tready),
         .O(pkt_len_counter_dec__0_carry_i_1_n_0));
   LUT2 #(
     .INIT(4'h9)) 
     pkt_len_counter_dec__0_carry_i_2
-       (.I0(reg_pkt_len_counter[3]),
-        .I1(reg_pkt_len_counter[4]),
+       (.I0(reg_pkt_len_counter[4]),
+        .I1(reg_pkt_len_counter[5]),
         .O(pkt_len_counter_dec__0_carry_i_2_n_0));
   LUT2 #(
     .INIT(4'h9)) 
     pkt_len_counter_dec__0_carry_i_3
-       (.I0(reg_pkt_len_counter[2]),
-        .I1(reg_pkt_len_counter[3]),
+       (.I0(reg_pkt_len_counter[3]),
+        .I1(reg_pkt_len_counter[4]),
         .O(pkt_len_counter_dec__0_carry_i_3_n_0));
   LUT3 #(
     .INIT(8'hD2)) 
     pkt_len_counter_dec__0_carry_i_4
        (.I0(m_axis_rx_tready),
-        .I1(reg_pkt_len_counter[1]),
-        .I2(reg_pkt_len_counter[2]),
+        .I1(reg_pkt_len_counter[2]),
+        .I2(reg_pkt_len_counter[3]),
         .O(pkt_len_counter_dec__0_carry_i_4_n_0));
   LUT2 #(
     .INIT(4'h6)) 
     pkt_len_counter_dec__0_carry_i_5
-       (.I0(reg_pkt_len_counter[1]),
+       (.I0(reg_pkt_len_counter[2]),
         .I1(m_axis_rx_tready),
         .O(pkt_len_counter_dec__0_carry_i_5_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair412" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[0]_i_1 
-       (.I0(reg_pkt_len_counter[0]),
+       (.I0(new_pkt_len[0]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[0]),
+        .I2(reg_pkt_len_counter[0]),
         .O(pkt_len_counter_0[0]));
-  (* SOFT_HLUTNM = "soft_lutpair409" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[10]_i_1 
-       (.I0(pkt_len_counter[10]),
+       (.I0(new_pkt_len[10]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[10]),
-        .O(sel0[10]));
-  (* SOFT_HLUTNM = "soft_lutpair409" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \reg_pkt_len_counter[11]_i_1 
-       (.I0(pkt_len_counter[11]),
-        .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .O(sel0[11]));
-  LUT6 #(
-    .INIT(64'hAAAAAAA8AAAAAAAA)) 
-    \reg_pkt_len_counter[11]_i_2 
-       (.I0(cur_state),
-        .I1(reg_pkt_len_counter[3]),
-        .I2(reg_pkt_len_counter[8]),
-        .I3(reg_pkt_len_counter[7]),
-        .I4(\reg_pkt_len_counter[11]_i_3_n_0 ),
-        .I5(\reg_pkt_len_counter[11]_i_4_n_0 ),
-        .O(\reg_pkt_len_counter[11]_i_2_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFEF)) 
-    \reg_pkt_len_counter[11]_i_3 
-       (.I0(reg_pkt_len_counter[5]),
-        .I1(reg_pkt_len_counter[4]),
-        .I2(m_axis_rx_tready),
-        .I3(reg_pkt_len_counter[9]),
-        .O(\reg_pkt_len_counter[11]_i_3_n_0 ));
-  LUT6 #(
-    .INIT(64'h0000000000000007)) 
-    \reg_pkt_len_counter[11]_i_4 
-       (.I0(reg_pkt_len_counter[0]),
-        .I1(reg_pkt_len_counter[1]),
-        .I2(reg_pkt_len_counter[2]),
-        .I3(reg_pkt_len_counter[6]),
-        .I4(reg_pkt_len_counter[10]),
-        .I5(reg_pkt_len_counter[11]),
-        .O(\reg_pkt_len_counter[11]_i_4_n_0 ));
+        .I2(pkt_len_counter__0[10]),
+        .O(pkt_len_counter[10]));
   LUT3 #(
-    .INIT(8'hE2)) 
+    .INIT(8'hB8)) 
+    \reg_pkt_len_counter[11]_i_1 
+       (.I0(new_pkt_len_carry__1_n_4),
+        .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
+        .I2(pkt_len_counter__0[11]),
+        .O(pkt_len_counter[11]));
+  LUT6 #(
+    .INIT(64'h001F0000FFFFFFFF)) 
+    \reg_pkt_len_counter[11]_i_2 
+       (.I0(reg_pkt_len_counter[1]),
+        .I1(reg_pkt_len_counter[0]),
+        .I2(reg_pkt_len_counter[2]),
+        .I3(cur_state_i_5_n_0),
+        .I4(cur_state_i_4_n_0),
+        .I5(\reg_pkt_len_counter_reg[10]_0 ),
+        .O(\reg_pkt_len_counter[11]_i_2_n_0 ));
+  LUT3 #(
+    .INIT(8'hB8)) 
     \reg_pkt_len_counter[1]_i_1 
        (.I0(new_pkt_len[1]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(pkt_len_counter[1]),
+        .I2(reg_pkt_len_counter[1]),
         .O(pkt_len_counter_0[1]));
-  (* SOFT_HLUTNM = "soft_lutpair408" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[2]_i_1 
-       (.I0(pkt_len_counter[2]),
+       (.I0(new_pkt_len[2]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[2]),
-        .O(sel0[2]));
-  (* SOFT_HLUTNM = "soft_lutpair412" *) 
+        .I2(pkt_len_counter__0[2]),
+        .O(pkt_len_counter_0[2]));
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[3]_i_1 
-       (.I0(pkt_len_counter[3]),
+       (.I0(new_pkt_len[3]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[3]),
-        .O(sel0[3]));
-  LUT4 #(
-    .INIT(16'h1EEE)) 
-    \reg_pkt_len_counter[3]_i_7 
-       (.I0(Q[2]),
-        .I1(Q[3]),
-        .I2(Q[1]),
-        .I3(Q[4]),
-        .O(S[1]));
-  LUT4 #(
-    .INIT(16'h6999)) 
-    \reg_pkt_len_counter[3]_i_8 
-       (.I0(Q[3]),
-        .I1(Q[2]),
-        .I2(Q[4]),
-        .I3(Q[0]),
-        .O(S[0]));
-  (* SOFT_HLUTNM = "soft_lutpair406" *) 
+        .I2(pkt_len_counter__0[3]),
+        .O(pkt_len_counter[3]));
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[4]_i_1 
-       (.I0(pkt_len_counter[4]),
+       (.I0(new_pkt_len[4]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[4]),
-        .O(sel0[4]));
-  (* SOFT_HLUTNM = "soft_lutpair410" *) 
+        .I2(pkt_len_counter__0[4]),
+        .O(pkt_len_counter[4]));
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[5]_i_1 
-       (.I0(pkt_len_counter[5]),
+       (.I0(new_pkt_len[5]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[5]),
-        .O(sel0[5]));
-  (* SOFT_HLUTNM = "soft_lutpair407" *) 
+        .I2(pkt_len_counter__0[5]),
+        .O(pkt_len_counter[5]));
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[6]_i_1 
-       (.I0(pkt_len_counter[6]),
+       (.I0(new_pkt_len[6]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[6]),
-        .O(sel0[6]));
-  (* SOFT_HLUTNM = "soft_lutpair411" *) 
+        .I2(pkt_len_counter__0[6]),
+        .O(pkt_len_counter[6]));
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[7]_i_1 
-       (.I0(pkt_len_counter[7]),
+       (.I0(new_pkt_len[7]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[7]),
-        .O(sel0[7]));
-  (* SOFT_HLUTNM = "soft_lutpair405" *) 
+        .I2(pkt_len_counter__0[7]),
+        .O(pkt_len_counter[7]));
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[8]_i_1 
-       (.I0(pkt_len_counter[8]),
+       (.I0(new_pkt_len[8]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[8]),
-        .O(sel0[8]));
-  (* SOFT_HLUTNM = "soft_lutpair410" *) 
+        .I2(pkt_len_counter__0[8]),
+        .O(pkt_len_counter[8]));
   LUT3 #(
     .INIT(8'hB8)) 
     \reg_pkt_len_counter[9]_i_1 
-       (.I0(pkt_len_counter[9]),
+       (.I0(new_pkt_len[9]),
         .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[9]),
-        .O(sel0[9]));
+        .I2(pkt_len_counter__0[9]),
+        .O(pkt_len_counter[9]));
   FDRE \reg_pkt_len_counter_reg[0] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(pkt_len_counter_0[0]),
         .Q(reg_pkt_len_counter[0]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[10] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[10]),
+        .D(pkt_len_counter[10]),
         .Q(reg_pkt_len_counter[10]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[11] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[11]),
+        .D(pkt_len_counter[11]),
         .Q(reg_pkt_len_counter[11]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[1] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(pkt_len_counter_0[1]),
         .Q(reg_pkt_len_counter[1]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[2] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[2]),
+        .D(pkt_len_counter_0[2]),
         .Q(reg_pkt_len_counter[2]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[3] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[3]),
+        .D(pkt_len_counter[3]),
         .Q(reg_pkt_len_counter[3]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[4] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[4]),
+        .D(pkt_len_counter[4]),
         .Q(reg_pkt_len_counter[4]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[5] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[5]),
+        .D(pkt_len_counter[5]),
         .Q(reg_pkt_len_counter[5]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[6] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[6]),
+        .D(pkt_len_counter[6]),
         .Q(reg_pkt_len_counter[6]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[7] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[7]),
+        .D(pkt_len_counter[7]),
         .Q(reg_pkt_len_counter[7]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[8] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[8]),
+        .D(pkt_len_counter[8]),
         .Q(reg_pkt_len_counter[8]),
-        .R(cur_state_reg_0));
+        .R(SR));
   FDRE \reg_pkt_len_counter_reg[9] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(sel0[9]),
+        .D(pkt_len_counter[9]),
         .Q(reg_pkt_len_counter[9]),
-        .R(cur_state_reg_0));
+        .R(SR));
   LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    \reg_tkeep[4]_i_2 
-       (.I0(sel0[11]),
-        .I1(sel0[10]),
-        .I2(\reg_tkeep[4]_i_4_n_0 ),
-        .I3(\reg_tkeep[4]_i_5_n_0 ),
-        .I4(\reg_tkeep[4]_i_6_n_0 ),
-        .I5(\reg_tkeep[4]_i_7_n_0 ),
-        .O(\reg_tkeep[4]_i_7_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair411" *) 
-  LUT3 #(
-    .INIT(8'h47)) 
-    \reg_tkeep[4]_i_3 
-       (.I0(pkt_len_counter[1]),
-        .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[1]),
-        .O(\reg_pkt_len_counter_reg[3]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair405" *) 
-  LUT5 #(
-    .INIT(32'hFFFACCFA)) 
-    \reg_tkeep[4]_i_4 
-       (.I0(new_pkt_len[8]),
-        .I1(pkt_len_counter[8]),
-        .I2(new_pkt_len[9]),
-        .I3(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I4(pkt_len_counter[9]),
-        .O(\reg_tkeep[4]_i_4_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair407" *) 
-  LUT5 #(
-    .INIT(32'hFFFACCFA)) 
-    \reg_tkeep[4]_i_5 
-       (.I0(new_pkt_len[6]),
-        .I1(pkt_len_counter[6]),
-        .I2(new_pkt_len[7]),
-        .I3(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I4(pkt_len_counter[7]),
-        .O(\reg_tkeep[4]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair406" *) 
-  LUT5 #(
-    .INIT(32'hFFFACCFA)) 
-    \reg_tkeep[4]_i_6 
-       (.I0(new_pkt_len[4]),
-        .I1(pkt_len_counter[4]),
-        .I2(new_pkt_len[5]),
-        .I3(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I4(pkt_len_counter[5]),
-        .O(\reg_tkeep[4]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair408" *) 
-  LUT5 #(
-    .INIT(32'hFFFACCFA)) 
-    \reg_tkeep[4]_i_7 
-       (.I0(new_pkt_len[2]),
-        .I1(pkt_len_counter[2]),
-        .I2(new_pkt_len[3]),
-        .I3(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I4(pkt_len_counter[3]),
-        .O(\reg_tkeep[4]_i_7_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFFB000)) 
-    reg_tlast_i_1
-       (.I0(\reg_pkt_len_counter_reg[3]_0 ),
-        .I1(pkt_len_counter_0[0]),
-        .I2(null_mux_sel),
-        .I3(\reg_tkeep[4]_i_7_0 ),
-        .I4(\m_axis_rx_tuser_reg[21] ),
-        .O(null_mux_sel_reg_0));
-  LUT6 #(
-    .INIT(64'hB8308800FFFFFFFF)) 
-    trn_rdst_rdy_i_3
-       (.I0(pkt_len_counter[1]),
-        .I1(\reg_pkt_len_counter[11]_i_2_n_0 ),
-        .I2(new_pkt_len[1]),
+    .INIT(64'hAAAA8A8AAAA08A80)) 
+    trn_rdst_rdy_i_2
+       (.I0(pkt_len_counter_0[2]),
+        .I1(new_pkt_len[0]),
+        .I2(\reg_pkt_len_counter[11]_i_2_n_0 ),
         .I3(reg_pkt_len_counter[0]),
-        .I4(new_pkt_len[0]),
-        .I5(null_mux_sel),
+        .I4(new_pkt_len[1]),
+        .I5(reg_pkt_len_counter[1]),
         .O(\reg_pkt_len_counter_reg[0]_0 ));
 endmodule
 
 module pcie_controller_axi_basic_rx_pipeline
-   (E,
-    trn_rsrc_dsc_d,
+   (trn_rsrc_dsc_d,
     m_axis_rx_tvalid_reg_0,
-    m_axis_rx_tkeep,
-    m_axis_rx_tlast,
+    E,
     null_mux_sel,
     trn_in_packet,
     reg_dsc_detect_reg_0,
-    user_reset_out_reg,
+    DI,
     Q,
-    pcie_block_i,
-    pcie_block_i_0,
-    new_pkt_len,
+    \m_axis_rx_tuser_reg[21]_0 ,
+    \m_axis_rx_tdata_reg[6]_0 ,
+    \m_axis_rx_tdata_reg[9]_0 ,
+    S,
+    user_reset_out_reg,
+    \m_axis_rx_tdata_reg[94]_0 ,
+    \m_axis_rx_tdata_reg[94]_1 ,
+    next_state,
+    cur_state_reg,
+    user_reset_out_reg_0,
     m_axis_rx_tuser,
-    \trn_rbar_hit_prev_reg[0]_0 ,
+    SR,
     pipe_userclk2_in,
-    trn_rrem,
     trn_rsrc_dsc,
     rsrc_rdy_filtered,
-    trn_reof,
-    reg_tlast_reg_0,
-    trn_rsrc_dsc_prev0,
     trn_rsof,
+    trn_rsrc_dsc_prev0,
     trn_recrc_err,
     trn_rerrfwd,
+    trn_reof,
     null_mux_sel_reg_0,
     trn_in_packet_reg_0,
     m_axis_rx_tready,
+    trn_rrem,
     dsc_detect,
     trn_rdst_rdy_reg_0,
     trn_rdst_rdy_reg_1,
-    \reg_tkeep_reg[4]_0 ,
+    cur_state_reg_0,
+    cur_state,
+    \m_axis_rx_tuser_reg[20]_0 ,
+    \m_axis_rx_tuser_reg[19]_0 ,
     trn_rd,
     trn_rbar_hit,
-    S,
     D);
-  output [0:0]E;
   output trn_rsrc_dsc_d;
   output m_axis_rx_tvalid_reg_0;
-  output [0:0]m_axis_rx_tkeep;
-  output m_axis_rx_tlast;
+  output [0:0]E;
   output null_mux_sel;
   output trn_in_packet;
   output reg_dsc_detect_reg_0;
+  output [3:0]DI;
+  output [127:0]Q;
+  output [5:0]\m_axis_rx_tuser_reg[21]_0 ;
+  output [3:0]\m_axis_rx_tdata_reg[6]_0 ;
+  output [2:0]\m_axis_rx_tdata_reg[9]_0 ;
+  output [3:0]S;
   output user_reset_out_reg;
-  output [63:0]Q;
-  output pcie_block_i;
-  output pcie_block_i_0;
-  output [10:0]new_pkt_len;
-  output [12:0]m_axis_rx_tuser;
-  input \trn_rbar_hit_prev_reg[0]_0 ;
+  output [3:0]\m_axis_rx_tdata_reg[94]_0 ;
+  output [2:0]\m_axis_rx_tdata_reg[94]_1 ;
+  output next_state;
+  output cur_state_reg;
+  output user_reset_out_reg_0;
+  output [8:0]m_axis_rx_tuser;
+  input [0:0]SR;
   input pipe_userclk2_in;
-  input [0:0]trn_rrem;
   input trn_rsrc_dsc;
   input rsrc_rdy_filtered;
-  input trn_reof;
-  input reg_tlast_reg_0;
-  input trn_rsrc_dsc_prev0;
   input trn_rsof;
+  input trn_rsrc_dsc_prev0;
   input trn_recrc_err;
   input trn_rerrfwd;
+  input trn_reof;
   input null_mux_sel_reg_0;
   input trn_in_packet_reg_0;
   input m_axis_rx_tready;
+  input [1:0]trn_rrem;
   input dsc_detect;
   input trn_rdst_rdy_reg_0;
   input trn_rdst_rdy_reg_1;
-  input \reg_tkeep_reg[4]_0 ;
-  input [63:0]trn_rd;
+  input cur_state_reg_0;
+  input cur_state;
+  input \m_axis_rx_tuser_reg[20]_0 ;
+  input \m_axis_rx_tuser_reg[19]_0 ;
+  input [127:0]trn_rd;
   input [6:0]trn_rbar_hit;
-  input [1:0]S;
-  input [1:0]D;
+  input [0:0]D;
 
-  wire [1:0]D;
+  wire [0:0]D;
+  wire [3:0]DI;
   wire [0:0]E;
-  wire [63:0]Q;
-  wire [1:0]S;
+  wire [127:0]Q;
+  wire [3:0]S;
+  wire [0:0]SR;
+  wire cur_state;
+  wire cur_state_i_3_n_0;
+  wire cur_state_reg;
+  wire cur_state_reg_0;
   wire data_hold;
   wire data_prev;
   wire dsc_detect;
-  wire \m_axis_rx_tdata[63]_i_1_n_0 ;
-  wire [0:0]m_axis_rx_tkeep;
-  wire m_axis_rx_tlast;
+  wire \m_axis_rx_tdata[127]_i_1_n_0 ;
+  wire [3:0]\m_axis_rx_tdata_reg[6]_0 ;
+  wire [3:0]\m_axis_rx_tdata_reg[94]_0 ;
+  wire [2:0]\m_axis_rx_tdata_reg[94]_1 ;
+  wire [2:0]\m_axis_rx_tdata_reg[9]_0 ;
   wire m_axis_rx_tready;
-  wire [12:0]m_axis_rx_tuser;
+  wire [8:0]m_axis_rx_tuser;
   wire \m_axis_rx_tuser[0]_i_1_n_0 ;
+  wire \m_axis_rx_tuser[13]_i_1_n_0 ;
   wire \m_axis_rx_tuser[14]_i_1_n_0 ;
-  wire \m_axis_rx_tuser[14]_i_2_n_0 ;
   wire \m_axis_rx_tuser[18]_i_1_n_0 ;
+  wire \m_axis_rx_tuser[19]_i_1_n_0 ;
   wire \m_axis_rx_tuser[1]_i_1_n_0 ;
+  wire \m_axis_rx_tuser[20]_i_1_n_0 ;
+  wire \m_axis_rx_tuser[20]_i_3_n_0 ;
   wire \m_axis_rx_tuser[21]_i_1_n_0 ;
   wire \m_axis_rx_tuser[2]_i_1_n_0 ;
   wire \m_axis_rx_tuser[3]_i_1_n_0 ;
@@ -2003,48 +2068,29 @@ module pcie_controller_axi_basic_rx_pipeline
   wire \m_axis_rx_tuser[6]_i_1_n_0 ;
   wire \m_axis_rx_tuser[7]_i_1_n_0 ;
   wire \m_axis_rx_tuser[8]_i_1_n_0 ;
+  wire \m_axis_rx_tuser[8]_i_2_n_0 ;
+  wire \m_axis_rx_tuser_reg[19]_0 ;
+  wire \m_axis_rx_tuser_reg[20]_0 ;
+  wire [5:0]\m_axis_rx_tuser_reg[21]_0 ;
   wire m_axis_rx_tvalid_i_1_n_0;
   wire m_axis_rx_tvalid_reg_0;
-  wire [10:0]new_pkt_len;
+  wire new_pkt_len_carry_i_9_n_0;
+  wire next_state;
   wire null_mux_sel;
   wire null_mux_sel_reg_0;
-  wire [63:0]p_1_in;
-  wire [1:0]packet_overhead;
-  wire pcie_block_i;
-  wire pcie_block_i_0;
+  wire [127:0]p_1_in;
   wire pipe_userclk2_in;
   wire reg_dsc_detect_i_1_n_0;
   wire reg_dsc_detect_reg_0;
-  wire \reg_pkt_len_counter[10]_i_3_n_0 ;
-  wire \reg_pkt_len_counter[10]_i_4_n_0 ;
-  wire \reg_pkt_len_counter[3]_i_5_n_0 ;
-  wire \reg_pkt_len_counter[3]_i_6_n_0 ;
-  wire \reg_pkt_len_counter[7]_i_3_n_0 ;
-  wire \reg_pkt_len_counter[7]_i_4_n_0 ;
-  wire \reg_pkt_len_counter[7]_i_5_n_0 ;
-  wire \reg_pkt_len_counter[7]_i_6_n_0 ;
-  wire \reg_pkt_len_counter_reg[10]_i_2_n_3 ;
-  wire \reg_pkt_len_counter_reg[3]_i_2_n_0 ;
-  wire \reg_pkt_len_counter_reg[3]_i_2_n_1 ;
-  wire \reg_pkt_len_counter_reg[3]_i_2_n_2 ;
-  wire \reg_pkt_len_counter_reg[3]_i_2_n_3 ;
-  wire \reg_pkt_len_counter_reg[7]_i_2_n_0 ;
-  wire \reg_pkt_len_counter_reg[7]_i_2_n_1 ;
-  wire \reg_pkt_len_counter_reg[7]_i_2_n_2 ;
-  wire \reg_pkt_len_counter_reg[7]_i_2_n_3 ;
-  wire [7:7]reg_tkeep;
-  wire \reg_tkeep_reg[4]_0 ;
-  wire reg_tlast_reg_0;
   wire rsrc_rdy_filtered;
   wire trn_in_packet;
   wire trn_in_packet_reg_0;
   wire [6:0]trn_rbar_hit;
   wire [6:0]trn_rbar_hit_prev;
-  wire \trn_rbar_hit_prev_reg[0]_0 ;
-  wire [63:0]trn_rd;
-  wire [63:0]trn_rd_prev;
+  wire [127:0]trn_rd;
+  wire [127:0]trn_rd_prev;
   wire trn_rdst_rdy_i_1_n_0;
-  wire trn_rdst_rdy_i_2_n_0;
+  wire trn_rdst_rdy_i_3_n_0;
   wire trn_rdst_rdy_reg_0;
   wire trn_rdst_rdy_reg_1;
   wire trn_recrc_err;
@@ -2053,8 +2099,8 @@ module pcie_controller_axi_basic_rx_pipeline
   wire trn_reof_prev;
   wire trn_rerrfwd;
   wire trn_rerrfwd_prev;
-  wire [0:0]trn_rrem;
-  wire [0:0]trn_rrem_prev;
+  wire [1:0]trn_rrem;
+  wire [1:0]trn_rrem_prev;
   wire trn_rsof;
   wire trn_rsof_prev;
   wire trn_rsrc_dsc;
@@ -2063,9 +2109,24 @@ module pcie_controller_axi_basic_rx_pipeline
   wire trn_rsrc_dsc_prev0;
   wire trn_rsrc_rdy_prev;
   wire user_reset_out_reg;
-  wire [3:1]\NLW_reg_pkt_len_counter_reg[10]_i_2_CO_UNCONNECTED ;
-  wire [3:2]\NLW_reg_pkt_len_counter_reg[10]_i_2_O_UNCONNECTED ;
+  wire user_reset_out_reg_0;
 
+  LUT6 #(
+    .INIT(64'h0F22FF220F000F00)) 
+    cur_state_i_1
+       (.I0(m_axis_rx_tready),
+        .I1(\m_axis_rx_tuser_reg[21]_0 [5]),
+        .I2(cur_state_reg_0),
+        .I3(cur_state),
+        .I4(cur_state_i_3_n_0),
+        .I5(m_axis_rx_tvalid_reg_0),
+        .O(next_state));
+  LUT2 #(
+    .INIT(4'h7)) 
+    cur_state_i_3
+       (.I0(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I1(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .O(cur_state_i_3_n_0));
   LUT2 #(
     .INIT(4'h2)) 
     data_prev_i_1
@@ -2077,134 +2138,361 @@ module pcie_controller_axi_basic_rx_pipeline
         .CE(1'b1),
         .D(data_hold),
         .Q(data_prev),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair441" *) 
+        .R(SR));
+  (* SOFT_HLUTNM = "soft_lutpair448" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[0]_i_1 
        (.I0(trn_rd_prev[0]),
         .I1(data_prev),
-        .I2(trn_rd[32]),
+        .I2(trn_rd[96]),
         .O(p_1_in[0]));
-  (* SOFT_HLUTNM = "soft_lutpair444" *) 
+  (* SOFT_HLUTNM = "soft_lutpair418" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[100]_i_1 
+       (.I0(trn_rd_prev[100]),
+        .I1(data_prev),
+        .I2(trn_rd[4]),
+        .O(p_1_in[100]));
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[101]_i_1 
+       (.I0(trn_rd_prev[101]),
+        .I1(data_prev),
+        .I2(trn_rd[5]),
+        .O(p_1_in[101]));
+  (* SOFT_HLUTNM = "soft_lutpair413" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[102]_i_1 
+       (.I0(trn_rd_prev[102]),
+        .I1(data_prev),
+        .I2(trn_rd[6]),
+        .O(p_1_in[102]));
+  (* SOFT_HLUTNM = "soft_lutpair409" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[103]_i_1 
+       (.I0(trn_rd_prev[103]),
+        .I1(data_prev),
+        .I2(trn_rd[7]),
+        .O(p_1_in[103]));
+  (* SOFT_HLUTNM = "soft_lutpair411" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[104]_i_1 
+       (.I0(trn_rd_prev[104]),
+        .I1(data_prev),
+        .I2(trn_rd[8]),
+        .O(p_1_in[104]));
+  (* SOFT_HLUTNM = "soft_lutpair410" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[105]_i_1 
+       (.I0(trn_rd_prev[105]),
+        .I1(data_prev),
+        .I2(trn_rd[9]),
+        .O(p_1_in[105]));
+  (* SOFT_HLUTNM = "soft_lutpair405" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[106]_i_1 
+       (.I0(trn_rd_prev[106]),
+        .I1(data_prev),
+        .I2(trn_rd[10]),
+        .O(p_1_in[106]));
+  (* SOFT_HLUTNM = "soft_lutpair410" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[107]_i_1 
+       (.I0(trn_rd_prev[107]),
+        .I1(data_prev),
+        .I2(trn_rd[11]),
+        .O(p_1_in[107]));
+  (* SOFT_HLUTNM = "soft_lutpair421" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[108]_i_1 
+       (.I0(trn_rd_prev[108]),
+        .I1(data_prev),
+        .I2(trn_rd[12]),
+        .O(p_1_in[108]));
+  (* SOFT_HLUTNM = "soft_lutpair420" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[109]_i_1 
+       (.I0(trn_rd_prev[109]),
+        .I1(data_prev),
+        .I2(trn_rd[13]),
+        .O(p_1_in[109]));
+  (* SOFT_HLUTNM = "soft_lutpair442" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[10]_i_1 
        (.I0(trn_rd_prev[10]),
         .I1(data_prev),
-        .I2(trn_rd[42]),
+        .I2(trn_rd[106]),
         .O(p_1_in[10]));
-  (* SOFT_HLUTNM = "soft_lutpair442" *) 
+  (* SOFT_HLUTNM = "soft_lutpair405" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[110]_i_1 
+       (.I0(trn_rd_prev[110]),
+        .I1(data_prev),
+        .I2(trn_rd[14]),
+        .O(p_1_in[110]));
+  (* SOFT_HLUTNM = "soft_lutpair430" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[111]_i_1 
+       (.I0(trn_rd_prev[111]),
+        .I1(data_prev),
+        .I2(trn_rd[15]),
+        .O(p_1_in[111]));
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[112]_i_1 
+       (.I0(trn_rd_prev[112]),
+        .I1(data_prev),
+        .I2(trn_rd[16]),
+        .O(p_1_in[112]));
+  (* SOFT_HLUTNM = "soft_lutpair440" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[113]_i_1 
+       (.I0(trn_rd_prev[113]),
+        .I1(data_prev),
+        .I2(trn_rd[17]),
+        .O(p_1_in[113]));
+  (* SOFT_HLUTNM = "soft_lutpair436" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[114]_i_1 
+       (.I0(trn_rd_prev[114]),
+        .I1(data_prev),
+        .I2(trn_rd[18]),
+        .O(p_1_in[114]));
+  (* SOFT_HLUTNM = "soft_lutpair428" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[115]_i_1 
+       (.I0(trn_rd_prev[115]),
+        .I1(data_prev),
+        .I2(trn_rd[19]),
+        .O(p_1_in[115]));
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[116]_i_1 
+       (.I0(trn_rd_prev[116]),
+        .I1(data_prev),
+        .I2(trn_rd[20]),
+        .O(p_1_in[116]));
+  (* SOFT_HLUTNM = "soft_lutpair415" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[117]_i_1 
+       (.I0(trn_rd_prev[117]),
+        .I1(data_prev),
+        .I2(trn_rd[21]),
+        .O(p_1_in[117]));
+  (* SOFT_HLUTNM = "soft_lutpair412" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[118]_i_1 
+       (.I0(trn_rd_prev[118]),
+        .I1(data_prev),
+        .I2(trn_rd[22]),
+        .O(p_1_in[118]));
+  (* SOFT_HLUTNM = "soft_lutpair412" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[119]_i_1 
+       (.I0(trn_rd_prev[119]),
+        .I1(data_prev),
+        .I2(trn_rd[23]),
+        .O(p_1_in[119]));
+  (* SOFT_HLUTNM = "soft_lutpair456" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[11]_i_1 
        (.I0(trn_rd_prev[11]),
         .I1(data_prev),
-        .I2(trn_rd[43]),
+        .I2(trn_rd[107]),
         .O(p_1_in[11]));
+  (* SOFT_HLUTNM = "soft_lutpair449" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[120]_i_1 
+       (.I0(trn_rd_prev[120]),
+        .I1(data_prev),
+        .I2(trn_rd[24]),
+        .O(p_1_in[120]));
+  (* SOFT_HLUTNM = "soft_lutpair441" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[121]_i_1 
+       (.I0(trn_rd_prev[121]),
+        .I1(data_prev),
+        .I2(trn_rd[25]),
+        .O(p_1_in[121]));
+  (* SOFT_HLUTNM = "soft_lutpair446" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[122]_i_1 
+       (.I0(trn_rd_prev[122]),
+        .I1(data_prev),
+        .I2(trn_rd[26]),
+        .O(p_1_in[122]));
+  (* SOFT_HLUTNM = "soft_lutpair429" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[123]_i_1 
+       (.I0(trn_rd_prev[123]),
+        .I1(data_prev),
+        .I2(trn_rd[27]),
+        .O(p_1_in[123]));
+  (* SOFT_HLUTNM = "soft_lutpair437" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[124]_i_1 
+       (.I0(trn_rd_prev[124]),
+        .I1(data_prev),
+        .I2(trn_rd[28]),
+        .O(p_1_in[124]));
+  (* SOFT_HLUTNM = "soft_lutpair453" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[125]_i_1 
+       (.I0(trn_rd_prev[125]),
+        .I1(data_prev),
+        .I2(trn_rd[29]),
+        .O(p_1_in[125]));
   (* SOFT_HLUTNM = "soft_lutpair439" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[126]_i_1 
+       (.I0(trn_rd_prev[126]),
+        .I1(data_prev),
+        .I2(trn_rd[30]),
+        .O(p_1_in[126]));
+  LUT2 #(
+    .INIT(4'hB)) 
+    \m_axis_rx_tdata[127]_i_1 
+       (.I0(m_axis_rx_tready),
+        .I1(m_axis_rx_tvalid_reg_0),
+        .O(\m_axis_rx_tdata[127]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair461" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[127]_i_2 
+       (.I0(trn_rd_prev[127]),
+        .I1(data_prev),
+        .I2(trn_rd[31]),
+        .O(p_1_in[127]));
+  (* SOFT_HLUTNM = "soft_lutpair464" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[12]_i_1 
        (.I0(trn_rd_prev[12]),
         .I1(data_prev),
-        .I2(trn_rd[44]),
+        .I2(trn_rd[108]),
         .O(p_1_in[12]));
-  (* SOFT_HLUTNM = "soft_lutpair437" *) 
+  (* SOFT_HLUTNM = "soft_lutpair457" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[13]_i_1 
        (.I0(trn_rd_prev[13]),
         .I1(data_prev),
-        .I2(trn_rd[45]),
+        .I2(trn_rd[109]),
         .O(p_1_in[13]));
-  (* SOFT_HLUTNM = "soft_lutpair447" *) 
+  (* SOFT_HLUTNM = "soft_lutpair465" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[14]_i_1 
        (.I0(trn_rd_prev[14]),
         .I1(data_prev),
-        .I2(trn_rd[46]),
+        .I2(trn_rd[110]),
         .O(p_1_in[14]));
-  (* SOFT_HLUTNM = "soft_lutpair440" *) 
+  (* SOFT_HLUTNM = "soft_lutpair468" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[15]_i_1 
        (.I0(trn_rd_prev[15]),
         .I1(data_prev),
-        .I2(trn_rd[47]),
+        .I2(trn_rd[111]),
         .O(p_1_in[15]));
-  (* SOFT_HLUTNM = "soft_lutpair436" *) 
+  (* SOFT_HLUTNM = "soft_lutpair468" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[16]_i_1 
        (.I0(trn_rd_prev[16]),
         .I1(data_prev),
-        .I2(trn_rd[48]),
+        .I2(trn_rd[112]),
         .O(p_1_in[16]));
-  (* SOFT_HLUTNM = "soft_lutpair432" *) 
+  (* SOFT_HLUTNM = "soft_lutpair453" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[17]_i_1 
        (.I0(trn_rd_prev[17]),
         .I1(data_prev),
-        .I2(trn_rd[49]),
+        .I2(trn_rd[113]),
         .O(p_1_in[17]));
-  (* SOFT_HLUTNM = "soft_lutpair430" *) 
+  (* SOFT_HLUTNM = "soft_lutpair463" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[18]_i_1 
        (.I0(trn_rd_prev[18]),
         .I1(data_prev),
-        .I2(trn_rd[50]),
+        .I2(trn_rd[114]),
         .O(p_1_in[18]));
-  (* SOFT_HLUTNM = "soft_lutpair444" *) 
+  (* SOFT_HLUTNM = "soft_lutpair462" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[19]_i_1 
        (.I0(trn_rd_prev[19]),
         .I1(data_prev),
-        .I2(trn_rd[51]),
+        .I2(trn_rd[115]),
         .O(p_1_in[19]));
-  (* SOFT_HLUTNM = "soft_lutpair447" *) 
+  (* SOFT_HLUTNM = "soft_lutpair431" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[1]_i_1 
        (.I0(trn_rd_prev[1]),
         .I1(data_prev),
-        .I2(trn_rd[33]),
+        .I2(trn_rd[97]),
         .O(p_1_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair440" *) 
+  (* SOFT_HLUTNM = "soft_lutpair465" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[20]_i_1 
        (.I0(trn_rd_prev[20]),
         .I1(data_prev),
-        .I2(trn_rd[52]),
+        .I2(trn_rd[116]),
         .O(p_1_in[20]));
-  (* SOFT_HLUTNM = "soft_lutpair435" *) 
+  (* SOFT_HLUTNM = "soft_lutpair463" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[21]_i_1 
        (.I0(trn_rd_prev[21]),
         .I1(data_prev),
-        .I2(trn_rd[53]),
+        .I2(trn_rd[117]),
         .O(p_1_in[21]));
-  (* SOFT_HLUTNM = "soft_lutpair443" *) 
+  (* SOFT_HLUTNM = "soft_lutpair466" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[22]_i_1 
        (.I0(trn_rd_prev[22]),
         .I1(data_prev),
-        .I2(trn_rd[54]),
+        .I2(trn_rd[118]),
         .O(p_1_in[22]));
-  (* SOFT_HLUTNM = "soft_lutpair445" *) 
+  (* SOFT_HLUTNM = "soft_lutpair457" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[23]_i_1 
        (.I0(trn_rd_prev[23]),
         .I1(data_prev),
-        .I2(trn_rd[55]),
+        .I2(trn_rd[119]),
         .O(p_1_in[23]));
   (* SOFT_HLUTNM = "soft_lutpair438" *) 
   LUT3 #(
@@ -2212,79 +2500,79 @@ module pcie_controller_axi_basic_rx_pipeline
     \m_axis_rx_tdata[24]_i_1 
        (.I0(trn_rd_prev[24]),
         .I1(data_prev),
-        .I2(trn_rd[56]),
+        .I2(trn_rd[120]),
         .O(p_1_in[24]));
-  (* SOFT_HLUTNM = "soft_lutpair429" *) 
+  (* SOFT_HLUTNM = "soft_lutpair456" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[25]_i_1 
        (.I0(trn_rd_prev[25]),
         .I1(data_prev),
-        .I2(trn_rd[57]),
+        .I2(trn_rd[121]),
         .O(p_1_in[25]));
-  (* SOFT_HLUTNM = "soft_lutpair427" *) 
+  (* SOFT_HLUTNM = "soft_lutpair447" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[26]_i_1 
        (.I0(trn_rd_prev[26]),
         .I1(data_prev),
-        .I2(trn_rd[58]),
+        .I2(trn_rd[122]),
         .O(p_1_in[26]));
-  (* SOFT_HLUTNM = "soft_lutpair430" *) 
+  (* SOFT_HLUTNM = "soft_lutpair454" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[27]_i_1 
        (.I0(trn_rd_prev[27]),
         .I1(data_prev),
-        .I2(trn_rd[59]),
+        .I2(trn_rd[123]),
         .O(p_1_in[27]));
-  (* SOFT_HLUTNM = "soft_lutpair434" *) 
+  (* SOFT_HLUTNM = "soft_lutpair461" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[28]_i_1 
        (.I0(trn_rd_prev[28]),
         .I1(data_prev),
-        .I2(trn_rd[60]),
+        .I2(trn_rd[124]),
         .O(p_1_in[28]));
-  (* SOFT_HLUTNM = "soft_lutpair426" *) 
+  (* SOFT_HLUTNM = "soft_lutpair455" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[29]_i_1 
        (.I0(trn_rd_prev[29]),
         .I1(data_prev),
-        .I2(trn_rd[61]),
+        .I2(trn_rd[125]),
         .O(p_1_in[29]));
-  (* SOFT_HLUTNM = "soft_lutpair438" *) 
+  (* SOFT_HLUTNM = "soft_lutpair425" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[2]_i_1 
        (.I0(trn_rd_prev[2]),
         .I1(data_prev),
-        .I2(trn_rd[34]),
+        .I2(trn_rd[98]),
         .O(p_1_in[2]));
-  (* SOFT_HLUTNM = "soft_lutpair425" *) 
+  (* SOFT_HLUTNM = "soft_lutpair452" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[30]_i_1 
        (.I0(trn_rd_prev[30]),
         .I1(data_prev),
-        .I2(trn_rd[62]),
+        .I2(trn_rd[126]),
         .O(p_1_in[30]));
-  (* SOFT_HLUTNM = "soft_lutpair420" *) 
+  (* SOFT_HLUTNM = "soft_lutpair444" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[31]_i_1 
        (.I0(trn_rd_prev[31]),
         .I1(data_prev),
-        .I2(trn_rd[63]),
+        .I2(trn_rd[127]),
         .O(p_1_in[31]));
-  (* SOFT_HLUTNM = "soft_lutpair424" *) 
+  (* SOFT_HLUTNM = "soft_lutpair433" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[32]_i_1 
        (.I0(trn_rd_prev[32]),
         .I1(data_prev),
-        .I2(trn_rd[0]),
+        .I2(trn_rd[64]),
         .O(p_1_in[32]));
   (* SOFT_HLUTNM = "soft_lutpair416" *) 
   LUT3 #(
@@ -2292,55 +2580,54 @@ module pcie_controller_axi_basic_rx_pipeline
     \m_axis_rx_tdata[33]_i_1 
        (.I0(trn_rd_prev[33]),
         .I1(data_prev),
-        .I2(trn_rd[1]),
+        .I2(trn_rd[65]),
         .O(p_1_in[33]));
-  (* SOFT_HLUTNM = "soft_lutpair423" *) 
+  (* SOFT_HLUTNM = "soft_lutpair428" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[34]_i_1 
        (.I0(trn_rd_prev[34]),
         .I1(data_prev),
-        .I2(trn_rd[2]),
+        .I2(trn_rd[66]),
         .O(p_1_in[34]));
-  (* SOFT_HLUTNM = "soft_lutpair417" *) 
+  (* SOFT_HLUTNM = "soft_lutpair423" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[35]_i_1 
        (.I0(trn_rd_prev[35]),
         .I1(data_prev),
-        .I2(trn_rd[3]),
+        .I2(trn_rd[67]),
         .O(p_1_in[35]));
-  (* SOFT_HLUTNM = "soft_lutpair425" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[36]_i_1 
        (.I0(trn_rd_prev[36]),
         .I1(data_prev),
-        .I2(trn_rd[4]),
+        .I2(trn_rd[68]),
         .O(p_1_in[36]));
-  (* SOFT_HLUTNM = "soft_lutpair416" *) 
+  (* SOFT_HLUTNM = "soft_lutpair431" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[37]_i_1 
        (.I0(trn_rd_prev[37]),
         .I1(data_prev),
-        .I2(trn_rd[5]),
+        .I2(trn_rd[69]),
         .O(p_1_in[37]));
-  (* SOFT_HLUTNM = "soft_lutpair423" *) 
+  (* SOFT_HLUTNM = "soft_lutpair424" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[38]_i_1 
        (.I0(trn_rd_prev[38]),
         .I1(data_prev),
-        .I2(trn_rd[6]),
+        .I2(trn_rd[70]),
         .O(p_1_in[38]));
-  (* SOFT_HLUTNM = "soft_lutpair419" *) 
+  (* SOFT_HLUTNM = "soft_lutpair426" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[39]_i_1 
        (.I0(trn_rd_prev[39]),
         .I1(data_prev),
-        .I2(trn_rd[7]),
+        .I2(trn_rd[71]),
         .O(p_1_in[39]));
   (* SOFT_HLUTNM = "soft_lutpair446" *) 
   LUT3 #(
@@ -2348,862 +2635,1789 @@ module pcie_controller_axi_basic_rx_pipeline
     \m_axis_rx_tdata[3]_i_1 
        (.I0(trn_rd_prev[3]),
         .I1(data_prev),
-        .I2(trn_rd[35]),
+        .I2(trn_rd[99]),
         .O(p_1_in[3]));
-  (* SOFT_HLUTNM = "soft_lutpair421" *) 
+  (* SOFT_HLUTNM = "soft_lutpair424" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[40]_i_1 
        (.I0(trn_rd_prev[40]),
         .I1(data_prev),
-        .I2(trn_rd[8]),
+        .I2(trn_rd[72]),
         .O(p_1_in[40]));
-  (* SOFT_HLUTNM = "soft_lutpair420" *) 
+  (* SOFT_HLUTNM = "soft_lutpair434" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[41]_i_1 
        (.I0(trn_rd_prev[41]),
         .I1(data_prev),
-        .I2(trn_rd[9]),
+        .I2(trn_rd[73]),
         .O(p_1_in[41]));
-  (* SOFT_HLUTNM = "soft_lutpair419" *) 
+  (* SOFT_HLUTNM = "soft_lutpair407" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[42]_i_1 
        (.I0(trn_rd_prev[42]),
         .I1(data_prev),
-        .I2(trn_rd[10]),
+        .I2(trn_rd[74]),
         .O(p_1_in[42]));
-  (* SOFT_HLUTNM = "soft_lutpair421" *) 
+  (* SOFT_HLUTNM = "soft_lutpair411" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[43]_i_1 
        (.I0(trn_rd_prev[43]),
         .I1(data_prev),
-        .I2(trn_rd[11]),
+        .I2(trn_rd[75]),
         .O(p_1_in[43]));
-  (* SOFT_HLUTNM = "soft_lutpair427" *) 
+  (* SOFT_HLUTNM = "soft_lutpair434" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[44]_i_1 
        (.I0(trn_rd_prev[44]),
         .I1(data_prev),
-        .I2(trn_rd[12]),
+        .I2(trn_rd[76]),
         .O(p_1_in[44]));
-  (* SOFT_HLUTNM = "soft_lutpair426" *) 
+  (* SOFT_HLUTNM = "soft_lutpair432" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[45]_i_1 
        (.I0(trn_rd_prev[45]),
         .I1(data_prev),
-        .I2(trn_rd[13]),
+        .I2(trn_rd[77]),
         .O(p_1_in[45]));
-  (* SOFT_HLUTNM = "soft_lutpair418" *) 
+  (* SOFT_HLUTNM = "soft_lutpair406" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[46]_i_1 
        (.I0(trn_rd_prev[46]),
         .I1(data_prev),
-        .I2(trn_rd[14]),
+        .I2(trn_rd[78]),
         .O(p_1_in[46]));
-  (* SOFT_HLUTNM = "soft_lutpair429" *) 
+  (* SOFT_HLUTNM = "soft_lutpair435" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[47]_i_1 
        (.I0(trn_rd_prev[47]),
         .I1(data_prev),
-        .I2(trn_rd[15]),
+        .I2(trn_rd[79]),
         .O(p_1_in[47]));
-  (* SOFT_HLUTNM = "soft_lutpair418" *) 
+  (* SOFT_HLUTNM = "soft_lutpair422" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[48]_i_1 
        (.I0(trn_rd_prev[48]),
         .I1(data_prev),
-        .I2(trn_rd[16]),
+        .I2(trn_rd[80]),
         .O(p_1_in[48]));
-  (* SOFT_HLUTNM = "soft_lutpair433" *) 
+  (* SOFT_HLUTNM = "soft_lutpair416" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[49]_i_1 
        (.I0(trn_rd_prev[49]),
         .I1(data_prev),
-        .I2(trn_rd[17]),
+        .I2(trn_rd[81]),
         .O(p_1_in[49]));
-  (* SOFT_HLUTNM = "soft_lutpair446" *) 
+  (* SOFT_HLUTNM = "soft_lutpair445" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[4]_i_1 
        (.I0(trn_rd_prev[4]),
         .I1(data_prev),
-        .I2(trn_rd[36]),
+        .I2(trn_rd[100]),
         .O(p_1_in[4]));
-  (* SOFT_HLUTNM = "soft_lutpair431" *) 
+  (* SOFT_HLUTNM = "soft_lutpair435" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[50]_i_1 
        (.I0(trn_rd_prev[50]),
         .I1(data_prev),
-        .I2(trn_rd[18]),
+        .I2(trn_rd[82]),
         .O(p_1_in[50]));
-  (* SOFT_HLUTNM = "soft_lutpair428" *) 
+  (* SOFT_HLUTNM = "soft_lutpair437" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[51]_i_1 
        (.I0(trn_rd_prev[51]),
         .I1(data_prev),
-        .I2(trn_rd[19]),
+        .I2(trn_rd[83]),
         .O(p_1_in[51]));
-  (* SOFT_HLUTNM = "soft_lutpair417" *) 
+  (* SOFT_HLUTNM = "soft_lutpair422" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[52]_i_1 
        (.I0(trn_rd_prev[52]),
         .I1(data_prev),
-        .I2(trn_rd[20]),
+        .I2(trn_rd[84]),
         .O(p_1_in[52]));
-  (* SOFT_HLUTNM = "soft_lutpair424" *) 
+  (* SOFT_HLUTNM = "soft_lutpair425" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[53]_i_1 
        (.I0(trn_rd_prev[53]),
         .I1(data_prev),
-        .I2(trn_rd[21]),
+        .I2(trn_rd[85]),
         .O(p_1_in[53]));
-  (* SOFT_HLUTNM = "soft_lutpair422" *) 
+  (* SOFT_HLUTNM = "soft_lutpair436" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[54]_i_1 
        (.I0(trn_rd_prev[54]),
         .I1(data_prev),
-        .I2(trn_rd[22]),
+        .I2(trn_rd[86]),
         .O(p_1_in[54]));
-  (* SOFT_HLUTNM = "soft_lutpair422" *) 
+  (* SOFT_HLUTNM = "soft_lutpair427" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[55]_i_1 
        (.I0(trn_rd_prev[55]),
         .I1(data_prev),
-        .I2(trn_rd[23]),
+        .I2(trn_rd[87]),
         .O(p_1_in[55]));
-  (* SOFT_HLUTNM = "soft_lutpair437" *) 
+  (* SOFT_HLUTNM = "soft_lutpair415" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[56]_i_1 
        (.I0(trn_rd_prev[56]),
         .I1(data_prev),
-        .I2(trn_rd[24]),
+        .I2(trn_rd[88]),
         .O(p_1_in[56]));
-  (* SOFT_HLUTNM = "soft_lutpair434" *) 
+  (* SOFT_HLUTNM = "soft_lutpair417" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[57]_i_1 
        (.I0(trn_rd_prev[57]),
         .I1(data_prev),
-        .I2(trn_rd[25]),
+        .I2(trn_rd[89]),
         .O(p_1_in[57]));
-  (* SOFT_HLUTNM = "soft_lutpair436" *) 
+  (* SOFT_HLUTNM = "soft_lutpair407" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[58]_i_1 
        (.I0(trn_rd_prev[58]),
         .I1(data_prev),
-        .I2(trn_rd[26]),
+        .I2(trn_rd[90]),
         .O(p_1_in[58]));
-  (* SOFT_HLUTNM = "soft_lutpair428" *) 
+  (* SOFT_HLUTNM = "soft_lutpair406" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[59]_i_1 
        (.I0(trn_rd_prev[59]),
         .I1(data_prev),
-        .I2(trn_rd[27]),
+        .I2(trn_rd[91]),
         .O(p_1_in[59]));
-  (* SOFT_HLUTNM = "soft_lutpair435" *) 
+  (* SOFT_HLUTNM = "soft_lutpair464" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[5]_i_1 
        (.I0(trn_rd_prev[5]),
         .I1(data_prev),
-        .I2(trn_rd[37]),
+        .I2(trn_rd[101]),
         .O(p_1_in[5]));
-  (* SOFT_HLUTNM = "soft_lutpair431" *) 
+  (* SOFT_HLUTNM = "soft_lutpair423" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[60]_i_1 
        (.I0(trn_rd_prev[60]),
         .I1(data_prev),
-        .I2(trn_rd[28]),
+        .I2(trn_rd[92]),
         .O(p_1_in[60]));
-  (* SOFT_HLUTNM = "soft_lutpair441" *) 
+  (* SOFT_HLUTNM = "soft_lutpair429" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[61]_i_1 
        (.I0(trn_rd_prev[61]),
         .I1(data_prev),
-        .I2(trn_rd[29]),
+        .I2(trn_rd[93]),
         .O(p_1_in[61]));
-  (* SOFT_HLUTNM = "soft_lutpair432" *) 
+  (* SOFT_HLUTNM = "soft_lutpair427" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[62]_i_1 
        (.I0(trn_rd_prev[62]),
         .I1(data_prev),
-        .I2(trn_rd[30]),
+        .I2(trn_rd[94]),
         .O(p_1_in[62]));
-  LUT2 #(
-    .INIT(4'hB)) 
-    \m_axis_rx_tdata[63]_i_1 
-       (.I0(m_axis_rx_tready),
-        .I1(m_axis_rx_tvalid_reg_0),
-        .O(\m_axis_rx_tdata[63]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair445" *) 
+  (* SOFT_HLUTNM = "soft_lutpair418" *) 
   LUT3 #(
     .INIT(8'hB8)) 
-    \m_axis_rx_tdata[63]_i_2 
+    \m_axis_rx_tdata[63]_i_1 
        (.I0(trn_rd_prev[63]),
         .I1(data_prev),
-        .I2(trn_rd[31]),
+        .I2(trn_rd[95]),
         .O(p_1_in[63]));
-  (* SOFT_HLUTNM = "soft_lutpair433" *) 
+  (* SOFT_HLUTNM = "soft_lutpair454" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[64]_i_1 
+       (.I0(trn_rd_prev[64]),
+        .I1(data_prev),
+        .I2(trn_rd[32]),
+        .O(p_1_in[64]));
+  (* SOFT_HLUTNM = "soft_lutpair467" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[65]_i_1 
+       (.I0(trn_rd_prev[65]),
+        .I1(data_prev),
+        .I2(trn_rd[33]),
+        .O(p_1_in[65]));
+  (* SOFT_HLUTNM = "soft_lutpair449" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[66]_i_1 
+       (.I0(trn_rd_prev[66]),
+        .I1(data_prev),
+        .I2(trn_rd[34]),
+        .O(p_1_in[66]));
+  (* SOFT_HLUTNM = "soft_lutpair466" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[67]_i_1 
+       (.I0(trn_rd_prev[67]),
+        .I1(data_prev),
+        .I2(trn_rd[35]),
+        .O(p_1_in[67]));
+  (* SOFT_HLUTNM = "soft_lutpair462" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[68]_i_1 
+       (.I0(trn_rd_prev[68]),
+        .I1(data_prev),
+        .I2(trn_rd[36]),
+        .O(p_1_in[68]));
+  (* SOFT_HLUTNM = "soft_lutpair443" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[69]_i_1 
+       (.I0(trn_rd_prev[69]),
+        .I1(data_prev),
+        .I2(trn_rd[37]),
+        .O(p_1_in[69]));
+  (* SOFT_HLUTNM = "soft_lutpair440" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[6]_i_1 
        (.I0(trn_rd_prev[6]),
         .I1(data_prev),
-        .I2(trn_rd[38]),
+        .I2(trn_rd[102]),
         .O(p_1_in[6]));
-  (* SOFT_HLUTNM = "soft_lutpair443" *) 
+  (* SOFT_HLUTNM = "soft_lutpair441" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[70]_i_1 
+       (.I0(trn_rd_prev[70]),
+        .I1(data_prev),
+        .I2(trn_rd[38]),
+        .O(p_1_in[70]));
+  (* SOFT_HLUTNM = "soft_lutpair458" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[71]_i_1 
+       (.I0(trn_rd_prev[71]),
+        .I1(data_prev),
+        .I2(trn_rd[39]),
+        .O(p_1_in[71]));
+  (* SOFT_HLUTNM = "soft_lutpair455" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[72]_i_1 
+       (.I0(trn_rd_prev[72]),
+        .I1(data_prev),
+        .I2(trn_rd[40]),
+        .O(p_1_in[72]));
+  (* SOFT_HLUTNM = "soft_lutpair451" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[73]_i_1 
+       (.I0(trn_rd_prev[73]),
+        .I1(data_prev),
+        .I2(trn_rd[41]),
+        .O(p_1_in[73]));
+  (* SOFT_HLUTNM = "soft_lutpair459" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[74]_i_1 
+       (.I0(trn_rd_prev[74]),
+        .I1(data_prev),
+        .I2(trn_rd[42]),
+        .O(p_1_in[74]));
+  (* SOFT_HLUTNM = "soft_lutpair458" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[75]_i_1 
+       (.I0(trn_rd_prev[75]),
+        .I1(data_prev),
+        .I2(trn_rd[43]),
+        .O(p_1_in[75]));
+  (* SOFT_HLUTNM = "soft_lutpair450" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[76]_i_1 
+       (.I0(trn_rd_prev[76]),
+        .I1(data_prev),
+        .I2(trn_rd[44]),
+        .O(p_1_in[76]));
+  (* SOFT_HLUTNM = "soft_lutpair448" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[77]_i_1 
+       (.I0(trn_rd_prev[77]),
+        .I1(data_prev),
+        .I2(trn_rd[45]),
+        .O(p_1_in[77]));
+  (* SOFT_HLUTNM = "soft_lutpair467" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[78]_i_1 
+       (.I0(trn_rd_prev[78]),
+        .I1(data_prev),
+        .I2(trn_rd[46]),
+        .O(p_1_in[78]));
+  (* SOFT_HLUTNM = "soft_lutpair452" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[79]_i_1 
+       (.I0(trn_rd_prev[79]),
+        .I1(data_prev),
+        .I2(trn_rd[47]),
+        .O(p_1_in[79]));
+  (* SOFT_HLUTNM = "soft_lutpair444" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[7]_i_1 
        (.I0(trn_rd_prev[7]),
         .I1(data_prev),
-        .I2(trn_rd[39]),
+        .I2(trn_rd[103]),
         .O(p_1_in[7]));
-  (* SOFT_HLUTNM = "soft_lutpair442" *) 
+  (* SOFT_HLUTNM = "soft_lutpair447" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[80]_i_1 
+       (.I0(trn_rd_prev[80]),
+        .I1(data_prev),
+        .I2(trn_rd[48]),
+        .O(p_1_in[80]));
+  (* SOFT_HLUTNM = "soft_lutpair438" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[81]_i_1 
+       (.I0(trn_rd_prev[81]),
+        .I1(data_prev),
+        .I2(trn_rd[49]),
+        .O(p_1_in[81]));
+  (* SOFT_HLUTNM = "soft_lutpair433" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[82]_i_1 
+       (.I0(trn_rd_prev[82]),
+        .I1(data_prev),
+        .I2(trn_rd[50]),
+        .O(p_1_in[82]));
+  (* SOFT_HLUTNM = "soft_lutpair460" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[83]_i_1 
+       (.I0(trn_rd_prev[83]),
+        .I1(data_prev),
+        .I2(trn_rd[51]),
+        .O(p_1_in[83]));
+  (* SOFT_HLUTNM = "soft_lutpair451" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[84]_i_1 
+       (.I0(trn_rd_prev[84]),
+        .I1(data_prev),
+        .I2(trn_rd[52]),
+        .O(p_1_in[84]));
+  (* SOFT_HLUTNM = "soft_lutpair443" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[85]_i_1 
+       (.I0(trn_rd_prev[85]),
+        .I1(data_prev),
+        .I2(trn_rd[53]),
+        .O(p_1_in[85]));
+  (* SOFT_HLUTNM = "soft_lutpair459" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[86]_i_1 
+       (.I0(trn_rd_prev[86]),
+        .I1(data_prev),
+        .I2(trn_rd[54]),
+        .O(p_1_in[86]));
+  (* SOFT_HLUTNM = "soft_lutpair460" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[87]_i_1 
+       (.I0(trn_rd_prev[87]),
+        .I1(data_prev),
+        .I2(trn_rd[55]),
+        .O(p_1_in[87]));
+  (* SOFT_HLUTNM = "soft_lutpair450" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[88]_i_1 
+       (.I0(trn_rd_prev[88]),
+        .I1(data_prev),
+        .I2(trn_rd[56]),
+        .O(p_1_in[88]));
+  (* SOFT_HLUTNM = "soft_lutpair430" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[89]_i_1 
+       (.I0(trn_rd_prev[89]),
+        .I1(data_prev),
+        .I2(trn_rd[57]),
+        .O(p_1_in[89]));
+  (* SOFT_HLUTNM = "soft_lutpair445" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[8]_i_1 
        (.I0(trn_rd_prev[8]),
         .I1(data_prev),
-        .I2(trn_rd[40]),
+        .I2(trn_rd[104]),
         .O(p_1_in[8]));
+  (* SOFT_HLUTNM = "soft_lutpair426" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[90]_i_1 
+       (.I0(trn_rd_prev[90]),
+        .I1(data_prev),
+        .I2(trn_rd[58]),
+        .O(p_1_in[90]));
+  (* SOFT_HLUTNM = "soft_lutpair432" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[91]_i_1 
+       (.I0(trn_rd_prev[91]),
+        .I1(data_prev),
+        .I2(trn_rd[59]),
+        .O(p_1_in[91]));
+  (* SOFT_HLUTNM = "soft_lutpair442" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[92]_i_1 
+       (.I0(trn_rd_prev[92]),
+        .I1(data_prev),
+        .I2(trn_rd[60]),
+        .O(p_1_in[92]));
+  (* SOFT_HLUTNM = "soft_lutpair421" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[93]_i_1 
+       (.I0(trn_rd_prev[93]),
+        .I1(data_prev),
+        .I2(trn_rd[61]),
+        .O(p_1_in[93]));
+  (* SOFT_HLUTNM = "soft_lutpair420" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[94]_i_1 
+       (.I0(trn_rd_prev[94]),
+        .I1(data_prev),
+        .I2(trn_rd[62]),
+        .O(p_1_in[94]));
+  (* SOFT_HLUTNM = "soft_lutpair409" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[95]_i_1 
+       (.I0(trn_rd_prev[95]),
+        .I1(data_prev),
+        .I2(trn_rd[63]),
+        .O(p_1_in[95]));
+  (* SOFT_HLUTNM = "soft_lutpair417" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[96]_i_1 
+       (.I0(trn_rd_prev[96]),
+        .I1(data_prev),
+        .I2(trn_rd[0]),
+        .O(p_1_in[96]));
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[97]_i_1 
+       (.I0(trn_rd_prev[97]),
+        .I1(data_prev),
+        .I2(trn_rd[1]),
+        .O(p_1_in[97]));
+  (* SOFT_HLUTNM = "soft_lutpair413" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[98]_i_1 
+       (.I0(trn_rd_prev[98]),
+        .I1(data_prev),
+        .I2(trn_rd[2]),
+        .O(p_1_in[98]));
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tdata[99]_i_1 
+       (.I0(trn_rd_prev[99]),
+        .I1(data_prev),
+        .I2(trn_rd[3]),
+        .O(p_1_in[99]));
   (* SOFT_HLUTNM = "soft_lutpair439" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \m_axis_rx_tdata[9]_i_1 
        (.I0(trn_rd_prev[9]),
         .I1(data_prev),
-        .I2(trn_rd[41]),
+        .I2(trn_rd[105]),
         .O(p_1_in[9]));
   FDRE \m_axis_rx_tdata_reg[0] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[0]),
         .Q(Q[0]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[100] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[100]),
+        .Q(Q[100]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[101] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[101]),
+        .Q(Q[101]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[102] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[102]),
+        .Q(Q[102]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[103] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[103]),
+        .Q(Q[103]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[104] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[104]),
+        .Q(Q[104]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[105] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[105]),
+        .Q(Q[105]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[106] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[106]),
+        .Q(Q[106]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[107] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[107]),
+        .Q(Q[107]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[108] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[108]),
+        .Q(Q[108]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[109] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[109]),
+        .Q(Q[109]),
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[10] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[10]),
         .Q(Q[10]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[110] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[110]),
+        .Q(Q[110]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[111] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[111]),
+        .Q(Q[111]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[112] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[112]),
+        .Q(Q[112]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[113] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[113]),
+        .Q(Q[113]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[114] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[114]),
+        .Q(Q[114]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[115] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[115]),
+        .Q(Q[115]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[116] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[116]),
+        .Q(Q[116]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[117] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[117]),
+        .Q(Q[117]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[118] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[118]),
+        .Q(Q[118]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[119] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[119]),
+        .Q(Q[119]),
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[11] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[11]),
         .Q(Q[11]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[120] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[120]),
+        .Q(Q[120]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[121] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[121]),
+        .Q(Q[121]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[122] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[122]),
+        .Q(Q[122]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[123] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[123]),
+        .Q(Q[123]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[124] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[124]),
+        .Q(Q[124]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[125] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[125]),
+        .Q(Q[125]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[126] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[126]),
+        .Q(Q[126]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[127] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[127]),
+        .Q(Q[127]),
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[12] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[12]),
         .Q(Q[12]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[13] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[13]),
         .Q(Q[13]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[14] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[14]),
         .Q(Q[14]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[15] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[15]),
         .Q(Q[15]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[16] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[16]),
         .Q(Q[16]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[17] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[17]),
         .Q(Q[17]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[18] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[18]),
         .Q(Q[18]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[19] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[19]),
         .Q(Q[19]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[1] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[1]),
         .Q(Q[1]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[20] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[20]),
         .Q(Q[20]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[21] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[21]),
         .Q(Q[21]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[22] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[22]),
         .Q(Q[22]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[23] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[23]),
         .Q(Q[23]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[24] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[24]),
         .Q(Q[24]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[25] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[25]),
         .Q(Q[25]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[26] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[26]),
         .Q(Q[26]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[27] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[27]),
         .Q(Q[27]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[28] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[28]),
         .Q(Q[28]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[29] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[29]),
         .Q(Q[29]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[2] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[2]),
         .Q(Q[2]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[30] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[30]),
         .Q(Q[30]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[31] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[31]),
         .Q(Q[31]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[32] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[32]),
         .Q(Q[32]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[33] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[33]),
         .Q(Q[33]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[34] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[34]),
         .Q(Q[34]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[35] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[35]),
         .Q(Q[35]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[36] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[36]),
         .Q(Q[36]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[37] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[37]),
         .Q(Q[37]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[38] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[38]),
         .Q(Q[38]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[39] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[39]),
         .Q(Q[39]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[3] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[3]),
         .Q(Q[3]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[40] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[40]),
         .Q(Q[40]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[41] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[41]),
         .Q(Q[41]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[42] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[42]),
         .Q(Q[42]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[43] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[43]),
         .Q(Q[43]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[44] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[44]),
         .Q(Q[44]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[45] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[45]),
         .Q(Q[45]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[46] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[46]),
         .Q(Q[46]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[47] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[47]),
         .Q(Q[47]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[48] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[48]),
         .Q(Q[48]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[49] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[49]),
         .Q(Q[49]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[4] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[4]),
         .Q(Q[4]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[50] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[50]),
         .Q(Q[50]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[51] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[51]),
         .Q(Q[51]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[52] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[52]),
         .Q(Q[52]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[53] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[53]),
         .Q(Q[53]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[54] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[54]),
         .Q(Q[54]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[55] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[55]),
         .Q(Q[55]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[56] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[56]),
         .Q(Q[56]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[57] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[57]),
         .Q(Q[57]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[58] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[58]),
         .Q(Q[58]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[59] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[59]),
         .Q(Q[59]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[5] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[5]),
         .Q(Q[5]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[60] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[60]),
         .Q(Q[60]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[61] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[61]),
         .Q(Q[61]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[62] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[62]),
         .Q(Q[62]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[63] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[63]),
         .Q(Q[63]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[64] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[64]),
+        .Q(Q[64]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[65] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[65]),
+        .Q(Q[65]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[66] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[66]),
+        .Q(Q[66]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[67] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[67]),
+        .Q(Q[67]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[68] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[68]),
+        .Q(Q[68]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[69] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[69]),
+        .Q(Q[69]),
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[6] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[6]),
         .Q(Q[6]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[70] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[70]),
+        .Q(Q[70]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[71] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[71]),
+        .Q(Q[71]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[72] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[72]),
+        .Q(Q[72]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[73] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[73]),
+        .Q(Q[73]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[74] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[74]),
+        .Q(Q[74]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[75] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[75]),
+        .Q(Q[75]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[76] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[76]),
+        .Q(Q[76]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[77] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[77]),
+        .Q(Q[77]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[78] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[78]),
+        .Q(Q[78]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[79] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[79]),
+        .Q(Q[79]),
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[7] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[7]),
         .Q(Q[7]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[80] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[80]),
+        .Q(Q[80]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[81] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[81]),
+        .Q(Q[81]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[82] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[82]),
+        .Q(Q[82]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[83] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[83]),
+        .Q(Q[83]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[84] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[84]),
+        .Q(Q[84]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[85] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[85]),
+        .Q(Q[85]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[86] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[86]),
+        .Q(Q[86]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[87] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[87]),
+        .Q(Q[87]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[88] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[88]),
+        .Q(Q[88]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[89] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[89]),
+        .Q(Q[89]),
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[8] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[8]),
         .Q(Q[8]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[90] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[90]),
+        .Q(Q[90]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[91] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[91]),
+        .Q(Q[91]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[92] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[92]),
+        .Q(Q[92]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[93] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[93]),
+        .Q(Q[93]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[94] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[94]),
+        .Q(Q[94]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[95] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[95]),
+        .Q(Q[95]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[96] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[96]),
+        .Q(Q[96]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[97] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[97]),
+        .Q(Q[97]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[98] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[98]),
+        .Q(Q[98]),
+        .R(SR));
+  FDRE \m_axis_rx_tdata_reg[99] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
+        .D(p_1_in[99]),
+        .Q(Q[99]),
+        .R(SR));
   FDRE \m_axis_rx_tdata_reg[9] 
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(p_1_in[9]),
         .Q(Q[9]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  LUT5 #(
-    .INIT(32'h000000E2)) 
+        .R(SR));
+  (* SOFT_HLUTNM = "soft_lutpair414" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \m_axis_rx_tuser[0]_i_1 
-       (.I0(trn_recrc_err),
+       (.I0(trn_recrc_err_prev),
         .I1(data_prev),
-        .I2(trn_recrc_err_prev),
-        .I3(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I4(null_mux_sel),
+        .I2(trn_recrc_err),
         .O(\m_axis_rx_tuser[0]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000004F40404)) 
+    .INIT(64'h00080008AA080008)) 
+    \m_axis_rx_tuser[13]_i_1 
+       (.I0(\m_axis_rx_tuser[20]_i_3_n_0 ),
+        .I1(trn_rsof),
+        .I2(trn_rrem[1]),
+        .I3(data_prev),
+        .I4(trn_rsof_prev),
+        .I5(trn_rrem_prev[1]),
+        .O(\m_axis_rx_tuser[13]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'h04F4040400000000)) 
     \m_axis_rx_tuser[14]_i_1 
        (.I0(trn_rsrc_dsc),
         .I1(trn_rsof),
         .I2(data_prev),
         .I3(trn_rsrc_dsc_prev),
         .I4(trn_rsof_prev),
-        .I5(\m_axis_rx_tuser[14]_i_2_n_0 ),
+        .I5(\m_axis_rx_tuser[20]_i_3_n_0 ),
         .O(\m_axis_rx_tuser[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair413" *) 
-  LUT2 #(
-    .INIT(4'hE)) 
-    \m_axis_rx_tuser[14]_i_2 
-       (.I0(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I1(null_mux_sel),
-        .O(\m_axis_rx_tuser[14]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair414" *) 
+  (* SOFT_HLUTNM = "soft_lutpair469" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \m_axis_rx_tuser[18]_i_1 
-       (.I0(\trn_rbar_hit_prev_reg[0]_0 ),
+       (.I0(SR),
         .O(\m_axis_rx_tuser[18]_i_1_n_0 ));
-  LUT4 #(
-    .INIT(16'h00E2)) 
-    \m_axis_rx_tuser[19]_i_2 
-       (.I0(trn_rrem),
-        .I1(data_prev),
-        .I2(trn_rrem_prev),
-        .I3(null_mux_sel),
-        .O(pcie_block_i_0));
-  LUT5 #(
-    .INIT(32'h000000B8)) 
+  LUT6 #(
+    .INIT(64'hF4FFF44444444444)) 
+    \m_axis_rx_tuser[19]_i_1 
+       (.I0(\m_axis_rx_tuser_reg[19]_0 ),
+        .I1(trn_rdst_rdy_reg_0),
+        .I2(trn_rrem_prev[0]),
+        .I3(data_prev),
+        .I4(trn_rrem[0]),
+        .I5(\m_axis_rx_tuser[20]_i_3_n_0 ),
+        .O(\m_axis_rx_tuser[19]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair408" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \m_axis_rx_tuser[1]_i_1 
        (.I0(trn_rerrfwd_prev),
         .I1(data_prev),
         .I2(trn_rerrfwd),
-        .I3(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I4(null_mux_sel),
         .O(\m_axis_rx_tuser[1]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'hF4FFF44444444444)) 
+    \m_axis_rx_tuser[20]_i_1 
+       (.I0(\m_axis_rx_tuser_reg[20]_0 ),
+        .I1(trn_rdst_rdy_reg_0),
+        .I2(trn_rrem_prev[1]),
+        .I3(data_prev),
+        .I4(trn_rrem[1]),
+        .I5(\m_axis_rx_tuser[20]_i_3_n_0 ),
+        .O(\m_axis_rx_tuser[20]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair469" *) 
+  LUT2 #(
+    .INIT(4'h1)) 
+    \m_axis_rx_tuser[20]_i_3 
+       (.I0(null_mux_sel),
+        .I1(SR),
+        .O(\m_axis_rx_tuser[20]_i_3_n_0 ));
   LUT3 #(
     .INIT(8'hEF)) 
     \m_axis_rx_tuser[21]_i_1 
-       (.I0(\trn_rbar_hit_prev_reg[0]_0 ),
+       (.I0(SR),
         .I1(m_axis_rx_tready),
         .I2(m_axis_rx_tvalid_reg_0),
         .O(\m_axis_rx_tuser[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair414" *) 
   LUT5 #(
-    .INIT(32'h000000B8)) 
+    .INIT(32'h11100010)) 
+    \m_axis_rx_tuser[21]_i_5 
+       (.I0(SR),
+        .I1(null_mux_sel),
+        .I2(trn_reof),
+        .I3(data_prev),
+        .I4(trn_reof_prev),
+        .O(user_reset_out_reg_0));
+  LUT3 #(
+    .INIT(8'hB8)) 
     \m_axis_rx_tuser[2]_i_1 
        (.I0(trn_rbar_hit_prev[0]),
         .I1(data_prev),
         .I2(trn_rbar_hit[0]),
-        .I3(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I4(null_mux_sel),
         .O(\m_axis_rx_tuser[2]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h000000E2)) 
+  (* SOFT_HLUTNM = "soft_lutpair419" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \m_axis_rx_tuser[3]_i_1 
-       (.I0(trn_rbar_hit[1]),
+       (.I0(trn_rbar_hit_prev[1]),
         .I1(data_prev),
-        .I2(trn_rbar_hit_prev[1]),
-        .I3(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I4(null_mux_sel),
+        .I2(trn_rbar_hit[1]),
         .O(\m_axis_rx_tuser[3]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h000000E2)) 
+  (* SOFT_HLUTNM = "soft_lutpair408" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \m_axis_rx_tuser[4]_i_1 
-       (.I0(trn_rbar_hit[2]),
+       (.I0(trn_rbar_hit_prev[2]),
         .I1(data_prev),
-        .I2(trn_rbar_hit_prev[2]),
-        .I3(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I4(null_mux_sel),
+        .I2(trn_rbar_hit[2]),
         .O(\m_axis_rx_tuser[4]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h000000B8)) 
+  (* SOFT_HLUTNM = "soft_lutpair414" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \m_axis_rx_tuser[5]_i_1 
        (.I0(trn_rbar_hit_prev[3]),
         .I1(data_prev),
         .I2(trn_rbar_hit[3]),
-        .I3(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I4(null_mux_sel),
         .O(\m_axis_rx_tuser[5]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h000000B8)) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \m_axis_rx_tuser[6]_i_1 
        (.I0(trn_rbar_hit_prev[4]),
         .I1(data_prev),
         .I2(trn_rbar_hit[4]),
-        .I3(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I4(null_mux_sel),
         .O(\m_axis_rx_tuser[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair413" *) 
-  LUT5 #(
-    .INIT(32'h000000E2)) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \m_axis_rx_tuser[7]_i_1 
-       (.I0(trn_rbar_hit[5]),
+       (.I0(trn_rbar_hit_prev[5]),
         .I1(data_prev),
-        .I2(trn_rbar_hit_prev[5]),
-        .I3(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I4(null_mux_sel),
+        .I2(trn_rbar_hit[5]),
         .O(\m_axis_rx_tuser[7]_i_1_n_0 ));
-  LUT5 #(
-    .INIT(32'h000000E2)) 
+  LUT4 #(
+    .INIT(16'hFDF0)) 
     \m_axis_rx_tuser[8]_i_1 
-       (.I0(trn_rbar_hit[6]),
-        .I1(data_prev),
-        .I2(trn_rbar_hit_prev[6]),
-        .I3(\trn_rbar_hit_prev_reg[0]_0 ),
-        .I4(null_mux_sel),
+       (.I0(m_axis_rx_tvalid_reg_0),
+        .I1(m_axis_rx_tready),
+        .I2(SR),
+        .I3(null_mux_sel),
         .O(\m_axis_rx_tuser[8]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair419" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
+    \m_axis_rx_tuser[8]_i_2 
+       (.I0(trn_rbar_hit_prev[6]),
+        .I1(data_prev),
+        .I2(trn_rbar_hit[6]),
+        .O(\m_axis_rx_tuser[8]_i_2_n_0 ));
   FDRE \m_axis_rx_tuser_reg[0] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[0]_i_1_n_0 ),
         .Q(m_axis_rx_tuser[0]),
+        .R(\m_axis_rx_tuser[8]_i_1_n_0 ));
+  FDRE \m_axis_rx_tuser_reg[13] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
+        .D(\m_axis_rx_tuser[13]_i_1_n_0 ),
+        .Q(\m_axis_rx_tuser_reg[21]_0 [0]),
         .R(1'b0));
   FDRE \m_axis_rx_tuser_reg[14] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[14]_i_1_n_0 ),
-        .Q(m_axis_rx_tuser[9]),
+        .Q(\m_axis_rx_tuser_reg[21]_0 [1]),
         .R(1'b0));
   FDRE \m_axis_rx_tuser_reg[18] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[18]_i_1_n_0 ),
-        .Q(m_axis_rx_tuser[10]),
+        .Q(\m_axis_rx_tuser_reg[21]_0 [2]),
         .R(1'b0));
   FDRE \m_axis_rx_tuser_reg[19] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
-        .D(D[0]),
-        .Q(m_axis_rx_tuser[11]),
+        .D(\m_axis_rx_tuser[19]_i_1_n_0 ),
+        .Q(\m_axis_rx_tuser_reg[21]_0 [3]),
         .R(1'b0));
   FDRE \m_axis_rx_tuser_reg[1] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[1]_i_1_n_0 ),
         .Q(m_axis_rx_tuser[1]),
+        .R(\m_axis_rx_tuser[8]_i_1_n_0 ));
+  FDRE \m_axis_rx_tuser_reg[20] 
+       (.C(pipe_userclk2_in),
+        .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
+        .D(\m_axis_rx_tuser[20]_i_1_n_0 ),
+        .Q(\m_axis_rx_tuser_reg[21]_0 [4]),
         .R(1'b0));
   FDRE \m_axis_rx_tuser_reg[21] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
-        .D(D[1]),
-        .Q(m_axis_rx_tuser[12]),
+        .D(D),
+        .Q(\m_axis_rx_tuser_reg[21]_0 [5]),
         .R(1'b0));
   FDRE \m_axis_rx_tuser_reg[2] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[2]_i_1_n_0 ),
         .Q(m_axis_rx_tuser[2]),
-        .R(1'b0));
+        .R(\m_axis_rx_tuser[8]_i_1_n_0 ));
   FDRE \m_axis_rx_tuser_reg[3] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[3]_i_1_n_0 ),
         .Q(m_axis_rx_tuser[3]),
-        .R(1'b0));
+        .R(\m_axis_rx_tuser[8]_i_1_n_0 ));
   FDRE \m_axis_rx_tuser_reg[4] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[4]_i_1_n_0 ),
         .Q(m_axis_rx_tuser[4]),
-        .R(1'b0));
+        .R(\m_axis_rx_tuser[8]_i_1_n_0 ));
   FDRE \m_axis_rx_tuser_reg[5] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[5]_i_1_n_0 ),
         .Q(m_axis_rx_tuser[5]),
-        .R(1'b0));
+        .R(\m_axis_rx_tuser[8]_i_1_n_0 ));
   FDRE \m_axis_rx_tuser_reg[6] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[6]_i_1_n_0 ),
         .Q(m_axis_rx_tuser[6]),
-        .R(1'b0));
+        .R(\m_axis_rx_tuser[8]_i_1_n_0 ));
   FDRE \m_axis_rx_tuser_reg[7] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
         .D(\m_axis_rx_tuser[7]_i_1_n_0 ),
         .Q(m_axis_rx_tuser[7]),
-        .R(1'b0));
+        .R(\m_axis_rx_tuser[8]_i_1_n_0 ));
   FDRE \m_axis_rx_tuser_reg[8] 
        (.C(pipe_userclk2_in),
         .CE(\m_axis_rx_tuser[21]_i_1_n_0 ),
-        .D(\m_axis_rx_tuser[8]_i_1_n_0 ),
+        .D(\m_axis_rx_tuser[8]_i_2_n_0 ),
         .Q(m_axis_rx_tuser[8]),
-        .R(1'b0));
+        .R(\m_axis_rx_tuser[8]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFECE)) 
+    .INIT(64'hFFFFFFFFFFFFFFE2)) 
     m_axis_rx_tvalid_i_1
        (.I0(rsrc_rdy_filtered),
-        .I1(null_mux_sel),
-        .I2(data_prev),
-        .I3(trn_rsrc_rdy_prev),
-        .I4(reg_dsc_detect_reg_0),
-        .I5(dsc_detect),
+        .I1(data_prev),
+        .I2(trn_rsrc_rdy_prev),
+        .I3(reg_dsc_detect_reg_0),
+        .I4(dsc_detect),
+        .I5(null_mux_sel),
         .O(m_axis_rx_tvalid_i_1_n_0));
   FDRE m_axis_rx_tvalid_reg
        (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
+        .CE(\m_axis_rx_tdata[127]_i_1_n_0 ),
         .D(m_axis_rx_tvalid_i_1_n_0),
         .Q(m_axis_rx_tvalid_reg_0),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   LUT6 #(
-    .INIT(64'hABAAABAAABAABBBB)) 
+    .INIT(64'hA0CCCCCCA0000000)) 
+    new_pkt_len_carry__0_i_1
+       (.I0(Q[94]),
+        .I1(Q[30]),
+        .I2(Q[70]),
+        .I3(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I4(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I5(Q[6]),
+        .O(\m_axis_rx_tdata_reg[94]_0 [3]));
+  LUT6 #(
+    .INIT(64'hA0CCCCCCA0000000)) 
+    new_pkt_len_carry__0_i_2
+       (.I0(Q[94]),
+        .I1(Q[30]),
+        .I2(Q[69]),
+        .I3(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I4(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I5(Q[5]),
+        .O(\m_axis_rx_tdata_reg[94]_0 [2]));
+  LUT6 #(
+    .INIT(64'hA0CCCCCCA0000000)) 
+    new_pkt_len_carry__0_i_3
+       (.I0(Q[94]),
+        .I1(Q[30]),
+        .I2(Q[68]),
+        .I3(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I4(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I5(Q[4]),
+        .O(\m_axis_rx_tdata_reg[94]_0 [1]));
+  LUT6 #(
+    .INIT(64'hA0CCCCCCA0000000)) 
+    new_pkt_len_carry__0_i_4
+       (.I0(Q[94]),
+        .I1(Q[30]),
+        .I2(Q[67]),
+        .I3(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I4(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I5(Q[3]),
+        .O(\m_axis_rx_tdata_reg[94]_0 [0]));
+  LUT6 #(
+    .INIT(64'hA5CCA533FFFFFFFF)) 
+    new_pkt_len_carry__0_i_5
+       (.I0(Q[6]),
+        .I1(Q[70]),
+        .I2(Q[7]),
+        .I3(cur_state_i_3_n_0),
+        .I4(Q[71]),
+        .I5(new_pkt_len_carry_i_9_n_0),
+        .O(\m_axis_rx_tdata_reg[6]_0 [3]));
+  LUT6 #(
+    .INIT(64'hA5CCA533FFFFFFFF)) 
+    new_pkt_len_carry__0_i_6
+       (.I0(Q[5]),
+        .I1(Q[69]),
+        .I2(Q[6]),
+        .I3(cur_state_i_3_n_0),
+        .I4(Q[70]),
+        .I5(new_pkt_len_carry_i_9_n_0),
+        .O(\m_axis_rx_tdata_reg[6]_0 [2]));
+  LUT6 #(
+    .INIT(64'hA5CCA533FFFFFFFF)) 
+    new_pkt_len_carry__0_i_7
+       (.I0(Q[4]),
+        .I1(Q[68]),
+        .I2(Q[5]),
+        .I3(cur_state_i_3_n_0),
+        .I4(Q[69]),
+        .I5(new_pkt_len_carry_i_9_n_0),
+        .O(\m_axis_rx_tdata_reg[6]_0 [1]));
+  LUT6 #(
+    .INIT(64'hA5CCA533FFFFFFFF)) 
+    new_pkt_len_carry__0_i_8
+       (.I0(Q[3]),
+        .I1(Q[67]),
+        .I2(Q[4]),
+        .I3(cur_state_i_3_n_0),
+        .I4(Q[68]),
+        .I5(new_pkt_len_carry_i_9_n_0),
+        .O(\m_axis_rx_tdata_reg[6]_0 [0]));
+  LUT6 #(
+    .INIT(64'hA0CCCCCCA0000000)) 
+    new_pkt_len_carry__1_i_1
+       (.I0(Q[94]),
+        .I1(Q[30]),
+        .I2(Q[73]),
+        .I3(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I4(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I5(Q[9]),
+        .O(\m_axis_rx_tdata_reg[94]_1 [2]));
+  LUT6 #(
+    .INIT(64'hA0CCCCCCA0000000)) 
+    new_pkt_len_carry__1_i_2
+       (.I0(Q[94]),
+        .I1(Q[30]),
+        .I2(Q[72]),
+        .I3(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I4(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I5(Q[8]),
+        .O(\m_axis_rx_tdata_reg[94]_1 [1]));
+  LUT6 #(
+    .INIT(64'hA0CCCCCCA0000000)) 
+    new_pkt_len_carry__1_i_3
+       (.I0(Q[94]),
+        .I1(Q[30]),
+        .I2(Q[71]),
+        .I3(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I4(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I5(Q[7]),
+        .O(\m_axis_rx_tdata_reg[94]_1 [0]));
+  LUT6 #(
+    .INIT(64'h15D53FFFD5D5FFFF)) 
+    new_pkt_len_carry__1_i_4
+       (.I0(Q[9]),
+        .I1(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I2(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I3(Q[73]),
+        .I4(Q[30]),
+        .I5(Q[94]),
+        .O(\m_axis_rx_tdata_reg[9]_0 [2]));
+  LUT6 #(
+    .INIT(64'hA5CCA533FFFFFFFF)) 
+    new_pkt_len_carry__1_i_5
+       (.I0(Q[8]),
+        .I1(Q[72]),
+        .I2(Q[9]),
+        .I3(cur_state_i_3_n_0),
+        .I4(Q[73]),
+        .I5(new_pkt_len_carry_i_9_n_0),
+        .O(\m_axis_rx_tdata_reg[9]_0 [1]));
+  LUT6 #(
+    .INIT(64'hA5CCA533FFFFFFFF)) 
+    new_pkt_len_carry__1_i_6
+       (.I0(Q[7]),
+        .I1(Q[71]),
+        .I2(Q[8]),
+        .I3(cur_state_i_3_n_0),
+        .I4(Q[72]),
+        .I5(new_pkt_len_carry_i_9_n_0),
+        .O(\m_axis_rx_tdata_reg[9]_0 [0]));
+  LUT6 #(
+    .INIT(64'h15D53FFFD5D5FFFF)) 
+    new_pkt_len_carry_i_1
+       (.I0(Q[3]),
+        .I1(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I2(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I3(Q[67]),
+        .I4(Q[30]),
+        .I5(Q[94]),
+        .O(DI[3]));
+  LUT4 #(
+    .INIT(16'h0015)) 
+    new_pkt_len_carry_i_2
+       (.I0(Q[15]),
+        .I1(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I2(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I3(Q[29]),
+        .O(DI[2]));
+  LUT6 #(
+    .INIT(64'hC0C0D5D5C000D515)) 
+    new_pkt_len_carry_i_3
+       (.I0(Q[29]),
+        .I1(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I2(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I3(Q[93]),
+        .I4(Q[15]),
+        .I5(Q[79]),
+        .O(DI[1]));
+  LUT6 #(
+    .INIT(64'hA5CCCCCCA5333333)) 
+    new_pkt_len_carry_i_4
+       (.I0(Q[79]),
+        .I1(Q[15]),
+        .I2(Q[93]),
+        .I3(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I4(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I5(Q[29]),
+        .O(DI[0]));
+  LUT6 #(
+    .INIT(64'hA0A0C0C0A05FC0C0)) 
+    new_pkt_len_carry_i_5
+       (.I0(Q[3]),
+        .I1(Q[67]),
+        .I2(new_pkt_len_carry_i_9_n_0),
+        .I3(Q[29]),
+        .I4(cur_state_i_3_n_0),
+        .I5(Q[15]),
+        .O(S[3]));
+  LUT6 #(
+    .INIT(64'hE1FFE10011001100)) 
+    new_pkt_len_carry_i_6
+       (.I0(Q[29]),
+        .I1(Q[15]),
+        .I2(Q[2]),
+        .I3(cur_state_i_3_n_0),
+        .I4(Q[66]),
+        .I5(new_pkt_len_carry_i_9_n_0),
+        .O(S[2]));
+  LUT6 #(
+    .INIT(64'h656AA5AA6A6AAAAA)) 
+    new_pkt_len_carry_i_7
+       (.I0(DI[1]),
+        .I1(Q[1]),
+        .I2(cur_state_i_3_n_0),
+        .I3(Q[65]),
+        .I4(Q[30]),
+        .I5(Q[94]),
+        .O(S[1]));
+  LUT6 #(
+    .INIT(64'h656AA5AA6A6AAAAA)) 
+    new_pkt_len_carry_i_8
+       (.I0(DI[0]),
+        .I1(Q[0]),
+        .I2(cur_state_i_3_n_0),
+        .I3(Q[64]),
+        .I4(Q[30]),
+        .I5(Q[94]),
+        .O(S[0]));
+  LUT4 #(
+    .INIT(16'hEA2A)) 
+    new_pkt_len_carry_i_9
+       (.I0(Q[30]),
+        .I1(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I2(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I3(Q[94]),
+        .O(new_pkt_len_carry_i_9_n_0));
+  LUT6 #(
+    .INIT(64'hAAABBBBBAAABAAAB)) 
     null_mux_sel_i_2
-       (.I0(\trn_rbar_hit_prev_reg[0]_0 ),
+       (.I0(SR),
         .I1(null_mux_sel),
-        .I2(m_axis_rx_tready),
-        .I3(m_axis_rx_tvalid_reg_0),
-        .I4(dsc_detect),
-        .I5(reg_dsc_detect_reg_0),
+        .I2(dsc_detect),
+        .I3(reg_dsc_detect_reg_0),
+        .I4(m_axis_rx_tready),
+        .I5(m_axis_rx_tvalid_reg_0),
         .O(user_reset_out_reg));
   FDRE null_mux_sel_reg
        (.C(pipe_userclk2_in),
@@ -3211,7 +4425,6 @@ module pcie_controller_axi_basic_rx_pipeline
         .D(null_mux_sel_reg_0),
         .Q(null_mux_sel),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair415" *) 
   LUT3 #(
     .INIT(8'hDC)) 
     reg_dsc_detect_i_1
@@ -3224,748 +4437,1025 @@ module pcie_controller_axi_basic_rx_pipeline
         .CE(1'b1),
         .D(reg_dsc_detect_i_1_n_0),
         .Q(reg_dsc_detect_reg_0),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \reg_pkt_len_counter[10]_i_3 
-       (.I0(Q[30]),
-        .I1(Q[9]),
-        .O(\reg_pkt_len_counter[10]_i_3_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \reg_pkt_len_counter[10]_i_4 
-       (.I0(Q[30]),
-        .I1(Q[8]),
-        .O(\reg_pkt_len_counter[10]_i_4_n_0 ));
-  LUT2 #(
-    .INIT(4'hE)) 
-    \reg_pkt_len_counter[3]_i_3 
-       (.I0(Q[29]),
-        .I1(Q[15]),
-        .O(packet_overhead[1]));
-  LUT2 #(
-    .INIT(4'h9)) 
-    \reg_pkt_len_counter[3]_i_4 
-       (.I0(Q[15]),
-        .I1(Q[29]),
-        .O(packet_overhead[0]));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \reg_pkt_len_counter[3]_i_5 
-       (.I0(Q[30]),
-        .I1(Q[3]),
-        .O(\reg_pkt_len_counter[3]_i_5_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \reg_pkt_len_counter[3]_i_6 
-       (.I0(Q[30]),
-        .I1(Q[2]),
-        .O(\reg_pkt_len_counter[3]_i_6_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \reg_pkt_len_counter[7]_i_3 
-       (.I0(Q[30]),
-        .I1(Q[7]),
-        .O(\reg_pkt_len_counter[7]_i_3_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \reg_pkt_len_counter[7]_i_4 
-       (.I0(Q[30]),
-        .I1(Q[6]),
-        .O(\reg_pkt_len_counter[7]_i_4_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \reg_pkt_len_counter[7]_i_5 
-       (.I0(Q[30]),
-        .I1(Q[5]),
-        .O(\reg_pkt_len_counter[7]_i_5_n_0 ));
-  LUT2 #(
-    .INIT(4'h8)) 
-    \reg_pkt_len_counter[7]_i_6 
-       (.I0(Q[30]),
-        .I1(Q[4]),
-        .O(\reg_pkt_len_counter[7]_i_6_n_0 ));
-  CARRY4 \reg_pkt_len_counter_reg[10]_i_2 
-       (.CI(\reg_pkt_len_counter_reg[7]_i_2_n_0 ),
-        .CO({\NLW_reg_pkt_len_counter_reg[10]_i_2_CO_UNCONNECTED [3],new_pkt_len[10],\NLW_reg_pkt_len_counter_reg[10]_i_2_CO_UNCONNECTED [1],\reg_pkt_len_counter_reg[10]_i_2_n_3 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O({\NLW_reg_pkt_len_counter_reg[10]_i_2_O_UNCONNECTED [3:2],new_pkt_len[9:8]}),
-        .S({1'b0,1'b1,\reg_pkt_len_counter[10]_i_3_n_0 ,\reg_pkt_len_counter[10]_i_4_n_0 }));
-  CARRY4 \reg_pkt_len_counter_reg[3]_i_2 
-       (.CI(1'b0),
-        .CO({\reg_pkt_len_counter_reg[3]_i_2_n_0 ,\reg_pkt_len_counter_reg[3]_i_2_n_1 ,\reg_pkt_len_counter_reg[3]_i_2_n_2 ,\reg_pkt_len_counter_reg[3]_i_2_n_3 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,packet_overhead}),
-        .O(new_pkt_len[3:0]),
-        .S({\reg_pkt_len_counter[3]_i_5_n_0 ,\reg_pkt_len_counter[3]_i_6_n_0 ,S}));
-  CARRY4 \reg_pkt_len_counter_reg[7]_i_2 
-       (.CI(\reg_pkt_len_counter_reg[3]_i_2_n_0 ),
-        .CO({\reg_pkt_len_counter_reg[7]_i_2_n_0 ,\reg_pkt_len_counter_reg[7]_i_2_n_1 ,\reg_pkt_len_counter_reg[7]_i_2_n_2 ,\reg_pkt_len_counter_reg[7]_i_2_n_3 }),
-        .CYINIT(1'b0),
-        .DI({1'b0,1'b0,1'b0,1'b0}),
-        .O(new_pkt_len[7:4]),
-        .S({\reg_pkt_len_counter[7]_i_3_n_0 ,\reg_pkt_len_counter[7]_i_4_n_0 ,\reg_pkt_len_counter[7]_i_5_n_0 ,\reg_pkt_len_counter[7]_i_6_n_0 }));
-  LUT6 #(
-    .INIT(64'h7F7F7F7070707F70)) 
-    \reg_tkeep[4]_i_1 
-       (.I0(trn_rdst_rdy_reg_0),
-        .I1(\reg_tkeep_reg[4]_0 ),
-        .I2(null_mux_sel),
-        .I3(trn_rrem),
-        .I4(data_prev),
-        .I5(trn_rrem_prev),
-        .O(reg_tkeep));
-  FDSE \reg_tkeep_reg[4] 
-       (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
-        .D(reg_tkeep),
-        .Q(m_axis_rx_tkeep),
-        .S(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   LUT4 #(
-    .INIT(16'h00E2)) 
-    reg_tlast_i_2
-       (.I0(trn_reof),
-        .I1(data_prev),
-        .I2(trn_reof_prev),
-        .I3(null_mux_sel),
-        .O(pcie_block_i));
-  FDRE reg_tlast_reg
-       (.C(pipe_userclk2_in),
-        .CE(\m_axis_rx_tdata[63]_i_1_n_0 ),
-        .D(reg_tlast_reg_0),
-        .Q(m_axis_rx_tlast),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+    .INIT(16'h2AAA)) 
+    \reg_pkt_len_counter[11]_i_3 
+       (.I0(cur_state),
+        .I1(\m_axis_rx_tuser_reg[21]_0 [0]),
+        .I2(\m_axis_rx_tuser_reg[21]_0 [1]),
+        .I3(m_axis_rx_tvalid_reg_0),
+        .O(cur_state_reg));
   FDRE trn_in_packet_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_in_packet_reg_0),
         .Q(trn_in_packet),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \trn_rbar_hit_prev_reg[0] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rbar_hit[0]),
         .Q(trn_rbar_hit_prev[0]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \trn_rbar_hit_prev_reg[1] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rbar_hit[1]),
         .Q(trn_rbar_hit_prev[1]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \trn_rbar_hit_prev_reg[2] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rbar_hit[2]),
         .Q(trn_rbar_hit_prev[2]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \trn_rbar_hit_prev_reg[3] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rbar_hit[3]),
         .Q(trn_rbar_hit_prev[3]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \trn_rbar_hit_prev_reg[4] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rbar_hit[4]),
         .Q(trn_rbar_hit_prev[4]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \trn_rbar_hit_prev_reg[5] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rbar_hit[5]),
         .Q(trn_rbar_hit_prev[5]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \trn_rbar_hit_prev_reg[6] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rbar_hit[6]),
         .Q(trn_rbar_hit_prev[6]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \trn_rd_prev_reg[0] 
        (.C(pipe_userclk2_in),
         .CE(E),
-        .D(trn_rd[32]),
+        .D(trn_rd[96]),
         .Q(trn_rd_prev[0]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[10] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[42]),
-        .Q(trn_rd_prev[10]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[11] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[43]),
-        .Q(trn_rd_prev[11]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[12] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[44]),
-        .Q(trn_rd_prev[12]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[13] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[45]),
-        .Q(trn_rd_prev[13]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[14] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[46]),
-        .Q(trn_rd_prev[14]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[15] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[47]),
-        .Q(trn_rd_prev[15]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[16] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[48]),
-        .Q(trn_rd_prev[16]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[17] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[49]),
-        .Q(trn_rd_prev[17]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[18] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[50]),
-        .Q(trn_rd_prev[18]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[19] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[51]),
-        .Q(trn_rd_prev[19]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[1] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[33]),
-        .Q(trn_rd_prev[1]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[20] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[52]),
-        .Q(trn_rd_prev[20]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[21] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[53]),
-        .Q(trn_rd_prev[21]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[22] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[54]),
-        .Q(trn_rd_prev[22]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[23] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[55]),
-        .Q(trn_rd_prev[23]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[24] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[56]),
-        .Q(trn_rd_prev[24]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[25] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[57]),
-        .Q(trn_rd_prev[25]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[26] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[58]),
-        .Q(trn_rd_prev[26]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[27] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[59]),
-        .Q(trn_rd_prev[27]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[28] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[60]),
-        .Q(trn_rd_prev[28]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[29] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[61]),
-        .Q(trn_rd_prev[29]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[2] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[34]),
-        .Q(trn_rd_prev[2]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[30] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[62]),
-        .Q(trn_rd_prev[30]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[31] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[63]),
-        .Q(trn_rd_prev[31]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[32] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[0]),
-        .Q(trn_rd_prev[32]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[33] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[1]),
-        .Q(trn_rd_prev[33]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[34] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[2]),
-        .Q(trn_rd_prev[34]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[35] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[3]),
-        .Q(trn_rd_prev[35]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[36] 
+        .R(SR));
+  FDRE \trn_rd_prev_reg[100] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[4]),
-        .Q(trn_rd_prev[36]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[37] 
+        .Q(trn_rd_prev[100]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[101] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[5]),
-        .Q(trn_rd_prev[37]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[38] 
+        .Q(trn_rd_prev[101]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[102] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[6]),
-        .Q(trn_rd_prev[38]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[39] 
+        .Q(trn_rd_prev[102]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[103] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[7]),
-        .Q(trn_rd_prev[39]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[3] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[35]),
-        .Q(trn_rd_prev[3]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[40] 
+        .Q(trn_rd_prev[103]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[104] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[8]),
-        .Q(trn_rd_prev[40]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[41] 
+        .Q(trn_rd_prev[104]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[105] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[9]),
-        .Q(trn_rd_prev[41]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[42] 
+        .Q(trn_rd_prev[105]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[106] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[10]),
-        .Q(trn_rd_prev[42]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[43] 
+        .Q(trn_rd_prev[106]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[107] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[11]),
-        .Q(trn_rd_prev[43]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[44] 
+        .Q(trn_rd_prev[107]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[108] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[12]),
-        .Q(trn_rd_prev[44]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[45] 
+        .Q(trn_rd_prev[108]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[109] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[13]),
-        .Q(trn_rd_prev[45]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[46] 
+        .Q(trn_rd_prev[109]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[10] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[106]),
+        .Q(trn_rd_prev[10]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[110] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[14]),
-        .Q(trn_rd_prev[46]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[47] 
+        .Q(trn_rd_prev[110]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[111] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[15]),
-        .Q(trn_rd_prev[47]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[48] 
+        .Q(trn_rd_prev[111]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[112] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[16]),
-        .Q(trn_rd_prev[48]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[49] 
+        .Q(trn_rd_prev[112]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[113] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[17]),
-        .Q(trn_rd_prev[49]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[4] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[36]),
-        .Q(trn_rd_prev[4]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[50] 
+        .Q(trn_rd_prev[113]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[114] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[18]),
-        .Q(trn_rd_prev[50]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[51] 
+        .Q(trn_rd_prev[114]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[115] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[19]),
-        .Q(trn_rd_prev[51]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[52] 
+        .Q(trn_rd_prev[115]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[116] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[20]),
-        .Q(trn_rd_prev[52]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[53] 
+        .Q(trn_rd_prev[116]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[117] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[21]),
-        .Q(trn_rd_prev[53]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[54] 
+        .Q(trn_rd_prev[117]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[118] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[22]),
-        .Q(trn_rd_prev[54]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[55] 
+        .Q(trn_rd_prev[118]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[119] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[23]),
-        .Q(trn_rd_prev[55]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[56] 
+        .Q(trn_rd_prev[119]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[11] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[107]),
+        .Q(trn_rd_prev[11]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[120] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[24]),
-        .Q(trn_rd_prev[56]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[57] 
+        .Q(trn_rd_prev[120]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[121] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[25]),
-        .Q(trn_rd_prev[57]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[58] 
+        .Q(trn_rd_prev[121]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[122] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[26]),
-        .Q(trn_rd_prev[58]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[59] 
+        .Q(trn_rd_prev[122]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[123] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[27]),
-        .Q(trn_rd_prev[59]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[5] 
-       (.C(pipe_userclk2_in),
-        .CE(E),
-        .D(trn_rd[37]),
-        .Q(trn_rd_prev[5]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[60] 
+        .Q(trn_rd_prev[123]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[124] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[28]),
-        .Q(trn_rd_prev[60]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[61] 
+        .Q(trn_rd_prev[124]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[125] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[29]),
-        .Q(trn_rd_prev[61]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[62] 
+        .Q(trn_rd_prev[125]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[126] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[30]),
-        .Q(trn_rd_prev[62]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[63] 
+        .Q(trn_rd_prev[126]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[127] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[31]),
+        .Q(trn_rd_prev[127]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[12] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[108]),
+        .Q(trn_rd_prev[12]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[13] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[109]),
+        .Q(trn_rd_prev[13]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[14] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[110]),
+        .Q(trn_rd_prev[14]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[15] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[111]),
+        .Q(trn_rd_prev[15]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[16] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[112]),
+        .Q(trn_rd_prev[16]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[17] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[113]),
+        .Q(trn_rd_prev[17]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[18] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[114]),
+        .Q(trn_rd_prev[18]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[19] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[115]),
+        .Q(trn_rd_prev[19]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[1] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[97]),
+        .Q(trn_rd_prev[1]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[20] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[116]),
+        .Q(trn_rd_prev[20]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[21] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[117]),
+        .Q(trn_rd_prev[21]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[22] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[118]),
+        .Q(trn_rd_prev[22]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[23] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[119]),
+        .Q(trn_rd_prev[23]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[24] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[120]),
+        .Q(trn_rd_prev[24]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[25] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[121]),
+        .Q(trn_rd_prev[25]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[26] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[122]),
+        .Q(trn_rd_prev[26]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[27] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[123]),
+        .Q(trn_rd_prev[27]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[28] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[124]),
+        .Q(trn_rd_prev[28]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[29] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[125]),
+        .Q(trn_rd_prev[29]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[2] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[98]),
+        .Q(trn_rd_prev[2]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[30] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[126]),
+        .Q(trn_rd_prev[30]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[31] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[127]),
+        .Q(trn_rd_prev[31]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[32] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[64]),
+        .Q(trn_rd_prev[32]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[33] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[65]),
+        .Q(trn_rd_prev[33]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[34] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[66]),
+        .Q(trn_rd_prev[34]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[35] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[67]),
+        .Q(trn_rd_prev[35]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[36] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[68]),
+        .Q(trn_rd_prev[36]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[37] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[69]),
+        .Q(trn_rd_prev[37]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[38] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[70]),
+        .Q(trn_rd_prev[38]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[39] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[71]),
+        .Q(trn_rd_prev[39]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[3] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[99]),
+        .Q(trn_rd_prev[3]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[40] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[72]),
+        .Q(trn_rd_prev[40]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[41] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[73]),
+        .Q(trn_rd_prev[41]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[42] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[74]),
+        .Q(trn_rd_prev[42]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[43] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[75]),
+        .Q(trn_rd_prev[43]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[44] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[76]),
+        .Q(trn_rd_prev[44]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[45] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[77]),
+        .Q(trn_rd_prev[45]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[46] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[78]),
+        .Q(trn_rd_prev[46]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[47] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[79]),
+        .Q(trn_rd_prev[47]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[48] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[80]),
+        .Q(trn_rd_prev[48]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[49] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[81]),
+        .Q(trn_rd_prev[49]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[4] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[100]),
+        .Q(trn_rd_prev[4]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[50] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[82]),
+        .Q(trn_rd_prev[50]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[51] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[83]),
+        .Q(trn_rd_prev[51]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[52] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[84]),
+        .Q(trn_rd_prev[52]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[53] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[85]),
+        .Q(trn_rd_prev[53]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[54] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[86]),
+        .Q(trn_rd_prev[54]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[55] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[87]),
+        .Q(trn_rd_prev[55]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[56] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[88]),
+        .Q(trn_rd_prev[56]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[57] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[89]),
+        .Q(trn_rd_prev[57]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[58] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[90]),
+        .Q(trn_rd_prev[58]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[59] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[91]),
+        .Q(trn_rd_prev[59]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[5] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[101]),
+        .Q(trn_rd_prev[5]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[60] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[92]),
+        .Q(trn_rd_prev[60]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[61] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[93]),
+        .Q(trn_rd_prev[61]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[62] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[94]),
+        .Q(trn_rd_prev[62]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[63] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[95]),
         .Q(trn_rd_prev[63]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
+  FDRE \trn_rd_prev_reg[64] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[32]),
+        .Q(trn_rd_prev[64]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[65] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[33]),
+        .Q(trn_rd_prev[65]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[66] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[34]),
+        .Q(trn_rd_prev[66]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[67] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[35]),
+        .Q(trn_rd_prev[67]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[68] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[36]),
+        .Q(trn_rd_prev[68]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[69] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[37]),
+        .Q(trn_rd_prev[69]),
+        .R(SR));
   FDRE \trn_rd_prev_reg[6] 
        (.C(pipe_userclk2_in),
         .CE(E),
-        .D(trn_rd[38]),
+        .D(trn_rd[102]),
         .Q(trn_rd_prev[6]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[7] 
+        .R(SR));
+  FDRE \trn_rd_prev_reg[70] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[38]),
+        .Q(trn_rd_prev[70]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[71] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[39]),
-        .Q(trn_rd_prev[7]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[8] 
+        .Q(trn_rd_prev[71]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[72] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[40]),
-        .Q(trn_rd_prev[8]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
-  FDRE \trn_rd_prev_reg[9] 
+        .Q(trn_rd_prev[72]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[73] 
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rd[41]),
+        .Q(trn_rd_prev[73]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[74] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[42]),
+        .Q(trn_rd_prev[74]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[75] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[43]),
+        .Q(trn_rd_prev[75]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[76] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[44]),
+        .Q(trn_rd_prev[76]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[77] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[45]),
+        .Q(trn_rd_prev[77]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[78] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[46]),
+        .Q(trn_rd_prev[78]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[79] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[47]),
+        .Q(trn_rd_prev[79]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[7] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[103]),
+        .Q(trn_rd_prev[7]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[80] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[48]),
+        .Q(trn_rd_prev[80]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[81] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[49]),
+        .Q(trn_rd_prev[81]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[82] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[50]),
+        .Q(trn_rd_prev[82]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[83] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[51]),
+        .Q(trn_rd_prev[83]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[84] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[52]),
+        .Q(trn_rd_prev[84]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[85] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[53]),
+        .Q(trn_rd_prev[85]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[86] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[54]),
+        .Q(trn_rd_prev[86]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[87] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[55]),
+        .Q(trn_rd_prev[87]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[88] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[56]),
+        .Q(trn_rd_prev[88]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[89] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[57]),
+        .Q(trn_rd_prev[89]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[8] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[104]),
+        .Q(trn_rd_prev[8]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[90] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[58]),
+        .Q(trn_rd_prev[90]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[91] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[59]),
+        .Q(trn_rd_prev[91]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[92] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[60]),
+        .Q(trn_rd_prev[92]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[93] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[61]),
+        .Q(trn_rd_prev[93]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[94] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[62]),
+        .Q(trn_rd_prev[94]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[95] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[63]),
+        .Q(trn_rd_prev[95]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[96] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[0]),
+        .Q(trn_rd_prev[96]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[97] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[1]),
+        .Q(trn_rd_prev[97]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[98] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[2]),
+        .Q(trn_rd_prev[98]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[99] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[3]),
+        .Q(trn_rd_prev[99]),
+        .R(SR));
+  FDRE \trn_rd_prev_reg[9] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rd[105]),
         .Q(trn_rd_prev[9]),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   LUT6 #(
-    .INIT(64'h3030FF3050505050)) 
+    .INIT(64'h2200000022FF0F0F)) 
     trn_rdst_rdy_i_1
-       (.I0(m_axis_rx_tvalid_reg_0),
-        .I1(null_mux_sel),
-        .I2(trn_rdst_rdy_i_2_n_0),
-        .I3(trn_rdst_rdy_reg_0),
-        .I4(trn_rdst_rdy_reg_1),
-        .I5(m_axis_rx_tready),
+       (.I0(trn_rdst_rdy_reg_0),
+        .I1(trn_rdst_rdy_reg_1),
+        .I2(m_axis_rx_tvalid_reg_0),
+        .I3(null_mux_sel),
+        .I4(m_axis_rx_tready),
+        .I5(trn_rdst_rdy_i_3_n_0),
         .O(trn_rdst_rdy_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair415" *) 
   LUT2 #(
-    .INIT(4'h1)) 
-    trn_rdst_rdy_i_2
+    .INIT(4'hE)) 
+    trn_rdst_rdy_i_3
        (.I0(reg_dsc_detect_reg_0),
         .I1(dsc_detect),
-        .O(trn_rdst_rdy_i_2_n_0));
+        .O(trn_rdst_rdy_i_3_n_0));
   FDRE trn_rdst_rdy_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_rdst_rdy_i_1_n_0),
         .Q(E),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE trn_recrc_err_prev_reg
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_recrc_err),
         .Q(trn_recrc_err_prev),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE trn_reof_prev_reg
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_reof),
         .Q(trn_reof_prev),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE trn_rerrfwd_prev_reg
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rerrfwd),
         .Q(trn_rerrfwd_prev),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE \trn_rrem_prev_reg[0] 
        (.C(pipe_userclk2_in),
         .CE(E),
-        .D(trn_rrem),
-        .Q(trn_rrem_prev),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .D(trn_rrem[0]),
+        .Q(trn_rrem_prev[0]),
+        .R(SR));
+  FDRE \trn_rrem_prev_reg[1] 
+       (.C(pipe_userclk2_in),
+        .CE(E),
+        .D(trn_rrem[1]),
+        .Q(trn_rrem_prev[1]),
+        .R(SR));
   FDRE trn_rsof_prev_reg
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rsof),
         .Q(trn_rsof_prev),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE trn_rsrc_dsc_d_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_rsrc_dsc),
         .Q(trn_rsrc_dsc_d),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE trn_rsrc_dsc_prev_reg
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(trn_rsrc_dsc_prev0),
         .Q(trn_rsrc_dsc_prev),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
   FDRE trn_rsrc_rdy_prev_reg
        (.C(pipe_userclk2_in),
         .CE(E),
         .D(rsrc_rdy_filtered),
         .Q(trn_rsrc_rdy_prev),
-        .R(\trn_rbar_hit_prev_reg[0]_0 ));
+        .R(SR));
 endmodule
 
 module pcie_controller_axi_basic_top
-   (E,
+   (trn_trem,
     trn_rsrc_dsc_d,
     m_axis_rx_tvalid_reg,
-    m_axis_rx_tkeep,
-    m_axis_rx_tlast,
-    reg_tcfg_gnt,
+    trn_rdst_rdy,
     tready_thrtl_reg,
     trn_teof,
     trn_tsrc_rdy,
-    trn_trem,
     trn_in_packet,
     reg_dsc_detect,
     ppm_L1_thrtl,
-    lnk_up_thrtl,
-    m_axis_rx_tuser,
-    ppm_L1_trig,
-    cfg_pm_turnoff_ok_n,
-    trn_tcfg_gnt,
-    trn_tsof,
     Q,
-    \throttle_ctl_pipeline.reg_tdata_reg[63] ,
+    \m_axis_rx_tuser_reg[21] ,
+    ppm_L1_trig,
+    trn_tcfg_gnt,
+    cfg_pm_turnoff_ok_n,
+    \tbuf_av_d_reg[2] ,
+    trn_tsof,
+    m_axis_rx_tuser,
+    \throttle_ctl_pipeline.reg_tdata_reg[127] ,
     \throttle_ctl_pipeline.reg_tuser_reg[3] ,
-    \throttle_ctl_pipeline.reg_tkeep_reg[7] ,
+    SR,
     pipe_userclk2_in,
-    trn_rrem,
     trn_rsrc_dsc,
     rsrc_rdy_filtered,
-    trn_reof,
-    trn_rsrc_dsc_prev0,
     trn_rsof,
+    trn_rsrc_dsc_prev0,
     trn_recrc_err,
     trn_rerrfwd,
+    trn_reof,
     tx_cfg_gnt,
     trn_tcfg_req,
     trn_tdst_rdy,
-    tbuf_av_min_trig,
     cfg_turnoff_ok,
+    tbuf_av_min_trig,
     s_axis_tx_tlast,
     s_axis_tx_tvalid,
-    s_axis_tx_tkeep,
     trn_in_packet_reg,
     ppm_L1_thrtl_reg,
-    lnk_up_thrtl_reg,
     m_axis_rx_tready,
+    trn_rrem,
     dsc_detect,
     out,
-    tcfg_req_trig,
-    tready_thrtl_i_5,
-    cfg_pcie_link_state,
+    tbuf_av_gap_thrtl_reg,
     s_axis_tx_tdata,
+    tbuf_av_gap_thrtl_i_2,
     s_axis_tx_tuser,
-    trn_tbuf_av,
+    cfg_pcie_link_state,
     trn_rd,
     trn_rbar_hit,
-    cfg_to_turnoff);
-  output [0:0]E;
+    trn_tbuf_av,
+    cfg_to_turnoff,
+    s_axis_tx_tkeep);
+  output [1:0]trn_trem;
   output trn_rsrc_dsc_d;
   output m_axis_rx_tvalid_reg;
-  output [0:0]m_axis_rx_tkeep;
-  output m_axis_rx_tlast;
-  output reg_tcfg_gnt;
+  output trn_rdst_rdy;
   output tready_thrtl_reg;
   output trn_teof;
   output trn_tsrc_rdy;
-  output [0:0]trn_trem;
   output trn_in_packet;
   output reg_dsc_detect;
   output ppm_L1_thrtl;
-  output lnk_up_thrtl;
-  output [12:0]m_axis_rx_tuser;
+  output [127:0]Q;
+  output [5:0]\m_axis_rx_tuser_reg[21] ;
   output ppm_L1_trig;
-  output cfg_pm_turnoff_ok_n;
   output trn_tcfg_gnt;
+  output cfg_pm_turnoff_ok_n;
+  output [1:0]\tbuf_av_d_reg[2] ;
   output trn_tsof;
-  output [63:0]Q;
-  output [63:0]\throttle_ctl_pipeline.reg_tdata_reg[63] ;
+  output [8:0]m_axis_rx_tuser;
+  output [127:0]\throttle_ctl_pipeline.reg_tdata_reg[127] ;
   output [3:0]\throttle_ctl_pipeline.reg_tuser_reg[3] ;
-  input \throttle_ctl_pipeline.reg_tkeep_reg[7] ;
+  input [0:0]SR;
   input pipe_userclk2_in;
-  input [0:0]trn_rrem;
   input trn_rsrc_dsc;
   input rsrc_rdy_filtered;
-  input trn_reof;
-  input trn_rsrc_dsc_prev0;
   input trn_rsof;
+  input trn_rsrc_dsc_prev0;
   input trn_recrc_err;
   input trn_rerrfwd;
+  input trn_reof;
   input tx_cfg_gnt;
   input trn_tcfg_req;
   input trn_tdst_rdy;
-  input tbuf_av_min_trig;
   input cfg_turnoff_ok;
+  input tbuf_av_min_trig;
   input s_axis_tx_tlast;
   input s_axis_tx_tvalid;
-  input [0:0]s_axis_tx_tkeep;
   input trn_in_packet_reg;
   input ppm_L1_thrtl_reg;
-  input lnk_up_thrtl_reg;
   input m_axis_rx_tready;
+  input [1:0]trn_rrem;
   input dsc_detect;
   input out;
-  input tcfg_req_trig;
-  input tready_thrtl_i_5;
-  input [2:0]cfg_pcie_link_state;
-  input [63:0]s_axis_tx_tdata;
+  input tbuf_av_gap_thrtl_reg;
+  input [127:0]s_axis_tx_tdata;
+  input tbuf_av_gap_thrtl_i_2;
   input [3:0]s_axis_tx_tuser;
-  input [5:0]trn_tbuf_av;
-  input [63:0]trn_rd;
+  input [2:0]cfg_pcie_link_state;
+  input [127:0]trn_rd;
   input [6:0]trn_rbar_hit;
+  input [5:0]trn_tbuf_av;
   input cfg_to_turnoff;
+  input [2:0]s_axis_tx_tkeep;
 
-  wire [0:0]E;
-  wire [63:0]Q;
+  wire [127:0]Q;
+  wire [0:0]SR;
   wire [2:0]cfg_pcie_link_state;
   wire cfg_pm_turnoff_ok_n;
   wire cfg_to_turnoff;
   wire cfg_turnoff_ok;
   wire dsc_detect;
-  wire lnk_up_thrtl;
-  wire lnk_up_thrtl_reg;
-  wire [0:0]m_axis_rx_tkeep;
-  wire m_axis_rx_tlast;
   wire m_axis_rx_tready;
-  wire [12:0]m_axis_rx_tuser;
+  wire [8:0]m_axis_rx_tuser;
+  wire [5:0]\m_axis_rx_tuser_reg[21] ;
   wire m_axis_rx_tvalid_reg;
   wire out;
   wire pipe_userclk2_in;
@@ -3973,28 +5463,28 @@ module pcie_controller_axi_basic_top
   wire ppm_L1_thrtl_reg;
   wire ppm_L1_trig;
   wire reg_dsc_detect;
-  wire reg_tcfg_gnt;
   wire rsrc_rdy_filtered;
-  wire [63:0]s_axis_tx_tdata;
-  wire [0:0]s_axis_tx_tkeep;
+  wire [127:0]s_axis_tx_tdata;
+  wire [2:0]s_axis_tx_tkeep;
   wire s_axis_tx_tlast;
   wire [3:0]s_axis_tx_tuser;
   wire s_axis_tx_tvalid;
+  wire [1:0]\tbuf_av_d_reg[2] ;
+  wire tbuf_av_gap_thrtl_i_2;
+  wire tbuf_av_gap_thrtl_reg;
   wire tbuf_av_min_trig;
-  wire tcfg_req_trig;
-  wire [63:0]\throttle_ctl_pipeline.reg_tdata_reg[63] ;
-  wire \throttle_ctl_pipeline.reg_tkeep_reg[7] ;
+  wire [127:0]\throttle_ctl_pipeline.reg_tdata_reg[127] ;
   wire [3:0]\throttle_ctl_pipeline.reg_tuser_reg[3] ;
-  wire tready_thrtl_i_5;
   wire tready_thrtl_reg;
   wire trn_in_packet;
   wire trn_in_packet_reg;
   wire [6:0]trn_rbar_hit;
-  wire [63:0]trn_rd;
+  wire [127:0]trn_rd;
+  wire trn_rdst_rdy;
   wire trn_recrc_err;
   wire trn_reof;
   wire trn_rerrfwd;
-  wire [0:0]trn_rrem;
+  wire [1:0]trn_rrem;
   wire trn_rsof;
   wire trn_rsrc_dsc;
   wire trn_rsrc_dsc_d;
@@ -4004,19 +5494,19 @@ module pcie_controller_axi_basic_top
   wire trn_tcfg_req;
   wire trn_tdst_rdy;
   wire trn_teof;
-  wire [0:0]trn_trem;
+  wire [1:0]trn_trem;
   wire trn_tsof;
   wire trn_tsrc_rdy;
   wire tx_cfg_gnt;
 
   pcie_controller_axi_basic_rx rx_inst
-       (.E(E),
+       (.E(trn_rdst_rdy),
         .Q(Q),
+        .SR(SR),
         .dsc_detect(dsc_detect),
-        .m_axis_rx_tkeep(m_axis_rx_tkeep),
-        .m_axis_rx_tlast(m_axis_rx_tlast),
         .m_axis_rx_tready(m_axis_rx_tready),
         .m_axis_rx_tuser(m_axis_rx_tuser),
+        .\m_axis_rx_tuser_reg[21] (\m_axis_rx_tuser_reg[21] ),
         .m_axis_rx_tvalid_reg(m_axis_rx_tvalid_reg),
         .pipe_userclk2_in(pipe_userclk2_in),
         .reg_dsc_detect_reg(reg_dsc_detect),
@@ -4024,7 +5514,6 @@ module pcie_controller_axi_basic_top
         .trn_in_packet(trn_in_packet),
         .trn_in_packet_reg(trn_in_packet_reg),
         .trn_rbar_hit(trn_rbar_hit),
-        .\trn_rbar_hit_prev_reg[0] (\throttle_ctl_pipeline.reg_tkeep_reg[7] ),
         .trn_rd(trn_rd),
         .trn_recrc_err(trn_recrc_err),
         .trn_reof(trn_reof),
@@ -4035,29 +5524,27 @@ module pcie_controller_axi_basic_top
         .trn_rsrc_dsc_d(trn_rsrc_dsc_d),
         .trn_rsrc_dsc_prev0(trn_rsrc_dsc_prev0));
   pcie_controller_axi_basic_tx tx_inst
-       (.cfg_pcie_link_state(cfg_pcie_link_state),
+       (.SR(SR),
+        .cfg_pcie_link_state(cfg_pcie_link_state),
         .cfg_pm_turnoff_ok_n(cfg_pm_turnoff_ok_n),
         .cfg_to_turnoff(cfg_to_turnoff),
         .cfg_turnoff_ok(cfg_turnoff_ok),
-        .lnk_up_thrtl(lnk_up_thrtl),
-        .lnk_up_thrtl_reg(lnk_up_thrtl_reg),
         .out(out),
         .pipe_userclk2_in(pipe_userclk2_in),
         .ppm_L1_thrtl(ppm_L1_thrtl),
         .ppm_L1_thrtl_reg(ppm_L1_thrtl_reg),
         .ppm_L1_trig(ppm_L1_trig),
-        .reg_tcfg_gnt(reg_tcfg_gnt),
         .s_axis_tx_tdata(s_axis_tx_tdata),
         .s_axis_tx_tkeep(s_axis_tx_tkeep),
         .s_axis_tx_tlast(s_axis_tx_tlast),
         .s_axis_tx_tuser(s_axis_tx_tuser),
         .s_axis_tx_tvalid(s_axis_tx_tvalid),
+        .\tbuf_av_d_reg[2] (\tbuf_av_d_reg[2] ),
+        .tbuf_av_gap_thrtl_i_2(tbuf_av_gap_thrtl_i_2),
+        .tbuf_av_gap_thrtl_reg(tbuf_av_gap_thrtl_reg),
         .tbuf_av_min_trig(tbuf_av_min_trig),
-        .tcfg_req_trig(tcfg_req_trig),
-        .\throttle_ctl_pipeline.reg_tdata_reg[63] (\throttle_ctl_pipeline.reg_tdata_reg[63] ),
-        .\throttle_ctl_pipeline.reg_tkeep_reg[7] (\throttle_ctl_pipeline.reg_tkeep_reg[7] ),
+        .\throttle_ctl_pipeline.reg_tdata_reg[127] (\throttle_ctl_pipeline.reg_tdata_reg[127] ),
         .\throttle_ctl_pipeline.reg_tuser_reg[3] (\throttle_ctl_pipeline.reg_tuser_reg[3] ),
-        .tready_thrtl_i_5(tready_thrtl_i_5),
         .tready_thrtl_reg(tready_thrtl_reg),
         .trn_tbuf_av(trn_tbuf_av),
         .trn_tcfg_gnt(trn_tcfg_gnt),
@@ -4071,136 +5558,128 @@ module pcie_controller_axi_basic_top
 endmodule
 
 module pcie_controller_axi_basic_tx
-   (reg_tcfg_gnt,
+   (trn_trem,
     tready_thrtl_reg,
     trn_teof,
     trn_tsrc_rdy,
-    trn_trem,
     ppm_L1_thrtl,
-    lnk_up_thrtl,
     ppm_L1_trig,
-    cfg_pm_turnoff_ok_n,
     trn_tcfg_gnt,
+    cfg_pm_turnoff_ok_n,
     trn_tsof,
-    \throttle_ctl_pipeline.reg_tdata_reg[63] ,
+    \tbuf_av_d_reg[2] ,
+    \throttle_ctl_pipeline.reg_tdata_reg[127] ,
     \throttle_ctl_pipeline.reg_tuser_reg[3] ,
-    \throttle_ctl_pipeline.reg_tkeep_reg[7] ,
+    SR,
     tx_cfg_gnt,
     pipe_userclk2_in,
     trn_tcfg_req,
     trn_tdst_rdy,
-    tbuf_av_min_trig,
     cfg_turnoff_ok,
+    tbuf_av_min_trig,
     s_axis_tx_tlast,
     s_axis_tx_tvalid,
-    s_axis_tx_tkeep,
     ppm_L1_thrtl_reg,
-    lnk_up_thrtl_reg,
     out,
-    tcfg_req_trig,
-    tready_thrtl_i_5,
-    cfg_pcie_link_state,
+    tbuf_av_gap_thrtl_reg,
     s_axis_tx_tdata,
+    tbuf_av_gap_thrtl_i_2,
     s_axis_tx_tuser,
+    cfg_pcie_link_state,
     trn_tbuf_av,
-    cfg_to_turnoff);
-  output reg_tcfg_gnt;
+    cfg_to_turnoff,
+    s_axis_tx_tkeep);
+  output [1:0]trn_trem;
   output tready_thrtl_reg;
   output trn_teof;
   output trn_tsrc_rdy;
-  output [0:0]trn_trem;
   output ppm_L1_thrtl;
-  output lnk_up_thrtl;
   output ppm_L1_trig;
-  output cfg_pm_turnoff_ok_n;
   output trn_tcfg_gnt;
+  output cfg_pm_turnoff_ok_n;
   output trn_tsof;
-  output [63:0]\throttle_ctl_pipeline.reg_tdata_reg[63] ;
+  output [1:0]\tbuf_av_d_reg[2] ;
+  output [127:0]\throttle_ctl_pipeline.reg_tdata_reg[127] ;
   output [3:0]\throttle_ctl_pipeline.reg_tuser_reg[3] ;
-  input \throttle_ctl_pipeline.reg_tkeep_reg[7] ;
+  input [0:0]SR;
   input tx_cfg_gnt;
   input pipe_userclk2_in;
   input trn_tcfg_req;
   input trn_tdst_rdy;
-  input tbuf_av_min_trig;
   input cfg_turnoff_ok;
+  input tbuf_av_min_trig;
   input s_axis_tx_tlast;
   input s_axis_tx_tvalid;
-  input [0:0]s_axis_tx_tkeep;
   input ppm_L1_thrtl_reg;
-  input lnk_up_thrtl_reg;
   input out;
-  input tcfg_req_trig;
-  input tready_thrtl_i_5;
-  input [2:0]cfg_pcie_link_state;
-  input [63:0]s_axis_tx_tdata;
+  input tbuf_av_gap_thrtl_reg;
+  input [127:0]s_axis_tx_tdata;
+  input tbuf_av_gap_thrtl_i_2;
   input [3:0]s_axis_tx_tuser;
+  input [2:0]cfg_pcie_link_state;
   input [5:0]trn_tbuf_av;
   input cfg_to_turnoff;
+  input [2:0]s_axis_tx_tkeep;
 
+  wire [0:0]SR;
   wire axi_in_packet;
   wire [2:0]cfg_pcie_link_state;
   wire cfg_pm_turnoff_ok_n;
   wire cfg_to_turnoff;
   wire cfg_turnoff_ok;
-  wire lnk_up_thrtl;
-  wire lnk_up_thrtl_reg;
   wire out;
   wire pipe_userclk2_in;
   wire ppm_L1_thrtl;
   wire ppm_L1_thrtl_reg;
   wire ppm_L1_trig;
   wire reg_disable_trn;
-  wire reg_tcfg_gnt;
   wire reg_tsrc_rdy0;
-  wire [63:0]s_axis_tx_tdata;
-  wire [0:0]s_axis_tx_tkeep;
+  wire [127:0]s_axis_tx_tdata;
+  wire [2:0]s_axis_tx_tkeep;
   wire s_axis_tx_tlast;
   wire [3:0]s_axis_tx_tuser;
   wire s_axis_tx_tvalid;
+  wire [1:0]\tbuf_av_d_reg[2] ;
+  wire tbuf_av_gap_thrtl_i_2;
+  wire tbuf_av_gap_thrtl_reg;
   wire tbuf_av_min_trig;
-  wire tcfg_req_trig;
-  wire [63:0]\throttle_ctl_pipeline.reg_tdata_reg[63] ;
-  wire \throttle_ctl_pipeline.reg_tkeep_reg[7] ;
+  wire [127:0]\throttle_ctl_pipeline.reg_tdata_reg[127] ;
   wire [3:0]\throttle_ctl_pipeline.reg_tuser_reg[3] ;
-  wire \thrtl_ctl_enabled.tx_thrl_ctl_inst_n_4 ;
-  wire tready_thrtl_i_5;
+  wire \thrtl_ctl_enabled.tx_thrl_ctl_inst_n_2 ;
   wire tready_thrtl_reg;
   wire [5:0]trn_tbuf_av;
   wire trn_tcfg_gnt;
   wire trn_tcfg_req;
   wire trn_tdst_rdy;
   wire trn_teof;
-  wire [0:0]trn_trem;
+  wire [1:0]trn_trem;
   wire trn_tsof;
   wire trn_tsrc_rdy;
   wire tx_cfg_gnt;
 
   pcie_controller_axi_basic_tx_thrtl_ctl \thrtl_ctl_enabled.tx_thrl_ctl_inst 
-       (.axi_in_packet(axi_in_packet),
+       (.SR(SR),
+        .axi_in_packet(axi_in_packet),
         .cfg_pcie_link_state(cfg_pcie_link_state),
         .cfg_pm_turnoff_ok_n(cfg_pm_turnoff_ok_n),
         .cfg_to_turnoff(cfg_to_turnoff),
         .cfg_turnoff_ok(cfg_turnoff_ok),
-        .lnk_up_thrtl(lnk_up_thrtl),
-        .lnk_up_thrtl_reg_0(lnk_up_thrtl_reg),
         .out(out),
         .pipe_userclk2_in(pipe_userclk2_in),
         .ppm_L1_thrtl(ppm_L1_thrtl),
         .ppm_L1_thrtl_reg_0(ppm_L1_thrtl_reg),
         .ppm_L1_trig(ppm_L1_trig),
         .reg_disable_trn(reg_disable_trn),
-        .reg_tcfg_gnt(reg_tcfg_gnt),
         .reg_tsrc_rdy0(reg_tsrc_rdy0),
-        .s_axis_tx_tdata({s_axis_tx_tdata[30:29],s_axis_tx_tdata[15],s_axis_tx_tdata[0]}),
+        .s_axis_tx_tdata({s_axis_tx_tdata[30:29],s_axis_tx_tdata[15],s_axis_tx_tdata[1:0]}),
         .s_axis_tx_tlast(s_axis_tx_tlast),
-        .s_axis_tx_tlast_0(\thrtl_ctl_enabled.tx_thrl_ctl_inst_n_4 ),
+        .s_axis_tx_tlast_0(\thrtl_ctl_enabled.tx_thrl_ctl_inst_n_2 ),
         .s_axis_tx_tuser(s_axis_tx_tuser[0]),
         .s_axis_tx_tvalid(s_axis_tx_tvalid),
+        .\tbuf_av_d_reg[2]_0 (\tbuf_av_d_reg[2] ),
+        .tbuf_av_gap_thrtl_i_2_0(tbuf_av_gap_thrtl_i_2),
+        .tbuf_av_gap_thrtl_reg_0(tbuf_av_gap_thrtl_reg),
         .tbuf_av_min_trig(tbuf_av_min_trig),
-        .\tbuf_gap_cnt_reg[0]_0 (\throttle_ctl_pipeline.reg_tkeep_reg[7] ),
-        .tcfg_req_trig(tcfg_req_trig),
-        .tready_thrtl_i_5_0(tready_thrtl_i_5),
         .tready_thrtl_reg_0(tready_thrtl_reg),
         .trn_tbuf_av(trn_tbuf_av),
         .trn_tcfg_gnt(trn_tcfg_gnt),
@@ -4208,8 +5687,9 @@ module pcie_controller_axi_basic_tx
         .trn_tdst_rdy(trn_tdst_rdy),
         .tx_cfg_gnt(tx_cfg_gnt));
   pcie_controller_axi_basic_tx_pipeline tx_pipeline_inst
-       (.axi_in_packet(axi_in_packet),
-        .axi_in_packet_reg_0(\thrtl_ctl_enabled.tx_thrl_ctl_inst_n_4 ),
+       (.SR(SR),
+        .axi_in_packet(axi_in_packet),
+        .axi_in_packet_reg_0(\thrtl_ctl_enabled.tx_thrl_ctl_inst_n_2 ),
         .out(out),
         .pipe_userclk2_in(pipe_userclk2_in),
         .reg_disable_trn(reg_disable_trn),
@@ -4219,8 +5699,7 @@ module pcie_controller_axi_basic_tx
         .s_axis_tx_tlast(s_axis_tx_tlast),
         .s_axis_tx_tuser(s_axis_tx_tuser),
         .s_axis_tx_tvalid(s_axis_tx_tvalid),
-        .\throttle_ctl_pipeline.reg_tdata_reg[63]_0 (\throttle_ctl_pipeline.reg_tdata_reg[63] ),
-        .\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 (\throttle_ctl_pipeline.reg_tkeep_reg[7] ),
+        .\throttle_ctl_pipeline.reg_tdata_reg[127]_0 (\throttle_ctl_pipeline.reg_tdata_reg[127] ),
         .\throttle_ctl_pipeline.reg_tuser_reg[3]_0 (\throttle_ctl_pipeline.reg_tuser_reg[3] ),
         .\thrtl_ctl_trn_flush.reg_disable_trn_reg_0 (tready_thrtl_reg),
         .trn_tdst_rdy(trn_tdst_rdy),
@@ -4231,47 +5710,48 @@ module pcie_controller_axi_basic_tx
 endmodule
 
 module pcie_controller_axi_basic_tx_pipeline
-   (trn_teof,
+   (trn_trem,
+    trn_teof,
     trn_tsrc_rdy,
-    trn_trem,
     axi_in_packet,
     reg_disable_trn,
     trn_tsof,
-    \throttle_ctl_pipeline.reg_tdata_reg[63]_0 ,
+    \throttle_ctl_pipeline.reg_tdata_reg[127]_0 ,
     \throttle_ctl_pipeline.reg_tuser_reg[3]_0 ,
-    \throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ,
+    SR,
     s_axis_tx_tlast,
     pipe_userclk2_in,
     reg_tsrc_rdy0,
     s_axis_tx_tvalid,
-    s_axis_tx_tkeep,
     axi_in_packet_reg_0,
-    out,
     \thrtl_ctl_trn_flush.reg_disable_trn_reg_0 ,
+    out,
     trn_tdst_rdy,
     s_axis_tx_tdata,
-    s_axis_tx_tuser);
+    s_axis_tx_tuser,
+    s_axis_tx_tkeep);
+  output [1:0]trn_trem;
   output trn_teof;
   output trn_tsrc_rdy;
-  output [0:0]trn_trem;
   output axi_in_packet;
   output reg_disable_trn;
   output trn_tsof;
-  output [63:0]\throttle_ctl_pipeline.reg_tdata_reg[63]_0 ;
+  output [127:0]\throttle_ctl_pipeline.reg_tdata_reg[127]_0 ;
   output [3:0]\throttle_ctl_pipeline.reg_tuser_reg[3]_0 ;
-  input \throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ;
+  input [0:0]SR;
   input s_axis_tx_tlast;
   input pipe_userclk2_in;
   input reg_tsrc_rdy0;
   input s_axis_tx_tvalid;
-  input [0:0]s_axis_tx_tkeep;
   input axi_in_packet_reg_0;
-  input out;
   input \thrtl_ctl_trn_flush.reg_disable_trn_reg_0 ;
+  input out;
   input trn_tdst_rdy;
-  input [63:0]s_axis_tx_tdata;
+  input [127:0]s_axis_tx_tdata;
   input [3:0]s_axis_tx_tuser;
+  input [2:0]s_axis_tx_tkeep;
 
+  wire [0:0]SR;
   wire axi_in_packet;
   wire axi_in_packet_reg_0;
   wire out;
@@ -4279,21 +5759,22 @@ module pcie_controller_axi_basic_tx_pipeline
   wire reg_disable_trn;
   wire reg_tsrc_rdy0;
   wire reg_tvalid;
-  wire [63:0]s_axis_tx_tdata;
-  wire [0:0]s_axis_tx_tkeep;
+  wire [127:0]s_axis_tx_tdata;
+  wire [2:0]s_axis_tx_tkeep;
   wire s_axis_tx_tlast;
   wire [3:0]s_axis_tx_tuser;
   wire s_axis_tx_tvalid;
-  wire [63:0]\throttle_ctl_pipeline.reg_tdata_reg[63]_0 ;
-  wire \throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ;
+  wire [127:0]\throttle_ctl_pipeline.reg_tdata_reg[127]_0 ;
+  wire \throttle_ctl_pipeline.reg_tkeep_reg_n_0_[15] ;
   wire [3:0]\throttle_ctl_pipeline.reg_tuser_reg[3]_0 ;
   wire \thrtl_ctl_trn_flush.reg_disable_trn_i_1_n_0 ;
   wire \thrtl_ctl_trn_flush.reg_disable_trn_reg_0 ;
+  wire \tkeep_to_trem_128.axi_DW_1 ;
   wire trn_in_packet;
   wire trn_in_packet_i_1__0_n_0;
   wire trn_tdst_rdy;
   wire trn_teof;
-  wire [0:0]trn_trem;
+  wire [1:0]trn_trem;
   wire trn_tsof;
   wire trn_tsrc_rdy;
 
@@ -4302,7 +5783,14 @@ module pcie_controller_axi_basic_tx_pipeline
         .CE(1'b1),
         .D(axi_in_packet_reg_0),
         .Q(axi_in_packet),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
+  LUT3 #(
+    .INIT(8'hBA)) 
+    p_0_out
+       (.I0(\throttle_ctl_pipeline.reg_tkeep_reg_n_0_[15] ),
+        .I1(trn_trem[1]),
+        .I2(\tkeep_to_trem_128.axi_DW_1 ),
+        .O(trn_trem[0]));
   LUT2 #(
     .INIT(4'h2)) 
     pcie_block_i_i_31
@@ -4313,442 +5801,838 @@ module pcie_controller_axi_basic_tx_pipeline
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[0]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [0]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [0]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[100] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[100]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [100]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[101] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[101]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [101]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[102] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[102]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [102]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[103] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[103]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [103]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[104] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[104]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [104]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[105] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[105]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [105]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[106] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[106]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [106]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[107] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[107]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [107]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[108] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[108]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [108]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[109] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[109]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [109]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[10] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[10]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [10]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [10]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[110] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[110]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [110]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[111] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[111]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [111]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[112] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[112]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [112]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[113] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[113]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [113]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[114] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[114]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [114]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[115] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[115]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [115]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[116] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[116]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [116]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[117] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[117]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [117]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[118] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[118]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [118]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[119] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[119]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [119]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[11] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[11]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [11]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [11]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[120] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[120]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [120]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[121] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[121]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [121]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[122] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[122]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [122]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[123] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[123]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [123]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[124] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[124]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [124]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[125] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[125]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [125]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[126] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[126]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [126]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[127] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[127]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [127]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[12] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[12]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [12]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [12]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[13] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[13]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [13]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [13]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[14] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[14]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [14]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [14]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[15] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[15]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [15]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [15]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[16] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[16]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [16]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [16]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[17] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[17]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [17]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [17]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[18] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[18]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [18]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [18]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[19] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[19]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [19]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [19]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[1] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[1]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [1]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [1]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[20] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[20]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [20]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [20]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[21] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[21]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [21]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [21]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[22] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[22]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [22]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [22]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[23] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[23]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [23]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [23]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[24] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[24]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [24]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [24]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[25] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[25]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [25]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [25]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[26] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[26]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [26]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [26]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[27] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[27]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [27]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [27]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[28] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[28]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [28]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [28]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[29] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[29]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [29]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [29]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[2] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[2]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [2]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [2]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[30] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[30]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [30]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [30]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[31] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[31]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [31]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [31]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[32] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[32]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [32]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [32]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[33] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[33]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [33]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [33]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[34] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[34]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [34]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [34]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[35] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[35]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [35]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [35]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[36] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[36]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [36]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [36]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[37] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[37]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [37]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [37]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[38] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[38]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [38]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [38]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[39] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[39]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [39]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [39]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[3] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[3]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [3]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [3]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[40] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[40]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [40]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [40]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[41] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[41]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [41]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [41]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[42] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[42]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [42]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [42]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[43] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[43]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [43]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [43]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[44] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[44]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [44]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [44]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[45] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[45]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [45]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [45]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[46] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[46]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [46]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [46]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[47] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[47]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [47]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [47]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[48] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[48]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [48]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [48]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[49] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[49]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [49]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [49]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[4] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[4]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [4]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [4]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[50] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[50]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [50]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [50]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[51] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[51]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [51]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [51]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[52] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[52]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [52]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [52]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[53] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[53]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [53]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [53]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[54] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[54]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [54]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [54]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[55] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[55]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [55]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [55]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[56] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[56]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [56]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [56]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[57] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[57]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [57]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [57]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[58] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[58]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [58]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [58]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[59] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[59]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [59]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [59]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[5] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[5]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [5]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [5]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[60] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[60]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [60]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [60]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[61] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[61]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [61]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [61]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[62] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[62]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [62]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [62]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[63] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[63]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [63]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [63]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[64] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[64]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [64]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[65] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[65]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [65]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[66] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[66]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [66]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[67] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[67]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [67]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[68] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[68]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [68]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[69] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[69]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [69]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[6] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[6]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [6]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [6]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[70] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[70]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [70]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[71] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[71]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [71]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[72] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[72]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [72]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[73] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[73]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [73]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[74] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[74]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [74]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[75] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[75]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [75]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[76] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[76]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [76]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[77] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[77]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [77]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[78] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[78]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [78]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[79] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[79]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [79]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[7] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[7]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [7]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [7]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[80] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[80]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [80]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[81] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[81]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [81]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[82] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[82]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [82]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[83] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[83]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [83]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[84] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[84]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [84]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[85] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[85]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [85]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[86] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[86]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [86]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[87] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[87]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [87]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[88] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[88]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [88]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[89] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[89]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [89]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[8] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[8]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [8]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [8]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[90] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[90]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [90]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[91] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[91]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [91]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[92] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[92]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [92]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[93] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[93]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [93]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[94] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[94]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [94]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[95] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[95]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [95]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[96] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[96]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [96]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[97] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[97]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [97]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[98] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[98]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [98]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tdata_reg[99] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tdata[99]),
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [99]),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tdata_reg[9] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tdata[9]),
-        .Q(\throttle_ctl_pipeline.reg_tdata_reg[63]_0 [9]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .Q(\throttle_ctl_pipeline.reg_tdata_reg[127]_0 [9]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tkeep_reg[11] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tkeep[1]),
+        .Q(trn_trem[1]),
+        .R(SR));
+  FDRE \throttle_ctl_pipeline.reg_tkeep_reg[15] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(s_axis_tx_tkeep[2]),
+        .Q(\throttle_ctl_pipeline.reg_tkeep_reg_n_0_[15] ),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tkeep_reg[7] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(s_axis_tx_tkeep),
-        .Q(trn_trem),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .D(s_axis_tx_tkeep[0]),
+        .Q(\tkeep_to_trem_128.axi_DW_1 ),
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tlast_reg 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tlast),
         .Q(trn_teof),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tsrc_rdy_reg 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(reg_tsrc_rdy0),
         .Q(trn_tsrc_rdy),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tuser_reg[0] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tuser[0]),
         .Q(\throttle_ctl_pipeline.reg_tuser_reg[3]_0 [0]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tuser_reg[1] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tuser[1]),
         .Q(\throttle_ctl_pipeline.reg_tuser_reg[3]_0 [1]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tuser_reg[2] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tuser[2]),
         .Q(\throttle_ctl_pipeline.reg_tuser_reg[3]_0 [2]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tuser_reg[3] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tuser[3]),
         .Q(\throttle_ctl_pipeline.reg_tuser_reg[3]_0 [3]),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
   FDRE \throttle_ctl_pipeline.reg_tvalid_reg 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(s_axis_tx_tvalid),
         .Q(reg_tvalid),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
   LUT6 #(
-    .INIT(64'h0FFFFFFF04444444)) 
+    .INIT(64'h7F7F7F7F007F0000)) 
     \thrtl_ctl_trn_flush.reg_disable_trn_i_1 
-       (.I0(out),
-        .I1(axi_in_packet),
-        .I2(\thrtl_ctl_trn_flush.reg_disable_trn_reg_0 ),
-        .I3(s_axis_tx_tvalid),
-        .I4(s_axis_tx_tlast),
+       (.I0(s_axis_tx_tvalid),
+        .I1(\thrtl_ctl_trn_flush.reg_disable_trn_reg_0 ),
+        .I2(s_axis_tx_tlast),
+        .I3(out),
+        .I4(axi_in_packet),
         .I5(reg_disable_trn),
         .O(\thrtl_ctl_trn_flush.reg_disable_trn_i_1_n_0 ));
   FDRE \thrtl_ctl_trn_flush.reg_disable_trn_reg 
@@ -4756,15 +6640,15 @@ module pcie_controller_axi_basic_tx_pipeline
         .CE(1'b1),
         .D(\thrtl_ctl_trn_flush.reg_disable_trn_i_1_n_0 ),
         .Q(reg_disable_trn),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
   LUT6 #(
-    .INIT(64'h0000F088F000F000)) 
+    .INIT(64'h00F00088F0F00000)) 
     trn_in_packet_i_1__0
        (.I0(trn_tdst_rdy),
         .I1(reg_tvalid),
         .I2(out),
-        .I3(trn_in_packet),
-        .I4(trn_teof),
+        .I3(trn_teof),
+        .I4(trn_in_packet),
         .I5(trn_tsrc_rdy),
         .O(trn_in_packet_i_1__0_n_0));
   FDRE trn_in_packet_reg
@@ -4772,73 +6656,70 @@ module pcie_controller_axi_basic_tx_pipeline
         .CE(1'b1),
         .D(trn_in_packet_i_1__0_n_0),
         .Q(trn_in_packet),
-        .R(\throttle_ctl_pipeline.reg_tkeep_reg[7]_0 ));
+        .R(SR));
 endmodule
 
 module pcie_controller_axi_basic_tx_thrtl_ctl
-   (reg_tcfg_gnt,
-    tready_thrtl_reg_0,
+   (tready_thrtl_reg_0,
     ppm_L1_thrtl,
-    lnk_up_thrtl,
     s_axis_tx_tlast_0,
     ppm_L1_trig,
-    cfg_pm_turnoff_ok_n,
     trn_tcfg_gnt,
+    cfg_pm_turnoff_ok_n,
     reg_tsrc_rdy0,
-    \tbuf_gap_cnt_reg[0]_0 ,
+    \tbuf_av_d_reg[2]_0 ,
+    SR,
     tx_cfg_gnt,
     pipe_userclk2_in,
     trn_tcfg_req,
     trn_tdst_rdy,
-    tbuf_av_min_trig,
     cfg_turnoff_ok,
+    tbuf_av_min_trig,
     ppm_L1_thrtl_reg_0,
-    lnk_up_thrtl_reg_0,
-    s_axis_tx_tlast,
     s_axis_tx_tvalid,
+    s_axis_tx_tlast,
     axi_in_packet,
     out,
-    tcfg_req_trig,
-    tready_thrtl_i_5_0,
-    cfg_pcie_link_state,
+    tbuf_av_gap_thrtl_reg_0,
     s_axis_tx_tdata,
-    s_axis_tx_tuser,
+    tbuf_av_gap_thrtl_i_2_0,
     reg_disable_trn,
+    s_axis_tx_tuser,
+    cfg_pcie_link_state,
     trn_tbuf_av,
     cfg_to_turnoff);
-  output reg_tcfg_gnt;
   output tready_thrtl_reg_0;
   output ppm_L1_thrtl;
-  output lnk_up_thrtl;
   output s_axis_tx_tlast_0;
   output ppm_L1_trig;
-  output cfg_pm_turnoff_ok_n;
   output trn_tcfg_gnt;
+  output cfg_pm_turnoff_ok_n;
   output reg_tsrc_rdy0;
-  input \tbuf_gap_cnt_reg[0]_0 ;
+  output [1:0]\tbuf_av_d_reg[2]_0 ;
+  input [0:0]SR;
   input tx_cfg_gnt;
   input pipe_userclk2_in;
   input trn_tcfg_req;
   input trn_tdst_rdy;
-  input tbuf_av_min_trig;
   input cfg_turnoff_ok;
+  input tbuf_av_min_trig;
   input ppm_L1_thrtl_reg_0;
-  input lnk_up_thrtl_reg_0;
-  input s_axis_tx_tlast;
   input s_axis_tx_tvalid;
+  input s_axis_tx_tlast;
   input axi_in_packet;
   input out;
-  input tcfg_req_trig;
-  input tready_thrtl_i_5_0;
-  input [2:0]cfg_pcie_link_state;
-  input [3:0]s_axis_tx_tdata;
-  input [0:0]s_axis_tx_tuser;
+  input tbuf_av_gap_thrtl_reg_0;
+  input [4:0]s_axis_tx_tdata;
+  input tbuf_av_gap_thrtl_i_2_0;
   input reg_disable_trn;
+  input [0:0]s_axis_tx_tuser;
+  input [2:0]cfg_pcie_link_state;
   input [5:0]trn_tbuf_av;
   input cfg_to_turnoff;
 
   wire \L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff ;
   wire \L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff_i_1_n_0 ;
+  wire [0:0]SR;
   wire axi_in_packet;
   wire [2:0]cfg_pcie_link_state;
   wire [2:0]cfg_pcie_link_state_d;
@@ -4848,14 +6729,14 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
   wire cfg_turnoff_ok_pending;
   wire cfg_turnoff_ok_pending_i_1_n_0;
   wire cur_state;
-  wire cur_state_i_2_n_0;
+  wire cur_state_i_2__0_n_0;
   wire \ecrc_pause_enabled.reg_tx_ecrc_pkt ;
-  wire \ecrc_pause_enabled.reg_tx_ecrc_pkt021_out ;
   wire \ecrc_pause_enabled.reg_tx_ecrc_pkt_i_1_n_0 ;
   wire lnk_up_thrtl;
-  wire lnk_up_thrtl_reg_0;
+  wire lnk_up_thrtl_i_1_n_0;
   wire next_state;
   wire out;
+  wire p_16_in;
   wire p_2_in;
   wire pcie_block_i_i_36_n_0;
   wire pipe_userclk2_in;
@@ -4871,20 +6752,27 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
   wire reg_tcfg_gnt;
   wire reg_tsrc_rdy0;
   wire reg_turnoff_ok;
-  wire [3:0]s_axis_tx_tdata;
+  wire [4:0]s_axis_tx_tdata;
   wire s_axis_tx_tlast;
   wire s_axis_tx_tlast_0;
   wire [0:0]s_axis_tx_tuser;
   wire s_axis_tx_tvalid;
   wire [5:0]tbuf_av_d;
+  wire [1:0]\tbuf_av_d_reg[2]_0 ;
   wire tbuf_av_gap_thrtl;
   wire tbuf_av_gap_thrtl_i_1_n_0;
+  wire tbuf_av_gap_thrtl_i_2_0;
+  wire tbuf_av_gap_thrtl_i_4_n_0;
+  wire tbuf_av_gap_thrtl_reg_0;
   wire tbuf_av_gap_trig;
   wire tbuf_av_min_thrtl;
   wire tbuf_av_min_trig;
   wire \tbuf_gap_cnt[0]_i_1_n_0 ;
-  wire \tbuf_gap_cnt_reg[0]_0 ;
+  wire \tbuf_gap_cnt[1]_i_1_n_0 ;
+  wire \tbuf_gap_cnt[2]_i_1_n_0 ;
   wire \tbuf_gap_cnt_reg_n_0_[0] ;
+  wire \tbuf_gap_cnt_reg_n_0_[1] ;
+  wire \tbuf_gap_cnt_reg_n_0_[2] ;
   wire tcfg_gnt_pending;
   wire tcfg_gnt_pending_i_1_n_0;
   wire [1:0]tcfg_req_cnt;
@@ -4894,14 +6782,11 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
   wire tcfg_req_thrtl_i_1_n_0;
   wire tcfg_req_trig;
   wire tready_thrtl0;
-  wire tready_thrtl_i_10_n_0;
-  wire tready_thrtl_i_12_n_0;
   wire tready_thrtl_i_2_n_0;
   wire tready_thrtl_i_3_n_0;
   wire tready_thrtl_i_4_n_0;
-  wire tready_thrtl_i_5_0;
-  wire tready_thrtl_i_6_n_0;
-  wire tready_thrtl_i_7_n_0;
+  wire tready_thrtl_i_5_n_0;
+  wire tready_thrtl_i_9_n_0;
   wire tready_thrtl_reg_0;
   wire [5:0]trn_tbuf_av;
   wire trn_tcfg_gnt;
@@ -4916,8 +6801,8 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .CE(1'b1),
         .D(cfg_turnoff_ok),
         .Q(reg_turnoff_ok),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair453" *) 
+        .R(SR));
+  (* SOFT_HLUTNM = "soft_lutpair473" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff_i_1 
@@ -4929,7 +6814,7 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .CE(1'b1),
         .D(\L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff_i_1_n_0 ),
         .Q(\L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff ),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   LUT4 #(
     .INIT(16'h7F40)) 
     axi_in_packet_i_1
@@ -4943,27 +6828,27 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .CE(1'b1),
         .D(cfg_pcie_link_state[0]),
         .Q(cfg_pcie_link_state_d[0]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   FDRE \cfg_pcie_link_state_d_reg[1] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(cfg_pcie_link_state[1]),
         .Q(cfg_pcie_link_state_d[1]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   FDRE \cfg_pcie_link_state_d_reg[2] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(cfg_pcie_link_state[2]),
         .Q(cfg_pcie_link_state_d[2]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair450" *) 
+        .R(SR));
+  (* SOFT_HLUTNM = "soft_lutpair471" *) 
   LUT5 #(
     .INIT(32'h75553000)) 
     cfg_turnoff_ok_pending_i_1
        (.I0(cfg_pm_turnoff_ok_n),
         .I1(ppm_L23_thrtl),
-        .I2(reg_turnoff_ok),
-        .I3(\L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff ),
+        .I2(\L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff ),
+        .I3(reg_turnoff_ok),
         .I4(cfg_turnoff_ok_pending),
         .O(cfg_turnoff_ok_pending_i_1_n_0));
   FDRE cfg_turnoff_ok_pending_reg
@@ -4971,115 +6856,112 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .CE(1'b1),
         .D(cfg_turnoff_ok_pending_i_1_n_0),
         .Q(cfg_turnoff_ok_pending),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   LUT6 #(
-    .INIT(64'h5455445554555555)) 
+    .INIT(64'hA8A888AAAAAAAAAA)) 
     cur_state_i_1__0
-       (.I0(cur_state_i_2_n_0),
+       (.I0(cur_state_i_2__0_n_0),
         .I1(cur_state),
         .I2(s_axis_tx_tlast),
-        .I3(tready_thrtl_reg_0),
+        .I3(reg_axi_in_pkt),
         .I4(s_axis_tx_tvalid),
-        .I5(reg_axi_in_pkt),
+        .I5(tready_thrtl_reg_0),
         .O(next_state));
   LUT6 #(
-    .INIT(64'h0000000000000001)) 
-    cur_state_i_2
+    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    cur_state_i_2__0
        (.I0(ppm_L1_thrtl),
-        .I1(lnk_up_thrtl),
-        .I2(tcfg_req_thrtl),
-        .I3(ppm_L23_thrtl),
+        .I1(tcfg_req_thrtl),
+        .I2(tbuf_av_min_thrtl),
+        .I3(lnk_up_thrtl),
         .I4(tbuf_av_gap_thrtl),
-        .I5(tbuf_av_min_thrtl),
-        .O(cur_state_i_2_n_0));
+        .I5(ppm_L23_thrtl),
+        .O(cur_state_i_2__0_n_0));
   FDSE cur_state_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(next_state),
         .Q(cur_state),
-        .S(\tbuf_gap_cnt_reg[0]_0 ));
+        .S(SR));
+  (* SOFT_HLUTNM = "soft_lutpair470" *) 
   LUT5 #(
-    .INIT(32'hBFFFAAAA)) 
+    .INIT(32'h15FF00AA)) 
     \ecrc_pause_enabled.reg_tx_ecrc_pkt_i_1 
-       (.I0(\ecrc_pause_enabled.reg_tx_ecrc_pkt021_out ),
-        .I1(tready_thrtl_reg_0),
-        .I2(s_axis_tx_tvalid),
+       (.I0(tready_thrtl_i_5_n_0),
+        .I1(s_axis_tx_tvalid),
+        .I2(tready_thrtl_reg_0),
         .I3(s_axis_tx_tlast),
         .I4(\ecrc_pause_enabled.reg_tx_ecrc_pkt ),
         .O(\ecrc_pause_enabled.reg_tx_ecrc_pkt_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair451" *) 
-  LUT5 #(
-    .INIT(32'h00001444)) 
-    \ecrc_pause_enabled.reg_tx_ecrc_pkt_i_2 
-       (.I0(tready_thrtl_i_7_n_0),
-        .I1(s_axis_tx_tdata[2]),
-        .I2(s_axis_tx_tdata[3]),
-        .I3(s_axis_tx_tdata[0]),
-        .I4(s_axis_tx_tlast),
-        .O(\ecrc_pause_enabled.reg_tx_ecrc_pkt021_out ));
   FDRE \ecrc_pause_enabled.reg_tx_ecrc_pkt_reg 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(\ecrc_pause_enabled.reg_tx_ecrc_pkt_i_1_n_0 ),
         .Q(\ecrc_pause_enabled.reg_tx_ecrc_pkt ),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
-  FDSE lnk_up_thrtl_reg
+        .R(SR));
+  LUT4 #(
+    .INIT(16'hBBFB)) 
+    lnk_up_thrtl_i_1
+       (.I0(SR),
+        .I1(out),
+        .I2(lnk_up_thrtl),
+        .I3(trn_tdst_rdy),
+        .O(lnk_up_thrtl_i_1_n_0));
+  FDRE lnk_up_thrtl_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(lnk_up_thrtl_reg_0),
+        .D(lnk_up_thrtl_i_1_n_0),
         .Q(lnk_up_thrtl),
-        .S(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(1'b0));
   LUT6 #(
-    .INIT(64'h20202020A0AFA0A0)) 
+    .INIT(64'h0FFF008800880088)) 
     pcie_block_i_i_26
-       (.I0(cfg_turnoff_ok_pending),
-        .I1(tcfg_gnt_pending),
-        .I2(cur_state),
-        .I3(pcie_block_i_i_36_n_0),
-        .I4(ppm_L23_thrtl),
-        .I5(tcfg_req_thrtl),
-        .O(cfg_pm_turnoff_ok_n));
-  (* SOFT_HLUTNM = "soft_lutpair452" *) 
-  LUT4 #(
-    .INIT(16'hA202)) 
-    pcie_block_i_i_30
-       (.I0(tcfg_req_thrtl),
+       (.I0(ppm_L23_thrtl),
         .I1(pcie_block_i_i_36_n_0),
-        .I2(cur_state),
+        .I2(tcfg_gnt_pending),
+        .I3(tcfg_req_thrtl),
+        .I4(cur_state),
+        .I5(cfg_turnoff_ok_pending),
+        .O(cfg_pm_turnoff_ok_n));
+  LUT4 #(
+    .INIT(16'hE0A0)) 
+    pcie_block_i_i_30
+       (.I0(pcie_block_i_i_36_n_0),
+        .I1(cur_state),
+        .I2(tcfg_req_thrtl),
         .I3(tcfg_gnt_pending),
         .O(trn_tcfg_gnt));
-  (* SOFT_HLUTNM = "soft_lutpair448" *) 
   LUT5 #(
-    .INIT(32'hFFFF20E0)) 
+    .INIT(32'h51551115)) 
     pcie_block_i_i_36
-       (.I0(reg_axi_in_pkt),
-        .I1(s_axis_tx_tvalid),
-        .I2(tready_thrtl_reg_0),
-        .I3(s_axis_tx_tlast),
-        .I4(cur_state_i_2_n_0),
+       (.I0(cur_state),
+        .I1(tready_thrtl_reg_0),
+        .I2(s_axis_tx_tvalid),
+        .I3(reg_axi_in_pkt),
+        .I4(s_axis_tx_tlast),
         .O(pcie_block_i_i_36_n_0));
   LUT6 #(
-    .INIT(64'h0000010000000000)) 
+    .INIT(64'h0001000000000000)) 
     ppm_L1_thrtl_i_2
        (.I0(cfg_pcie_link_state_d[1]),
-        .I1(cfg_pcie_link_state_d[2]),
-        .I2(cfg_pcie_link_state_d[0]),
-        .I3(cfg_pcie_link_state[0]),
-        .I4(cfg_pcie_link_state[1]),
-        .I5(cfg_pcie_link_state[2]),
+        .I1(cfg_pcie_link_state_d[0]),
+        .I2(cfg_pcie_link_state[1]),
+        .I3(cfg_pcie_link_state_d[2]),
+        .I4(cfg_pcie_link_state[2]),
+        .I5(cfg_pcie_link_state[0]),
         .O(ppm_L1_trig));
   FDRE ppm_L1_thrtl_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(ppm_L1_thrtl_reg_0),
         .Q(ppm_L1_thrtl),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair450" *) 
+        .R(SR));
+  (* SOFT_HLUTNM = "soft_lutpair471" *) 
   LUT3 #(
     .INIT(8'hF8)) 
     ppm_L23_thrtl_i_1
-       (.I0(\L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff ),
-        .I1(reg_turnoff_ok),
+       (.I0(reg_turnoff_ok),
+        .I1(\L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff ),
         .I2(ppm_L23_thrtl),
         .O(ppm_L23_thrtl_i_1_n_0));
   FDRE ppm_L23_thrtl_reg
@@ -5087,7 +6969,7 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .CE(1'b1),
         .D(ppm_L23_thrtl_i_1_n_0),
         .Q(ppm_L23_thrtl),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   LUT5 #(
     .INIT(32'h00005F40)) 
     reg_axi_in_pkt_i_1
@@ -5095,7 +6977,7 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .I1(tready_thrtl_reg_0),
         .I2(s_axis_tx_tvalid),
         .I3(reg_axi_in_pkt),
-        .I4(\tbuf_gap_cnt_reg[0]_0 ),
+        .I4(SR),
         .O(reg_axi_in_pkt_i_1_n_0));
   FDRE reg_axi_in_pkt_reg
        (.C(pipe_userclk2_in),
@@ -5108,91 +6990,147 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .CE(1'b1),
         .D(tx_cfg_gnt),
         .Q(reg_tcfg_gnt),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   FDRE \tbuf_av_d_reg[0] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_tbuf_av[0]),
         .Q(tbuf_av_d[0]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   FDRE \tbuf_av_d_reg[1] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_tbuf_av[1]),
-        .Q(tbuf_av_d[1]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .Q(\tbuf_av_d_reg[2]_0 [0]),
+        .R(SR));
   FDRE \tbuf_av_d_reg[2] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_tbuf_av[2]),
-        .Q(tbuf_av_d[2]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .Q(\tbuf_av_d_reg[2]_0 [1]),
+        .R(SR));
   FDRE \tbuf_av_d_reg[3] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_tbuf_av[3]),
         .Q(tbuf_av_d[3]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   FDRE \tbuf_av_d_reg[4] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_tbuf_av[4]),
         .Q(tbuf_av_d[4]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   FDRE \tbuf_av_d_reg[5] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_tbuf_av[5]),
         .Q(tbuf_av_d[5]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
-  LUT3 #(
-    .INIT(8'hEA)) 
+        .R(SR));
+  LUT5 #(
+    .INIT(32'hFFFEAAAA)) 
     tbuf_av_gap_thrtl_i_1
        (.I0(tbuf_av_gap_trig),
-        .I1(\tbuf_gap_cnt_reg_n_0_[0] ),
-        .I2(tbuf_av_gap_thrtl),
+        .I1(\tbuf_gap_cnt_reg_n_0_[2] ),
+        .I2(\tbuf_gap_cnt_reg_n_0_[0] ),
+        .I3(\tbuf_gap_cnt_reg_n_0_[1] ),
+        .I4(tbuf_av_gap_thrtl),
         .O(tbuf_av_gap_thrtl_i_1_n_0));
+  LUT6 #(
+    .INIT(64'h44444F4444444444)) 
+    tbuf_av_gap_thrtl_i_2
+       (.I0(tbuf_av_gap_thrtl_reg_0),
+        .I1(tbuf_av_gap_thrtl_i_4_n_0),
+        .I2(p_2_in),
+        .I3(trn_tdst_rdy),
+        .I4(trn_tdst_rdy_d),
+        .I5(tcfg_req_thrtl),
+        .O(tbuf_av_gap_trig));
+  LUT6 #(
+    .INIT(64'hAAAAAAAAAAABAAAA)) 
+    tbuf_av_gap_thrtl_i_4
+       (.I0(tready_thrtl_i_4_n_0),
+        .I1(tbuf_av_gap_thrtl_i_2_0),
+        .I2(tbuf_av_d[5]),
+        .I3(tbuf_av_d[3]),
+        .I4(tbuf_av_d[0]),
+        .I5(tbuf_av_d[4]),
+        .O(tbuf_av_gap_thrtl_i_4_n_0));
   FDRE tbuf_av_gap_thrtl_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(tbuf_av_gap_thrtl_i_1_n_0),
         .Q(tbuf_av_gap_thrtl),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   FDRE tbuf_av_min_thrtl_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(tbuf_av_min_trig),
         .Q(tbuf_av_min_thrtl),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair452" *) 
-  LUT2 #(
-    .INIT(4'h7)) 
+        .R(SR));
+  LUT6 #(
+    .INIT(64'h0000000054000000)) 
     \tbuf_gap_cnt[0]_i_1 
-       (.I0(tbuf_av_gap_thrtl),
-        .I1(cur_state),
+       (.I0(\tbuf_gap_cnt_reg_n_0_[0] ),
+        .I1(\tbuf_gap_cnt_reg_n_0_[2] ),
+        .I2(\tbuf_gap_cnt_reg_n_0_[1] ),
+        .I3(tbuf_av_gap_thrtl),
+        .I4(cur_state),
+        .I5(SR),
         .O(\tbuf_gap_cnt[0]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000098000000)) 
+    \tbuf_gap_cnt[1]_i_1 
+       (.I0(\tbuf_gap_cnt_reg_n_0_[1] ),
+        .I1(\tbuf_gap_cnt_reg_n_0_[0] ),
+        .I2(\tbuf_gap_cnt_reg_n_0_[2] ),
+        .I3(tbuf_av_gap_thrtl),
+        .I4(cur_state),
+        .I5(SR),
+        .O(\tbuf_gap_cnt[1]_i_1_n_0 ));
+  LUT5 #(
+    .INIT(32'hF7F7F777)) 
+    \tbuf_gap_cnt[2]_i_1 
+       (.I0(cur_state),
+        .I1(tbuf_av_gap_thrtl),
+        .I2(\tbuf_gap_cnt_reg_n_0_[2] ),
+        .I3(\tbuf_gap_cnt_reg_n_0_[0] ),
+        .I4(\tbuf_gap_cnt_reg_n_0_[1] ),
+        .O(\tbuf_gap_cnt[2]_i_1_n_0 ));
   FDRE \tbuf_gap_cnt_reg[0] 
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(\tbuf_gap_cnt[0]_i_1_n_0 ),
         .Q(\tbuf_gap_cnt_reg_n_0_[0] ),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(1'b0));
+  FDRE \tbuf_gap_cnt_reg[1] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(\tbuf_gap_cnt[1]_i_1_n_0 ),
+        .Q(\tbuf_gap_cnt_reg_n_0_[1] ),
+        .R(1'b0));
+  FDRE \tbuf_gap_cnt_reg[2] 
+       (.C(pipe_userclk2_in),
+        .CE(1'b1),
+        .D(\tbuf_gap_cnt[2]_i_1_n_0 ),
+        .Q(\tbuf_gap_cnt_reg_n_0_[2] ),
+        .R(SR));
   LUT6 #(
-    .INIT(64'h44F44444F4F4F4F4)) 
+    .INIT(64'h44F444F444F4F4F4)) 
     tcfg_gnt_pending_i_1
        (.I0(trn_tcfg_req_d),
         .I1(trn_tcfg_req),
         .I2(tcfg_gnt_pending),
-        .I3(cur_state),
-        .I4(pcie_block_i_i_36_n_0),
-        .I5(tcfg_req_thrtl),
+        .I3(tcfg_req_thrtl),
+        .I4(cur_state),
+        .I5(pcie_block_i_i_36_n_0),
         .O(tcfg_gnt_pending_i_1_n_0));
   FDRE tcfg_gnt_pending_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(tcfg_gnt_pending_i_1_n_0),
         .Q(tcfg_gnt_pending),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   LUT6 #(
     .INIT(64'h0000000000000D00)) 
     \tcfg_req_cnt[0]_i_1 
@@ -5201,14 +7139,13 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .I2(tcfg_gnt_pending),
         .I3(tcfg_req_cnt[1]),
         .I4(tcfg_req_cnt[0]),
-        .I5(\tbuf_gap_cnt_reg[0]_0 ),
+        .I5(SR),
         .O(\tcfg_req_cnt[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair449" *) 
   LUT5 #(
     .INIT(32'hFFFF88F8)) 
     \tcfg_req_cnt[1]_i_1 
-       (.I0(tcfg_req_cnt[0]),
-        .I1(tcfg_req_cnt[1]),
+       (.I0(tcfg_req_cnt[1]),
+        .I1(tcfg_req_cnt[0]),
         .I2(trn_tcfg_req),
         .I3(trn_tcfg_req_d),
         .I4(tcfg_gnt_pending),
@@ -5224,30 +7161,29 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .CE(1'b1),
         .D(\tcfg_req_cnt[1]_i_1_n_0 ),
         .Q(tcfg_req_cnt[1]),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   LUT6 #(
     .INIT(64'hFFFFF8FF88888888)) 
     tcfg_req_thrtl_i_1
-       (.I0(reg_tcfg_gnt),
-        .I1(trn_tcfg_req),
+       (.I0(trn_tcfg_req),
+        .I1(reg_tcfg_gnt),
         .I2(trn_tdst_rdy_d),
         .I3(trn_tdst_rdy),
         .I4(p_2_in),
         .I5(tcfg_req_thrtl),
         .O(tcfg_req_thrtl_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair449" *) 
   LUT2 #(
     .INIT(4'hE)) 
     tcfg_req_thrtl_i_2
-       (.I0(tcfg_req_cnt[1]),
-        .I1(tcfg_req_cnt[0]),
+       (.I0(tcfg_req_cnt[0]),
+        .I1(tcfg_req_cnt[1]),
         .O(p_2_in));
   FDRE tcfg_req_thrtl_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(tcfg_req_thrtl_i_1_n_0),
         .Q(tcfg_req_thrtl),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   LUT4 #(
     .INIT(16'h0080)) 
     \throttle_ctl_pipeline.reg_tsrc_rdy_i_1 
@@ -5257,120 +7193,107 @@ module pcie_controller_axi_basic_tx_thrtl_ctl
         .I3(reg_disable_trn),
         .O(reg_tsrc_rdy0));
   LUT6 #(
-    .INIT(64'hF1F1F1F10000F100)) 
+    .INIT(64'h000000000E0E0EEE)) 
     tready_thrtl_i_1
-       (.I0(\ecrc_pause_enabled.reg_tx_ecrc_pkt ),
-        .I1(tready_thrtl_i_2_n_0),
-        .I2(tready_thrtl_i_3_n_0),
-        .I3(tready_thrtl_i_4_n_0),
-        .I4(tbuf_av_gap_trig),
-        .I5(tready_thrtl_i_6_n_0),
+       (.I0(tready_thrtl_i_2_n_0),
+        .I1(tready_thrtl_i_3_n_0),
+        .I2(tready_thrtl_i_4_n_0),
+        .I3(tready_thrtl_i_5_n_0),
+        .I4(\ecrc_pause_enabled.reg_tx_ecrc_pkt ),
+        .I5(next_state),
         .O(tready_thrtl0));
   LUT6 #(
-    .INIT(64'h00002000AAAAAAAA)) 
-    tready_thrtl_i_10
-       (.I0(tready_thrtl_i_5_0),
-        .I1(tbuf_av_d[4]),
-        .I2(tbuf_av_d[0]),
-        .I3(tbuf_av_d[1]),
-        .I4(tready_thrtl_i_12_n_0),
-        .I5(tready_thrtl_i_3_n_0),
-        .O(tready_thrtl_i_10_n_0));
-  LUT4 #(
-    .INIT(16'hFFEF)) 
-    tready_thrtl_i_12
-       (.I0(tbuf_av_d[5]),
-        .I1(tbuf_av_d[2]),
-        .I2(trn_tbuf_av[1]),
-        .I3(tbuf_av_d[3]),
-        .O(tready_thrtl_i_12_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair451" *) 
-  LUT4 #(
-    .INIT(16'h0078)) 
+    .INIT(64'h0000000000000100)) 
     tready_thrtl_i_2
-       (.I0(s_axis_tx_tdata[0]),
-        .I1(s_axis_tx_tdata[3]),
-        .I2(s_axis_tx_tdata[2]),
-        .I3(tready_thrtl_i_7_n_0),
-        .O(tready_thrtl_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair448" *) 
-  LUT3 #(
-    .INIT(8'h7F)) 
-    tready_thrtl_i_3
-       (.I0(s_axis_tx_tlast),
-        .I1(s_axis_tx_tvalid),
-        .I2(tready_thrtl_reg_0),
-        .O(tready_thrtl_i_3_n_0));
-  LUT6 #(
-    .INIT(64'h0000000000040000)) 
-    tready_thrtl_i_4
-       (.I0(ppm_L23_trig),
-        .I1(out),
+       (.I0(tbuf_av_gap_trig),
+        .I1(ppm_L1_trig),
         .I2(tcfg_req_trig),
-        .I3(ppm_L1_trig),
-        .I4(cur_state_i_2_n_0),
+        .I3(out),
+        .I4(ppm_L23_trig),
         .I5(tbuf_av_min_trig),
-        .O(tready_thrtl_i_4_n_0));
-  LUT6 #(
-    .INIT(64'hFFFFFFFF00100000)) 
-    tready_thrtl_i_5
-       (.I0(tcfg_req_cnt[0]),
-        .I1(tcfg_req_cnt[1]),
-        .I2(trn_tdst_rdy),
-        .I3(trn_tdst_rdy_d),
-        .I4(tcfg_req_thrtl),
-        .I5(tready_thrtl_i_10_n_0),
-        .O(tbuf_av_gap_trig));
+        .O(tready_thrtl_i_2_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair472" *) 
   LUT5 #(
-    .INIT(32'h000020E0)) 
-    tready_thrtl_i_6
-       (.I0(reg_axi_in_pkt),
+    .INIT(32'h000020A8)) 
+    tready_thrtl_i_3
+       (.I0(tready_thrtl_reg_0),
         .I1(s_axis_tx_tvalid),
-        .I2(tready_thrtl_reg_0),
+        .I2(reg_axi_in_pkt),
         .I3(s_axis_tx_tlast),
         .I4(cur_state),
-        .O(tready_thrtl_i_6_n_0));
-  LUT5 #(
-    .INIT(32'hFFFFDFFF)) 
-    tready_thrtl_i_7
-       (.I0(s_axis_tx_tuser),
-        .I1(s_axis_tx_tdata[1]),
+        .O(tready_thrtl_i_3_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair470" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
+    tready_thrtl_i_4
+       (.I0(s_axis_tx_tlast),
+        .I1(tready_thrtl_reg_0),
         .I2(s_axis_tx_tvalid),
-        .I3(tready_thrtl_reg_0),
-        .I4(reg_axi_in_pkt),
-        .O(tready_thrtl_i_7_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair453" *) 
+        .O(tready_thrtl_i_4_n_0));
+  LUT6 #(
+    .INIT(64'h00A020A020000000)) 
+    tready_thrtl_i_5
+       (.I0(p_16_in),
+        .I1(s_axis_tx_tdata[1]),
+        .I2(tready_thrtl_i_9_n_0),
+        .I3(s_axis_tx_tdata[4]),
+        .I4(s_axis_tx_tdata[0]),
+        .I5(s_axis_tx_tdata[3]),
+        .O(tready_thrtl_i_5_n_0));
+  LUT2 #(
+    .INIT(4'h8)) 
+    tready_thrtl_i_6
+       (.I0(reg_tcfg_gnt),
+        .I1(trn_tcfg_req),
+        .O(tcfg_req_trig));
+  (* SOFT_HLUTNM = "soft_lutpair473" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    tready_thrtl_i_7
+       (.I0(\L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff ),
+        .I1(reg_turnoff_ok),
+        .O(ppm_L23_trig));
+  (* SOFT_HLUTNM = "soft_lutpair472" *) 
   LUT2 #(
     .INIT(4'h8)) 
     tready_thrtl_i_8
-       (.I0(reg_turnoff_ok),
-        .I1(\L23_thrtl_ep.x7_L23_thrtl_ep.reg_to_turnoff ),
-        .O(ppm_L23_trig));
+       (.I0(s_axis_tx_tvalid),
+        .I1(tready_thrtl_reg_0),
+        .O(p_16_in));
+  LUT3 #(
+    .INIT(8'h02)) 
+    tready_thrtl_i_9
+       (.I0(s_axis_tx_tuser),
+        .I1(s_axis_tx_tdata[2]),
+        .I2(reg_axi_in_pkt),
+        .O(tready_thrtl_i_9_n_0));
   FDRE tready_thrtl_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(tready_thrtl0),
         .Q(tready_thrtl_reg_0),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   FDRE trn_tcfg_req_d_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_tcfg_req),
         .Q(trn_tcfg_req_d),
-        .R(\tbuf_gap_cnt_reg[0]_0 ));
+        .R(SR));
   FDSE trn_tdst_rdy_d_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
         .D(trn_tdst_rdy),
         .Q(trn_tdst_rdy_d),
-        .S(\tbuf_gap_cnt_reg[0]_0 ));
+        .S(SR));
 endmodule
 
 module pcie_controller_core_top
    (pl_ltssm_state,
     pl_phy_lnk_up,
-    user_reset_out,
     m_axis_rx_tvalid,
+    user_reset_out,
+    Q,
+    \m_axis_rx_tuser_reg[21] ,
     s_axis_tx_tready,
     cfg_aer_ecrc_check_en,
     cfg_aer_ecrc_gen_en,
@@ -5449,9 +7372,6 @@ module pcie_controller_core_top
     pipe_rxoutclk_out,
     pipe_txoutclk_out,
     user_lnk_up,
-    m_axis_rx_tdata,
-    m_axis_rx_tkeep,
-    m_axis_rx_tlast,
     m_axis_rx_tuser,
     cfg_bus_number,
     cfg_device_number,
@@ -5464,8 +7384,8 @@ module pcie_controller_core_top
     cfg_received_func_lvl_rst,
     pipe_pclk_in,
     m_axis_rx_tready,
-    s_axis_tx_tlast,
     s_axis_tx_tvalid,
+    s_axis_tx_tlast,
     pipe_userclk2_in,
     pipe_userclk1_in,
     pcie_drp_clk,
@@ -5538,8 +7458,10 @@ module pcie_controller_core_top
     cfg_pm_wake);
   output [5:0]pl_ltssm_state;
   output pl_phy_lnk_up;
-  output user_reset_out;
   output m_axis_rx_tvalid;
+  output user_reset_out;
+  output [127:0]Q;
+  output [5:0]\m_axis_rx_tuser_reg[21] ;
   output s_axis_tx_tready;
   output cfg_aer_ecrc_check_en;
   output cfg_aer_ecrc_gen_en;
@@ -5618,10 +7540,7 @@ module pcie_controller_core_top
   output [7:0]pipe_rxoutclk_out;
   output pipe_txoutclk_out;
   output user_lnk_up;
-  output [63:0]m_axis_rx_tdata;
-  output [0:0]m_axis_rx_tkeep;
-  output m_axis_rx_tlast;
-  output [12:0]m_axis_rx_tuser;
+  output [8:0]m_axis_rx_tuser;
   output [7:0]cfg_bus_number;
   output [4:0]cfg_device_number;
   output [2:0]cfg_function_number;
@@ -5633,8 +7552,8 @@ module pcie_controller_core_top
   output cfg_received_func_lvl_rst;
   input pipe_pclk_in;
   input m_axis_rx_tready;
-  input s_axis_tx_tlast;
   input s_axis_tx_tvalid;
+  input s_axis_tx_tlast;
   input pipe_userclk2_in;
   input pipe_userclk1_in;
   input pcie_drp_clk;
@@ -5674,9 +7593,9 @@ module pcie_controller_core_top
   input sys_rst_n;
   input tx_cfg_gnt;
   input cfg_turnoff_ok;
-  input [63:0]s_axis_tx_tdata;
+  input [127:0]s_axis_tx_tdata;
   input [3:0]s_axis_tx_tuser;
-  input [0:0]s_axis_tx_tkeep;
+  input [2:0]s_axis_tx_tkeep;
   input [3:0]cfg_mgmt_byte_en;
   input cfg_trn_pending;
   input cfg_mgmt_wr_rw1c_as_rw;
@@ -5706,6 +7625,7 @@ module pcie_controller_core_top
   input cfg_pm_force_state_en;
   input cfg_pm_wake;
 
+  wire [127:0]Q;
   wire \_inferred__0/store_ltssm_inferred_i_2_n_0 ;
   wire \_inferred__0/store_ltssm_inferred_i_3_n_0 ;
   wire bridge_reset_int;
@@ -5864,11 +7784,9 @@ module pcie_controller_core_top
   wire \ltssm_reg1_reg[4]_srl2_n_0 ;
   wire \ltssm_reg1_reg[5]_srl2_n_0 ;
   wire [5:0]ltssm_reg2;
-  wire [63:0]m_axis_rx_tdata;
-  wire [0:0]m_axis_rx_tkeep;
-  wire m_axis_rx_tlast;
   wire m_axis_rx_tready;
-  wire [12:0]m_axis_rx_tuser;
+  wire [8:0]m_axis_rx_tuser;
+  wire [5:0]\m_axis_rx_tuser_reg[21] ;
   wire m_axis_rx_tvalid;
   wire [7:0]pci_exp_rxn;
   wire [7:0]pci_exp_rxp;
@@ -5885,7 +7803,7 @@ module pcie_controller_core_top
   wire pcie_drp_en;
   wire pcie_drp_rdy;
   wire pcie_drp_we;
-  wire pcie_top_i_n_32;
+  wire pcie_top_i_n_30;
   wire phy_rdy_n;
   wire pipe_dclk_in;
   wire pipe_mmcm_lock_in;
@@ -6007,8 +7925,8 @@ module pcie_controller_core_top
   wire pl_upstream_prefer_deemph;
   wire rx_np_ok;
   wire rx_np_req;
-  wire [63:0]s_axis_tx_tdata;
-  wire [0:0]s_axis_tx_tkeep;
+  wire [127:0]s_axis_tx_tdata;
+  wire [2:0]s_axis_tx_tkeep;
   wire s_axis_tx_tlast;
   wire s_axis_tx_tready;
   wire [3:0]s_axis_tx_tuser;
@@ -6287,8 +8205,8 @@ module pcie_controller_core_top
         .PIPE_TXDATA({pipe_tx7_data_gt,pipe_tx6_data_gt,pipe_tx5_data_gt,pipe_tx4_data_gt,pipe_tx3_data_gt,pipe_tx2_data_gt,pipe_tx1_data_gt,pipe_tx0_data_gt}),
         .PIPE_TXDATAK({pipe_tx7_char_is_k_gt,pipe_tx6_char_is_k_gt,pipe_tx5_char_is_k_gt,pipe_tx4_char_is_k_gt,pipe_tx3_char_is_k_gt,pipe_tx2_char_is_k_gt,pipe_tx1_char_is_k_gt,pipe_tx0_char_is_k_gt}),
         .PIPE_TXELECIDLE({pipe_tx7_elec_idle_gt,pipe_tx6_elec_idle_gt,pipe_tx5_elec_idle_gt,pipe_tx4_elec_idle_gt,pipe_tx3_elec_idle_gt,pipe_tx2_elec_idle_gt,pipe_tx1_elec_idle_gt,pipe_tx0_elec_idle_gt}),
-        .Q(pipe_tx_margin_gt),
-        .SR(phy_rdy_n),
+        .Q(Q),
+        .SR(user_reset_out),
         .bridge_reset_int(bridge_reset_int),
         .cfg_aer_ecrc_check_en(cfg_aer_ecrc_check_en),
         .cfg_aer_ecrc_gen_en(cfg_aer_ecrc_gen_en),
@@ -6397,11 +8315,9 @@ module pcie_controller_core_top
         .fc_sel(fc_sel),
         .gt_rx_phy_status_q(gt_rx_phy_status_q),
         .gt_rxelecidle_q(gt_rxelecidle_q),
-        .m_axis_rx_tdata(m_axis_rx_tdata),
-        .m_axis_rx_tkeep(m_axis_rx_tkeep),
-        .m_axis_rx_tlast(m_axis_rx_tlast),
         .m_axis_rx_tready(m_axis_rx_tready),
         .m_axis_rx_tuser(m_axis_rx_tuser),
+        .\m_axis_rx_tuser_reg[21] (\m_axis_rx_tuser_reg[21] ),
         .m_axis_rx_tvalid_reg(m_axis_rx_tvalid),
         .out(user_lnk_up_int),
         .pcie_drp_addr(pcie_drp_addr),
@@ -6457,7 +8373,9 @@ module pcie_controller_core_top
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_4 ({gt_top_i_n_169,gt_top_i_n_170,gt_top_i_n_171}),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_5 ({gt_top_i_n_172,gt_top_i_n_173,gt_top_i_n_174}),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_6 ({gt_top_i_n_175,gt_top_i_n_176,gt_top_i_n_177}),
+        .\pipe_stages_1.pipe_tx_margin_q_reg[2] (pipe_tx_margin_gt),
         .\pipe_stages_1.pipe_tx_rate_q_reg (pipe_tx_rate_gt),
+        .\pipe_stages_1.pipe_tx_rcvr_det_q_reg (phy_rdy_n),
         .pipe_tx_deemph_gt(pipe_tx_deemph_gt),
         .pipe_tx_rcvr_det_gt(pipe_tx_rcvr_det_gt),
         .pipe_userclk1_in(pipe_userclk1_in),
@@ -6491,14 +8409,13 @@ module pcie_controller_core_top
         .s_axis_tx_tvalid(s_axis_tx_tvalid),
         .src_in(pl_phy_lnk_up_wire),
         .sys_rst_n(gt_top_i_n_25),
-        .\throttle_ctl_pipeline.reg_tkeep_reg[7] (user_reset_out),
         .tready_thrtl_reg(s_axis_tx_tready),
         .trn_lnk_up(trn_lnk_up),
         .trn_tbuf_av(tx_buf_av),
         .trn_tcfg_req(tx_cfg_req),
         .tx_cfg_gnt(tx_cfg_gnt),
         .tx_err_drop(tx_err_drop),
-        .user_reset_int_reg(pcie_top_i_n_32));
+        .user_reset_int_reg(pcie_top_i_n_30));
   (* DEST_SYNC_FF = "2" *) 
   (* INIT_SYNC_FF = "0" *) 
   (* SIM_ASSERT_CHK = "0" *) 
@@ -6554,7 +8471,7 @@ module pcie_controller_core_top
   FDPE user_reset_int_reg
        (.C(pipe_userclk2_in),
         .CE(1'b1),
-        .D(pcie_top_i_n_32),
+        .D(pcie_top_i_n_30),
         .PRE(sys_or_hot_rst),
         .Q(bridge_reset_int));
   LUT2 #(
@@ -6613,7 +8530,7 @@ module pcie_controller_gt_common
   wire qrst_qpllreset;
   wire sys_clk;
 
-  pcie_controller_qpll_drp_84 qpll_drp_i
+  pcie_controller_qpll_drp_76 qpll_drp_i
        (.DRP_ADDR({qpll_drp_addr[7],qpll_drp_addr[5],qpll_drp_addr[2:0]}),
         .DRP_DI(qpll_drp_di),
         .DRP_DO(qpll_drp_do),
@@ -6626,7 +8543,7 @@ module pcie_controller_gt_common
         .RST_DCLK_RESET(RST_DCLK_RESET),
         .pipe_dclk_in(pipe_dclk_in),
         .qpll_drp_en(qpll_drp_en));
-  pcie_controller_qpll_wrapper_85 qpll_wrapper_i
+  pcie_controller_qpll_wrapper_77 qpll_wrapper_i
        (.DRP_ADDR({qpll_drp_addr[7],qpll_drp_addr[5],qpll_drp_addr[2:0]}),
         .DRP_DI(qpll_drp_di),
         .DRP_DO(qpll_drp_do),
@@ -6643,7 +8560,7 @@ module pcie_controller_gt_common
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_common" *) 
-module pcie_controller_gt_common_50
+module pcie_controller_gt_common_42
    (RATE_QPLLLOCK,
     \gtx_common.gtxe2_common_i ,
     \gtx_common.gtxe2_common_i_0 ,
@@ -7190,7 +9107,7 @@ module pcie_controller_gt_rx_valid_filter_7x
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_rx_valid_filter_7x" *) 
-module pcie_controller_gt_rx_valid_filter_7x_22
+module pcie_controller_gt_rx_valid_filter_7x_14
    (gt_rxvalid_q_reg_0,
     gt_rx_phy_status_q_reg_0,
     gt_rxelecidle_q_reg_0,
@@ -7653,7 +9570,7 @@ module pcie_controller_gt_rx_valid_filter_7x_22
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_rx_valid_filter_7x" *) 
-module pcie_controller_gt_rx_valid_filter_7x_23
+module pcie_controller_gt_rx_valid_filter_7x_15
    (gt_rxvalid_q_reg_0,
     gt_rx_phy_status_q_reg_0,
     gt_rxelecidle_q_reg_0,
@@ -8116,7 +10033,7 @@ module pcie_controller_gt_rx_valid_filter_7x_23
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_rx_valid_filter_7x" *) 
-module pcie_controller_gt_rx_valid_filter_7x_24
+module pcie_controller_gt_rx_valid_filter_7x_16
    (gt_rxvalid_q_reg_0,
     gt_rx_phy_status_q_reg_0,
     gt_rxelecidle_q_reg_0,
@@ -8579,7 +10496,7 @@ module pcie_controller_gt_rx_valid_filter_7x_24
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_rx_valid_filter_7x" *) 
-module pcie_controller_gt_rx_valid_filter_7x_25
+module pcie_controller_gt_rx_valid_filter_7x_17
    (gt_rxvalid_q_reg_0,
     gt_rx_phy_status_q_reg_0,
     gt_rxelecidle_q_reg_0,
@@ -9042,7 +10959,7 @@ module pcie_controller_gt_rx_valid_filter_7x_25
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_rx_valid_filter_7x" *) 
-module pcie_controller_gt_rx_valid_filter_7x_26
+module pcie_controller_gt_rx_valid_filter_7x_18
    (gt_rxvalid_q_reg_0,
     gt_rx_phy_status_q_reg_0,
     gt_rxelecidle_q_reg_0,
@@ -9505,7 +11422,7 @@ module pcie_controller_gt_rx_valid_filter_7x_26
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_rx_valid_filter_7x" *) 
-module pcie_controller_gt_rx_valid_filter_7x_27
+module pcie_controller_gt_rx_valid_filter_7x_19
    (gt_rxvalid_q_reg_0,
     gt_rx_phy_status_q_reg_0,
     gt_rxelecidle_q_reg_0,
@@ -9968,7 +11885,7 @@ module pcie_controller_gt_rx_valid_filter_7x_27
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_rx_valid_filter_7x" *) 
-module pcie_controller_gt_rx_valid_filter_7x_28
+module pcie_controller_gt_rx_valid_filter_7x_20
    (gt_rxvalid_q_reg_0,
     gt_rx_phy_status_q_reg_0,
     gt_rxelecidle_q_reg_0,
@@ -10749,7 +12666,7 @@ module pcie_controller_gt_top
         .gt_rxvalid_q_reg_1(pipe_wrapper_i_n_218),
         .pipe_pclk_in(pipe_pclk_in),
         .\pl_ltssm_state_q_reg[5] (\gt_rx_valid_filter[0].GT_RX_VALID_FILTER_7x_inst_n_3 ));
-  pcie_controller_gt_rx_valid_filter_7x_22 \gt_rx_valid_filter[1].GT_RX_VALID_FILTER_7x_inst 
+  pcie_controller_gt_rx_valid_filter_7x_14 \gt_rx_valid_filter[1].GT_RX_VALID_FILTER_7x_inst 
        (.PIPE_RXDATA(gt_rx_data_wire_filter[47:32]),
         .PIPE_RXDATAK(gt_rx_data_k_wire_filter[5:4]),
         .PIPE_RXELECIDLE(gt_rx_elec_idle_wire_filter[1]),
@@ -10765,7 +12682,7 @@ module pcie_controller_gt_top
         .gt_rxvalid_q_reg_1(gt_rxvalid_q_reg),
         .gt_rxvalid_q_reg_2(pipe_wrapper_i_n_219),
         .pipe_pclk_in(pipe_pclk_in));
-  pcie_controller_gt_rx_valid_filter_7x_23 \gt_rx_valid_filter[2].GT_RX_VALID_FILTER_7x_inst 
+  pcie_controller_gt_rx_valid_filter_7x_15 \gt_rx_valid_filter[2].GT_RX_VALID_FILTER_7x_inst 
        (.PIPE_RXDATA(gt_rx_data_wire_filter[79:64]),
         .PIPE_RXDATAK(gt_rx_data_k_wire_filter[9:8]),
         .PIPE_RXELECIDLE(gt_rx_elec_idle_wire_filter[2]),
@@ -10781,7 +12698,7 @@ module pcie_controller_gt_top
         .gt_rxvalid_q_reg_1(gt_rxvalid_q_reg_0),
         .gt_rxvalid_q_reg_2(pipe_wrapper_i_n_220),
         .pipe_pclk_in(pipe_pclk_in));
-  pcie_controller_gt_rx_valid_filter_7x_24 \gt_rx_valid_filter[3].GT_RX_VALID_FILTER_7x_inst 
+  pcie_controller_gt_rx_valid_filter_7x_16 \gt_rx_valid_filter[3].GT_RX_VALID_FILTER_7x_inst 
        (.PIPE_RXDATA(gt_rx_data_wire_filter[111:96]),
         .PIPE_RXDATAK(gt_rx_data_k_wire_filter[13:12]),
         .PIPE_RXELECIDLE(gt_rx_elec_idle_wire_filter[3]),
@@ -10797,7 +12714,7 @@ module pcie_controller_gt_top
         .gt_rxvalid_q_reg_1(gt_rxvalid_q_reg_1),
         .gt_rxvalid_q_reg_2(pipe_wrapper_i_n_221),
         .pipe_pclk_in(pipe_pclk_in));
-  pcie_controller_gt_rx_valid_filter_7x_25 \gt_rx_valid_filter[4].GT_RX_VALID_FILTER_7x_inst 
+  pcie_controller_gt_rx_valid_filter_7x_17 \gt_rx_valid_filter[4].GT_RX_VALID_FILTER_7x_inst 
        (.PIPE_RXDATA(gt_rx_data_wire_filter[143:128]),
         .PIPE_RXDATAK(gt_rx_data_k_wire_filter[17:16]),
         .PIPE_RXELECIDLE(gt_rx_elec_idle_wire_filter[4]),
@@ -10813,7 +12730,7 @@ module pcie_controller_gt_top
         .gt_rxvalid_q_reg_1(gt_rxvalid_q_reg_2),
         .gt_rxvalid_q_reg_2(pipe_wrapper_i_n_222),
         .pipe_pclk_in(pipe_pclk_in));
-  pcie_controller_gt_rx_valid_filter_7x_26 \gt_rx_valid_filter[5].GT_RX_VALID_FILTER_7x_inst 
+  pcie_controller_gt_rx_valid_filter_7x_18 \gt_rx_valid_filter[5].GT_RX_VALID_FILTER_7x_inst 
        (.PIPE_RXDATA(gt_rx_data_wire_filter[175:160]),
         .PIPE_RXDATAK(gt_rx_data_k_wire_filter[21:20]),
         .PIPE_RXELECIDLE(gt_rx_elec_idle_wire_filter[5]),
@@ -10829,7 +12746,7 @@ module pcie_controller_gt_top
         .gt_rxvalid_q_reg_1(gt_rxvalid_q_reg_3),
         .gt_rxvalid_q_reg_2(pipe_wrapper_i_n_223),
         .pipe_pclk_in(pipe_pclk_in));
-  pcie_controller_gt_rx_valid_filter_7x_27 \gt_rx_valid_filter[6].GT_RX_VALID_FILTER_7x_inst 
+  pcie_controller_gt_rx_valid_filter_7x_19 \gt_rx_valid_filter[6].GT_RX_VALID_FILTER_7x_inst 
        (.PIPE_RXDATA(gt_rx_data_wire_filter[207:192]),
         .PIPE_RXDATAK(gt_rx_data_k_wire_filter[25:24]),
         .PIPE_RXELECIDLE(gt_rx_elec_idle_wire_filter[6]),
@@ -10845,7 +12762,7 @@ module pcie_controller_gt_top
         .gt_rxvalid_q_reg_1(gt_rxvalid_q_reg_4),
         .gt_rxvalid_q_reg_2(pipe_wrapper_i_n_224),
         .pipe_pclk_in(pipe_pclk_in));
-  pcie_controller_gt_rx_valid_filter_7x_28 \gt_rx_valid_filter[7].GT_RX_VALID_FILTER_7x_inst 
+  pcie_controller_gt_rx_valid_filter_7x_20 \gt_rx_valid_filter[7].GT_RX_VALID_FILTER_7x_inst 
        (.PIPE_RXDATA(gt_rx_data_wire_filter[239:224]),
         .PIPE_RXDATAK(gt_rx_data_k_wire_filter[29:28]),
         .PIPE_RXELECIDLE(gt_rx_elec_idle_wire_filter[7]),
@@ -11343,7 +13260,7 @@ module pcie_controller_gt_wrapper
   wire [9:0]\NLW_gtx_channel.gtxe2_channel_i_TSTOUT_UNCONNECTED ;
   wire [1:0]\NLW_gtx_channel.gtxe2_channel_i_TXBUFSTATUS_UNCONNECTED ;
 
-  pcie_controller_gtx_cpllpd_ovrd_87 cpllPDInst
+  pcie_controller_gtx_cpllpd_ovrd_79 cpllPDInst
        (.CPLLRESET0(CPLLRESET0),
         .RST_CPLLRESET(RST_CPLLRESET),
         .cpllpd(cpllpd),
@@ -11792,7 +13709,7 @@ module pcie_controller_gt_wrapper
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_wrapper" *) 
-module pcie_controller_gt_wrapper_29
+module pcie_controller_gt_wrapper_21
    (cpllpd_0,
     QRST_CPLLLOCK,
     DRP_RDY,
@@ -12080,7 +13997,7 @@ module pcie_controller_gt_wrapper_29
   wire [9:0]\NLW_gtx_channel.gtxe2_channel_i_TSTOUT_UNCONNECTED ;
   wire [1:0]\NLW_gtx_channel.gtxe2_channel_i_TXBUFSTATUS_UNCONNECTED ;
 
-  pcie_controller_gtx_cpllpd_ovrd_83 cpllPDInst
+  pcie_controller_gtx_cpllpd_ovrd_75 cpllPDInst
        (.CPLLRESET0(CPLLRESET0),
         .RST_CPLLRESET(RST_CPLLRESET),
         .cpllpd_0(cpllpd_0),
@@ -12529,7 +14446,7 @@ module pcie_controller_gt_wrapper_29
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_wrapper" *) 
-module pcie_controller_gt_wrapper_35
+module pcie_controller_gt_wrapper_27
    (cpllpd_1,
     QRST_CPLLLOCK,
     DRP_RDY,
@@ -12817,7 +14734,7 @@ module pcie_controller_gt_wrapper_35
   wire [9:0]\NLW_gtx_channel.gtxe2_channel_i_TSTOUT_UNCONNECTED ;
   wire [1:0]\NLW_gtx_channel.gtxe2_channel_i_TXBUFSTATUS_UNCONNECTED ;
 
-  pcie_controller_gtx_cpllpd_ovrd_81 cpllPDInst
+  pcie_controller_gtx_cpllpd_ovrd_73 cpllPDInst
        (.CPLLRESET0(CPLLRESET0),
         .RST_CPLLRESET(RST_CPLLRESET),
         .cpllpd_1(cpllpd_1),
@@ -13266,7 +15183,7 @@ module pcie_controller_gt_wrapper_35
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_wrapper" *) 
-module pcie_controller_gt_wrapper_41
+module pcie_controller_gt_wrapper_33
    (cpllpd_2,
     QRST_CPLLLOCK,
     DRP_RDY,
@@ -13554,7 +15471,7 @@ module pcie_controller_gt_wrapper_41
   wire [9:0]\NLW_gtx_channel.gtxe2_channel_i_TSTOUT_UNCONNECTED ;
   wire [1:0]\NLW_gtx_channel.gtxe2_channel_i_TXBUFSTATUS_UNCONNECTED ;
 
-  pcie_controller_gtx_cpllpd_ovrd_79 cpllPDInst
+  pcie_controller_gtx_cpllpd_ovrd_71 cpllPDInst
        (.CPLLRESET0(CPLLRESET0),
         .RST_CPLLRESET(RST_CPLLRESET),
         .cpllpd_2(cpllpd_2),
@@ -14003,7 +15920,7 @@ module pcie_controller_gt_wrapper_41
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_wrapper" *) 
-module pcie_controller_gt_wrapper_47
+module pcie_controller_gt_wrapper_39
    (cpllpd_3,
     QRST_CPLLLOCK,
     DRP_RDY,
@@ -14291,7 +16208,7 @@ module pcie_controller_gt_wrapper_47
   wire [9:0]\NLW_gtx_channel.gtxe2_channel_i_TSTOUT_UNCONNECTED ;
   wire [1:0]\NLW_gtx_channel.gtxe2_channel_i_TXBUFSTATUS_UNCONNECTED ;
 
-  pcie_controller_gtx_cpllpd_ovrd_77 cpllPDInst
+  pcie_controller_gtx_cpllpd_ovrd_69 cpllPDInst
        (.CPLLRESET0(CPLLRESET0),
         .RST_CPLLRESET(RST_CPLLRESET),
         .cpllpd_3(cpllpd_3),
@@ -14740,7 +16657,7 @@ module pcie_controller_gt_wrapper_47
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_wrapper" *) 
-module pcie_controller_gt_wrapper_54
+module pcie_controller_gt_wrapper_46
    (cpllpd_4,
     QRST_CPLLLOCK,
     DRP_RDY,
@@ -15028,7 +16945,7 @@ module pcie_controller_gt_wrapper_54
   wire [9:0]\NLW_gtx_channel.gtxe2_channel_i_TSTOUT_UNCONNECTED ;
   wire [1:0]\NLW_gtx_channel.gtxe2_channel_i_TXBUFSTATUS_UNCONNECTED ;
 
-  pcie_controller_gtx_cpllpd_ovrd_75 cpllPDInst
+  pcie_controller_gtx_cpllpd_ovrd_67 cpllPDInst
        (.CPLLRESET0(CPLLRESET0),
         .RST_CPLLRESET(RST_CPLLRESET),
         .cpllpd_4(cpllpd_4),
@@ -15477,7 +17394,7 @@ module pcie_controller_gt_wrapper_54
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_wrapper" *) 
-module pcie_controller_gt_wrapper_60
+module pcie_controller_gt_wrapper_52
    (cpllpd_5,
     QRST_CPLLLOCK,
     DRP_RDY,
@@ -15765,7 +17682,7 @@ module pcie_controller_gt_wrapper_60
   wire [9:0]\NLW_gtx_channel.gtxe2_channel_i_TSTOUT_UNCONNECTED ;
   wire [1:0]\NLW_gtx_channel.gtxe2_channel_i_TXBUFSTATUS_UNCONNECTED ;
 
-  pcie_controller_gtx_cpllpd_ovrd_73 cpllPDInst
+  pcie_controller_gtx_cpllpd_ovrd_65 cpllPDInst
        (.CPLLRESET0(CPLLRESET0),
         .RST_CPLLRESET(RST_CPLLRESET),
         .cpllpd_5(cpllpd_5),
@@ -16214,7 +18131,7 @@ module pcie_controller_gt_wrapper_60
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gt_wrapper" *) 
-module pcie_controller_gt_wrapper_66
+module pcie_controller_gt_wrapper_58
    (cpllpd_6,
     QRST_CPLLLOCK,
     DRP_RDY,
@@ -17088,7 +19005,7 @@ module pcie_controller_gtx_cpllpd_ovrd
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gtx_cpllpd_ovrd" *) 
-module pcie_controller_gtx_cpllpd_ovrd_73
+module pcie_controller_gtx_cpllpd_ovrd_65
    (cpllpd_5,
     CPLLRESET0,
     gt_cpllpdrefclk,
@@ -17226,7 +19143,7 @@ module pcie_controller_gtx_cpllpd_ovrd_73
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gtx_cpllpd_ovrd" *) 
-module pcie_controller_gtx_cpllpd_ovrd_75
+module pcie_controller_gtx_cpllpd_ovrd_67
    (cpllpd_4,
     CPLLRESET0,
     gt_cpllpdrefclk,
@@ -17364,7 +19281,7 @@ module pcie_controller_gtx_cpllpd_ovrd_75
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gtx_cpllpd_ovrd" *) 
-module pcie_controller_gtx_cpllpd_ovrd_77
+module pcie_controller_gtx_cpllpd_ovrd_69
    (cpllpd_3,
     CPLLRESET0,
     gt_cpllpdrefclk,
@@ -17502,7 +19419,7 @@ module pcie_controller_gtx_cpllpd_ovrd_77
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gtx_cpllpd_ovrd" *) 
-module pcie_controller_gtx_cpllpd_ovrd_79
+module pcie_controller_gtx_cpllpd_ovrd_71
    (cpllpd_2,
     CPLLRESET0,
     gt_cpllpdrefclk,
@@ -17640,7 +19557,7 @@ module pcie_controller_gtx_cpllpd_ovrd_79
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gtx_cpllpd_ovrd" *) 
-module pcie_controller_gtx_cpllpd_ovrd_81
+module pcie_controller_gtx_cpllpd_ovrd_73
    (cpllpd_1,
     CPLLRESET0,
     gt_cpllpdrefclk,
@@ -17778,7 +19695,7 @@ module pcie_controller_gtx_cpllpd_ovrd_81
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gtx_cpllpd_ovrd" *) 
-module pcie_controller_gtx_cpllpd_ovrd_83
+module pcie_controller_gtx_cpllpd_ovrd_75
    (cpllpd_0,
     CPLLRESET0,
     gt_cpllpdrefclk,
@@ -17916,7 +19833,7 @@ module pcie_controller_gtx_cpllpd_ovrd_83
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_gtx_cpllpd_ovrd" *) 
-module pcie_controller_gtx_cpllpd_ovrd_87
+module pcie_controller_gtx_cpllpd_ovrd_79
    (cpllpd,
     CPLLRESET0,
     gt_cpllpdrefclk,
@@ -18054,9 +19971,9 @@ module pcie_controller_gtx_cpllpd_ovrd_87
 endmodule
 
 (* CFG_CTL_IF = "TRUE" *) (* CFG_FC_IF = "TRUE" *) (* CFG_MGMT_IF = "TRUE" *) 
-(* CFG_STATUS_IF = "TRUE" *) (* C_DATA_WIDTH = "64" *) (* DowngradeIPIdentifiedWarnings = "yes" *) 
+(* CFG_STATUS_IF = "TRUE" *) (* C_DATA_WIDTH = "128" *) (* DowngradeIPIdentifiedWarnings = "yes" *) 
 (* ENABLE_JTAG_DBG = "FALSE" *) (* ERR_REPORTING_IF = "TRUE" *) (* EXT_CH_GT_DRP = "FALSE" *) 
-(* EXT_PIPE_INTERFACE = "FALSE" *) (* EXT_STARTUP_PRIMITIVE = "FALSE" *) (* KEEP_WIDTH = "8" *) 
+(* EXT_PIPE_INTERFACE = "FALSE" *) (* EXT_STARTUP_PRIMITIVE = "FALSE" *) (* KEEP_WIDTH = "16" *) 
 (* LINK_CAP_MAX_LINK_WIDTH = "8" *) (* PCIE_ASYNC_EN = "FALSE" *) (* PCIE_EXT_CLK = "TRUE" *) 
 (* PCIE_EXT_GT_COMMON = "FALSE" *) (* PCIE_ID_IF = "FALSE" *) (* PIPE_SIM = "FALSE" *) 
 (* PL_INTERFACE = "TRUE" *) (* RCV_MSG_IF = "TRUE" *) (* REDUCE_OOB_FREQ = "FALSE" *) 
@@ -18076,9 +19993,9 @@ endmodule
 (* c_dll_lnk_actv_cap = "FALSE" *) (* c_dsi_bool = "FALSE" *) (* c_dsn_base_ptr = "100" *) 
 (* c_dsn_cap_enabled = "TRUE" *) (* c_dsn_next_ptr = "000" *) (* c_enable_msg_route = "00000000000" *) 
 (* c_ep_l0s_accpt_lat = "0" *) (* c_ep_l1_accpt_lat = "7" *) (* c_ext_pci_cfg_space_addr = "3FF" *) 
-(* c_external_clocking = "TRUE" *) (* c_fc_cpld = "461" *) (* c_fc_cplh = "36" *) 
-(* c_fc_npd = "24" *) (* c_fc_nph = "12" *) (* c_fc_pd = "437" *) 
-(* c_fc_ph = "32" *) (* c_gen1 = "1'b0" *) (* c_header_type = "00" *) 
+(* c_external_clocking = "TRUE" *) (* c_fc_cpld = "205" *) (* c_fc_cplh = "36" *) 
+(* c_fc_npd = "24" *) (* c_fc_nph = "12" *) (* c_fc_pd = "181" *) 
+(* c_fc_ph = "32" *) (* c_gen1 = "1'b1" *) (* c_header_type = "00" *) 
 (* c_hw_auton_spd_disable = "FALSE" *) (* c_int_width = "64" *) (* c_last_cfg_dw = "10C" *) 
 (* c_link_cap_aspm_optionality = "FALSE" *) (* c_ll_ack_timeout = "0000" *) (* c_ll_ack_timeout_enable = "FALSE" *) 
 (* c_ll_ack_timeout_function = "0" *) (* c_ll_replay_timeout = "0000" *) (* c_ll_replay_timeout_enable = "FALSE" *) 
@@ -18099,27 +20016,27 @@ endmodule
 (* c_rbar_cap_sup3 = "00001" *) (* c_rbar_cap_sup4 = "00001" *) (* c_rbar_cap_sup5 = "00001" *) 
 (* c_rbar_num = "0" *) (* c_rcb = "0" *) (* c_recrc_check = "0" *) 
 (* c_recrc_check_trim = "FALSE" *) (* c_rev_gt_order = "FALSE" *) (* c_root_cap_crs = "FALSE" *) 
-(* c_rx_raddr_lat = "0" *) (* c_rx_ram_limit = "7FF" *) (* c_rx_rdata_lat = "2" *) 
+(* c_rx_raddr_lat = "0" *) (* c_rx_ram_limit = "3FF" *) (* c_rx_rdata_lat = "2" *) 
 (* c_rx_write_lat = "0" *) (* c_silicon_rev = "2" *) (* c_slot_cap_attn_butn = "FALSE" *) 
 (* c_slot_cap_attn_ind = "FALSE" *) (* c_slot_cap_elec_interlock = "FALSE" *) (* c_slot_cap_hotplug_cap = "FALSE" *) 
 (* c_slot_cap_hotplug_surprise = "FALSE" *) (* c_slot_cap_mrl = "FALSE" *) (* c_slot_cap_no_cmd_comp_sup = "FALSE" *) 
 (* c_slot_cap_physical_slot_num = "0" *) (* c_slot_cap_pwr_ctrl = "FALSE" *) (* c_slot_cap_pwr_ind = "FALSE" *) 
 (* c_slot_cap_pwr_limit_scale = "0" *) (* c_slot_cap_pwr_limit_value = "0" *) (* c_surprise_dn_err_cap = "FALSE" *) 
-(* c_trgt_lnk_spd = "0" *) (* c_trn_np_fc = "TRUE" *) (* c_tx_last_tlp = "29" *) 
+(* c_trgt_lnk_spd = "2" *) (* c_trn_np_fc = "TRUE" *) (* c_tx_last_tlp = "28" *) 
 (* c_tx_raddr_lat = "0" *) (* c_tx_rdata_lat = "2" *) (* c_tx_write_lat = "0" *) 
 (* c_upconfig_capable = "TRUE" *) (* c_upstream_facing = "TRUE" *) (* c_ur_atomic = "FALSE" *) 
 (* c_ur_inv_req = "TRUE" *) (* c_ur_prs_response = "TRUE" *) (* c_vc_base_ptr = "000" *) 
 (* c_vc_cap_enabled = "FALSE" *) (* c_vc_cap_reject_snoop = "FALSE" *) (* c_vc_next_ptr = "000" *) 
 (* c_vsec_base_ptr = "000" *) (* c_vsec_cap_enabled = "FALSE" *) (* c_vsec_next_ptr = "000" *) 
 (* c_xlnx_ref_board = "NONE" *) (* cap_ver = "2" *) (* cardbus_cis_ptr = "00000000" *) 
-(* class_code = "0B4000" *) (* cmps = "2" *) (* con_scl_fctr_d0_state = "0" *) 
+(* class_code = "0B4000" *) (* cmps = "1" *) (* con_scl_fctr_d0_state = "0" *) 
 (* con_scl_fctr_d1_state = "0" *) (* con_scl_fctr_d2_state = "0" *) (* con_scl_fctr_d3_state = "0" *) 
 (* cost_table = "1" *) (* d1_sup = "0" *) (* d2_sup = "0" *) 
-(* dev_id = "7018" *) (* dev_port_type = "0000" *) (* dis_scl_fctr_d0_state = "0" *) 
+(* dev_id = "7028" *) (* dev_port_type = "0000" *) (* dis_scl_fctr_d0_state = "0" *) 
 (* dis_scl_fctr_d1_state = "0" *) (* dis_scl_fctr_d2_state = "0" *) (* dis_scl_fctr_d3_state = "0" *) 
 (* dsi = "0" *) (* ep_l0s_accpt_lat = "000" *) (* ep_l1_accpt_lat = "111" *) 
 (* ext_tag_fld_sup = "FALSE" *) (* int_pin = "1" *) (* intx = "TRUE" *) 
-(* max_lnk_spd = "1" *) (* max_lnk_wdt = "001000" *) (* mps = "010" *) 
+(* max_lnk_spd = "2" *) (* max_lnk_wdt = "001000" *) (* mps = "001" *) 
 (* no_soft_rst = "TRUE" *) (* pci_exp_int_freq = "3" *) (* pci_exp_ref_freq = "0" *) 
 (* phantm_func_sup = "00" *) (* pme_sup = "0F" *) (* pwr_con_d0_state = "00" *) 
 (* pwr_con_d1_state = "00" *) (* pwr_con_d2_state = "00" *) (* pwr_con_d3_state = "00" *) 
@@ -18472,17 +20389,17 @@ module pcie_controller_pcie2_top
   output [5:0]tx_buf_av;
   output tx_err_drop;
   output tx_cfg_req;
-  input [63:0]s_axis_tx_tdata;
+  input [127:0]s_axis_tx_tdata;
   input s_axis_tx_tvalid;
   output s_axis_tx_tready;
-  input [7:0]s_axis_tx_tkeep;
+  input [15:0]s_axis_tx_tkeep;
   input s_axis_tx_tlast;
   input [3:0]s_axis_tx_tuser;
   input tx_cfg_gnt;
-  output [63:0]m_axis_rx_tdata;
+  output [127:0]m_axis_rx_tdata;
   output m_axis_rx_tvalid;
   input m_axis_rx_tready;
-  output [7:0]m_axis_rx_tkeep;
+  output [15:0]m_axis_rx_tkeep;
   output m_axis_rx_tlast;
   output [21:0]m_axis_rx_tuser;
   input rx_np_ok;
@@ -18825,9 +20742,7 @@ module pcie_controller_pcie2_top
   wire [11:0]fc_pd;
   wire [7:0]fc_ph;
   wire [2:0]fc_sel;
-  wire [63:0]m_axis_rx_tdata;
-  wire [5:5]\^m_axis_rx_tkeep ;
-  wire m_axis_rx_tlast;
+  wire [127:0]m_axis_rx_tdata;
   wire m_axis_rx_tready;
   wire [21:0]\^m_axis_rx_tuser ;
   wire m_axis_rx_tvalid;
@@ -18875,8 +20790,8 @@ module pcie_controller_pcie2_top
   wire pl_upstream_prefer_deemph;
   wire rx_np_ok;
   wire rx_np_req;
-  wire [63:0]s_axis_tx_tdata;
-  wire [7:0]s_axis_tx_tkeep;
+  wire [127:0]s_axis_tx_tdata;
+  wire [15:0]s_axis_tx_tkeep;
   wire s_axis_tx_tlast;
   wire s_axis_tx_tready;
   wire [3:0]s_axis_tx_tuser;
@@ -19167,23 +21082,29 @@ module pcie_controller_pcie2_top
   assign int_rxoutclk_out[0] = \<const0> ;
   assign int_userclk1_out = \<const0> ;
   assign int_userclk2_out = \<const0> ;
-  assign m_axis_rx_tkeep[7] = \^m_axis_rx_tkeep [5];
-  assign m_axis_rx_tkeep[6] = \^m_axis_rx_tkeep [5];
-  assign m_axis_rx_tkeep[5] = \^m_axis_rx_tkeep [5];
-  assign m_axis_rx_tkeep[4] = \^m_axis_rx_tkeep [5];
+  assign m_axis_rx_tkeep[15] = \<const0> ;
+  assign m_axis_rx_tkeep[14] = \<const0> ;
+  assign m_axis_rx_tkeep[13] = \<const0> ;
+  assign m_axis_rx_tkeep[12] = \<const0> ;
+  assign m_axis_rx_tkeep[11] = \<const0> ;
+  assign m_axis_rx_tkeep[10] = \<const0> ;
+  assign m_axis_rx_tkeep[9] = \<const0> ;
+  assign m_axis_rx_tkeep[8] = \<const0> ;
+  assign m_axis_rx_tkeep[7] = \<const0> ;
+  assign m_axis_rx_tkeep[6] = \<const0> ;
+  assign m_axis_rx_tkeep[5] = \<const0> ;
+  assign m_axis_rx_tkeep[4] = \<const0> ;
   assign m_axis_rx_tkeep[3] = \<const0> ;
   assign m_axis_rx_tkeep[2] = \<const0> ;
   assign m_axis_rx_tkeep[1] = \<const0> ;
   assign m_axis_rx_tkeep[0] = \<const0> ;
-  assign m_axis_rx_tuser[21] = \^m_axis_rx_tuser [21];
-  assign m_axis_rx_tuser[20] = \<const0> ;
-  assign m_axis_rx_tuser[19] = \^m_axis_rx_tuser [19];
+  assign m_axis_rx_tlast = \<const0> ;
+  assign m_axis_rx_tuser[21:19] = \^m_axis_rx_tuser [21:19];
   assign m_axis_rx_tuser[18] = \^m_axis_rx_tuser [17];
   assign m_axis_rx_tuser[17] = \^m_axis_rx_tuser [17];
   assign m_axis_rx_tuser[16] = \<const0> ;
   assign m_axis_rx_tuser[15] = \<const0> ;
-  assign m_axis_rx_tuser[14] = \^m_axis_rx_tuser [14];
-  assign m_axis_rx_tuser[13] = \<const0> ;
+  assign m_axis_rx_tuser[14:13] = \^m_axis_rx_tuser [14:13];
   assign m_axis_rx_tuser[12] = \<const0> ;
   assign m_axis_rx_tuser[11] = \<const0> ;
   assign m_axis_rx_tuser[10] = \<const0> ;
@@ -20124,7 +22045,8 @@ module pcie_controller_pcie2_top
   GND GND
        (.G(\<const0> ));
   pcie_controller_core_top inst
-       (.cfg_aer_ecrc_check_en(cfg_aer_ecrc_check_en),
+       (.Q(m_axis_rx_tdata),
+        .cfg_aer_ecrc_check_en(cfg_aer_ecrc_check_en),
         .cfg_aer_ecrc_gen_en(cfg_aer_ecrc_gen_en),
         .cfg_aer_interrupt_msgnum(cfg_aer_interrupt_msgnum),
         .cfg_aer_rooterr_corr_err_received(cfg_aer_rooterr_corr_err_received),
@@ -20230,11 +22152,9 @@ module pcie_controller_pcie2_top
         .fc_ph(fc_ph),
         .fc_sel(fc_sel),
         .gen3_reg(pipe_gen3_out),
-        .m_axis_rx_tdata(m_axis_rx_tdata),
-        .m_axis_rx_tkeep(\^m_axis_rx_tkeep ),
-        .m_axis_rx_tlast(m_axis_rx_tlast),
         .m_axis_rx_tready(m_axis_rx_tready),
-        .m_axis_rx_tuser({\^m_axis_rx_tuser [21],\^m_axis_rx_tuser [19],\^m_axis_rx_tuser [17],\^m_axis_rx_tuser [14],\^m_axis_rx_tuser [8:0]}),
+        .m_axis_rx_tuser(\^m_axis_rx_tuser [8:0]),
+        .\m_axis_rx_tuser_reg[21] ({\^m_axis_rx_tuser [21:19],\^m_axis_rx_tuser [17],\^m_axis_rx_tuser [14:13]}),
         .m_axis_rx_tvalid(m_axis_rx_tvalid),
         .pci_exp_rxn(pci_exp_rxn),
         .pci_exp_rxp(pci_exp_rxp),
@@ -20280,7 +22200,7 @@ module pcie_controller_pcie2_top
         .rx_np_ok(rx_np_ok),
         .rx_np_req(rx_np_req),
         .s_axis_tx_tdata(s_axis_tx_tdata),
-        .s_axis_tx_tkeep(s_axis_tx_tkeep[7]),
+        .s_axis_tx_tkeep({s_axis_tx_tkeep[15],s_axis_tx_tkeep[11],s_axis_tx_tkeep[7]}),
         .s_axis_tx_tlast(s_axis_tx_tlast),
         .s_axis_tx_tready(s_axis_tx_tready),
         .s_axis_tx_tuser(s_axis_tx_tuser),
@@ -20314,13 +22234,10 @@ module pcie_controller_pcie_7x
     dsc_detect,
     rsrc_rdy_filtered,
     trn_rsrc_dsc_prev0,
-    tcfg_req_trig,
-    trn_tcfg_req,
-    pcie_block_i_1,
-    trn_tbuf_av,
     tbuf_av_min_trig,
+    trn_tbuf_av,
+    pcie_block_i_1,
     pcie_block_i_2,
-    trn_tdst_rdy,
     cfg_aer_ecrc_check_en,
     cfg_aer_ecrc_gen_en,
     cfg_aer_rooterr_corr_err_received,
@@ -20399,11 +22316,12 @@ module pcie_controller_pcie_7x
     trn_lnk_up,
     trn_recrc_err,
     trn_rerrfwd,
+    trn_tcfg_req,
     tx_err_drop,
     fc_cpld,
     fc_npd,
     fc_pd,
-    pcie_block_i_3,
+    trn_rd,
     cfg_msg_data,
     pcie_drp_do,
     pipe_tx0_data,
@@ -20434,12 +22352,13 @@ module pcie_controller_pcie_7x
     pl_lane_reversal_mode,
     pl_rx_pm_state,
     pl_sel_lnk_width,
-    pcie_block_i_4,
+    trn_rrem,
     cfg_interrupt_mmenable,
     pipe_tx_margin,
     pl_initial_link_width,
     pl_tx_pm_state,
     cfg_mgmt_do,
+    trn_tdst_rdy,
     pl_ltssm_state,
     cfg_vc_tcvc_map,
     cfg_interrupt_do,
@@ -20482,9 +22401,7 @@ module pcie_controller_pcie_7x
     ppm_L1_thrtl,
     trn_rsrc_dsc_d,
     reg_dsc_detect,
-    reg_tcfg_gnt,
-    lnk_up_thrtl,
-    out,
+    tbuf_av_gap_thrtl_i_4,
     pipe_userclk1_in,
     cfg_pm_turnoff_ok_n,
     pcie_drp_clk,
@@ -20532,7 +22449,7 @@ module pcie_controller_pcie_7x
     rx_np_ok,
     rx_np_req,
     trn_tcfg_gnt,
-    pcie_block_i_5,
+    pcie_block_i_3,
     trn_teof,
     trn_tsof,
     trn_tsrc_rdy,
@@ -20541,34 +22458,34 @@ module pcie_controller_pcie_7x
     trn_td,
     pcie_drp_di,
     Q,
+    pcie_block_i_4,
+    pcie_block_i_5,
     pcie_block_i_6,
     pcie_block_i_7,
     pcie_block_i_8,
     pcie_block_i_9,
     pcie_block_i_10,
+    cfg_pm_force_state,
     pcie_block_i_11,
     pcie_block_i_12,
-    cfg_pm_force_state,
     pcie_block_i_13,
     pcie_block_i_14,
     pcie_block_i_15,
     pcie_block_i_16,
     pcie_block_i_17,
     pcie_block_i_18,
-    pcie_block_i_19,
-    pcie_block_i_20,
     pl_directed_link_change,
     pl_directed_link_width,
     trn_trem,
     cfg_ds_function_number,
+    pcie_block_i_19,
+    pcie_block_i_20,
     pcie_block_i_21,
     pcie_block_i_22,
     pcie_block_i_23,
     pcie_block_i_24,
     pcie_block_i_25,
     pcie_block_i_26,
-    pcie_block_i_27,
-    pcie_block_i_28,
     fc_sel,
     cfg_mgmt_di,
     cfg_mgmt_byte_en_n,
@@ -20599,13 +22516,10 @@ module pcie_controller_pcie_7x
   output dsc_detect;
   output rsrc_rdy_filtered;
   output trn_rsrc_dsc_prev0;
-  output tcfg_req_trig;
-  output trn_tcfg_req;
-  output pcie_block_i_1;
-  output [5:0]trn_tbuf_av;
   output tbuf_av_min_trig;
+  output [5:0]trn_tbuf_av;
+  output pcie_block_i_1;
   output pcie_block_i_2;
-  output trn_tdst_rdy;
   output cfg_aer_ecrc_check_en;
   output cfg_aer_ecrc_gen_en;
   output cfg_aer_rooterr_corr_err_received;
@@ -20684,11 +22598,12 @@ module pcie_controller_pcie_7x
   output trn_lnk_up;
   output trn_recrc_err;
   output trn_rerrfwd;
+  output trn_tcfg_req;
   output tx_err_drop;
   output [11:0]fc_cpld;
   output [11:0]fc_npd;
   output [11:0]fc_pd;
-  output [63:0]pcie_block_i_3;
+  output [127:0]trn_rd;
   output [15:0]cfg_msg_data;
   output [15:0]pcie_drp_do;
   output [15:0]pipe_tx0_data;
@@ -20719,12 +22634,13 @@ module pcie_controller_pcie_7x
   output [1:0]pl_lane_reversal_mode;
   output [1:0]pl_rx_pm_state;
   output [1:0]pl_sel_lnk_width;
-  output [0:0]pcie_block_i_4;
+  output [1:0]trn_rrem;
   output [2:0]cfg_interrupt_mmenable;
   output [2:0]pipe_tx_margin;
   output [2:0]pl_initial_link_width;
   output [2:0]pl_tx_pm_state;
   output [31:0]cfg_mgmt_do;
+  output trn_tdst_rdy;
   output [5:0]pl_ltssm_state;
   output [6:0]cfg_vc_tcvc_map;
   output [7:0]cfg_interrupt_do;
@@ -20767,9 +22683,7 @@ module pcie_controller_pcie_7x
   input ppm_L1_thrtl;
   input trn_rsrc_dsc_d;
   input reg_dsc_detect;
-  input reg_tcfg_gnt;
-  input lnk_up_thrtl;
-  input out;
+  input [1:0]tbuf_av_gap_thrtl_i_4;
   input pipe_userclk1_in;
   input cfg_pm_turnoff_ok_n;
   input pcie_drp_clk;
@@ -20817,43 +22731,43 @@ module pcie_controller_pcie_7x
   input rx_np_ok;
   input rx_np_req;
   input trn_tcfg_gnt;
-  input [3:0]pcie_block_i_5;
+  input [3:0]pcie_block_i_3;
   input trn_teof;
   input trn_tsof;
   input trn_tsrc_rdy;
   input pipe_userclk2_in;
   input [127:0]cfg_err_aer_headerlog;
-  input [63:0]trn_td;
+  input [127:0]trn_td;
   input [15:0]pcie_drp_di;
   input [15:0]Q;
+  input [15:0]pcie_block_i_4;
+  input [15:0]pcie_block_i_5;
   input [15:0]pcie_block_i_6;
   input [15:0]pcie_block_i_7;
   input [15:0]pcie_block_i_8;
   input [15:0]pcie_block_i_9;
   input [15:0]pcie_block_i_10;
-  input [15:0]pcie_block_i_11;
-  input [15:0]pcie_block_i_12;
   input [1:0]cfg_pm_force_state;
+  input [1:0]pcie_block_i_11;
+  input [1:0]pcie_block_i_12;
   input [1:0]pcie_block_i_13;
   input [1:0]pcie_block_i_14;
   input [1:0]pcie_block_i_15;
   input [1:0]pcie_block_i_16;
   input [1:0]pcie_block_i_17;
   input [1:0]pcie_block_i_18;
-  input [1:0]pcie_block_i_19;
-  input [1:0]pcie_block_i_20;
   input [1:0]pl_directed_link_change;
   input [1:0]pl_directed_link_width;
-  input [0:0]trn_trem;
+  input [1:0]trn_trem;
   input [2:0]cfg_ds_function_number;
+  input [2:0]pcie_block_i_19;
+  input [2:0]pcie_block_i_20;
   input [2:0]pcie_block_i_21;
   input [2:0]pcie_block_i_22;
   input [2:0]pcie_block_i_23;
   input [2:0]pcie_block_i_24;
   input [2:0]pcie_block_i_25;
   input [2:0]pcie_block_i_26;
-  input [2:0]pcie_block_i_27;
-  input [2:0]pcie_block_i_28;
   input [2:0]fc_sel;
   input [31:0]cfg_mgmt_di;
   input [3:0]cfg_mgmt_byte_en_n;
@@ -20978,7 +22892,6 @@ module pcie_controller_pcie_7x
   wire [11:0]fc_pd;
   wire [7:0]fc_ph;
   wire [2:0]fc_sel;
-  wire lnk_up_thrtl;
   wire [12:0]mim_rx_raddr;
   wire [67:0]mim_rx_rdata;
   wire mim_rx_ren;
@@ -20991,32 +22904,29 @@ module pcie_controller_pcie_7x
   wire [12:0]mim_tx_waddr;
   wire [68:0]mim_tx_wdata;
   wire mim_tx_wen;
-  wire out;
   wire pcie_block_i_0;
   wire pcie_block_i_1;
   wire [15:0]pcie_block_i_10;
-  wire [15:0]pcie_block_i_11;
-  wire [15:0]pcie_block_i_12;
+  wire [1:0]pcie_block_i_11;
+  wire [1:0]pcie_block_i_12;
   wire [1:0]pcie_block_i_13;
   wire [1:0]pcie_block_i_14;
   wire [1:0]pcie_block_i_15;
   wire [1:0]pcie_block_i_16;
   wire [1:0]pcie_block_i_17;
   wire [1:0]pcie_block_i_18;
-  wire [1:0]pcie_block_i_19;
+  wire [2:0]pcie_block_i_19;
   wire pcie_block_i_2;
-  wire [1:0]pcie_block_i_20;
+  wire [2:0]pcie_block_i_20;
   wire [2:0]pcie_block_i_21;
   wire [2:0]pcie_block_i_22;
   wire [2:0]pcie_block_i_23;
   wire [2:0]pcie_block_i_24;
   wire [2:0]pcie_block_i_25;
   wire [2:0]pcie_block_i_26;
-  wire [2:0]pcie_block_i_27;
-  wire [2:0]pcie_block_i_28;
-  wire [63:0]pcie_block_i_3;
-  wire [0:0]pcie_block_i_4;
-  wire [3:0]pcie_block_i_5;
+  wire [3:0]pcie_block_i_3;
+  wire [15:0]pcie_block_i_4;
+  wire [15:0]pcie_block_i_5;
   wire [15:0]pcie_block_i_6;
   wire [15:0]pcie_block_i_7;
   wire [15:0]pcie_block_i_8;
@@ -21506,24 +23416,23 @@ module pcie_controller_pcie_7x
   wire ppm_L1_thrtl;
   wire ppm_L1_trig;
   wire reg_dsc_detect;
-  wire reg_tcfg_gnt;
   wire rsrc_rdy_filtered;
   wire rx_np_ok;
   wire rx_np_req;
   wire src_in;
   wire sys_rst_n;
+  wire [1:0]tbuf_av_gap_thrtl_i_4;
   wire tbuf_av_min_trig;
-  wire tcfg_req_trig;
   wire trn_in_packet;
   wire trn_in_packet_reg;
   wire trn_lnk_up;
   wire [6:0]trn_rbar_hit;
-  wire [127:64]trn_rd;
+  wire [127:0]trn_rd;
   wire trn_rdst_rdy;
   wire trn_recrc_err;
   wire trn_reof;
   wire trn_rerrfwd;
-  wire [1:1]trn_rrem;
+  wire [1:0]trn_rrem;
   wire trn_rsof;
   wire trn_rsrc_dsc;
   wire trn_rsrc_dsc_d;
@@ -21532,10 +23441,10 @@ module pcie_controller_pcie_7x
   wire [5:0]trn_tbuf_av;
   wire trn_tcfg_gnt;
   wire trn_tcfg_req;
-  wire [63:0]trn_td;
+  wire [127:0]trn_td;
   wire trn_tdst_rdy;
   wire trn_teof;
-  wire [0:0]trn_trem;
+  wire [1:0]trn_trem;
   wire trn_tsof;
   wire trn_tsrc_rdy;
   wire tx_err_drop;
@@ -21573,21 +23482,14 @@ module pcie_controller_pcie_7x
     cfg_received_func_lvl_rst_INST_0
        (.I0(cfg_received_func_lvl_rst_n),
         .O(cfg_received_func_lvl_rst));
-  LUT3 #(
-    .INIT(8'h4F)) 
-    lnk_up_thrtl_i_1
-       (.I0(trn_tdst_rdy),
-        .I1(lnk_up_thrtl),
-        .I2(out),
-        .O(pcie_block_i_2));
   LUT6 #(
-    .INIT(64'h0000000027000000)) 
+    .INIT(64'h000000001D000000)) 
     m_axis_rx_tvalid_i_2
-       (.I0(trn_reof),
-        .I1(trn_rdst_rdy),
-        .I2(trn_rsof),
-        .I3(trn_rsrc_dsc),
-        .I4(trn_in_packet),
+       (.I0(trn_rsof),
+        .I1(trn_reof),
+        .I2(trn_rdst_rdy),
+        .I3(trn_in_packet),
+        .I4(trn_rsrc_dsc),
         .I5(trn_rsrc_dsc_d),
         .O(dsc_detect));
   (* BOX_TYPE = "PRIMITIVE" *) 
@@ -21602,7 +23504,7 @@ module pcie_controller_pcie_7x
     .AER_CAP_OPTIONAL_ERR_SUPPORT(24'h000000),
     .AER_CAP_PERMIT_ROOTERR_UPDATE("FALSE"),
     .AER_CAP_VERSION(4'h1),
-    .ALLOW_X8_GEN2("FALSE"),
+    .ALLOW_X8_GEN2("TRUE"),
     .BAR0(32'hFFFFF804),
     .BAR1(32'hFFFFFFFF),
     .BAR2(32'h00000000),
@@ -21634,7 +23536,7 @@ module pcie_controller_pcie_7x
     .DEV_CAP_ENDPOINT_L1_LATENCY(7),
     .DEV_CAP_EXT_TAG_SUPPORTED("FALSE"),
     .DEV_CAP_FUNCTION_LEVEL_RESET_CAPABLE("FALSE"),
-    .DEV_CAP_MAX_PAYLOAD_SUPPORTED(2),
+    .DEV_CAP_MAX_PAYLOAD_SUPPORTED(1),
     .DEV_CAP_PHANTOM_FUNCTIONS_SUPPORT(0),
     .DEV_CAP_ROLE_BASED_ERROR("TRUE"),
     .DEV_CAP_RSVD_14_12(0),
@@ -21685,14 +23587,14 @@ module pcie_controller_pcie_7x
     .LINK_CAP_L1_EXIT_LATENCY_GEN1(7),
     .LINK_CAP_L1_EXIT_LATENCY_GEN2(7),
     .LINK_CAP_LINK_BANDWIDTH_NOTIFICATION_CAP("FALSE"),
-    .LINK_CAP_MAX_LINK_SPEED(4'h1),
+    .LINK_CAP_MAX_LINK_SPEED(4'h2),
     .LINK_CAP_MAX_LINK_WIDTH(6'h08),
     .LINK_CAP_RSVD_23(0),
     .LINK_CAP_SURPRISE_DOWN_ERROR_CAPABLE("FALSE"),
     .LINK_CONTROL_RCB(0),
     .LINK_CTRL2_DEEMPHASIS("FALSE"),
     .LINK_CTRL2_HW_AUTONOMOUS_SPEED_DISABLE("FALSE"),
-    .LINK_CTRL2_TARGET_LINK_SPEED(4'h0),
+    .LINK_CTRL2_TARGET_LINK_SPEED(4'h2),
     .LINK_STATUS_SLOT_CLOCK_CONFIG("TRUE"),
     .LL_ACK_TIMEOUT(15'h0000),
     .LL_ACK_TIMEOUT_EN("FALSE"),
@@ -21841,7 +23743,7 @@ module pcie_controller_pcie_7x
     .TL_TX_RAM_RADDR_LATENCY(0),
     .TL_TX_RAM_RDATA_LATENCY(2),
     .TL_TX_RAM_WRITE_LATENCY(0),
-    .TRN_DW("FALSE"),
+    .TRN_DW("TRUE"),
     .TRN_NP_FC("TRUE"),
     .UPCONFIG_CAPABLE("TRUE"),
     .UPSTREAM_FACING("TRUE"),
@@ -21849,18 +23751,18 @@ module pcie_controller_pcie_7x
     .UR_CFG1("TRUE"),
     .UR_INV_REQ("TRUE"),
     .UR_PRS_RESPONSE("TRUE"),
-    .USER_CLK2_DIV2("FALSE"),
-    .USER_CLK_FREQ(3),
+    .USER_CLK2_DIV2("TRUE"),
+    .USER_CLK_FREQ(4),
     .USE_RID_PINS("FALSE"),
     .VC0_CPL_INFINITE("TRUE"),
-    .VC0_RX_RAM_LIMIT(13'h07FF),
-    .VC0_TOTAL_CREDITS_CD(461),
+    .VC0_RX_RAM_LIMIT(13'h03FF),
+    .VC0_TOTAL_CREDITS_CD(205),
     .VC0_TOTAL_CREDITS_CH(36),
     .VC0_TOTAL_CREDITS_NPD(24),
     .VC0_TOTAL_CREDITS_NPH(12),
-    .VC0_TOTAL_CREDITS_PD(437),
+    .VC0_TOTAL_CREDITS_PD(181),
     .VC0_TOTAL_CREDITS_PH(32),
-    .VC0_TX_LASTPACKET(29),
+    .VC0_TX_LASTPACKET(28),
     .VC_BASE_PTR(12'h000),
     .VC_CAP_ID(16'h0002),
     .VC_CAP_NEXTPTR(12'h000),
@@ -21912,7 +23814,7 @@ module pcie_controller_pcie_7x
         .CFGDEVCONTROLNOSNOOPEN(cfg_dcommand[11]),
         .CFGDEVCONTROLPHANTOMEN(cfg_dcommand[9]),
         .CFGDEVCONTROLURERRREPORTINGEN(cfg_dcommand[3]),
-        .CFGDEVID({1'b0,1'b1,1'b1,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b0,1'b0,1'b0}),
+        .CFGDEVID({1'b0,1'b1,1'b1,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b1,1'b0,1'b0,1'b0}),
         .CFGDEVSTATUSCORRERRDETECTED(cfg_dstatus[0]),
         .CFGDEVSTATUSFATALERRDETECTED(cfg_dstatus[2]),
         .CFGDEVSTATUSNONFATALERRDETECTED(cfg_dstatus[1]),
@@ -22088,68 +23990,68 @@ module pcie_controller_pcie_7x
         .MIMTXWEN(mim_tx_wen),
         .PIPECLK(pipe_pclk_in),
         .PIPERX0CHANISALIGNED(pipe_rx0_chanisaligned),
-        .PIPERX0CHARISK(pcie_block_i_13),
+        .PIPERX0CHARISK(pcie_block_i_11),
         .PIPERX0DATA(Q),
         .PIPERX0ELECIDLE(pipe_rx0_elec_idle),
         .PIPERX0PHYSTATUS(pipe_rx0_phy_status),
         .PIPERX0POLARITY(pipe_rx0_polarity),
-        .PIPERX0STATUS(pcie_block_i_21),
+        .PIPERX0STATUS(pcie_block_i_19),
         .PIPERX0VALID(pipe_rx0_valid),
         .PIPERX1CHANISALIGNED(pipe_rx1_chanisaligned),
-        .PIPERX1CHARISK(pcie_block_i_14),
-        .PIPERX1DATA(pcie_block_i_6),
+        .PIPERX1CHARISK(pcie_block_i_12),
+        .PIPERX1DATA(pcie_block_i_4),
         .PIPERX1ELECIDLE(pipe_rx1_elec_idle),
         .PIPERX1PHYSTATUS(pipe_rx1_phy_status),
         .PIPERX1POLARITY(pipe_rx1_polarity),
-        .PIPERX1STATUS(pcie_block_i_22),
+        .PIPERX1STATUS(pcie_block_i_20),
         .PIPERX1VALID(pipe_rx1_valid),
         .PIPERX2CHANISALIGNED(pipe_rx2_chanisaligned),
-        .PIPERX2CHARISK(pcie_block_i_15),
-        .PIPERX2DATA(pcie_block_i_7),
+        .PIPERX2CHARISK(pcie_block_i_13),
+        .PIPERX2DATA(pcie_block_i_5),
         .PIPERX2ELECIDLE(pipe_rx2_elec_idle),
         .PIPERX2PHYSTATUS(pipe_rx2_phy_status),
         .PIPERX2POLARITY(pipe_rx2_polarity),
-        .PIPERX2STATUS(pcie_block_i_23),
+        .PIPERX2STATUS(pcie_block_i_21),
         .PIPERX2VALID(pipe_rx2_valid),
         .PIPERX3CHANISALIGNED(pipe_rx3_chanisaligned),
-        .PIPERX3CHARISK(pcie_block_i_16),
-        .PIPERX3DATA(pcie_block_i_8),
+        .PIPERX3CHARISK(pcie_block_i_14),
+        .PIPERX3DATA(pcie_block_i_6),
         .PIPERX3ELECIDLE(pipe_rx3_elec_idle),
         .PIPERX3PHYSTATUS(pipe_rx3_phy_status),
         .PIPERX3POLARITY(pipe_rx3_polarity),
-        .PIPERX3STATUS(pcie_block_i_24),
+        .PIPERX3STATUS(pcie_block_i_22),
         .PIPERX3VALID(pipe_rx3_valid),
         .PIPERX4CHANISALIGNED(pipe_rx4_chanisaligned),
-        .PIPERX4CHARISK(pcie_block_i_17),
-        .PIPERX4DATA(pcie_block_i_9),
+        .PIPERX4CHARISK(pcie_block_i_15),
+        .PIPERX4DATA(pcie_block_i_7),
         .PIPERX4ELECIDLE(pipe_rx4_elec_idle),
         .PIPERX4PHYSTATUS(pipe_rx4_phy_status),
         .PIPERX4POLARITY(pipe_rx4_polarity),
-        .PIPERX4STATUS(pcie_block_i_25),
+        .PIPERX4STATUS(pcie_block_i_23),
         .PIPERX4VALID(pipe_rx4_valid),
         .PIPERX5CHANISALIGNED(pipe_rx5_chanisaligned),
-        .PIPERX5CHARISK(pcie_block_i_18),
-        .PIPERX5DATA(pcie_block_i_10),
+        .PIPERX5CHARISK(pcie_block_i_16),
+        .PIPERX5DATA(pcie_block_i_8),
         .PIPERX5ELECIDLE(pipe_rx5_elec_idle),
         .PIPERX5PHYSTATUS(pipe_rx5_phy_status),
         .PIPERX5POLARITY(pipe_rx5_polarity),
-        .PIPERX5STATUS(pcie_block_i_26),
+        .PIPERX5STATUS(pcie_block_i_24),
         .PIPERX5VALID(pipe_rx5_valid),
         .PIPERX6CHANISALIGNED(pipe_rx6_chanisaligned),
-        .PIPERX6CHARISK(pcie_block_i_19),
-        .PIPERX6DATA(pcie_block_i_11),
+        .PIPERX6CHARISK(pcie_block_i_17),
+        .PIPERX6DATA(pcie_block_i_9),
         .PIPERX6ELECIDLE(pipe_rx6_elec_idle),
         .PIPERX6PHYSTATUS(pipe_rx6_phy_status),
         .PIPERX6POLARITY(pipe_rx6_polarity),
-        .PIPERX6STATUS(pcie_block_i_27),
+        .PIPERX6STATUS(pcie_block_i_25),
         .PIPERX6VALID(pipe_rx6_valid),
         .PIPERX7CHANISALIGNED(pipe_rx7_chanisaligned),
-        .PIPERX7CHARISK(pcie_block_i_20),
-        .PIPERX7DATA(pcie_block_i_12),
+        .PIPERX7CHARISK(pcie_block_i_18),
+        .PIPERX7DATA(pcie_block_i_10),
         .PIPERX7ELECIDLE(pipe_rx7_elec_idle),
         .PIPERX7PHYSTATUS(pipe_rx7_phy_status),
         .PIPERX7POLARITY(pipe_rx7_polarity),
-        .PIPERX7STATUS(pcie_block_i_28),
+        .PIPERX7STATUS(pcie_block_i_26),
         .PIPERX7VALID(pipe_rx7_valid),
         .PIPETX0CHARISK(pipe_tx0_char_is_k),
         .PIPETX0COMPLIANCE(pipe_tx0_compliance),
@@ -22251,7 +24153,7 @@ module pcie_controller_pcie_7x
         .TRNFCSEL(fc_sel),
         .TRNLNKUP(trn_lnk_up),
         .TRNRBARHIT({pcie_block_i_n_1143,trn_rbar_hit}),
-        .TRNRD({trn_rd,pcie_block_i_3}),
+        .TRNRD(trn_rd),
         .TRNRDLLPDATA({pcie_block_i_n_896,pcie_block_i_n_897,pcie_block_i_n_898,pcie_block_i_n_899,pcie_block_i_n_900,pcie_block_i_n_901,pcie_block_i_n_902,pcie_block_i_n_903,pcie_block_i_n_904,pcie_block_i_n_905,pcie_block_i_n_906,pcie_block_i_n_907,pcie_block_i_n_908,pcie_block_i_n_909,pcie_block_i_n_910,pcie_block_i_n_911,pcie_block_i_n_912,pcie_block_i_n_913,pcie_block_i_n_914,pcie_block_i_n_915,pcie_block_i_n_916,pcie_block_i_n_917,pcie_block_i_n_918,pcie_block_i_n_919,pcie_block_i_n_920,pcie_block_i_n_921,pcie_block_i_n_922,pcie_block_i_n_923,pcie_block_i_n_924,pcie_block_i_n_925,pcie_block_i_n_926,pcie_block_i_n_927,pcie_block_i_n_928,pcie_block_i_n_929,pcie_block_i_n_930,pcie_block_i_n_931,pcie_block_i_n_932,pcie_block_i_n_933,pcie_block_i_n_934,pcie_block_i_n_935,pcie_block_i_n_936,pcie_block_i_n_937,pcie_block_i_n_938,pcie_block_i_n_939,pcie_block_i_n_940,pcie_block_i_n_941,pcie_block_i_n_942,pcie_block_i_n_943,pcie_block_i_n_944,pcie_block_i_n_945,pcie_block_i_n_946,pcie_block_i_n_947,pcie_block_i_n_948,pcie_block_i_n_949,pcie_block_i_n_950,pcie_block_i_n_951,pcie_block_i_n_952,pcie_block_i_n_953,pcie_block_i_n_954,pcie_block_i_n_955,pcie_block_i_n_956,pcie_block_i_n_957,pcie_block_i_n_958,pcie_block_i_n_959}),
         .TRNRDLLPSRCRDY({pcie_block_i_n_618,pcie_block_i_n_619}),
         .TRNRDSTRDY(trn_rdst_rdy),
@@ -22261,27 +24163,27 @@ module pcie_controller_pcie_7x
         .TRNRFCPRET(1'b1),
         .TRNRNPOK(rx_np_ok),
         .TRNRNPREQ(rx_np_req),
-        .TRNRREM({trn_rrem,pcie_block_i_4}),
+        .TRNRREM(trn_rrem),
         .TRNRSOF(trn_rsof),
         .TRNRSRCDSC(trn_rsrc_dsc),
         .TRNRSRCRDY(trn_rsrc_rdy),
         .TRNTBUFAV(trn_tbuf_av),
         .TRNTCFGGNT(trn_tcfg_gnt),
         .TRNTCFGREQ(trn_tcfg_req),
-        .TRNTD({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,trn_td}),
+        .TRNTD(trn_td),
         .TRNTDLLPDATA({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .TRNTDLLPDSTRDY(pcie_block_i_n_169),
         .TRNTDLLPSRCRDY(1'b0),
         .TRNTDSTRDY({NLW_pcie_block_i_TRNTDSTRDY_UNCONNECTED[3:1],trn_tdst_rdy}),
-        .TRNTECRCGEN(pcie_block_i_5[0]),
+        .TRNTECRCGEN(pcie_block_i_3[0]),
         .TRNTEOF(trn_teof),
         .TRNTERRDROP(tx_err_drop),
-        .TRNTERRFWD(pcie_block_i_5[1]),
-        .TRNTREM({1'b0,trn_trem}),
+        .TRNTERRFWD(pcie_block_i_3[1]),
+        .TRNTREM(trn_trem),
         .TRNTSOF(trn_tsof),
-        .TRNTSRCDSC(pcie_block_i_5[3]),
+        .TRNTSRCDSC(pcie_block_i_3[3]),
         .TRNTSRCRDY(trn_tsrc_rdy),
-        .TRNTSTR(pcie_block_i_5[2]),
+        .TRNTSTR(pcie_block_i_3[2]),
         .USERCLK(pipe_userclk1_in),
         .USERCLK2(pipe_userclk2_in),
         .USERRSTN(user_rst_n));
@@ -22421,19 +24323,19 @@ module pcie_controller_pcie_7x
        (.I0(cfg_err_locked),
         .O(pcie_block_i_i_9_n_0));
   pcie_controller_pcie_bram_top_7x pcie_bram_top
-       (.MIMRXRADDR(mim_rx_raddr[10:0]),
-        .MIMRXWADDR(mim_rx_waddr[10:0]),
-        .MIMTXRADDR(mim_tx_raddr[10:0]),
-        .MIMTXWADDR(mim_tx_waddr[10:0]),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl (mim_rx_rdata),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (mim_rx_wdata),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
+       (.\genblk3_0.bram36_dp_bl.bram36_tdp_bl (mim_rx_rdata),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 (mim_rx_ren),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 (mim_rx_wen),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 (mim_rx_raddr[9:0]),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 (mim_rx_waddr[9:0]),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 (mim_rx_wdata),
         .pipe_userclk1_in(pipe_userclk1_in),
+        .raddr(mim_tx_raddr[9:0]),
         .rdata(mim_tx_rdata),
-        .wdata(mim_tx_wdata));
+        .ren(mim_tx_ren),
+        .waddr(mim_tx_waddr[9:0]),
+        .wdata(mim_tx_wdata),
+        .wen(mim_tx_wen));
   LUT1 #(
     .INIT(2'h1)) 
     phy_lnk_up_cdc_i_1
@@ -22443,54 +24345,54 @@ module pcie_controller_pcie_7x
     .INIT(32'hFFFEAAAA)) 
     ppm_L1_thrtl_i_1
        (.I0(ppm_L1_trig),
-        .I1(cfg_pcie_link_state[0]),
+        .I1(cfg_pcie_link_state[1]),
         .I2(cfg_pcie_link_state[2]),
-        .I3(cfg_pcie_link_state[1]),
+        .I3(cfg_pcie_link_state[0]),
         .I4(ppm_L1_thrtl),
         .O(pcie_block_i_0));
-  LUT5 #(
-    .INIT(32'h00000001)) 
-    tbuf_av_min_thrtl_i_1
-       (.I0(trn_tbuf_av[5]),
-        .I1(trn_tbuf_av[4]),
+  LUT6 #(
+    .INIT(64'hFFFEFEFEFEFEFEFE)) 
+    tbuf_av_gap_thrtl_i_3
+       (.I0(trn_tbuf_av[4]),
+        .I1(trn_tbuf_av[5]),
         .I2(trn_tbuf_av[3]),
         .I3(trn_tbuf_av[2]),
         .I4(trn_tbuf_av[1]),
+        .I5(trn_tbuf_av[0]),
+        .O(pcie_block_i_2));
+  LUT4 #(
+    .INIT(16'h7FFF)) 
+    tbuf_av_gap_thrtl_i_5
+       (.I0(trn_tbuf_av[1]),
+        .I1(trn_tbuf_av[2]),
+        .I2(tbuf_av_gap_thrtl_i_4[1]),
+        .I3(tbuf_av_gap_thrtl_i_4[0]),
+        .O(pcie_block_i_1));
+  LUT5 #(
+    .INIT(32'h00000007)) 
+    tbuf_av_min_thrtl_i_1
+       (.I0(trn_tbuf_av[1]),
+        .I1(trn_tbuf_av[2]),
+        .I2(trn_tbuf_av[4]),
+        .I3(trn_tbuf_av[5]),
+        .I4(trn_tbuf_av[3]),
         .O(tbuf_av_min_trig));
   LUT6 #(
-    .INIT(64'h0000000100010001)) 
-    tready_thrtl_i_11
-       (.I0(trn_tbuf_av[5]),
-        .I1(trn_tbuf_av[4]),
-        .I2(trn_tbuf_av[3]),
-        .I3(trn_tbuf_av[2]),
-        .I4(trn_tbuf_av[0]),
-        .I5(trn_tbuf_av[1]),
-        .O(pcie_block_i_1));
-  LUT2 #(
-    .INIT(4'h8)) 
-    tready_thrtl_i_9
-       (.I0(trn_tcfg_req),
-        .I1(reg_tcfg_gnt),
-        .O(tcfg_req_trig));
-  LUT6 #(
-    .INIT(64'h08000000AEAA2AAA)) 
+    .INIT(64'h20000000BAAA2AAA)) 
     trn_in_packet_i_1
        (.I0(trn_in_packet),
-        .I1(trn_rdst_rdy),
-        .I2(trn_reof),
+        .I1(trn_reof),
+        .I2(trn_rdst_rdy),
         .I3(trn_rsrc_rdy),
         .I4(trn_rsof),
         .I5(trn_rsrc_dsc),
         .O(trn_in_packet_reg));
-  (* SOFT_HLUTNM = "soft_lutpair454" *) 
   LUT2 #(
     .INIT(4'hE)) 
     trn_rsrc_dsc_prev_i_1
        (.I0(trn_rsrc_dsc),
         .I1(reg_dsc_detect),
         .O(trn_rsrc_dsc_prev0));
-  (* SOFT_HLUTNM = "soft_lutpair454" *) 
   LUT4 #(
     .INIT(16'hAA08)) 
     trn_rsrc_rdy_prev_i_1
@@ -22511,209 +24413,104 @@ endmodule
 module pcie_controller_pcie_bram_7x
    (rdata,
     pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
+    ren,
+    wen,
+    raddr,
+    waddr,
     wdata);
-  output [17:0]rdata;
+  output [35:0]rdata;
   input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
-  input [17:0]wdata;
+  input ren;
+  input wen;
+  input [9:0]raddr;
+  input [9:0]waddr;
+  input [35:0]wdata;
 
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
   wire pipe_userclk1_in;
-  wire [17:0]rdata;
-  wire [17:0]wdata;
+  wire [9:0]raddr;
+  wire [35:0]rdata;
+  wire ren;
+  wire [9:0]waddr;
+  wire [35:0]wdata;
+  wire wen;
 
-  pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_13 \use_tdp.ramb36 
-       (.MIMTXRADDR(MIMTXRADDR),
-        .MIMTXWADDR(MIMTXWADDR),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in),
+  pcie_controller_xil_internal_svlib_BRAM_SDP_MACRO_9 \use_sdp.ramb36sdp 
+       (.pipe_userclk1_in(pipe_userclk1_in),
+        .raddr(raddr),
         .rdata(rdata),
-        .wdata(wdata));
+        .ren(ren),
+        .waddr(waddr),
+        .wdata(wdata),
+        .wen(wen));
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pcie_bram_7x" *) 
 module pcie_controller_pcie_bram_7x_10
-   (rdata,
+   (\genblk3_0.bram36_dp_bl.bram36_tdp_bl ,
     pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
-    wdata);
-  output [14:0]rdata;
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 );
+  output [35:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl ;
   input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
-  input [14:0]wdata;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  input [35:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
 
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
-  wire pipe_userclk1_in;
-  wire [14:0]rdata;
-  wire [14:0]wdata;
-
-  pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO \use_tdp.ramb36 
-       (.MIMTXRADDR(MIMTXRADDR),
-        .MIMTXWADDR(MIMTXWADDR),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in),
-        .rdata(rdata),
-        .wdata(wdata));
-endmodule
-
-(* ORIG_REF_NAME = "pcie_controller_pcie_bram_7x" *) 
-module pcie_controller_pcie_bram_7x_14
-   (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ,
-    pipe_userclk1_in,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 );
-  output [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
-  input pipe_userclk1_in;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
+  wire [35:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  wire [35:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
   wire pipe_userclk1_in;
 
-  pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_21 \use_tdp.ramb36 
-       (.MIMRXRADDR(MIMRXRADDR),
-        .MIMRXWADDR(MIMRXWADDR),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
+  pcie_controller_xil_internal_svlib_BRAM_SDP_MACRO_13 \use_sdp.ramb36sdp 
+       (.\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ),
         .pipe_userclk1_in(pipe_userclk1_in));
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pcie_bram_7x" *) 
-module pcie_controller_pcie_bram_7x_15
-   (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ,
+module pcie_controller_pcie_bram_7x_11
+   (\genblk3_0.bram36_dp_bl.bram36_tdp_bl ,
     pipe_userclk1_in,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 );
-  output [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 );
+  output [31:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl ;
   input pipe_userclk1_in;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  input [31:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
 
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
+  wire [31:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  wire [31:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
   wire pipe_userclk1_in;
 
-  pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_20 \use_tdp.ramb36 
-       (.MIMRXRADDR(MIMRXRADDR),
-        .MIMRXWADDR(MIMRXWADDR),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in));
-endmodule
-
-(* ORIG_REF_NAME = "pcie_controller_pcie_bram_7x" *) 
-module pcie_controller_pcie_bram_7x_16
-   (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ,
-    pipe_userclk1_in,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 );
-  output [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
-  input pipe_userclk1_in;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
-  wire pipe_userclk1_in;
-
-  pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_19 \use_tdp.ramb36 
-       (.MIMRXRADDR(MIMRXRADDR),
-        .MIMRXWADDR(MIMRXWADDR),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in));
-endmodule
-
-(* ORIG_REF_NAME = "pcie_controller_pcie_bram_7x" *) 
-module pcie_controller_pcie_bram_7x_17
-   (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ,
-    pipe_userclk1_in,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 );
-  output [13:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
-  input pipe_userclk1_in;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [13:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [13:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
-  wire [13:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
-  wire pipe_userclk1_in;
-
-  pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_18 \use_tdp.ramb36 
-       (.MIMRXRADDR(MIMRXRADDR),
-        .MIMRXWADDR(MIMRXWADDR),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
+  pcie_controller_xil_internal_svlib_BRAM_SDP_MACRO_12 \use_sdp.ramb36sdp 
+       (.\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ),
         .pipe_userclk1_in(pipe_userclk1_in));
 endmodule
 
@@ -22721,187 +24518,136 @@ endmodule
 module pcie_controller_pcie_bram_7x_8
    (rdata,
     pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
+    ren,
+    wen,
+    raddr,
+    waddr,
     wdata);
-  output [17:0]rdata;
+  output [32:0]rdata;
   input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
-  input [17:0]wdata;
+  input ren;
+  input wen;
+  input [9:0]raddr;
+  input [9:0]waddr;
+  input [32:0]wdata;
 
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
   wire pipe_userclk1_in;
-  wire [17:0]rdata;
-  wire [17:0]wdata;
+  wire [9:0]raddr;
+  wire [32:0]rdata;
+  wire ren;
+  wire [9:0]waddr;
+  wire [32:0]wdata;
+  wire wen;
 
-  pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_12 \use_tdp.ramb36 
-       (.MIMTXRADDR(MIMTXRADDR),
-        .MIMTXWADDR(MIMTXWADDR),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in),
+  pcie_controller_xil_internal_svlib_BRAM_SDP_MACRO \use_sdp.ramb36sdp 
+       (.pipe_userclk1_in(pipe_userclk1_in),
+        .raddr(raddr),
         .rdata(rdata),
-        .wdata(wdata));
-endmodule
-
-(* ORIG_REF_NAME = "pcie_controller_pcie_bram_7x" *) 
-module pcie_controller_pcie_bram_7x_9
-   (rdata,
-    pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
-    wdata);
-  output [17:0]rdata;
-  input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
-  input [17:0]wdata;
-
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
-  wire pipe_userclk1_in;
-  wire [17:0]rdata;
-  wire [17:0]wdata;
-
-  pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_11 \use_tdp.ramb36 
-       (.MIMTXRADDR(MIMTXRADDR),
-        .MIMTXWADDR(MIMTXWADDR),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in),
-        .rdata(rdata),
-        .wdata(wdata));
+        .ren(ren),
+        .waddr(waddr),
+        .wdata(wdata),
+        .wen(wen));
 endmodule
 
 module pcie_controller_pcie_bram_top_7x
    (rdata,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl ,
     pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
+    ren,
+    wen,
+    raddr,
+    waddr,
     wdata,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 );
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 );
   output [68:0]rdata;
-  output [67:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
+  output [67:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl ;
   input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
+  input ren;
+  input wen;
+  input [9:0]raddr;
+  input [9:0]waddr;
   input [68:0]wdata;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [67:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  input [67:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
 
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire [67:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
-  wire [67:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
+  wire [67:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  wire [67:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
   wire pipe_userclk1_in;
+  wire [9:0]raddr;
   wire [68:0]rdata;
+  wire ren;
+  wire [9:0]waddr;
   wire [68:0]wdata;
+  wire wen;
 
   pcie_controller_pcie_brams_7x pcie_brams_rx
-       (.MIMRXRADDR(MIMRXRADDR),
-        .MIMRXWADDR(MIMRXWADDR),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
+       (.\genblk3_0.bram36_dp_bl.bram36_tdp_bl (\genblk3_0.bram36_dp_bl.bram36_tdp_bl ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ),
         .pipe_userclk1_in(pipe_userclk1_in));
   pcie_controller_pcie_brams_7x_7 pcie_brams_tx
-       (.MIMTXRADDR(MIMTXRADDR),
-        .MIMTXWADDR(MIMTXWADDR),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in),
+       (.pipe_userclk1_in(pipe_userclk1_in),
+        .raddr(raddr),
         .rdata(rdata),
-        .wdata(wdata));
+        .ren(ren),
+        .waddr(waddr),
+        .wdata(wdata),
+        .wen(wen));
 endmodule
 
 module pcie_controller_pcie_brams_7x
-   (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ,
+   (\genblk3_0.bram36_dp_bl.bram36_tdp_bl ,
     pipe_userclk1_in,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 );
-  output [67:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 );
+  output [67:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl ;
   input pipe_userclk1_in;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [67:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  input [67:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
 
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [67:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl ;
-  wire [67:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
+  wire [67:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  wire [67:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
   wire pipe_userclk1_in;
 
-  pcie_controller_pcie_bram_7x_14 \brams[0].ram 
-       (.MIMRXRADDR(MIMRXRADDR),
-        .MIMRXWADDR(MIMRXWADDR),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl [17:0]),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [17:0]),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
+  pcie_controller_pcie_bram_7x_10 \brams[0].ram 
+       (.\genblk3_0.bram36_dp_bl.bram36_tdp_bl (\genblk3_0.bram36_dp_bl.bram36_tdp_bl [35:0]),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 [35:0]),
         .pipe_userclk1_in(pipe_userclk1_in));
-  pcie_controller_pcie_bram_7x_15 \brams[1].ram 
-       (.MIMRXRADDR(MIMRXRADDR),
-        .MIMRXWADDR(MIMRXWADDR),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl [35:18]),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [35:18]),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in));
-  pcie_controller_pcie_bram_7x_16 \brams[2].ram 
-       (.MIMRXRADDR(MIMRXRADDR),
-        .MIMRXWADDR(MIMRXWADDR),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl [53:36]),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [53:36]),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in));
-  pcie_controller_pcie_bram_7x_17 \brams[3].ram 
-       (.MIMRXRADDR(MIMRXRADDR),
-        .MIMRXWADDR(MIMRXWADDR),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl [67:54]),
-        .\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [67:54]),
-        .mim_rx_ren(mim_rx_ren),
-        .mim_rx_wen(mim_rx_wen),
+  pcie_controller_pcie_bram_7x_11 \brams[1].ram 
+       (.\genblk3_0.bram36_dp_bl.bram36_tdp_bl (\genblk3_0.bram36_dp_bl.bram36_tdp_bl [67:36]),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ),
+        .\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 [67:36]),
         .pipe_userclk1_in(pipe_userclk1_in));
 endmodule
 
@@ -22909,59 +24655,43 @@ endmodule
 module pcie_controller_pcie_brams_7x_7
    (rdata,
     pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
+    ren,
+    wen,
+    raddr,
+    waddr,
     wdata);
   output [68:0]rdata;
   input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
+  input ren;
+  input wen;
+  input [9:0]raddr;
+  input [9:0]waddr;
   input [68:0]wdata;
 
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
   wire pipe_userclk1_in;
+  wire [9:0]raddr;
   wire [68:0]rdata;
+  wire ren;
+  wire [9:0]waddr;
   wire [68:0]wdata;
+  wire wen;
 
   pcie_controller_pcie_bram_7x \brams[0].ram 
-       (.MIMTXRADDR(MIMTXRADDR),
-        .MIMTXWADDR(MIMTXWADDR),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in),
-        .rdata(rdata[17:0]),
-        .wdata(wdata[17:0]));
+       (.pipe_userclk1_in(pipe_userclk1_in),
+        .raddr(raddr),
+        .rdata(rdata[35:0]),
+        .ren(ren),
+        .waddr(waddr),
+        .wdata(wdata[35:0]),
+        .wen(wen));
   pcie_controller_pcie_bram_7x_8 \brams[1].ram 
-       (.MIMTXRADDR(MIMTXRADDR),
-        .MIMTXWADDR(MIMTXWADDR),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in),
-        .rdata(rdata[35:18]),
-        .wdata(wdata[35:18]));
-  pcie_controller_pcie_bram_7x_9 \brams[2].ram 
-       (.MIMTXRADDR(MIMTXRADDR),
-        .MIMTXWADDR(MIMTXWADDR),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in),
-        .rdata(rdata[53:36]),
-        .wdata(wdata[53:36]));
-  pcie_controller_pcie_bram_7x_10 \brams[3].ram 
-       (.MIMTXRADDR(MIMTXRADDR),
-        .MIMTXWADDR(MIMTXWADDR),
-        .mim_tx_ren(mim_tx_ren),
-        .mim_tx_wen(mim_tx_wen),
-        .pipe_userclk1_in(pipe_userclk1_in),
-        .rdata(rdata[68:54]),
-        .wdata(wdata[68:54]));
+       (.pipe_userclk1_in(pipe_userclk1_in),
+        .raddr(raddr),
+        .rdata(rdata[68:36]),
+        .ren(ren),
+        .waddr(waddr),
+        .wdata(wdata[68:36]),
+        .wen(wen));
 endmodule
 
 module pcie_controller_pcie_pipe_lane
@@ -22978,7 +24708,7 @@ module pcie_controller_pcie_pipe_lane
     PIPE_TXDATAK,
     PIPE_TXDATA,
     PIPE_POWERDOWN,
-    SR,
+    \pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ,
     pipe_rx1_valid_gt,
     pipe_pclk_in,
     PIPE_RXCHANISALIGNED,
@@ -23006,7 +24736,7 @@ module pcie_controller_pcie_pipe_lane
   output [1:0]PIPE_TXDATAK;
   output [15:0]PIPE_TXDATA;
   output [1:0]PIPE_POWERDOWN;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ;
   input pipe_rx1_valid_gt;
   input pipe_pclk_in;
   input [0:0]PIPE_RXCHANISALIGNED;
@@ -23031,7 +24761,6 @@ module pcie_controller_pcie_pipe_lane
   wire [1:0]PIPE_TXDATAK;
   wire [0:0]PIPE_TXELECIDLE;
   wire [1:0]Q;
-  wire [0:0]SR;
   wire pipe_pclk_in;
   wire pipe_rx1_chanisaligned;
   wire pipe_rx1_elec_idle;
@@ -23039,6 +24768,7 @@ module pcie_controller_pcie_pipe_lane
   wire pipe_rx1_polarity;
   wire pipe_rx1_valid;
   wire pipe_rx1_valid_gt;
+  wire [0:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ;
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_0 ;
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_1 ;
   wire \pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ;
@@ -23056,289 +24786,289 @@ module pcie_controller_pcie_pipe_lane
         .CE(1'b1),
         .D(PIPE_RXCHANISALIGNED),
         .Q(pipe_rx1_chanisaligned),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(D[0]),
         .Q(Q[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(D[1]),
         .Q(Q[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [10]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [11]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [12]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [13]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [14]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [15]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [3]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [4]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [5]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [6]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [7]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [8]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [9]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ),
         .Q(pipe_rx1_elec_idle),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_phy_status_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_phy_status_q_reg_0 ),
         .Q(pipe_rx1_phy_status),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_polarity_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx1_polarity),
         .Q(PIPE_RXPOLARITY),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_rx_valid_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx1_valid_gt),
         .Q(pipe_rx1_valid),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [0]),
         .Q(PIPE_TXDATAK[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [1]),
         .Q(PIPE_TXDATAK[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_compliance_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx1_compliance),
         .Q(PIPE_TXCOMPLIANCE),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [0]),
         .Q(PIPE_TXDATA[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [10]),
         .Q(PIPE_TXDATA[10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [11]),
         .Q(PIPE_TXDATA[11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [12]),
         .Q(PIPE_TXDATA[12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [13]),
         .Q(PIPE_TXDATA[13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [14]),
         .Q(PIPE_TXDATA[14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [15]),
         .Q(PIPE_TXDATA[15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [1]),
         .Q(PIPE_TXDATA[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [2]),
         .Q(PIPE_TXDATA[2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [3]),
         .Q(PIPE_TXDATA[3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [4]),
         .Q(PIPE_TXDATA[4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [5]),
         .Q(PIPE_TXDATA[5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [6]),
         .Q(PIPE_TXDATA[6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [7]),
         .Q(PIPE_TXDATA[7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [8]),
         .Q(PIPE_TXDATA[8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [9]),
         .Q(PIPE_TXDATA[9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDSE \pipe_stages_1.pipe_tx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx1_elec_idle),
         .Q(PIPE_TXELECIDLE),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDRE \pipe_stages_1.pipe_tx_powerdown_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [0]),
         .Q(PIPE_POWERDOWN[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
   FDSE \pipe_stages_1.pipe_tx_powerdown_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [1]),
         .Q(PIPE_POWERDOWN[1]),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pcie_pipe_lane" *) 
@@ -23356,7 +25086,7 @@ module pcie_controller_pcie_pipe_lane_0
     \pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ,
     \pipe_stages_1.pipe_rx_data_q_reg[15]_0 ,
     \pipe_stages_1.pipe_rx_status_q_reg[2]_0 ,
-    SR,
+    \pipe_stages_1.pipe_rx_polarity_q_reg_0 ,
     pipe_rx2_polarity,
     pipe_pclk_in,
     pipe_tx2_compliance,
@@ -23384,7 +25114,7 @@ module pcie_controller_pcie_pipe_lane_0
   output [1:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ;
   output [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_0 ;
   output [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   input pipe_rx2_polarity;
   input pipe_pclk_in;
   input pipe_tx2_compliance;
@@ -23407,7 +25137,6 @@ module pcie_controller_pcie_pipe_lane_0
   wire [15:0]PIPE_TXDATA;
   wire [1:0]PIPE_TXDATAK;
   wire [0:0]PIPE_TXELECIDLE;
-  wire [0:0]SR;
   wire pipe_pclk_in;
   wire pipe_rx2_chanisaligned;
   wire pipe_rx2_elec_idle;
@@ -23421,6 +25150,7 @@ module pcie_controller_pcie_pipe_lane_0
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_1 ;
   wire \pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ;
   wire \pipe_stages_1.pipe_rx_phy_status_q_reg_0 ;
+  wire [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_1 ;
   wire [1:0]\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 ;
@@ -23434,289 +25164,289 @@ module pcie_controller_pcie_pipe_lane_0
         .CE(1'b1),
         .D(PIPE_RXCHANISALIGNED),
         .Q(pipe_rx2_chanisaligned),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [10]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [11]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [12]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [13]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [14]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [15]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [3]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [4]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [5]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [6]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [7]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [8]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [9]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ),
         .Q(pipe_rx2_elec_idle),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_phy_status_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_phy_status_q_reg_0 ),
         .Q(pipe_rx2_phy_status),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_polarity_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx2_polarity),
         .Q(PIPE_RXPOLARITY),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_valid_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx2_valid_gt),
         .Q(pipe_rx2_valid),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [0]),
         .Q(PIPE_TXDATAK[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [1]),
         .Q(PIPE_TXDATAK[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_compliance_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx2_compliance),
         .Q(PIPE_TXCOMPLIANCE),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [0]),
         .Q(PIPE_TXDATA[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [10]),
         .Q(PIPE_TXDATA[10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [11]),
         .Q(PIPE_TXDATA[11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [12]),
         .Q(PIPE_TXDATA[12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [13]),
         .Q(PIPE_TXDATA[13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [14]),
         .Q(PIPE_TXDATA[14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [15]),
         .Q(PIPE_TXDATA[15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [1]),
         .Q(PIPE_TXDATA[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [2]),
         .Q(PIPE_TXDATA[2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [3]),
         .Q(PIPE_TXDATA[3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [4]),
         .Q(PIPE_TXDATA[4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [5]),
         .Q(PIPE_TXDATA[5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [6]),
         .Q(PIPE_TXDATA[6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [7]),
         .Q(PIPE_TXDATA[7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [8]),
         .Q(PIPE_TXDATA[8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [9]),
         .Q(PIPE_TXDATA[9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx2_elec_idle),
         .Q(PIPE_TXELECIDLE),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_powerdown_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [0]),
         .Q(PIPE_POWERDOWN[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_powerdown_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [1]),
         .Q(PIPE_POWERDOWN[1]),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pcie_pipe_lane" *) 
@@ -23734,7 +25464,7 @@ module pcie_controller_pcie_pipe_lane_1
     \pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ,
     \pipe_stages_1.pipe_rx_data_q_reg[15]_0 ,
     \pipe_stages_1.pipe_rx_status_q_reg[2]_0 ,
-    SR,
+    \pipe_stages_1.pipe_rx_polarity_q_reg_0 ,
     pipe_rx3_polarity,
     pipe_pclk_in,
     pipe_tx3_compliance,
@@ -23762,7 +25492,7 @@ module pcie_controller_pcie_pipe_lane_1
   output [1:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ;
   output [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_0 ;
   output [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   input pipe_rx3_polarity;
   input pipe_pclk_in;
   input pipe_tx3_compliance;
@@ -23785,7 +25515,6 @@ module pcie_controller_pcie_pipe_lane_1
   wire [15:0]PIPE_TXDATA;
   wire [1:0]PIPE_TXDATAK;
   wire [0:0]PIPE_TXELECIDLE;
-  wire [0:0]SR;
   wire pipe_pclk_in;
   wire pipe_rx3_chanisaligned;
   wire pipe_rx3_elec_idle;
@@ -23799,6 +25528,7 @@ module pcie_controller_pcie_pipe_lane_1
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_1 ;
   wire \pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ;
   wire \pipe_stages_1.pipe_rx_phy_status_q_reg_0 ;
+  wire [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_1 ;
   wire [1:0]\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 ;
@@ -23812,289 +25542,289 @@ module pcie_controller_pcie_pipe_lane_1
         .CE(1'b1),
         .D(PIPE_RXCHANISALIGNED),
         .Q(pipe_rx3_chanisaligned),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [10]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [11]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [12]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [13]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [14]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [15]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [3]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [4]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [5]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [6]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [7]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [8]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [9]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ),
         .Q(pipe_rx3_elec_idle),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_phy_status_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_phy_status_q_reg_0 ),
         .Q(pipe_rx3_phy_status),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_polarity_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx3_polarity),
         .Q(PIPE_RXPOLARITY),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_valid_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx3_valid_gt),
         .Q(pipe_rx3_valid),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [0]),
         .Q(PIPE_TXDATAK[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [1]),
         .Q(PIPE_TXDATAK[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_compliance_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx3_compliance),
         .Q(PIPE_TXCOMPLIANCE),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [0]),
         .Q(PIPE_TXDATA[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [10]),
         .Q(PIPE_TXDATA[10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [11]),
         .Q(PIPE_TXDATA[11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [12]),
         .Q(PIPE_TXDATA[12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [13]),
         .Q(PIPE_TXDATA[13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [14]),
         .Q(PIPE_TXDATA[14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [15]),
         .Q(PIPE_TXDATA[15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [1]),
         .Q(PIPE_TXDATA[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [2]),
         .Q(PIPE_TXDATA[2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [3]),
         .Q(PIPE_TXDATA[3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [4]),
         .Q(PIPE_TXDATA[4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [5]),
         .Q(PIPE_TXDATA[5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [6]),
         .Q(PIPE_TXDATA[6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [7]),
         .Q(PIPE_TXDATA[7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [8]),
         .Q(PIPE_TXDATA[8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [9]),
         .Q(PIPE_TXDATA[9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx3_elec_idle),
         .Q(PIPE_TXELECIDLE),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_powerdown_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [0]),
         .Q(PIPE_POWERDOWN[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_powerdown_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [1]),
         .Q(PIPE_POWERDOWN[1]),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pcie_pipe_lane" *) 
@@ -24112,7 +25842,7 @@ module pcie_controller_pcie_pipe_lane_2
     \pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ,
     \pipe_stages_1.pipe_rx_data_q_reg[15]_0 ,
     \pipe_stages_1.pipe_rx_status_q_reg[2]_0 ,
-    SR,
+    \pipe_stages_1.pipe_rx_polarity_q_reg_0 ,
     pipe_rx4_polarity,
     pipe_pclk_in,
     pipe_tx4_compliance,
@@ -24140,7 +25870,7 @@ module pcie_controller_pcie_pipe_lane_2
   output [1:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ;
   output [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_0 ;
   output [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   input pipe_rx4_polarity;
   input pipe_pclk_in;
   input pipe_tx4_compliance;
@@ -24163,7 +25893,6 @@ module pcie_controller_pcie_pipe_lane_2
   wire [15:0]PIPE_TXDATA;
   wire [1:0]PIPE_TXDATAK;
   wire [0:0]PIPE_TXELECIDLE;
-  wire [0:0]SR;
   wire pipe_pclk_in;
   wire pipe_rx4_chanisaligned;
   wire pipe_rx4_elec_idle;
@@ -24177,6 +25906,7 @@ module pcie_controller_pcie_pipe_lane_2
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_1 ;
   wire \pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ;
   wire \pipe_stages_1.pipe_rx_phy_status_q_reg_0 ;
+  wire [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_1 ;
   wire [1:0]\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 ;
@@ -24190,289 +25920,289 @@ module pcie_controller_pcie_pipe_lane_2
         .CE(1'b1),
         .D(PIPE_RXCHANISALIGNED),
         .Q(pipe_rx4_chanisaligned),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [10]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [11]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [12]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [13]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [14]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [15]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [3]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [4]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [5]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [6]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [7]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [8]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [9]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ),
         .Q(pipe_rx4_elec_idle),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_phy_status_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_phy_status_q_reg_0 ),
         .Q(pipe_rx4_phy_status),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_polarity_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx4_polarity),
         .Q(PIPE_RXPOLARITY),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_valid_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx4_valid_gt),
         .Q(pipe_rx4_valid),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [0]),
         .Q(PIPE_TXDATAK[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [1]),
         .Q(PIPE_TXDATAK[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_compliance_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx4_compliance),
         .Q(PIPE_TXCOMPLIANCE),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [0]),
         .Q(PIPE_TXDATA[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [10]),
         .Q(PIPE_TXDATA[10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [11]),
         .Q(PIPE_TXDATA[11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [12]),
         .Q(PIPE_TXDATA[12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [13]),
         .Q(PIPE_TXDATA[13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [14]),
         .Q(PIPE_TXDATA[14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [15]),
         .Q(PIPE_TXDATA[15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [1]),
         .Q(PIPE_TXDATA[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [2]),
         .Q(PIPE_TXDATA[2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [3]),
         .Q(PIPE_TXDATA[3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [4]),
         .Q(PIPE_TXDATA[4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [5]),
         .Q(PIPE_TXDATA[5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [6]),
         .Q(PIPE_TXDATA[6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [7]),
         .Q(PIPE_TXDATA[7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [8]),
         .Q(PIPE_TXDATA[8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [9]),
         .Q(PIPE_TXDATA[9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx4_elec_idle),
         .Q(PIPE_TXELECIDLE),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_powerdown_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [0]),
         .Q(PIPE_POWERDOWN[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_powerdown_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [1]),
         .Q(PIPE_POWERDOWN[1]),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pcie_pipe_lane" *) 
@@ -24490,7 +26220,7 @@ module pcie_controller_pcie_pipe_lane_3
     \pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ,
     \pipe_stages_1.pipe_rx_data_q_reg[15]_0 ,
     \pipe_stages_1.pipe_rx_status_q_reg[2]_0 ,
-    SR,
+    \pipe_stages_1.pipe_rx_polarity_q_reg_0 ,
     pipe_rx5_polarity,
     pipe_pclk_in,
     pipe_tx5_compliance,
@@ -24518,7 +26248,7 @@ module pcie_controller_pcie_pipe_lane_3
   output [1:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ;
   output [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_0 ;
   output [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   input pipe_rx5_polarity;
   input pipe_pclk_in;
   input pipe_tx5_compliance;
@@ -24541,7 +26271,6 @@ module pcie_controller_pcie_pipe_lane_3
   wire [15:0]PIPE_TXDATA;
   wire [1:0]PIPE_TXDATAK;
   wire [0:0]PIPE_TXELECIDLE;
-  wire [0:0]SR;
   wire pipe_pclk_in;
   wire pipe_rx5_chanisaligned;
   wire pipe_rx5_elec_idle;
@@ -24555,6 +26284,7 @@ module pcie_controller_pcie_pipe_lane_3
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_1 ;
   wire \pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ;
   wire \pipe_stages_1.pipe_rx_phy_status_q_reg_0 ;
+  wire [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_1 ;
   wire [1:0]\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 ;
@@ -24568,289 +26298,289 @@ module pcie_controller_pcie_pipe_lane_3
         .CE(1'b1),
         .D(PIPE_RXCHANISALIGNED),
         .Q(pipe_rx5_chanisaligned),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [10]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [11]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [12]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [13]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [14]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [15]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [3]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [4]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [5]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [6]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [7]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [8]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [9]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ),
         .Q(pipe_rx5_elec_idle),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_phy_status_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_phy_status_q_reg_0 ),
         .Q(pipe_rx5_phy_status),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_polarity_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx5_polarity),
         .Q(PIPE_RXPOLARITY),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_valid_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx5_valid_gt),
         .Q(pipe_rx5_valid),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [0]),
         .Q(PIPE_TXDATAK[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [1]),
         .Q(PIPE_TXDATAK[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_compliance_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx5_compliance),
         .Q(PIPE_TXCOMPLIANCE),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [0]),
         .Q(PIPE_TXDATA[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [10]),
         .Q(PIPE_TXDATA[10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [11]),
         .Q(PIPE_TXDATA[11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [12]),
         .Q(PIPE_TXDATA[12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [13]),
         .Q(PIPE_TXDATA[13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [14]),
         .Q(PIPE_TXDATA[14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [15]),
         .Q(PIPE_TXDATA[15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [1]),
         .Q(PIPE_TXDATA[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [2]),
         .Q(PIPE_TXDATA[2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [3]),
         .Q(PIPE_TXDATA[3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [4]),
         .Q(PIPE_TXDATA[4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [5]),
         .Q(PIPE_TXDATA[5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [6]),
         .Q(PIPE_TXDATA[6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [7]),
         .Q(PIPE_TXDATA[7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [8]),
         .Q(PIPE_TXDATA[8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [9]),
         .Q(PIPE_TXDATA[9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx5_elec_idle),
         .Q(PIPE_TXELECIDLE),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_powerdown_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [0]),
         .Q(PIPE_POWERDOWN[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_powerdown_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [1]),
         .Q(PIPE_POWERDOWN[1]),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pcie_pipe_lane" *) 
@@ -24868,7 +26598,7 @@ module pcie_controller_pcie_pipe_lane_4
     \pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ,
     \pipe_stages_1.pipe_rx_data_q_reg[15]_0 ,
     \pipe_stages_1.pipe_rx_status_q_reg[2]_0 ,
-    SR,
+    \pipe_stages_1.pipe_rx_polarity_q_reg_0 ,
     pipe_rx6_polarity,
     pipe_pclk_in,
     pipe_tx6_compliance,
@@ -24896,7 +26626,7 @@ module pcie_controller_pcie_pipe_lane_4
   output [1:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ;
   output [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_0 ;
   output [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   input pipe_rx6_polarity;
   input pipe_pclk_in;
   input pipe_tx6_compliance;
@@ -24919,7 +26649,6 @@ module pcie_controller_pcie_pipe_lane_4
   wire [15:0]PIPE_TXDATA;
   wire [1:0]PIPE_TXDATAK;
   wire [0:0]PIPE_TXELECIDLE;
-  wire [0:0]SR;
   wire pipe_pclk_in;
   wire pipe_rx6_chanisaligned;
   wire pipe_rx6_elec_idle;
@@ -24933,6 +26662,7 @@ module pcie_controller_pcie_pipe_lane_4
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_1 ;
   wire \pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ;
   wire \pipe_stages_1.pipe_rx_phy_status_q_reg_0 ;
+  wire [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_1 ;
   wire [1:0]\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 ;
@@ -24946,289 +26676,289 @@ module pcie_controller_pcie_pipe_lane_4
         .CE(1'b1),
         .D(PIPE_RXCHANISALIGNED),
         .Q(pipe_rx6_chanisaligned),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [10]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [11]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [12]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [13]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [14]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [15]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [3]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [4]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [5]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [6]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [7]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [8]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [9]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ),
         .Q(pipe_rx6_elec_idle),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_phy_status_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_phy_status_q_reg_0 ),
         .Q(pipe_rx6_phy_status),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_polarity_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx6_polarity),
         .Q(PIPE_RXPOLARITY),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_valid_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx6_valid_gt),
         .Q(pipe_rx6_valid),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [0]),
         .Q(PIPE_TXDATAK[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [1]),
         .Q(PIPE_TXDATAK[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_compliance_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx6_compliance),
         .Q(PIPE_TXCOMPLIANCE),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [0]),
         .Q(PIPE_TXDATA[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [10]),
         .Q(PIPE_TXDATA[10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [11]),
         .Q(PIPE_TXDATA[11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [12]),
         .Q(PIPE_TXDATA[12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [13]),
         .Q(PIPE_TXDATA[13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [14]),
         .Q(PIPE_TXDATA[14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [15]),
         .Q(PIPE_TXDATA[15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [1]),
         .Q(PIPE_TXDATA[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [2]),
         .Q(PIPE_TXDATA[2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [3]),
         .Q(PIPE_TXDATA[3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [4]),
         .Q(PIPE_TXDATA[4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [5]),
         .Q(PIPE_TXDATA[5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [6]),
         .Q(PIPE_TXDATA[6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [7]),
         .Q(PIPE_TXDATA[7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [8]),
         .Q(PIPE_TXDATA[8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [9]),
         .Q(PIPE_TXDATA[9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx6_elec_idle),
         .Q(PIPE_TXELECIDLE),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_powerdown_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [0]),
         .Q(PIPE_POWERDOWN[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_powerdown_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [1]),
         .Q(PIPE_POWERDOWN[1]),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pcie_pipe_lane" *) 
@@ -25246,7 +26976,7 @@ module pcie_controller_pcie_pipe_lane_5
     \pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ,
     \pipe_stages_1.pipe_rx_data_q_reg[15]_0 ,
     \pipe_stages_1.pipe_rx_status_q_reg[2]_0 ,
-    SR,
+    \pipe_stages_1.pipe_rx_polarity_q_reg_0 ,
     pipe_rx7_polarity,
     pipe_pclk_in,
     pipe_tx7_compliance,
@@ -25274,7 +27004,7 @@ module pcie_controller_pcie_pipe_lane_5
   output [1:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ;
   output [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_0 ;
   output [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   input pipe_rx7_polarity;
   input pipe_pclk_in;
   input pipe_tx7_compliance;
@@ -25297,7 +27027,6 @@ module pcie_controller_pcie_pipe_lane_5
   wire [15:0]PIPE_TXDATA;
   wire [1:0]PIPE_TXDATAK;
   wire [0:0]PIPE_TXELECIDLE;
-  wire [0:0]SR;
   wire pipe_pclk_in;
   wire pipe_rx7_chanisaligned;
   wire pipe_rx7_elec_idle;
@@ -25311,6 +27040,7 @@ module pcie_controller_pcie_pipe_lane_5
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_1 ;
   wire \pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ;
   wire \pipe_stages_1.pipe_rx_phy_status_q_reg_0 ;
+  wire [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_1 ;
   wire [1:0]\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 ;
@@ -25324,289 +27054,289 @@ module pcie_controller_pcie_pipe_lane_5
         .CE(1'b1),
         .D(PIPE_RXCHANISALIGNED),
         .Q(pipe_rx7_chanisaligned),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [10]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [11]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [12]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [13]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [14]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [15]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [3]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [4]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [5]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [6]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [7]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [8]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [9]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ),
         .Q(pipe_rx7_elec_idle),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_phy_status_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_phy_status_q_reg_0 ),
         .Q(pipe_rx7_phy_status),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_polarity_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx7_polarity),
         .Q(PIPE_RXPOLARITY),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_valid_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx7_valid_gt),
         .Q(pipe_rx7_valid),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [0]),
         .Q(PIPE_TXDATAK[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [1]),
         .Q(PIPE_TXDATAK[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_compliance_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx7_compliance),
         .Q(PIPE_TXCOMPLIANCE),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [0]),
         .Q(PIPE_TXDATA[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [10]),
         .Q(PIPE_TXDATA[10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [11]),
         .Q(PIPE_TXDATA[11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [12]),
         .Q(PIPE_TXDATA[12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [13]),
         .Q(PIPE_TXDATA[13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [14]),
         .Q(PIPE_TXDATA[14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [15]),
         .Q(PIPE_TXDATA[15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [1]),
         .Q(PIPE_TXDATA[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [2]),
         .Q(PIPE_TXDATA[2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [3]),
         .Q(PIPE_TXDATA[3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [4]),
         .Q(PIPE_TXDATA[4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [5]),
         .Q(PIPE_TXDATA[5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [6]),
         .Q(PIPE_TXDATA[6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [7]),
         .Q(PIPE_TXDATA[7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [8]),
         .Q(PIPE_TXDATA[8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [9]),
         .Q(PIPE_TXDATA[9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx7_elec_idle),
         .Q(PIPE_TXELECIDLE),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_powerdown_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [0]),
         .Q(PIPE_POWERDOWN[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_powerdown_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [1]),
         .Q(PIPE_POWERDOWN[1]),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pcie_pipe_lane" *) 
@@ -25624,7 +27354,7 @@ module pcie_controller_pcie_pipe_lane_6
     \pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ,
     \pipe_stages_1.pipe_rx_data_q_reg[15]_0 ,
     \pipe_stages_1.pipe_rx_status_q_reg[2]_0 ,
-    SR,
+    \pipe_stages_1.pipe_rx_polarity_q_reg_0 ,
     pipe_rx0_polarity,
     pipe_pclk_in,
     pipe_tx0_compliance,
@@ -25652,7 +27382,7 @@ module pcie_controller_pcie_pipe_lane_6
   output [1:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 ;
   output [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_0 ;
   output [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   input pipe_rx0_polarity;
   input pipe_pclk_in;
   input pipe_tx0_compliance;
@@ -25675,7 +27405,6 @@ module pcie_controller_pcie_pipe_lane_6
   wire [15:0]PIPE_TXDATA;
   wire [1:0]PIPE_TXDATAK;
   wire [0:0]PIPE_TXELECIDLE;
-  wire [0:0]SR;
   wire gt_rx_phy_status_q;
   wire gt_rxelecidle_q;
   wire pipe_pclk_in;
@@ -25689,6 +27418,7 @@ module pcie_controller_pcie_pipe_lane_6
   wire [1:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 ;
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_0 ;
   wire [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_1 ;
+  wire [0:0]\pipe_stages_1.pipe_rx_polarity_q_reg_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_1 ;
   wire [1:0]\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 ;
@@ -25702,289 +27432,289 @@ module pcie_controller_pcie_pipe_lane_6
         .CE(1'b1),
         .D(PIPE_RXCHANISALIGNED),
         .Q(pipe_rx0_chanisaligned),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [10]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [11]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [12]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [13]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [14]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [15]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [3]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [4]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [5]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [6]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [7]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [8]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_data_q_reg[15]_1 [9]),
         .Q(\pipe_stages_1.pipe_rx_data_q_reg[15]_0 [9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(gt_rxelecidle_q),
         .Q(pipe_rx0_elec_idle),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_phy_status_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(gt_rx_phy_status_q),
         .Q(pipe_rx0_phy_status),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_polarity_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx0_polarity),
         .Q(PIPE_RXPOLARITY),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [0]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [1]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_status_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_rx_status_q_reg[2]_1 [2]),
         .Q(\pipe_stages_1.pipe_rx_status_q_reg[2]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_rx_valid_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_rx0_valid_gt),
         .Q(pipe_rx0_valid),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [0]),
         .Q(PIPE_TXDATAK[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_char_is_k_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 [1]),
         .Q(PIPE_TXDATAK[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_compliance_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx0_compliance),
         .Q(PIPE_TXCOMPLIANCE),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [0]),
         .Q(PIPE_TXDATA[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[10] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [10]),
         .Q(PIPE_TXDATA[10]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[11] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [11]),
         .Q(PIPE_TXDATA[11]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[12] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [12]),
         .Q(PIPE_TXDATA[12]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[13] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [13]),
         .Q(PIPE_TXDATA[13]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[14] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [14]),
         .Q(PIPE_TXDATA[14]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[15] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [15]),
         .Q(PIPE_TXDATA[15]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [1]),
         .Q(PIPE_TXDATA[1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [2]),
         .Q(PIPE_TXDATA[2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[3] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [3]),
         .Q(PIPE_TXDATA[3]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[4] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [4]),
         .Q(PIPE_TXDATA[4]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[5] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [5]),
         .Q(PIPE_TXDATA[5]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[6] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [6]),
         .Q(PIPE_TXDATA[6]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[7] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [7]),
         .Q(PIPE_TXDATA[7]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[8] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [8]),
         .Q(PIPE_TXDATA[8]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_data_q_reg[9] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_data_q_reg[15]_0 [9]),
         .Q(PIPE_TXDATA[9]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_elec_idle_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx0_elec_idle),
         .Q(PIPE_TXELECIDLE),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_powerdown_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [0]),
         .Q(PIPE_POWERDOWN[0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
   FDSE \pipe_stages_1.pipe_tx_powerdown_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 [1]),
         .Q(PIPE_POWERDOWN[1]),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_rx_polarity_q_reg_0 ));
 endmodule
 
 module pcie_controller_pcie_pipe_misc
@@ -25992,7 +27722,7 @@ module pcie_controller_pcie_pipe_misc
     \pipe_stages_1.pipe_tx_rate_q_reg_0 ,
     pipe_tx_deemph_gt,
     \pipe_stages_1.pipe_tx_margin_q_reg[2]_0 ,
-    SR,
+    \pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 ,
     pipe_tx_rcvr_det,
     pipe_pclk_in,
     pipe_tx_rate,
@@ -26002,18 +27732,18 @@ module pcie_controller_pcie_pipe_misc
   output [0:0]\pipe_stages_1.pipe_tx_rate_q_reg_0 ;
   output pipe_tx_deemph_gt;
   output [2:0]\pipe_stages_1.pipe_tx_margin_q_reg[2]_0 ;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 ;
   input pipe_tx_rcvr_det;
   input pipe_pclk_in;
   input pipe_tx_rate;
   input pipe_tx_deemph;
   input [2:0]\pipe_stages_1.pipe_tx_margin_q_reg[2]_1 ;
 
-  wire [0:0]SR;
   wire pipe_pclk_in;
   wire [2:0]\pipe_stages_1.pipe_tx_margin_q_reg[2]_0 ;
   wire [2:0]\pipe_stages_1.pipe_tx_margin_q_reg[2]_1 ;
   wire [0:0]\pipe_stages_1.pipe_tx_rate_q_reg_0 ;
+  wire [0:0]\pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 ;
   wire pipe_tx_deemph;
   wire pipe_tx_deemph_gt;
   wire pipe_tx_rate;
@@ -26025,37 +27755,37 @@ module pcie_controller_pcie_pipe_misc
         .CE(1'b1),
         .D(pipe_tx_deemph),
         .Q(pipe_tx_deemph_gt),
-        .S(SR));
+        .S(\pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_margin_q_reg[0] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_margin_q_reg[2]_1 [0]),
         .Q(\pipe_stages_1.pipe_tx_margin_q_reg[2]_0 [0]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_margin_q_reg[1] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_margin_q_reg[2]_1 [1]),
         .Q(\pipe_stages_1.pipe_tx_margin_q_reg[2]_0 [1]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_margin_q_reg[2] 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(\pipe_stages_1.pipe_tx_margin_q_reg[2]_1 [2]),
         .Q(\pipe_stages_1.pipe_tx_margin_q_reg[2]_0 [2]),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_rate_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx_rate),
         .Q(\pipe_stages_1.pipe_tx_rate_q_reg_0 ),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 ));
   FDRE \pipe_stages_1.pipe_tx_rcvr_det_q_reg 
        (.C(pipe_pclk_in),
         .CE(1'b1),
         .D(pipe_tx_rcvr_det),
         .Q(pipe_tx_rcvr_det_gt),
-        .R(SR));
+        .R(\pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 ));
 endmodule
 
 module pcie_controller_pcie_pipe_pipeline
@@ -26125,7 +27855,7 @@ module pcie_controller_pcie_pipe_pipeline
     \pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_5 ,
     \pipe_stages_1.pipe_rx_data_q_reg[15]_6 ,
     \pipe_stages_1.pipe_rx_status_q_reg[2]_6 ,
-    SR,
+    \pipe_stages_1.pipe_tx_rcvr_det_q_reg ,
     pipe_rx1_valid_gt,
     pipe_pclk_in,
     PIPE_RXCHANISALIGNED,
@@ -26294,7 +28024,7 @@ module pcie_controller_pcie_pipe_pipeline
   output [1:0]\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_5 ;
   output [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15]_6 ;
   output [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_6 ;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_tx_rcvr_det_q_reg ;
   input pipe_rx1_valid_gt;
   input pipe_pclk_in;
   input [7:0]PIPE_RXCHANISALIGNED;
@@ -26407,7 +28137,6 @@ module pcie_controller_pcie_pipe_pipeline
   wire [15:0]PIPE_TXDATAK;
   wire [7:0]PIPE_TXELECIDLE;
   wire [1:0]Q;
-  wire [0:0]SR;
   wire gt_rx_phy_status_q;
   wire gt_rxelecidle_q;
   wire pipe_pclk_in;
@@ -26546,6 +28275,7 @@ module pcie_controller_pcie_pipe_pipeline
   wire [1:0]\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_5 ;
   wire [1:0]\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_6 ;
   wire [0:0]\pipe_stages_1.pipe_tx_rate_q_reg ;
+  wire [0:0]\pipe_stages_1.pipe_tx_rcvr_det_q_reg ;
   wire pipe_tx0_compliance;
   wire pipe_tx0_elec_idle;
   wire pipe_tx1_compliance;
@@ -26578,7 +28308,6 @@ module pcie_controller_pcie_pipe_pipeline
         .PIPE_TXDATAK(PIPE_TXDATAK[3:2]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[1]),
         .Q(Q),
-        .SR(SR),
         .pipe_pclk_in(pipe_pclk_in),
         .pipe_rx1_chanisaligned(pipe_rx1_chanisaligned),
         .pipe_rx1_elec_idle(pipe_rx1_elec_idle),
@@ -26586,6 +28315,7 @@ module pcie_controller_pcie_pipe_pipeline
         .pipe_rx1_polarity(pipe_rx1_polarity),
         .pipe_rx1_valid(pipe_rx1_valid),
         .pipe_rx1_valid_gt(pipe_rx1_valid_gt),
+        .\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_0 (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_0 (\pipe_stages_1.pipe_rx_data_q_reg[15] ),
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_1 (\pipe_stages_1.pipe_rx_data_q_reg[15]_7 ),
         .\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 (\pipe_stages_1.pipe_rx_elec_idle_q_reg ),
@@ -26605,7 +28335,6 @@ module pcie_controller_pcie_pipe_pipeline
         .PIPE_TXDATA(PIPE_TXDATA[47:32]),
         .PIPE_TXDATAK(PIPE_TXDATAK[5:4]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[2]),
-        .SR(SR),
         .pipe_pclk_in(pipe_pclk_in),
         .pipe_rx2_chanisaligned(pipe_rx2_chanisaligned),
         .pipe_rx2_elec_idle(pipe_rx2_elec_idle),
@@ -26619,6 +28348,7 @@ module pcie_controller_pcie_pipe_pipeline
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_1 (\pipe_stages_1.pipe_rx_data_q_reg[15]_8 ),
         .\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 (\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 ),
         .\pipe_stages_1.pipe_rx_phy_status_q_reg_0 (\pipe_stages_1.pipe_rx_phy_status_q_reg_0 ),
+        .\pipe_stages_1.pipe_rx_polarity_q_reg_0 (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_0 (\pipe_stages_1.pipe_rx_status_q_reg[2]_0 ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_1 (\pipe_stages_1.pipe_rx_status_q_reg[2]_8 ),
         .\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 (\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_1 ),
@@ -26634,7 +28364,6 @@ module pcie_controller_pcie_pipe_pipeline
         .PIPE_TXDATA(PIPE_TXDATA[63:48]),
         .PIPE_TXDATAK(PIPE_TXDATAK[7:6]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[3]),
-        .SR(SR),
         .pipe_pclk_in(pipe_pclk_in),
         .pipe_rx3_chanisaligned(pipe_rx3_chanisaligned),
         .pipe_rx3_elec_idle(pipe_rx3_elec_idle),
@@ -26648,6 +28377,7 @@ module pcie_controller_pcie_pipe_pipeline
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_1 (\pipe_stages_1.pipe_rx_data_q_reg[15]_9 ),
         .\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 (\pipe_stages_1.pipe_rx_elec_idle_q_reg_1 ),
         .\pipe_stages_1.pipe_rx_phy_status_q_reg_0 (\pipe_stages_1.pipe_rx_phy_status_q_reg_1 ),
+        .\pipe_stages_1.pipe_rx_polarity_q_reg_0 (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_0 (\pipe_stages_1.pipe_rx_status_q_reg[2]_1 ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_1 (\pipe_stages_1.pipe_rx_status_q_reg[2]_9 ),
         .\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 (\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_2 ),
@@ -26663,7 +28393,6 @@ module pcie_controller_pcie_pipe_pipeline
         .PIPE_TXDATA(PIPE_TXDATA[79:64]),
         .PIPE_TXDATAK(PIPE_TXDATAK[9:8]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[4]),
-        .SR(SR),
         .pipe_pclk_in(pipe_pclk_in),
         .pipe_rx4_chanisaligned(pipe_rx4_chanisaligned),
         .pipe_rx4_elec_idle(pipe_rx4_elec_idle),
@@ -26677,6 +28406,7 @@ module pcie_controller_pcie_pipe_pipeline
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_1 (\pipe_stages_1.pipe_rx_data_q_reg[15]_10 ),
         .\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 (\pipe_stages_1.pipe_rx_elec_idle_q_reg_2 ),
         .\pipe_stages_1.pipe_rx_phy_status_q_reg_0 (\pipe_stages_1.pipe_rx_phy_status_q_reg_2 ),
+        .\pipe_stages_1.pipe_rx_polarity_q_reg_0 (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_0 (\pipe_stages_1.pipe_rx_status_q_reg[2]_2 ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_1 (\pipe_stages_1.pipe_rx_status_q_reg[2]_10 ),
         .\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 (\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_3 ),
@@ -26692,7 +28422,6 @@ module pcie_controller_pcie_pipe_pipeline
         .PIPE_TXDATA(PIPE_TXDATA[95:80]),
         .PIPE_TXDATAK(PIPE_TXDATAK[11:10]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[5]),
-        .SR(SR),
         .pipe_pclk_in(pipe_pclk_in),
         .pipe_rx5_chanisaligned(pipe_rx5_chanisaligned),
         .pipe_rx5_elec_idle(pipe_rx5_elec_idle),
@@ -26706,6 +28435,7 @@ module pcie_controller_pcie_pipe_pipeline
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_1 (\pipe_stages_1.pipe_rx_data_q_reg[15]_11 ),
         .\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 (\pipe_stages_1.pipe_rx_elec_idle_q_reg_3 ),
         .\pipe_stages_1.pipe_rx_phy_status_q_reg_0 (\pipe_stages_1.pipe_rx_phy_status_q_reg_3 ),
+        .\pipe_stages_1.pipe_rx_polarity_q_reg_0 (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_0 (\pipe_stages_1.pipe_rx_status_q_reg[2]_3 ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_1 (\pipe_stages_1.pipe_rx_status_q_reg[2]_11 ),
         .\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 (\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_4 ),
@@ -26721,7 +28451,6 @@ module pcie_controller_pcie_pipe_pipeline
         .PIPE_TXDATA(PIPE_TXDATA[111:96]),
         .PIPE_TXDATAK(PIPE_TXDATAK[13:12]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[6]),
-        .SR(SR),
         .pipe_pclk_in(pipe_pclk_in),
         .pipe_rx6_chanisaligned(pipe_rx6_chanisaligned),
         .pipe_rx6_elec_idle(pipe_rx6_elec_idle),
@@ -26735,6 +28464,7 @@ module pcie_controller_pcie_pipe_pipeline
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_1 (\pipe_stages_1.pipe_rx_data_q_reg[15]_12 ),
         .\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 (\pipe_stages_1.pipe_rx_elec_idle_q_reg_4 ),
         .\pipe_stages_1.pipe_rx_phy_status_q_reg_0 (\pipe_stages_1.pipe_rx_phy_status_q_reg_4 ),
+        .\pipe_stages_1.pipe_rx_polarity_q_reg_0 (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_0 (\pipe_stages_1.pipe_rx_status_q_reg[2]_4 ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_1 (\pipe_stages_1.pipe_rx_status_q_reg[2]_12 ),
         .\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 (\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_5 ),
@@ -26750,7 +28480,6 @@ module pcie_controller_pcie_pipe_pipeline
         .PIPE_TXDATA(PIPE_TXDATA[127:112]),
         .PIPE_TXDATAK(PIPE_TXDATAK[15:14]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[7]),
-        .SR(SR),
         .pipe_pclk_in(pipe_pclk_in),
         .pipe_rx7_chanisaligned(pipe_rx7_chanisaligned),
         .pipe_rx7_elec_idle(pipe_rx7_elec_idle),
@@ -26764,6 +28493,7 @@ module pcie_controller_pcie_pipe_pipeline
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_1 (\pipe_stages_1.pipe_rx_data_q_reg[15]_13 ),
         .\pipe_stages_1.pipe_rx_elec_idle_q_reg_0 (\pipe_stages_1.pipe_rx_elec_idle_q_reg_5 ),
         .\pipe_stages_1.pipe_rx_phy_status_q_reg_0 (\pipe_stages_1.pipe_rx_phy_status_q_reg_5 ),
+        .\pipe_stages_1.pipe_rx_polarity_q_reg_0 (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_0 (\pipe_stages_1.pipe_rx_status_q_reg[2]_5 ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_1 (\pipe_stages_1.pipe_rx_status_q_reg[2]_13 ),
         .\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 (\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_6 ),
@@ -26779,7 +28509,6 @@ module pcie_controller_pcie_pipe_pipeline
         .PIPE_TXDATA(PIPE_TXDATA[15:0]),
         .PIPE_TXDATAK(PIPE_TXDATAK[1:0]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[0]),
-        .SR(SR),
         .gt_rx_phy_status_q(gt_rx_phy_status_q),
         .gt_rxelecidle_q(gt_rxelecidle_q),
         .pipe_pclk_in(pipe_pclk_in),
@@ -26793,6 +28522,7 @@ module pcie_controller_pcie_pipe_pipeline
         .\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_1 (\pipe_stages_1.pipe_rx_char_is_k_q_reg[1]_12 ),
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_0 (\pipe_stages_1.pipe_rx_data_q_reg[15]_6 ),
         .\pipe_stages_1.pipe_rx_data_q_reg[15]_1 (\pipe_stages_1.pipe_rx_data_q_reg[15]_14 ),
+        .\pipe_stages_1.pipe_rx_polarity_q_reg_0 (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_0 (\pipe_stages_1.pipe_rx_status_q_reg[2]_6 ),
         .\pipe_stages_1.pipe_rx_status_q_reg[2]_1 (\pipe_stages_1.pipe_rx_status_q_reg[2]_14 ),
         .\pipe_stages_1.pipe_tx_char_is_k_q_reg[1]_0 (\pipe_stages_1.pipe_tx_char_is_k_q_reg[1] ),
@@ -26801,11 +28531,11 @@ module pcie_controller_pcie_pipe_pipeline
         .pipe_tx0_compliance(pipe_tx0_compliance),
         .pipe_tx0_elec_idle(pipe_tx0_elec_idle));
   pcie_controller_pcie_pipe_misc pipe_misc_i
-       (.SR(SR),
-        .pipe_pclk_in(pipe_pclk_in),
+       (.pipe_pclk_in(pipe_pclk_in),
         .\pipe_stages_1.pipe_tx_margin_q_reg[2]_0 (\pipe_stages_1.pipe_tx_margin_q_reg[2] ),
         .\pipe_stages_1.pipe_tx_margin_q_reg[2]_1 (\pipe_stages_1.pipe_tx_margin_q_reg[2]_0 ),
         .\pipe_stages_1.pipe_tx_rate_q_reg_0 (\pipe_stages_1.pipe_tx_rate_q_reg ),
+        .\pipe_stages_1.pipe_tx_rcvr_det_q_reg_0 (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .pipe_tx_deemph(pipe_tx_deemph),
         .pipe_tx_deemph_gt(pipe_tx_deemph_gt),
         .pipe_tx_rate(pipe_tx_rate),
@@ -26815,8 +28545,6 @@ endmodule
 
 module pcie_controller_pcie_top
    (m_axis_rx_tvalid_reg,
-    m_axis_rx_tkeep,
-    m_axis_rx_tlast,
     trn_tcfg_req,
     tready_thrtl_reg,
     PIPE_RXPOLARITY,
@@ -26826,6 +28554,8 @@ module pcie_controller_pcie_top
     \pipe_stages_1.pipe_tx_rate_q_reg ,
     pipe_tx_deemph_gt,
     user_reset_int_reg,
+    Q,
+    \m_axis_rx_tuser_reg[21] ,
     src_in,
     cfg_mgmt_rd_wr_done,
     cfg_err_aer_headerlog_set,
@@ -26834,7 +28564,6 @@ module pcie_controller_pcie_top
     cfg_msg_received,
     cfg_received_func_lvl_rst,
     cfg_pcie_link_state,
-    m_axis_rx_tdata,
     m_axis_rx_tuser,
     trn_tbuf_av,
     cfg_to_turnoff,
@@ -26845,7 +28574,7 @@ module pcie_controller_pcie_top
     PIPE_TXDATAK,
     PIPE_TXDATA,
     PIPE_POWERDOWN,
-    Q,
+    \pipe_stages_1.pipe_tx_margin_q_reg[2] ,
     cfg_aer_ecrc_check_en,
     cfg_aer_ecrc_gen_en,
     cfg_aer_rooterr_corr_err_received,
@@ -26913,14 +28642,13 @@ module pcie_controller_pcie_top
     fc_cplh,
     fc_nph,
     fc_ph,
-    \throttle_ctl_pipeline.reg_tkeep_reg[7] ,
+    SR,
     pipe_userclk2_in,
     tx_cfg_gnt,
     cfg_turnoff_ok,
     s_axis_tx_tlast,
     s_axis_tx_tvalid,
-    s_axis_tx_tkeep,
-    SR,
+    \pipe_stages_1.pipe_tx_rcvr_det_q_reg ,
     pipe_rx1_valid_gt,
     pipe_pclk_in,
     PIPE_RXCHANISALIGNED,
@@ -26980,6 +28708,7 @@ module pcie_controller_pcie_top
     out,
     s_axis_tx_tdata,
     s_axis_tx_tuser,
+    s_axis_tx_tkeep,
     D,
     \pipe_stages_1.pipe_rx_data_q_reg[15] ,
     \pipe_stages_1.pipe_rx_status_q_reg[2] ,
@@ -27035,8 +28764,6 @@ module pcie_controller_pcie_top
     pcie_drp_addr,
     cfg_mgmt_dwaddr);
   output m_axis_rx_tvalid_reg;
-  output [0:0]m_axis_rx_tkeep;
-  output m_axis_rx_tlast;
   output trn_tcfg_req;
   output tready_thrtl_reg;
   output [7:0]PIPE_RXPOLARITY;
@@ -27046,6 +28773,8 @@ module pcie_controller_pcie_top
   output [0:0]\pipe_stages_1.pipe_tx_rate_q_reg ;
   output pipe_tx_deemph_gt;
   output user_reset_int_reg;
+  output [127:0]Q;
+  output [5:0]\m_axis_rx_tuser_reg[21] ;
   output src_in;
   output cfg_mgmt_rd_wr_done;
   output cfg_err_aer_headerlog_set;
@@ -27054,8 +28783,7 @@ module pcie_controller_pcie_top
   output cfg_msg_received;
   output cfg_received_func_lvl_rst;
   output [2:0]cfg_pcie_link_state;
-  output [63:0]m_axis_rx_tdata;
-  output [12:0]m_axis_rx_tuser;
+  output [8:0]m_axis_rx_tuser;
   output [5:0]trn_tbuf_av;
   output cfg_to_turnoff;
   output [7:0]cfg_bus_number;
@@ -27065,7 +28793,7 @@ module pcie_controller_pcie_top
   output [15:0]PIPE_TXDATAK;
   output [127:0]PIPE_TXDATA;
   output [15:0]PIPE_POWERDOWN;
-  output [2:0]Q;
+  output [2:0]\pipe_stages_1.pipe_tx_margin_q_reg[2] ;
   output cfg_aer_ecrc_check_en;
   output cfg_aer_ecrc_gen_en;
   output cfg_aer_rooterr_corr_err_received;
@@ -27133,14 +28861,13 @@ module pcie_controller_pcie_top
   output [7:0]fc_cplh;
   output [7:0]fc_nph;
   output [7:0]fc_ph;
-  input \throttle_ctl_pipeline.reg_tkeep_reg[7] ;
+  input [0:0]SR;
   input pipe_userclk2_in;
   input tx_cfg_gnt;
   input cfg_turnoff_ok;
   input s_axis_tx_tlast;
   input s_axis_tx_tvalid;
-  input [0:0]s_axis_tx_tkeep;
-  input [0:0]SR;
+  input [0:0]\pipe_stages_1.pipe_tx_rcvr_det_q_reg ;
   input pipe_rx1_valid_gt;
   input pipe_pclk_in;
   input [7:0]PIPE_RXCHANISALIGNED;
@@ -27198,8 +28925,9 @@ module pcie_controller_pcie_top
   input cfg_pm_force_state_en;
   input cfg_pm_wake;
   input out;
-  input [63:0]s_axis_tx_tdata;
+  input [127:0]s_axis_tx_tdata;
   input [3:0]s_axis_tx_tuser;
+  input [2:0]s_axis_tx_tkeep;
   input [1:0]D;
   input [15:0]\pipe_stages_1.pipe_rx_data_q_reg[15] ;
   input [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2] ;
@@ -27263,7 +28991,7 @@ module pcie_controller_pcie_top
   wire [127:0]PIPE_TXDATA;
   wire [15:0]PIPE_TXDATAK;
   wire [7:0]PIPE_TXELECIDLE;
-  wire [2:0]Q;
+  wire [127:0]Q;
   wire [0:0]SR;
   wire bridge_reset_int;
   wire cfg_aer_ecrc_check_en;
@@ -27374,16 +29102,14 @@ module pcie_controller_pcie_top
   wire [2:0]fc_sel;
   wire gt_rx_phy_status_q;
   wire gt_rxelecidle_q;
-  wire [63:0]m_axis_rx_tdata;
-  wire [0:0]m_axis_rx_tkeep;
-  wire m_axis_rx_tlast;
   wire m_axis_rx_tready;
-  wire [12:0]m_axis_rx_tuser;
+  wire [8:0]m_axis_rx_tuser;
+  wire [5:0]\m_axis_rx_tuser_reg[21] ;
   wire m_axis_rx_tvalid_reg;
   wire out;
   wire pcie_7x_i_n_13;
-  wire pcie_7x_i_n_22;
-  wire pcie_7x_i_n_30;
+  wire pcie_7x_i_n_27;
+  wire pcie_7x_i_n_28;
   wire pcie_7x_i_n_6;
   wire pcie_7x_i_n_9;
   wire [8:0]pcie_drp_addr;
@@ -27503,7 +29229,9 @@ module pcie_controller_pcie_top
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_4 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_5 ;
   wire [2:0]\pipe_stages_1.pipe_rx_status_q_reg[2]_6 ;
+  wire [2:0]\pipe_stages_1.pipe_tx_margin_q_reg[2] ;
   wire [0:0]\pipe_stages_1.pipe_tx_rate_q_reg ;
+  wire [0:0]\pipe_stages_1.pipe_tx_rcvr_det_q_reg ;
   wire [1:0]pipe_tx0_char_is_k;
   wire pipe_tx0_compliance;
   wire [15:0]pipe_tx0_data;
@@ -27580,29 +29308,28 @@ module pcie_controller_pcie_top
   wire \rx_inst/rx_pipeline_inst/trn_rsrc_dsc_prev0 ;
   wire rx_np_ok;
   wire rx_np_req;
-  wire [63:0]s_axis_tx_tdata;
-  wire [0:0]s_axis_tx_tkeep;
+  wire [127:0]s_axis_tx_tdata;
+  wire [2:0]s_axis_tx_tkeep;
   wire s_axis_tx_tlast;
   wire [3:0]s_axis_tx_tuser;
   wire s_axis_tx_tvalid;
   wire src_in;
   wire sys_rst_n;
-  wire \throttle_ctl_pipeline.reg_tkeep_reg[7] ;
   wire tready_thrtl_reg;
   wire trn_lnk_up;
   wire [6:0]trn_rbar_hit;
-  wire [63:0]trn_rd;
+  wire [127:0]trn_rd;
   wire trn_rdst_rdy;
   wire trn_recrc_err;
   wire trn_reof;
   wire trn_rerrfwd;
-  wire [0:0]trn_rrem;
+  wire [1:0]trn_rrem;
   wire trn_rsof;
   wire trn_rsrc_dsc;
   wire [5:0]trn_tbuf_av;
   wire trn_tcfg_gnt;
   wire trn_tcfg_req;
-  wire [63:0]trn_td;
+  wire [127:0]trn_td;
   wire trn_tdst_rdy;
   wire trn_tecrc_gen;
   wire trn_teof;
@@ -27614,29 +29341,25 @@ module pcie_controller_pcie_top
   wire trn_tstr;
   wire tx_cfg_gnt;
   wire tx_err_drop;
-  wire \tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/lnk_up_thrtl ;
   wire \tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/ppm_L1_thrtl ;
   wire \tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/ppm_L1_trig ;
-  wire \tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/reg_tcfg_gnt ;
+  wire [2:1]\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/tbuf_av_d ;
   wire \tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/tbuf_av_min_trig ;
-  wire \tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/tcfg_req_trig ;
   wire \tx_inst/tx_pipeline_inst/reg_disable_trn2 ;
+  wire \tx_inst/tx_pipeline_inst/tkeep_to_trem_128.axi_DW_2 ;
   wire user_reset_int_reg;
 
   pcie_controller_axi_basic_top axi_basic_top
-       (.E(trn_rdst_rdy),
-        .Q(m_axis_rx_tdata),
+       (.Q(Q),
+        .SR(SR),
         .cfg_pcie_link_state(cfg_pcie_link_state),
         .cfg_pm_turnoff_ok_n(cfg_turnoff_ok_w),
         .cfg_to_turnoff(cfg_to_turnoff),
         .cfg_turnoff_ok(cfg_turnoff_ok),
         .dsc_detect(\rx_inst/rx_pipeline_inst/dsc_detect ),
-        .lnk_up_thrtl(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/lnk_up_thrtl ),
-        .lnk_up_thrtl_reg(pcie_7x_i_n_30),
-        .m_axis_rx_tkeep(m_axis_rx_tkeep),
-        .m_axis_rx_tlast(m_axis_rx_tlast),
         .m_axis_rx_tready(m_axis_rx_tready),
         .m_axis_rx_tuser(m_axis_rx_tuser),
+        .\m_axis_rx_tuser_reg[21] (\m_axis_rx_tuser_reg[21] ),
         .m_axis_rx_tvalid_reg(m_axis_rx_tvalid_reg),
         .out(out),
         .pipe_userclk2_in(pipe_userclk2_in),
@@ -27644,24 +29367,24 @@ module pcie_controller_pcie_top
         .ppm_L1_thrtl_reg(pcie_7x_i_n_13),
         .ppm_L1_trig(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/ppm_L1_trig ),
         .reg_dsc_detect(\rx_inst/rx_pipeline_inst/reg_dsc_detect ),
-        .reg_tcfg_gnt(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/reg_tcfg_gnt ),
         .rsrc_rdy_filtered(\rx_inst/rx_pipeline_inst/rsrc_rdy_filtered ),
         .s_axis_tx_tdata(s_axis_tx_tdata),
         .s_axis_tx_tkeep(s_axis_tx_tkeep),
         .s_axis_tx_tlast(s_axis_tx_tlast),
         .s_axis_tx_tuser(s_axis_tx_tuser),
         .s_axis_tx_tvalid(s_axis_tx_tvalid),
+        .\tbuf_av_d_reg[2] (\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/tbuf_av_d ),
+        .tbuf_av_gap_thrtl_i_2(pcie_7x_i_n_27),
+        .tbuf_av_gap_thrtl_reg(pcie_7x_i_n_28),
         .tbuf_av_min_trig(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/tbuf_av_min_trig ),
-        .tcfg_req_trig(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/tcfg_req_trig ),
-        .\throttle_ctl_pipeline.reg_tdata_reg[63] ({trn_td[31:0],trn_td[63:32]}),
-        .\throttle_ctl_pipeline.reg_tkeep_reg[7] (\throttle_ctl_pipeline.reg_tkeep_reg[7] ),
+        .\throttle_ctl_pipeline.reg_tdata_reg[127] ({trn_td[31:0],trn_td[63:32],trn_td[95:64],trn_td[127:96]}),
         .\throttle_ctl_pipeline.reg_tuser_reg[3] ({trn_tsrc_dsc,trn_tstr,trn_terrfwd,trn_tecrc_gen}),
-        .tready_thrtl_i_5(pcie_7x_i_n_22),
         .tready_thrtl_reg(tready_thrtl_reg),
         .trn_in_packet(\rx_inst/rx_pipeline_inst/trn_in_packet ),
         .trn_in_packet_reg(pcie_7x_i_n_9),
         .trn_rbar_hit(trn_rbar_hit),
         .trn_rd(trn_rd),
+        .trn_rdst_rdy(trn_rdst_rdy),
         .trn_recrc_err(trn_recrc_err),
         .trn_reof(trn_reof),
         .trn_rerrfwd(trn_rerrfwd),
@@ -27675,7 +29398,7 @@ module pcie_controller_pcie_top
         .trn_tcfg_req(trn_tcfg_req),
         .trn_tdst_rdy(trn_tdst_rdy),
         .trn_teof(trn_teof),
-        .trn_trem(trn_trem),
+        .trn_trem({\tx_inst/tx_pipeline_inst/tkeep_to_trem_128.axi_DW_2 ,trn_trem}),
         .trn_tsof(trn_tsof),
         .trn_tsrc_rdy(trn_tsrc_rdy),
         .tx_cfg_gnt(tx_cfg_gnt));
@@ -27887,37 +29610,33 @@ module pcie_controller_pcie_top
         .fc_pd(fc_pd),
         .fc_ph(fc_ph),
         .fc_sel(fc_sel),
-        .lnk_up_thrtl(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/lnk_up_thrtl ),
-        .out(out),
         .pcie_block_i_0(pcie_7x_i_n_13),
-        .pcie_block_i_1(pcie_7x_i_n_22),
-        .pcie_block_i_10(pipe_rx5_data),
-        .pcie_block_i_11(pipe_rx6_data),
-        .pcie_block_i_12(pipe_rx7_data),
-        .pcie_block_i_13(pipe_rx0_char_is_k),
-        .pcie_block_i_14(pipe_rx1_char_is_k),
-        .pcie_block_i_15(pipe_rx2_char_is_k),
-        .pcie_block_i_16(pipe_rx3_char_is_k),
-        .pcie_block_i_17(pipe_rx4_char_is_k),
-        .pcie_block_i_18(pipe_rx5_char_is_k),
-        .pcie_block_i_19(pipe_rx6_char_is_k),
-        .pcie_block_i_2(pcie_7x_i_n_30),
-        .pcie_block_i_20(pipe_rx7_char_is_k),
-        .pcie_block_i_21(pipe_rx0_status),
-        .pcie_block_i_22(pipe_rx1_status),
-        .pcie_block_i_23(pipe_rx2_status),
-        .pcie_block_i_24(pipe_rx3_status),
-        .pcie_block_i_25(pipe_rx4_status),
-        .pcie_block_i_26(pipe_rx5_status),
-        .pcie_block_i_27(pipe_rx6_status),
-        .pcie_block_i_28(pipe_rx7_status),
-        .pcie_block_i_3(trn_rd),
-        .pcie_block_i_4(trn_rrem),
-        .pcie_block_i_5({trn_tsrc_dsc,trn_tstr,trn_terrfwd,trn_tecrc_gen}),
-        .pcie_block_i_6(pipe_rx1_data),
-        .pcie_block_i_7(pipe_rx2_data),
-        .pcie_block_i_8(pipe_rx3_data),
-        .pcie_block_i_9(pipe_rx4_data),
+        .pcie_block_i_1(pcie_7x_i_n_27),
+        .pcie_block_i_10(pipe_rx7_data),
+        .pcie_block_i_11(pipe_rx0_char_is_k),
+        .pcie_block_i_12(pipe_rx1_char_is_k),
+        .pcie_block_i_13(pipe_rx2_char_is_k),
+        .pcie_block_i_14(pipe_rx3_char_is_k),
+        .pcie_block_i_15(pipe_rx4_char_is_k),
+        .pcie_block_i_16(pipe_rx5_char_is_k),
+        .pcie_block_i_17(pipe_rx6_char_is_k),
+        .pcie_block_i_18(pipe_rx7_char_is_k),
+        .pcie_block_i_19(pipe_rx0_status),
+        .pcie_block_i_2(pcie_7x_i_n_28),
+        .pcie_block_i_20(pipe_rx1_status),
+        .pcie_block_i_21(pipe_rx2_status),
+        .pcie_block_i_22(pipe_rx3_status),
+        .pcie_block_i_23(pipe_rx4_status),
+        .pcie_block_i_24(pipe_rx5_status),
+        .pcie_block_i_25(pipe_rx6_status),
+        .pcie_block_i_26(pipe_rx7_status),
+        .pcie_block_i_3({trn_tsrc_dsc,trn_tstr,trn_terrfwd,trn_tecrc_gen}),
+        .pcie_block_i_4(pipe_rx1_data),
+        .pcie_block_i_5(pipe_rx2_data),
+        .pcie_block_i_6(pipe_rx3_data),
+        .pcie_block_i_7(pipe_rx4_data),
+        .pcie_block_i_8(pipe_rx5_data),
+        .pcie_block_i_9(pipe_rx6_data),
         .pcie_drp_addr(pcie_drp_addr),
         .pcie_drp_clk(pcie_drp_clk),
         .pcie_drp_di(pcie_drp_di),
@@ -28035,22 +29754,23 @@ module pcie_controller_pcie_top
         .ppm_L1_thrtl(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/ppm_L1_thrtl ),
         .ppm_L1_trig(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/ppm_L1_trig ),
         .reg_dsc_detect(\rx_inst/rx_pipeline_inst/reg_dsc_detect ),
-        .reg_tcfg_gnt(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/reg_tcfg_gnt ),
         .rsrc_rdy_filtered(\rx_inst/rx_pipeline_inst/rsrc_rdy_filtered ),
         .rx_np_ok(rx_np_ok),
         .rx_np_req(rx_np_req),
         .src_in(src_in),
         .sys_rst_n(sys_rst_n),
+        .tbuf_av_gap_thrtl_i_4(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/tbuf_av_d ),
         .tbuf_av_min_trig(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/tbuf_av_min_trig ),
-        .tcfg_req_trig(\tx_inst/thrtl_ctl_enabled.tx_thrl_ctl_inst/tcfg_req_trig ),
         .trn_in_packet(\rx_inst/rx_pipeline_inst/trn_in_packet ),
         .trn_in_packet_reg(pcie_7x_i_n_9),
         .trn_lnk_up(trn_lnk_up),
         .trn_rbar_hit(trn_rbar_hit),
+        .trn_rd(trn_rd),
         .trn_rdst_rdy(trn_rdst_rdy),
         .trn_recrc_err(trn_recrc_err),
         .trn_reof(trn_reof),
         .trn_rerrfwd(trn_rerrfwd),
+        .trn_rrem(trn_rrem),
         .trn_rsof(trn_rsof),
         .trn_rsrc_dsc(trn_rsrc_dsc),
         .trn_rsrc_dsc_d(\rx_inst/rx_pipeline_inst/trn_rsrc_dsc_d ),
@@ -28061,7 +29781,7 @@ module pcie_controller_pcie_top
         .trn_td(trn_td),
         .trn_tdst_rdy(trn_tdst_rdy),
         .trn_teof(trn_teof),
-        .trn_trem(trn_trem),
+        .trn_trem({\tx_inst/tx_pipeline_inst/tkeep_to_trem_128.axi_DW_2 ,trn_trem}),
         .trn_tsof(trn_tsof),
         .trn_tsrc_rdy(trn_tsrc_rdy),
         .tx_err_drop(tx_err_drop),
@@ -28076,7 +29796,6 @@ module pcie_controller_pcie_top
         .PIPE_TXDATAK(PIPE_TXDATAK),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE),
         .Q(pipe_rx1_char_is_k),
-        .SR(SR),
         .gt_rx_phy_status_q(gt_rx_phy_status_q),
         .gt_rxelecidle_q(gt_rxelecidle_q),
         .pipe_pclk_in(pipe_pclk_in),
@@ -28204,7 +29923,7 @@ module pcie_controller_pcie_top
         .\pipe_stages_1.pipe_tx_data_q_reg[15]_4 (pipe_tx5_data),
         .\pipe_stages_1.pipe_tx_data_q_reg[15]_5 (pipe_tx6_data),
         .\pipe_stages_1.pipe_tx_data_q_reg[15]_6 (pipe_tx7_data),
-        .\pipe_stages_1.pipe_tx_margin_q_reg[2] (Q),
+        .\pipe_stages_1.pipe_tx_margin_q_reg[2] (\pipe_stages_1.pipe_tx_margin_q_reg[2] ),
         .\pipe_stages_1.pipe_tx_margin_q_reg[2]_0 (pipe_tx_margin),
         .\pipe_stages_1.pipe_tx_powerdown_q_reg[1] (pipe_tx0_powerdown),
         .\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_0 (pipe_tx1_powerdown),
@@ -28215,6 +29934,7 @@ module pcie_controller_pcie_top
         .\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_5 (pipe_tx6_powerdown),
         .\pipe_stages_1.pipe_tx_powerdown_q_reg[1]_6 (pipe_tx7_powerdown),
         .\pipe_stages_1.pipe_tx_rate_q_reg (\pipe_stages_1.pipe_tx_rate_q_reg ),
+        .\pipe_stages_1.pipe_tx_rcvr_det_q_reg (\pipe_stages_1.pipe_tx_rcvr_det_q_reg ),
         .pipe_tx0_compliance(pipe_tx0_compliance),
         .pipe_tx0_elec_idle(pipe_tx0_elec_idle),
         .pipe_tx1_compliance(pipe_tx1_compliance),
@@ -29855,7 +31575,7 @@ module pcie_controller_pipe_drp
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_drp" *) 
-module pcie_controller_pipe_drp_30
+module pcie_controller_pipe_drp_22
    (\fsm_reg[1]_0 ,
     \fsm_reg[1]_1 ,
     DRPADDR,
@@ -31472,7 +33192,7 @@ module pcie_controller_pipe_drp_30
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_drp" *) 
-module pcie_controller_pipe_drp_36
+module pcie_controller_pipe_drp_28
    (\fsm_reg[1]_0 ,
     \fsm_reg[1]_1 ,
     DRPADDR,
@@ -33089,7 +34809,7 @@ module pcie_controller_pipe_drp_36
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_drp" *) 
-module pcie_controller_pipe_drp_42
+module pcie_controller_pipe_drp_34
    (\fsm_reg[1]_0 ,
     \fsm_reg[1]_1 ,
     DRPADDR,
@@ -34706,7 +36426,7 @@ module pcie_controller_pipe_drp_42
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_drp" *) 
-module pcie_controller_pipe_drp_48
+module pcie_controller_pipe_drp_40
    (\fsm_reg[1]_0 ,
     \fsm_reg[1]_1 ,
     DRPADDR,
@@ -36323,7 +38043,7 @@ module pcie_controller_pipe_drp_48
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_drp" *) 
-module pcie_controller_pipe_drp_55
+module pcie_controller_pipe_drp_47
    (\fsm_reg[1]_0 ,
     \fsm_reg[1]_1 ,
     DRPADDR,
@@ -37940,7 +39660,7 @@ module pcie_controller_pipe_drp_55
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_drp" *) 
-module pcie_controller_pipe_drp_61
+module pcie_controller_pipe_drp_53
    (\fsm_reg[1]_0 ,
     \fsm_reg[1]_1 ,
     DRPADDR,
@@ -39557,7 +41277,7 @@ module pcie_controller_pipe_drp_61
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_drp" *) 
-module pcie_controller_pipe_drp_67
+module pcie_controller_pipe_drp_59
    (\fsm_reg[1]_0 ,
     \fsm_reg[1]_1 ,
     DRPADDR,
@@ -42235,7 +43955,7 @@ module pcie_controller_pipe_eq
         .D(\FSM_onehot_fsm_rx_reg_n_0_[2] ),
         .Q(rxeq_preset_valid),
         .R(RST_CPLLRESET));
-  pcie_controller_rxeq_scan_86 rxeq_scan_i
+  pcie_controller_rxeq_scan_78 rxeq_scan_i
        (.D({rxeq_scan_i_n_0,rxeq_scan_i_n_1,rxeq_scan_i_n_2}),
         .\FSM_onehot_fsm_rx_reg[5] ({\rxeq_cnt_reg_n_0_[2] ,\rxeq_cnt_reg_n_0_[1] ,\rxeq_cnt_reg_n_0_[0] }),
         .Q({\FSM_onehot_fsm_rx_reg_n_0_[6] ,\FSM_onehot_fsm_rx_reg_n_0_[5] ,\FSM_onehot_fsm_rx_reg_n_0_[4] ,\FSM_onehot_fsm_rx_reg_n_0_[2] ,\FSM_onehot_fsm_rx_reg_n_0_[1] }),
@@ -44110,7 +45830,7 @@ module pcie_controller_pipe_eq
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_eq" *) 
-module pcie_controller_pipe_eq_31
+module pcie_controller_pipe_eq_23
    (TXPRECURSOR,
     TXMAINCURSOR,
     TXPOSTCURSOR,
@@ -45172,7 +46892,7 @@ module pcie_controller_pipe_eq_31
         .D(\FSM_onehot_fsm_rx_reg_n_0_[2] ),
         .Q(rxeq_preset_valid),
         .R(RST_CPLLRESET));
-  pcie_controller_rxeq_scan_82 rxeq_scan_i
+  pcie_controller_rxeq_scan_74 rxeq_scan_i
        (.D({rxeq_scan_i_n_0,rxeq_scan_i_n_1,rxeq_scan_i_n_2}),
         .\FSM_onehot_fsm_rx_reg[5] ({\rxeq_cnt_reg_n_0_[2] ,\rxeq_cnt_reg_n_0_[1] ,\rxeq_cnt_reg_n_0_[0] }),
         .Q({\FSM_onehot_fsm_rx_reg_n_0_[6] ,\FSM_onehot_fsm_rx_reg_n_0_[5] ,\FSM_onehot_fsm_rx_reg_n_0_[4] ,\FSM_onehot_fsm_rx_reg_n_0_[2] ,\FSM_onehot_fsm_rx_reg_n_0_[1] }),
@@ -47047,7 +48767,7 @@ module pcie_controller_pipe_eq_31
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_eq" *) 
-module pcie_controller_pipe_eq_37
+module pcie_controller_pipe_eq_29
    (TXPRECURSOR,
     TXMAINCURSOR,
     TXPOSTCURSOR,
@@ -48109,7 +49829,7 @@ module pcie_controller_pipe_eq_37
         .D(\FSM_onehot_fsm_rx_reg_n_0_[2] ),
         .Q(rxeq_preset_valid),
         .R(RST_CPLLRESET));
-  pcie_controller_rxeq_scan_80 rxeq_scan_i
+  pcie_controller_rxeq_scan_72 rxeq_scan_i
        (.D({rxeq_scan_i_n_0,rxeq_scan_i_n_1,rxeq_scan_i_n_2}),
         .\FSM_onehot_fsm_rx_reg[5] ({\rxeq_cnt_reg_n_0_[2] ,\rxeq_cnt_reg_n_0_[1] ,\rxeq_cnt_reg_n_0_[0] }),
         .Q({\FSM_onehot_fsm_rx_reg_n_0_[6] ,\FSM_onehot_fsm_rx_reg_n_0_[5] ,\FSM_onehot_fsm_rx_reg_n_0_[4] ,\FSM_onehot_fsm_rx_reg_n_0_[2] ,\FSM_onehot_fsm_rx_reg_n_0_[1] }),
@@ -49984,7 +51704,7 @@ module pcie_controller_pipe_eq_37
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_eq" *) 
-module pcie_controller_pipe_eq_43
+module pcie_controller_pipe_eq_35
    (TXPRECURSOR,
     TXMAINCURSOR,
     TXPOSTCURSOR,
@@ -51046,7 +52766,7 @@ module pcie_controller_pipe_eq_43
         .D(\FSM_onehot_fsm_rx_reg_n_0_[2] ),
         .Q(rxeq_preset_valid),
         .R(RST_CPLLRESET));
-  pcie_controller_rxeq_scan_78 rxeq_scan_i
+  pcie_controller_rxeq_scan_70 rxeq_scan_i
        (.D({rxeq_scan_i_n_0,rxeq_scan_i_n_1,rxeq_scan_i_n_2}),
         .\FSM_onehot_fsm_rx_reg[5] ({\rxeq_cnt_reg_n_0_[2] ,\rxeq_cnt_reg_n_0_[1] ,\rxeq_cnt_reg_n_0_[0] }),
         .Q({\FSM_onehot_fsm_rx_reg_n_0_[6] ,\FSM_onehot_fsm_rx_reg_n_0_[5] ,\FSM_onehot_fsm_rx_reg_n_0_[4] ,\FSM_onehot_fsm_rx_reg_n_0_[2] ,\FSM_onehot_fsm_rx_reg_n_0_[1] }),
@@ -52921,7 +54641,7 @@ module pcie_controller_pipe_eq_43
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_eq" *) 
-module pcie_controller_pipe_eq_49
+module pcie_controller_pipe_eq_41
    (TXPRECURSOR,
     TXMAINCURSOR,
     TXPOSTCURSOR,
@@ -53983,7 +55703,7 @@ module pcie_controller_pipe_eq_49
         .D(\FSM_onehot_fsm_rx_reg_n_0_[2] ),
         .Q(rxeq_preset_valid),
         .R(RST_CPLLRESET));
-  pcie_controller_rxeq_scan_76 rxeq_scan_i
+  pcie_controller_rxeq_scan_68 rxeq_scan_i
        (.D({rxeq_scan_i_n_0,rxeq_scan_i_n_1,rxeq_scan_i_n_2}),
         .\FSM_onehot_fsm_rx_reg[5] ({\rxeq_cnt_reg_n_0_[2] ,\rxeq_cnt_reg_n_0_[1] ,\rxeq_cnt_reg_n_0_[0] }),
         .Q({\FSM_onehot_fsm_rx_reg_n_0_[6] ,\FSM_onehot_fsm_rx_reg_n_0_[5] ,\FSM_onehot_fsm_rx_reg_n_0_[4] ,\FSM_onehot_fsm_rx_reg_n_0_[2] ,\FSM_onehot_fsm_rx_reg_n_0_[1] }),
@@ -55858,7 +57578,7 @@ module pcie_controller_pipe_eq_49
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_eq" *) 
-module pcie_controller_pipe_eq_56
+module pcie_controller_pipe_eq_48
    (TXPRECURSOR,
     TXMAINCURSOR,
     TXPOSTCURSOR,
@@ -56920,7 +58640,7 @@ module pcie_controller_pipe_eq_56
         .D(\FSM_onehot_fsm_rx_reg_n_0_[2] ),
         .Q(rxeq_preset_valid),
         .R(RST_CPLLRESET));
-  pcie_controller_rxeq_scan_74 rxeq_scan_i
+  pcie_controller_rxeq_scan_66 rxeq_scan_i
        (.D({rxeq_scan_i_n_0,rxeq_scan_i_n_1,rxeq_scan_i_n_2}),
         .\FSM_onehot_fsm_rx_reg[5] ({\rxeq_cnt_reg_n_0_[2] ,\rxeq_cnt_reg_n_0_[1] ,\rxeq_cnt_reg_n_0_[0] }),
         .Q({\FSM_onehot_fsm_rx_reg_n_0_[6] ,\FSM_onehot_fsm_rx_reg_n_0_[5] ,\FSM_onehot_fsm_rx_reg_n_0_[4] ,\FSM_onehot_fsm_rx_reg_n_0_[2] ,\FSM_onehot_fsm_rx_reg_n_0_[1] }),
@@ -58795,7 +60515,7 @@ module pcie_controller_pipe_eq_56
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_eq" *) 
-module pcie_controller_pipe_eq_62
+module pcie_controller_pipe_eq_54
    (TXPRECURSOR,
     TXMAINCURSOR,
     TXPOSTCURSOR,
@@ -59857,7 +61577,7 @@ module pcie_controller_pipe_eq_62
         .D(\FSM_onehot_fsm_rx_reg_n_0_[2] ),
         .Q(rxeq_preset_valid),
         .R(RST_CPLLRESET));
-  pcie_controller_rxeq_scan_72 rxeq_scan_i
+  pcie_controller_rxeq_scan_64 rxeq_scan_i
        (.D({rxeq_scan_i_n_0,rxeq_scan_i_n_1,rxeq_scan_i_n_2}),
         .\FSM_onehot_fsm_rx_reg[5] ({\rxeq_cnt_reg_n_0_[2] ,\rxeq_cnt_reg_n_0_[1] ,\rxeq_cnt_reg_n_0_[0] }),
         .Q({\FSM_onehot_fsm_rx_reg_n_0_[6] ,\FSM_onehot_fsm_rx_reg_n_0_[5] ,\FSM_onehot_fsm_rx_reg_n_0_[4] ,\FSM_onehot_fsm_rx_reg_n_0_[2] ,\FSM_onehot_fsm_rx_reg_n_0_[1] }),
@@ -61732,7 +63452,7 @@ module pcie_controller_pipe_eq_62
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_eq" *) 
-module pcie_controller_pipe_eq_68
+module pcie_controller_pipe_eq_60
    (TXPRECURSOR,
     TXMAINCURSOR,
     TXPOSTCURSOR,
@@ -66113,7 +67833,7 @@ module pcie_controller_pipe_rate
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_rate" *) 
-module pcie_controller_pipe_rate_32
+module pcie_controller_pipe_rate_24
    (SYNC_TXSYNC_START,
     rxchbonden_1,
     rate_gen3_1,
@@ -67558,7 +69278,7 @@ module pcie_controller_pipe_rate_32
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_rate" *) 
-module pcie_controller_pipe_rate_38
+module pcie_controller_pipe_rate_30
    (SYNC_TXSYNC_START,
     rxchbonden_2,
     rate_gen3_2,
@@ -69029,7 +70749,7 @@ module pcie_controller_pipe_rate_38
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_rate" *) 
-module pcie_controller_pipe_rate_44
+module pcie_controller_pipe_rate_36
    (SYNC_TXSYNC_START,
     rxchbonden_3,
     rate_gen3_3,
@@ -70474,7 +72194,7 @@ module pcie_controller_pipe_rate_44
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_rate" *) 
-module pcie_controller_pipe_rate_51
+module pcie_controller_pipe_rate_43
    (SYNC_TXSYNC_START,
     rxchbonden_4,
     rate_gen3_4,
@@ -71919,7 +73639,7 @@ module pcie_controller_pipe_rate_51
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_rate" *) 
-module pcie_controller_pipe_rate_57
+module pcie_controller_pipe_rate_49
    (SYNC_TXSYNC_START,
     rxchbonden_5,
     rate_gen3_5,
@@ -73386,7 +75106,7 @@ module pcie_controller_pipe_rate_57
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_rate" *) 
-module pcie_controller_pipe_rate_63
+module pcie_controller_pipe_rate_55
    (SYNC_TXSYNC_START,
     rxchbonden_6,
     rate_gen3_6,
@@ -74831,7 +76551,7 @@ module pcie_controller_pipe_rate_63
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_rate" *) 
-module pcie_controller_pipe_rate_69
+module pcie_controller_pipe_rate_61
    (SYNC_TXSYNC_START,
     rxchbonden_7,
     rate_gen3_7,
@@ -78780,7 +80500,7 @@ module pcie_controller_pipe_sync
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_sync" *) 
-module pcie_controller_pipe_sync_33
+module pcie_controller_pipe_sync_25
    (Q,
     RST_TXSYNC_DONE,
     out,
@@ -79369,7 +81089,7 @@ module pcie_controller_pipe_sync_33
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_sync" *) 
-module pcie_controller_pipe_sync_39
+module pcie_controller_pipe_sync_31
    (Q,
     RST_TXSYNC_DONE,
     out,
@@ -79958,7 +81678,7 @@ module pcie_controller_pipe_sync_39
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_sync" *) 
-module pcie_controller_pipe_sync_45
+module pcie_controller_pipe_sync_37
    (Q,
     RST_TXSYNC_DONE,
     out,
@@ -80547,7 +82267,7 @@ module pcie_controller_pipe_sync_45
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_sync" *) 
-module pcie_controller_pipe_sync_52
+module pcie_controller_pipe_sync_44
    (Q,
     RST_TXSYNC_DONE,
     out,
@@ -81136,7 +82856,7 @@ module pcie_controller_pipe_sync_52
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_sync" *) 
-module pcie_controller_pipe_sync_58
+module pcie_controller_pipe_sync_50
    (Q,
     RST_TXSYNC_DONE,
     out,
@@ -81725,7 +83445,7 @@ module pcie_controller_pipe_sync_58
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_sync" *) 
-module pcie_controller_pipe_sync_64
+module pcie_controller_pipe_sync_56
    (Q,
     RST_TXSYNC_DONE,
     out,
@@ -82314,7 +84034,7 @@ module pcie_controller_pipe_sync_64
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_sync" *) 
-module pcie_controller_pipe_sync_70
+module pcie_controller_pipe_sync_62
    (Q,
     RST_TXSYNC_DONE,
     out,
@@ -83959,7 +85679,7 @@ module pcie_controller_pipe_user
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_user" *) 
-module pcie_controller_pipe_user_34
+module pcie_controller_pipe_user_26
    (\gtx_channel.gtxe2_channel_i ,
     out,
     txelecidle_reg2_reg_0,
@@ -84995,7 +86715,7 @@ module pcie_controller_pipe_user_34
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_user" *) 
-module pcie_controller_pipe_user_40
+module pcie_controller_pipe_user_32
    (\gtx_channel.gtxe2_channel_i ,
     out,
     SYNC_TXPHALIGNDONE,
@@ -86118,7 +87838,7 @@ module pcie_controller_pipe_user_40
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_user" *) 
-module pcie_controller_pipe_user_46
+module pcie_controller_pipe_user_38
    (\gtx_channel.gtxe2_channel_i ,
     out,
     txelecidle_reg2_reg_0,
@@ -87154,7 +88874,7 @@ module pcie_controller_pipe_user_46
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_user" *) 
-module pcie_controller_pipe_user_53
+module pcie_controller_pipe_user_45
    (\gtx_channel.gtxe2_channel_i ,
     out,
     \gtx_channel.gtxe2_channel_i_0 ,
@@ -88234,7 +89954,7 @@ module pcie_controller_pipe_user_53
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_user" *) 
-module pcie_controller_pipe_user_59
+module pcie_controller_pipe_user_51
    (reg_clock_locked_reg,
     \gtx_channel.gtxe2_channel_i ,
     txelecidle_reg2_reg_0,
@@ -89313,7 +91033,7 @@ module pcie_controller_pipe_user_59
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_user" *) 
-module pcie_controller_pipe_user_65
+module pcie_controller_pipe_user_57
    (\gtx_channel.gtxe2_channel_i ,
     out,
     txcompliance_reg2_reg_0,
@@ -90390,7 +92110,7 @@ module pcie_controller_pipe_user_65
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_pipe_user" *) 
-module pcie_controller_pipe_user_71
+module pcie_controller_pipe_user_63
    (\gtx_channel.gtxe2_channel_i ,
     out,
     txelecidle_reg2_reg_0,
@@ -92664,7 +94384,7 @@ module pcie_controller_pipe_wrapper
         .txelecidle_reg2_reg_0(\pipe_lane[0].pipe_user_i_n_2 ),
         .txelecidle_reg2_reg_1(p_1_in2_in),
         .user_active_lane_0(user_active_lane_0));
-  pcie_controller_gt_wrapper_29 \pipe_lane[1].gt_wrapper_i 
+  pcie_controller_gt_wrapper_21 \pipe_lane[1].gt_wrapper_i 
        (.CPLLPD0_7(CPLLPD0_7),
         .DRPADDR({\pipe_lane[1].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[1].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_25 }),
@@ -92729,7 +94449,7 @@ module pcie_controller_pipe_wrapper
         .rst_userrdy(rst_userrdy),
         .rxchbonden_1(rxchbonden_1),
         .sys_clk(sys_clk));
-  pcie_controller_pipe_drp_30 \pipe_lane[1].pipe_drp.pipe_drp_i 
+  pcie_controller_pipe_drp_22 \pipe_lane[1].pipe_drp.pipe_drp_i 
        (.D({\pipe_lane[1].gt_wrapper_i_n_20 ,\pipe_lane[1].gt_wrapper_i_n_21 ,\pipe_lane[1].gt_wrapper_i_n_22 ,\pipe_lane[1].gt_wrapper_i_n_23 ,\pipe_lane[1].gt_wrapper_i_n_24 ,\pipe_lane[1].gt_wrapper_i_n_25 ,\pipe_lane[1].gt_wrapper_i_n_26 ,\pipe_lane[1].gt_wrapper_i_n_27 ,\pipe_lane[1].gt_wrapper_i_n_28 ,\pipe_lane[1].gt_wrapper_i_n_29 ,\pipe_lane[1].gt_wrapper_i_n_30 ,\pipe_lane[1].gt_wrapper_i_n_31 ,\pipe_lane[1].gt_wrapper_i_n_32 ,\pipe_lane[1].gt_wrapper_i_n_33 ,\pipe_lane[1].gt_wrapper_i_n_34 ,\pipe_lane[1].gt_wrapper_i_n_35 }),
         .DRPADDR({\pipe_lane[1].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[1].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[1].pipe_drp.pipe_drp_i_n_25 }),
@@ -92744,7 +94464,7 @@ module pcie_controller_pipe_wrapper
         .\fsm_reg[1]_1 (\pipe_lane[1].pipe_drp.pipe_drp_i_n_1 ),
         .pipe_dclk_in(pipe_dclk_in),
         .\rate_reg1_reg[0]_0 (\rate_reg1_reg[0] ));
-  pcie_controller_pipe_eq_31 \pipe_lane[1].pipe_eq.pipe_eq_i 
+  pcie_controller_pipe_eq_23 \pipe_lane[1].pipe_eq.pipe_eq_i 
        (.RST_CPLLRESET(rst_cpllreset),
         .TXMAINCURSOR(eq_txeq_maincursor_7),
         .TXPOSTCURSOR(eq_txeq_postcursor_5),
@@ -92752,7 +94472,7 @@ module pcie_controller_pipe_wrapper
         .USER_RXEQ_ADAPT_DONE(\pipe_lane[1].pipe_eq.pipe_eq_i_n_17 ),
         .pipe_pclk_in(pipe_pclk_in),
         .rate_gen3_1(rate_gen3_1));
-  pcie_controller_pipe_rate_32 \pipe_lane[1].pipe_rate.pipe_rate_i 
+  pcie_controller_pipe_rate_24 \pipe_lane[1].pipe_rate.pipe_rate_i 
        (.QRST_CPLLLOCK(\pipe_lane[1].gt_wrapper_i_n_1 ),
         .QRST_QPLLPD_IN(rate_qpllpd[1]),
         .QRST_QPLLRESET_IN(rate_qpllreset[1]),
@@ -92790,7 +94510,7 @@ module pcie_controller_pipe_wrapper
         .rate_txpmareset_1(rate_txpmareset_1),
         .rxchbonden_1(rxchbonden_1),
         .user_active_lane_1(user_active_lane_1));
-  pcie_controller_pipe_sync_33 \pipe_lane[1].pipe_sync_i 
+  pcie_controller_pipe_sync_25 \pipe_lane[1].pipe_sync_i 
        (.\FSM_onehot_txsync_fsm.fsm_tx_reg[6]_0 (p_0_in1_in_0),
         .Q({sync_txphalign_1,sync_txphinit_1,sync_txdlysreset_1}),
         .RST_CPLLRESET(rst_cpllreset),
@@ -92811,7 +94531,7 @@ module pcie_controller_pipe_wrapper
         .pipe_mmcm_lock_in(pipe_mmcm_lock_in),
         .pipe_pclk_in(pipe_pclk_in),
         .user_active_lane_1(user_active_lane_1));
-  pcie_controller_pipe_user_34 \pipe_lane[1].pipe_user_i 
+  pcie_controller_pipe_user_26 \pipe_lane[1].pipe_user_i 
        (.PIPE_TXCOMPLIANCE(PIPE_TXCOMPLIANCE[1]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[1]),
         .RST_CPLLRESET(rst_cpllreset),
@@ -92845,7 +94565,7 @@ module pcie_controller_pipe_wrapper
         .txelecidle_reg2_reg_0(p_1_in2_in_1),
         .user_active_lane_1(user_active_lane_1),
         .user_rx_converge(user_rx_converge[1]));
-  pcie_controller_gt_wrapper_35 \pipe_lane[2].gt_wrapper_i 
+  pcie_controller_gt_wrapper_27 \pipe_lane[2].gt_wrapper_i 
        (.CPLLPD0_8(CPLLPD0_8),
         .DRPADDR({\pipe_lane[2].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[2].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_25 }),
@@ -92910,7 +94630,7 @@ module pcie_controller_pipe_wrapper
         .rst_userrdy(rst_userrdy),
         .rxchbonden_2(rxchbonden_2),
         .sys_clk(sys_clk));
-  pcie_controller_pipe_drp_36 \pipe_lane[2].pipe_drp.pipe_drp_i 
+  pcie_controller_pipe_drp_28 \pipe_lane[2].pipe_drp.pipe_drp_i 
        (.D({\pipe_lane[2].gt_wrapper_i_n_20 ,\pipe_lane[2].gt_wrapper_i_n_21 ,\pipe_lane[2].gt_wrapper_i_n_22 ,\pipe_lane[2].gt_wrapper_i_n_23 ,\pipe_lane[2].gt_wrapper_i_n_24 ,\pipe_lane[2].gt_wrapper_i_n_25 ,\pipe_lane[2].gt_wrapper_i_n_26 ,\pipe_lane[2].gt_wrapper_i_n_27 ,\pipe_lane[2].gt_wrapper_i_n_28 ,\pipe_lane[2].gt_wrapper_i_n_29 ,\pipe_lane[2].gt_wrapper_i_n_30 ,\pipe_lane[2].gt_wrapper_i_n_31 ,\pipe_lane[2].gt_wrapper_i_n_32 ,\pipe_lane[2].gt_wrapper_i_n_33 ,\pipe_lane[2].gt_wrapper_i_n_34 ,\pipe_lane[2].gt_wrapper_i_n_35 }),
         .DRPADDR({\pipe_lane[2].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[2].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[2].pipe_drp.pipe_drp_i_n_25 }),
@@ -92925,7 +94645,7 @@ module pcie_controller_pipe_wrapper
         .\fsm_reg[1]_1 (\pipe_lane[2].pipe_drp.pipe_drp_i_n_1 ),
         .pipe_dclk_in(pipe_dclk_in),
         .\rate_reg1_reg[0]_0 (\rate_reg1_reg[0] ));
-  pcie_controller_pipe_eq_37 \pipe_lane[2].pipe_eq.pipe_eq_i 
+  pcie_controller_pipe_eq_29 \pipe_lane[2].pipe_eq.pipe_eq_i 
        (.RST_CPLLRESET(rst_cpllreset),
         .TXMAINCURSOR(eq_txeq_maincursor_14),
         .TXPOSTCURSOR(eq_txeq_postcursor_10),
@@ -92933,7 +94653,7 @@ module pcie_controller_pipe_wrapper
         .USER_RXEQ_ADAPT_DONE(\pipe_lane[2].pipe_eq.pipe_eq_i_n_17 ),
         .pipe_pclk_in(pipe_pclk_in),
         .rate_gen3_2(rate_gen3_2));
-  pcie_controller_pipe_rate_38 \pipe_lane[2].pipe_rate.pipe_rate_i 
+  pcie_controller_pipe_rate_30 \pipe_lane[2].pipe_rate.pipe_rate_i 
        (.DRP_GEN3(\pipe_lane[2].pipe_rate.pipe_rate_i_n_3 ),
         .QRST_CPLLLOCK(\pipe_lane[2].gt_wrapper_i_n_1 ),
         .QRST_QPLLPD_IN(rate_qpllpd[2]),
@@ -92976,7 +94696,7 @@ module pcie_controller_pipe_wrapper
         .rate_txpmareset_2(rate_txpmareset_2),
         .rxchbonden_2(rxchbonden_2),
         .user_active_lane_2(user_active_lane_2));
-  pcie_controller_pipe_sync_39 \pipe_lane[2].pipe_sync_i 
+  pcie_controller_pipe_sync_31 \pipe_lane[2].pipe_sync_i 
        (.\FSM_onehot_txsync_fsm.fsm_tx_reg[6]_0 (p_0_in1_in_3),
         .Q({sync_txphalign_2,sync_txphinit_2,sync_txdlysreset_2}),
         .RST_CPLLRESET(rst_cpllreset),
@@ -92997,7 +94717,7 @@ module pcie_controller_pipe_wrapper
         .pipe_mmcm_lock_in(pipe_mmcm_lock_in),
         .pipe_pclk_in(pipe_pclk_in),
         .user_active_lane_2(user_active_lane_2));
-  pcie_controller_pipe_user_40 \pipe_lane[2].pipe_user_i 
+  pcie_controller_pipe_user_32 \pipe_lane[2].pipe_user_i 
        (.PIPE_TXCOMPLIANCE(PIPE_TXCOMPLIANCE[2]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[2]),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93050,7 +94770,7 @@ module pcie_controller_pipe_wrapper
         .user_active_lane_0(user_active_lane_0),
         .user_active_lane_1(user_active_lane_1),
         .user_active_lane_2(user_active_lane_2));
-  pcie_controller_gt_wrapper_41 \pipe_lane[3].gt_wrapper_i 
+  pcie_controller_gt_wrapper_33 \pipe_lane[3].gt_wrapper_i 
        (.CPLLPD0_9(CPLLPD0_9),
         .DRPADDR({\pipe_lane[3].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[3].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_25 }),
@@ -93115,7 +94835,7 @@ module pcie_controller_pipe_wrapper
         .rst_userrdy(rst_userrdy),
         .rxchbonden_3(rxchbonden_3),
         .sys_clk(sys_clk));
-  pcie_controller_pipe_drp_42 \pipe_lane[3].pipe_drp.pipe_drp_i 
+  pcie_controller_pipe_drp_34 \pipe_lane[3].pipe_drp.pipe_drp_i 
        (.D({\pipe_lane[3].gt_wrapper_i_n_20 ,\pipe_lane[3].gt_wrapper_i_n_21 ,\pipe_lane[3].gt_wrapper_i_n_22 ,\pipe_lane[3].gt_wrapper_i_n_23 ,\pipe_lane[3].gt_wrapper_i_n_24 ,\pipe_lane[3].gt_wrapper_i_n_25 ,\pipe_lane[3].gt_wrapper_i_n_26 ,\pipe_lane[3].gt_wrapper_i_n_27 ,\pipe_lane[3].gt_wrapper_i_n_28 ,\pipe_lane[3].gt_wrapper_i_n_29 ,\pipe_lane[3].gt_wrapper_i_n_30 ,\pipe_lane[3].gt_wrapper_i_n_31 ,\pipe_lane[3].gt_wrapper_i_n_32 ,\pipe_lane[3].gt_wrapper_i_n_33 ,\pipe_lane[3].gt_wrapper_i_n_34 ,\pipe_lane[3].gt_wrapper_i_n_35 }),
         .DRPADDR({\pipe_lane[3].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[3].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[3].pipe_drp.pipe_drp_i_n_25 }),
@@ -93130,7 +94850,7 @@ module pcie_controller_pipe_wrapper
         .\fsm_reg[1]_1 (\pipe_lane[3].pipe_drp.pipe_drp_i_n_1 ),
         .pipe_dclk_in(pipe_dclk_in),
         .\rate_reg1_reg[0]_0 (\rate_reg1_reg[0] ));
-  pcie_controller_pipe_eq_43 \pipe_lane[3].pipe_eq.pipe_eq_i 
+  pcie_controller_pipe_eq_35 \pipe_lane[3].pipe_eq.pipe_eq_i 
        (.RST_CPLLRESET(rst_cpllreset),
         .TXMAINCURSOR(eq_txeq_maincursor_21),
         .TXPOSTCURSOR(eq_txeq_postcursor_15),
@@ -93138,7 +94858,7 @@ module pcie_controller_pipe_wrapper
         .USER_RXEQ_ADAPT_DONE(\pipe_lane[3].pipe_eq.pipe_eq_i_n_17 ),
         .pipe_pclk_in(pipe_pclk_in),
         .rate_gen3_3(rate_gen3_3));
-  pcie_controller_pipe_rate_44 \pipe_lane[3].pipe_rate.pipe_rate_i 
+  pcie_controller_pipe_rate_36 \pipe_lane[3].pipe_rate.pipe_rate_i 
        (.QRST_CPLLLOCK(\pipe_lane[3].gt_wrapper_i_n_1 ),
         .QRST_QPLLPD_IN(rate_qpllpd[3]),
         .QRST_QPLLRESET_IN(rate_qpllreset[3]),
@@ -93176,7 +94896,7 @@ module pcie_controller_pipe_wrapper
         .rate_txpmareset_3(rate_txpmareset_3),
         .rxchbonden_3(rxchbonden_3),
         .user_active_lane_3(user_active_lane_3));
-  pcie_controller_pipe_sync_45 \pipe_lane[3].pipe_sync_i 
+  pcie_controller_pipe_sync_37 \pipe_lane[3].pipe_sync_i 
        (.\FSM_onehot_txsync_fsm.fsm_tx_reg[6]_0 (p_0_in1_in_4),
         .Q({sync_txphalign_3,sync_txphinit_3,sync_txdlysreset_3}),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93197,7 +94917,7 @@ module pcie_controller_pipe_wrapper
         .pipe_mmcm_lock_in(pipe_mmcm_lock_in),
         .pipe_pclk_in(pipe_pclk_in),
         .user_active_lane_3(user_active_lane_3));
-  pcie_controller_pipe_user_46 \pipe_lane[3].pipe_user_i 
+  pcie_controller_pipe_user_38 \pipe_lane[3].pipe_user_i 
        (.PIPE_TXCOMPLIANCE(PIPE_TXCOMPLIANCE[3]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[3]),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93231,7 +94951,7 @@ module pcie_controller_pipe_wrapper
         .txelecidle_reg2_reg_0(p_1_in2_in_5),
         .user_active_lane_3(user_active_lane_3),
         .user_rx_converge(user_rx_converge[3]));
-  pcie_controller_gt_wrapper_47 \pipe_lane[4].gt_wrapper_i 
+  pcie_controller_gt_wrapper_39 \pipe_lane[4].gt_wrapper_i 
        (.CPLLPD0_10(CPLLPD0_10),
         .DRPADDR({\pipe_lane[4].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[4].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_25 }),
@@ -93296,7 +95016,7 @@ module pcie_controller_pipe_wrapper
         .rst_userrdy(rst_userrdy),
         .rxchbonden_4(rxchbonden_4),
         .sys_clk(sys_clk));
-  pcie_controller_pipe_drp_48 \pipe_lane[4].pipe_drp.pipe_drp_i 
+  pcie_controller_pipe_drp_40 \pipe_lane[4].pipe_drp.pipe_drp_i 
        (.D({\pipe_lane[4].gt_wrapper_i_n_20 ,\pipe_lane[4].gt_wrapper_i_n_21 ,\pipe_lane[4].gt_wrapper_i_n_22 ,\pipe_lane[4].gt_wrapper_i_n_23 ,\pipe_lane[4].gt_wrapper_i_n_24 ,\pipe_lane[4].gt_wrapper_i_n_25 ,\pipe_lane[4].gt_wrapper_i_n_26 ,\pipe_lane[4].gt_wrapper_i_n_27 ,\pipe_lane[4].gt_wrapper_i_n_28 ,\pipe_lane[4].gt_wrapper_i_n_29 ,\pipe_lane[4].gt_wrapper_i_n_30 ,\pipe_lane[4].gt_wrapper_i_n_31 ,\pipe_lane[4].gt_wrapper_i_n_32 ,\pipe_lane[4].gt_wrapper_i_n_33 ,\pipe_lane[4].gt_wrapper_i_n_34 ,\pipe_lane[4].gt_wrapper_i_n_35 }),
         .DRPADDR({\pipe_lane[4].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[4].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[4].pipe_drp.pipe_drp_i_n_25 }),
@@ -93311,7 +95031,7 @@ module pcie_controller_pipe_wrapper
         .\fsm_reg[1]_1 (\pipe_lane[4].pipe_drp.pipe_drp_i_n_1 ),
         .pipe_dclk_in(pipe_dclk_in),
         .\rate_reg1_reg[0]_0 (\rate_reg1_reg[0] ));
-  pcie_controller_pipe_eq_49 \pipe_lane[4].pipe_eq.pipe_eq_i 
+  pcie_controller_pipe_eq_41 \pipe_lane[4].pipe_eq.pipe_eq_i 
        (.RST_CPLLRESET(rst_cpllreset),
         .TXMAINCURSOR(eq_txeq_maincursor_28),
         .TXPOSTCURSOR(eq_txeq_postcursor_20),
@@ -93319,7 +95039,7 @@ module pcie_controller_pipe_wrapper
         .USER_RXEQ_ADAPT_DONE(\pipe_lane[4].pipe_eq.pipe_eq_i_n_17 ),
         .pipe_pclk_in(pipe_pclk_in),
         .rate_gen3_4(rate_gen3_4));
-  pcie_controller_gt_common_50 \pipe_lane[4].pipe_quad.gt_common_enabled.gt_common_int.gt_common_i 
+  pcie_controller_gt_common_42 \pipe_lane[4].pipe_quad.gt_common_enabled.gt_common_int.gt_common_i 
        (.DRP_DONE(qdrp_done[1]),
         .DRP_GEN3(\pipe_lane[2].pipe_rate.pipe_rate_i_n_3 ),
         .QRST_DRP_START(qrst_drp_start),
@@ -93331,7 +95051,7 @@ module pcie_controller_pipe_wrapper
         .qpllpd(qpllpd),
         .qrst_qpllreset(qrst_qpllreset),
         .sys_clk(sys_clk));
-  pcie_controller_pipe_rate_51 \pipe_lane[4].pipe_rate.pipe_rate_i 
+  pcie_controller_pipe_rate_43 \pipe_lane[4].pipe_rate.pipe_rate_i 
        (.QRST_CPLLLOCK(\pipe_lane[4].gt_wrapper_i_n_1 ),
         .QRST_QPLLPD_IN(rate_qpllpd[4]),
         .QRST_QPLLRESET_IN(rate_qpllreset[4]),
@@ -93369,7 +95089,7 @@ module pcie_controller_pipe_wrapper
         .rate_txpmareset_4(rate_txpmareset_4),
         .rxchbonden_4(rxchbonden_4),
         .user_active_lane_4(user_active_lane_4));
-  pcie_controller_pipe_sync_52 \pipe_lane[4].pipe_sync_i 
+  pcie_controller_pipe_sync_44 \pipe_lane[4].pipe_sync_i 
        (.\FSM_onehot_txsync_fsm.fsm_tx_reg[6]_0 (p_0_in1_in_6),
         .Q({sync_txphalign_4,sync_txphinit_4,sync_txdlysreset_4}),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93390,7 +95110,7 @@ module pcie_controller_pipe_wrapper
         .pipe_mmcm_lock_in(pipe_mmcm_lock_in),
         .pipe_pclk_in(pipe_pclk_in),
         .user_active_lane_4(user_active_lane_4));
-  pcie_controller_pipe_user_53 \pipe_lane[4].pipe_user_i 
+  pcie_controller_pipe_user_45 \pipe_lane[4].pipe_user_i 
        (.PIPE_TXCOMPLIANCE(PIPE_TXCOMPLIANCE[4]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[4]),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93436,7 +95156,7 @@ module pcie_controller_pipe_wrapper
         .txphinitdone_reg1_reg_1(\pipe_lane[6].pipe_user_i_n_2 ),
         .user_active_lane_4(user_active_lane_4),
         .user_active_lane_5(user_active_lane_5));
-  pcie_controller_gt_wrapper_54 \pipe_lane[5].gt_wrapper_i 
+  pcie_controller_gt_wrapper_46 \pipe_lane[5].gt_wrapper_i 
        (.CPLLPD0_11(CPLLPD0_11),
         .DRPADDR({\pipe_lane[5].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[5].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_25 }),
@@ -93501,7 +95221,7 @@ module pcie_controller_pipe_wrapper
         .rst_userrdy(rst_userrdy),
         .rxchbonden_5(rxchbonden_5),
         .sys_clk(sys_clk));
-  pcie_controller_pipe_drp_55 \pipe_lane[5].pipe_drp.pipe_drp_i 
+  pcie_controller_pipe_drp_47 \pipe_lane[5].pipe_drp.pipe_drp_i 
        (.D({\pipe_lane[5].gt_wrapper_i_n_20 ,\pipe_lane[5].gt_wrapper_i_n_21 ,\pipe_lane[5].gt_wrapper_i_n_22 ,\pipe_lane[5].gt_wrapper_i_n_23 ,\pipe_lane[5].gt_wrapper_i_n_24 ,\pipe_lane[5].gt_wrapper_i_n_25 ,\pipe_lane[5].gt_wrapper_i_n_26 ,\pipe_lane[5].gt_wrapper_i_n_27 ,\pipe_lane[5].gt_wrapper_i_n_28 ,\pipe_lane[5].gt_wrapper_i_n_29 ,\pipe_lane[5].gt_wrapper_i_n_30 ,\pipe_lane[5].gt_wrapper_i_n_31 ,\pipe_lane[5].gt_wrapper_i_n_32 ,\pipe_lane[5].gt_wrapper_i_n_33 ,\pipe_lane[5].gt_wrapper_i_n_34 ,\pipe_lane[5].gt_wrapper_i_n_35 }),
         .DRPADDR({\pipe_lane[5].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[5].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[5].pipe_drp.pipe_drp_i_n_25 }),
@@ -93516,7 +95236,7 @@ module pcie_controller_pipe_wrapper
         .\fsm_reg[1]_1 (\pipe_lane[5].pipe_drp.pipe_drp_i_n_1 ),
         .pipe_dclk_in(pipe_dclk_in),
         .\rate_reg1_reg[0]_0 (\rate_reg1_reg[0] ));
-  pcie_controller_pipe_eq_56 \pipe_lane[5].pipe_eq.pipe_eq_i 
+  pcie_controller_pipe_eq_48 \pipe_lane[5].pipe_eq.pipe_eq_i 
        (.RST_CPLLRESET(rst_cpllreset),
         .TXMAINCURSOR(eq_txeq_maincursor_35),
         .TXPOSTCURSOR(eq_txeq_postcursor_25),
@@ -93524,7 +95244,7 @@ module pcie_controller_pipe_wrapper
         .USER_RXEQ_ADAPT_DONE(\pipe_lane[5].pipe_eq.pipe_eq_i_n_17 ),
         .pipe_pclk_in(pipe_pclk_in),
         .rate_gen3_5(rate_gen3_5));
-  pcie_controller_pipe_rate_57 \pipe_lane[5].pipe_rate.pipe_rate_i 
+  pcie_controller_pipe_rate_49 \pipe_lane[5].pipe_rate.pipe_rate_i 
        (.QRST_CPLLLOCK(\pipe_lane[5].gt_wrapper_i_n_1 ),
         .QRST_QPLLPD_IN(rate_qpllpd[5]),
         .QRST_QPLLRESET_IN(rate_qpllreset[5]),
@@ -93566,7 +95286,7 @@ module pcie_controller_pipe_wrapper
         .rate_txpmareset_5(rate_txpmareset_5),
         .rxchbonden_5(rxchbonden_5),
         .user_active_lane_5(user_active_lane_5));
-  pcie_controller_pipe_sync_58 \pipe_lane[5].pipe_sync_i 
+  pcie_controller_pipe_sync_50 \pipe_lane[5].pipe_sync_i 
        (.\FSM_onehot_txsync_fsm.fsm_tx_reg[6]_0 (p_0_in1_in_8),
         .Q({sync_txphalign_5,sync_txphinit_5,sync_txdlysreset_5}),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93587,7 +95307,7 @@ module pcie_controller_pipe_wrapper
         .pipe_mmcm_lock_in(pipe_mmcm_lock_in),
         .pipe_pclk_in(pipe_pclk_in),
         .user_active_lane_5(user_active_lane_5));
-  pcie_controller_pipe_user_59 \pipe_lane[5].pipe_user_i 
+  pcie_controller_pipe_user_51 \pipe_lane[5].pipe_user_i 
        (.PIPE_TXCOMPLIANCE(PIPE_TXCOMPLIANCE[5]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[5]),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93629,7 +95349,7 @@ module pcie_controller_pipe_wrapper
         .txelecidle_reg2_reg_0(p_1_in2_in_9),
         .user_active_lane_5(user_active_lane_5),
         .user_rx_converge(user_rx_converge[5]));
-  pcie_controller_gt_wrapper_60 \pipe_lane[6].gt_wrapper_i 
+  pcie_controller_gt_wrapper_52 \pipe_lane[6].gt_wrapper_i 
        (.CPLLPD0_12(CPLLPD0_12),
         .DRPADDR({\pipe_lane[6].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[6].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_25 }),
@@ -93694,7 +95414,7 @@ module pcie_controller_pipe_wrapper
         .rst_userrdy(rst_userrdy),
         .rxchbonden_6(rxchbonden_6),
         .sys_clk(sys_clk));
-  pcie_controller_pipe_drp_61 \pipe_lane[6].pipe_drp.pipe_drp_i 
+  pcie_controller_pipe_drp_53 \pipe_lane[6].pipe_drp.pipe_drp_i 
        (.D({\pipe_lane[6].gt_wrapper_i_n_20 ,\pipe_lane[6].gt_wrapper_i_n_21 ,\pipe_lane[6].gt_wrapper_i_n_22 ,\pipe_lane[6].gt_wrapper_i_n_23 ,\pipe_lane[6].gt_wrapper_i_n_24 ,\pipe_lane[6].gt_wrapper_i_n_25 ,\pipe_lane[6].gt_wrapper_i_n_26 ,\pipe_lane[6].gt_wrapper_i_n_27 ,\pipe_lane[6].gt_wrapper_i_n_28 ,\pipe_lane[6].gt_wrapper_i_n_29 ,\pipe_lane[6].gt_wrapper_i_n_30 ,\pipe_lane[6].gt_wrapper_i_n_31 ,\pipe_lane[6].gt_wrapper_i_n_32 ,\pipe_lane[6].gt_wrapper_i_n_33 ,\pipe_lane[6].gt_wrapper_i_n_34 ,\pipe_lane[6].gt_wrapper_i_n_35 }),
         .DRPADDR({\pipe_lane[6].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[6].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[6].pipe_drp.pipe_drp_i_n_25 }),
@@ -93709,7 +95429,7 @@ module pcie_controller_pipe_wrapper
         .\fsm_reg[1]_1 (\pipe_lane[6].pipe_drp.pipe_drp_i_n_1 ),
         .pipe_dclk_in(pipe_dclk_in),
         .\rate_reg1_reg[0]_0 (\rate_reg1_reg[0] ));
-  pcie_controller_pipe_eq_62 \pipe_lane[6].pipe_eq.pipe_eq_i 
+  pcie_controller_pipe_eq_54 \pipe_lane[6].pipe_eq.pipe_eq_i 
        (.RST_CPLLRESET(rst_cpllreset),
         .TXMAINCURSOR(eq_txeq_maincursor_42),
         .TXPOSTCURSOR(eq_txeq_postcursor_30),
@@ -93717,7 +95437,7 @@ module pcie_controller_pipe_wrapper
         .USER_RXEQ_ADAPT_DONE(\pipe_lane[6].pipe_eq.pipe_eq_i_n_17 ),
         .pipe_pclk_in(pipe_pclk_in),
         .rate_gen3_6(rate_gen3_6));
-  pcie_controller_pipe_rate_63 \pipe_lane[6].pipe_rate.pipe_rate_i 
+  pcie_controller_pipe_rate_55 \pipe_lane[6].pipe_rate.pipe_rate_i 
        (.QRST_CPLLLOCK(\pipe_lane[6].gt_wrapper_i_n_1 ),
         .QRST_QPLLPD_IN(rate_qpllpd[6]),
         .QRST_QPLLRESET_IN(rate_qpllreset[6]),
@@ -93755,7 +95475,7 @@ module pcie_controller_pipe_wrapper
         .rate_txpmareset_6(rate_txpmareset_6),
         .rxchbonden_6(rxchbonden_6),
         .user_active_lane_6(user_active_lane_6));
-  pcie_controller_pipe_sync_64 \pipe_lane[6].pipe_sync_i 
+  pcie_controller_pipe_sync_56 \pipe_lane[6].pipe_sync_i 
        (.\FSM_onehot_txsync_fsm.fsm_tx_reg[6]_0 (p_0_in1_in_11),
         .Q({sync_txphalign_6,sync_txphinit_6,sync_txdlysreset_6}),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93776,7 +95496,7 @@ module pcie_controller_pipe_wrapper
         .pipe_mmcm_lock_in(pipe_mmcm_lock_in),
         .pipe_pclk_in(pipe_pclk_in),
         .user_active_lane_6(user_active_lane_6));
-  pcie_controller_pipe_user_65 \pipe_lane[6].pipe_user_i 
+  pcie_controller_pipe_user_57 \pipe_lane[6].pipe_user_i 
        (.PIPE_TXCOMPLIANCE(PIPE_TXCOMPLIANCE[6]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[6]),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93821,7 +95541,7 @@ module pcie_controller_pipe_wrapper
         .txphinitdone_reg1_i_3(\pipe_lane[6].gt_wrapper_i_n_17 ),
         .txphinitdone_reg1_i_3_0(\pipe_lane[7].gt_wrapper_i_n_17 ),
         .user_active_lane_6(user_active_lane_6));
-  pcie_controller_gt_wrapper_66 \pipe_lane[7].gt_wrapper_i 
+  pcie_controller_gt_wrapper_58 \pipe_lane[7].gt_wrapper_i 
        (.CPLLPD0_13(CPLLPD0_13),
         .DRPADDR({\pipe_lane[7].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[7].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_25 }),
@@ -93886,7 +95606,7 @@ module pcie_controller_pipe_wrapper
         .rst_userrdy(rst_userrdy),
         .rxchbonden_7(rxchbonden_7),
         .sys_clk(sys_clk));
-  pcie_controller_pipe_drp_67 \pipe_lane[7].pipe_drp.pipe_drp_i 
+  pcie_controller_pipe_drp_59 \pipe_lane[7].pipe_drp.pipe_drp_i 
        (.D({\pipe_lane[7].gt_wrapper_i_n_20 ,\pipe_lane[7].gt_wrapper_i_n_21 ,\pipe_lane[7].gt_wrapper_i_n_22 ,\pipe_lane[7].gt_wrapper_i_n_23 ,\pipe_lane[7].gt_wrapper_i_n_24 ,\pipe_lane[7].gt_wrapper_i_n_25 ,\pipe_lane[7].gt_wrapper_i_n_26 ,\pipe_lane[7].gt_wrapper_i_n_27 ,\pipe_lane[7].gt_wrapper_i_n_28 ,\pipe_lane[7].gt_wrapper_i_n_29 ,\pipe_lane[7].gt_wrapper_i_n_30 ,\pipe_lane[7].gt_wrapper_i_n_31 ,\pipe_lane[7].gt_wrapper_i_n_32 ,\pipe_lane[7].gt_wrapper_i_n_33 ,\pipe_lane[7].gt_wrapper_i_n_34 ,\pipe_lane[7].gt_wrapper_i_n_35 }),
         .DRPADDR({\pipe_lane[7].pipe_drp.pipe_drp_i_n_2 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_3 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_4 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_5 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_6 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_7 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_8 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_9 }),
         .DRPDI({\pipe_lane[7].pipe_drp.pipe_drp_i_n_10 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_11 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_12 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_13 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_14 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_15 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_16 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_17 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_18 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_19 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_20 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_21 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_22 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_23 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_24 ,\pipe_lane[7].pipe_drp.pipe_drp_i_n_25 }),
@@ -93901,7 +95621,7 @@ module pcie_controller_pipe_wrapper
         .\fsm_reg[1]_1 (\pipe_lane[7].pipe_drp.pipe_drp_i_n_1 ),
         .pipe_dclk_in(pipe_dclk_in),
         .\rate_reg1_reg[0]_0 (\rate_reg1_reg[0] ));
-  pcie_controller_pipe_eq_68 \pipe_lane[7].pipe_eq.pipe_eq_i 
+  pcie_controller_pipe_eq_60 \pipe_lane[7].pipe_eq.pipe_eq_i 
        (.RST_CPLLRESET(rst_cpllreset),
         .TXMAINCURSOR(eq_txeq_maincursor_49),
         .TXPOSTCURSOR(eq_txeq_postcursor_35),
@@ -93909,7 +95629,7 @@ module pcie_controller_pipe_wrapper
         .USER_RXEQ_ADAPT_DONE(\pipe_lane[7].pipe_eq.pipe_eq_i_n_17 ),
         .pipe_pclk_in(pipe_pclk_in),
         .rate_gen3_7(rate_gen3_7));
-  pcie_controller_pipe_rate_69 \pipe_lane[7].pipe_rate.pipe_rate_i 
+  pcie_controller_pipe_rate_61 \pipe_lane[7].pipe_rate.pipe_rate_i 
        (.QRST_CPLLLOCK(\pipe_lane[7].gt_wrapper_i_n_1 ),
         .QRST_QPLLPD_IN(rate_qpllpd[7]),
         .QRST_QPLLRESET_IN(rate_qpllreset[7]),
@@ -93947,7 +95667,7 @@ module pcie_controller_pipe_wrapper
         .rate_txpmareset_7(rate_txpmareset_7),
         .rxchbonden_7(rxchbonden_7),
         .user_active_lane_7(user_active_lane_7));
-  pcie_controller_pipe_sync_70 \pipe_lane[7].pipe_sync_i 
+  pcie_controller_pipe_sync_62 \pipe_lane[7].pipe_sync_i 
        (.\FSM_onehot_txsync_fsm.fsm_tx_reg[6]_0 (p_0_in1_in_12),
         .Q({sync_txphalign_7,sync_txphinit_7,sync_txdlysreset_7}),
         .RST_CPLLRESET(rst_cpllreset),
@@ -93968,7 +95688,7 @@ module pcie_controller_pipe_wrapper
         .pipe_mmcm_lock_in(pipe_mmcm_lock_in),
         .pipe_pclk_in(pipe_pclk_in),
         .user_active_lane_7(user_active_lane_7));
-  pcie_controller_pipe_user_71 \pipe_lane[7].pipe_user_i 
+  pcie_controller_pipe_user_63 \pipe_lane[7].pipe_user_i 
        (.PIPE_TXCOMPLIANCE(PIPE_TXCOMPLIANCE[7]),
         .PIPE_TXELECIDLE(PIPE_TXELECIDLE[7]),
         .RST_CPLLRESET(rst_cpllreset),
@@ -95284,7 +97004,7 @@ module pcie_controller_qpll_drp
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_qpll_drp" *) 
-module pcie_controller_qpll_drp_84
+module pcie_controller_qpll_drp_76
    (DRP_WE,
     DRP_ADDR,
     DRP_DI,
@@ -97455,7 +99175,7 @@ module pcie_controller_qpll_wrapper
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_qpll_wrapper" *) 
-module pcie_controller_qpll_wrapper_85
+module pcie_controller_qpll_wrapper_77
    (DRP_RDY,
     RATE_QPLLLOCK,
     \gtx_common.gtxe2_common_i_0 ,
@@ -99142,7 +100862,7 @@ module pcie_controller_rxeq_scan
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_rxeq_scan" *) 
-module pcie_controller_rxeq_scan_72
+module pcie_controller_rxeq_scan_64
    (D,
     rxeq_new_txcoeff_req,
     adapt_done_reg_0,
@@ -100721,7 +102441,7 @@ module pcie_controller_rxeq_scan_72
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_rxeq_scan" *) 
-module pcie_controller_rxeq_scan_74
+module pcie_controller_rxeq_scan_66
    (D,
     rxeq_new_txcoeff_req,
     adapt_done_reg_0,
@@ -102300,7 +104020,7 @@ module pcie_controller_rxeq_scan_74
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_rxeq_scan" *) 
-module pcie_controller_rxeq_scan_76
+module pcie_controller_rxeq_scan_68
    (D,
     rxeq_new_txcoeff_req,
     adapt_done_reg_0,
@@ -103879,7 +105599,7 @@ module pcie_controller_rxeq_scan_76
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_rxeq_scan" *) 
-module pcie_controller_rxeq_scan_78
+module pcie_controller_rxeq_scan_70
    (D,
     rxeq_new_txcoeff_req,
     adapt_done_reg_0,
@@ -105458,7 +107178,7 @@ module pcie_controller_rxeq_scan_78
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_rxeq_scan" *) 
-module pcie_controller_rxeq_scan_80
+module pcie_controller_rxeq_scan_72
    (D,
     rxeq_new_txcoeff_req,
     adapt_done_reg_0,
@@ -107037,7 +108757,7 @@ module pcie_controller_rxeq_scan_80
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_rxeq_scan" *) 
-module pcie_controller_rxeq_scan_82
+module pcie_controller_rxeq_scan_74
    (D,
     rxeq_new_txcoeff_req,
     adapt_done_reg_0,
@@ -108616,7 +110336,7 @@ module pcie_controller_rxeq_scan_82
 endmodule
 
 (* ORIG_REF_NAME = "pcie_controller_rxeq_scan" *) 
-module pcie_controller_rxeq_scan_86
+module pcie_controller_rxeq_scan_78
    (D,
     rxeq_new_txcoeff_req,
     adapt_done_reg_0,
@@ -110194,68 +111914,46 @@ module pcie_controller_rxeq_scan_86
         .R(RST_CPLLRESET));
 endmodule
 
-(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_TDP_MACRO" *) 
-module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO
+(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_SDP_MACRO" *) 
+module pcie_controller_xil_internal_svlib_BRAM_SDP_MACRO
    (rdata,
     pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
+    ren,
+    wen,
+    raddr,
+    waddr,
     wdata);
-  output [14:0]rdata;
+  output [32:0]rdata;
   input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
-  input [14:0]wdata;
+  input ren;
+  input wen;
+  input [9:0]raddr;
+  input [9:0]waddr;
+  input [32:0]wdata;
 
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_52 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_53 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_74 ;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_4 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_5 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_68 ;
   wire pipe_userclk1_in;
-  wire [14:0]rdata;
-  wire [14:0]wdata;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
-  wire [7:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
-  wire [8:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
+  wire [9:0]raddr;
+  wire [32:0]rdata;
+  wire ren;
+  wire [9:0]waddr;
+  wire [32:0]wdata;
+  wire wen;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
+  wire [31:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
+  wire [3:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
+  wire [7:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
+  wire [8:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
 
   (* BOX_TYPE = "PRIMITIVE" *) 
   RAMB36E1 #(
-    .DOA_REG(0),
-    .DOB_REG(1),
+    .DOA_REG(1),
+    .DOB_REG(0),
     .EN_ECC_READ("FALSE"),
     .EN_ECC_WRITE("FALSE"),
     .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -110417,112 +112115,584 @@ module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO
     .RAM_EXTENSION_B("NONE"),
     .RAM_MODE("TDP"),
     .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
-    .READ_WIDTH_A(18),
-    .READ_WIDTH_B(18),
+    .READ_WIDTH_A(36),
+    .READ_WIDTH_B(0),
     .RSTREG_PRIORITY_A("RSTREG"),
     .RSTREG_PRIORITY_B("RSTREG"),
     .SIM_COLLISION_CHECK("ALL"),
     .SIM_DEVICE("7SERIES"),
     .SRVAL_A(36'h000000000),
     .SRVAL_B(36'h000000000),
-    .WRITE_MODE_A("NO_CHANGE"),
+    .WRITE_MODE_A("WRITE_FIRST"),
     .WRITE_MODE_B("WRITE_FIRST"),
-    .WRITE_WIDTH_A(18),
-    .WRITE_WIDTH_B(18)) 
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl 
-       (.ADDRARDADDR({1'b1,MIMTXWADDR,1'b1,1'b1,1'b1,1'b1}),
-        .ADDRBWRADDR({1'b1,MIMTXRADDR,1'b1,1'b1,1'b1,1'b1}),
+    .WRITE_WIDTH_A(0),
+    .WRITE_WIDTH_B(36)) 
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl 
+       (.ADDRARDADDR({1'b1,raddr,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .ADDRBWRADDR({1'b1,waddr,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .CASCADEINA(1'b0),
         .CASCADEINB(1'b0),
-        .CASCADEOUTA(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
-        .CASCADEOUTB(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
+        .CASCADEOUTA(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
+        .CASCADEOUTB(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
         .CLKARDCLK(pipe_userclk1_in),
         .CLKBWRCLK(pipe_userclk1_in),
-        .DBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
-        .DIADI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED [31:16],1'b0,1'b0,wdata[14:9],wdata[7:0]}),
-        .DIBDI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED [31:16],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIPADIP({1'b0,1'b0,1'b0,wdata[8]}),
-        .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
-        .DOADO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 }),
-        .DOBDO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_52 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_53 ,rdata[14:9],rdata[7:0]}),
-        .DOPADOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 }),
-        .DOPBDOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_74 ,rdata[8]}),
-        .ECCPARITY(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
-        .ENARDEN(mim_tx_wen),
-        .ENBWREN(mim_tx_ren),
+        .DBITERR(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .DIBDI({1'b0,1'b0,wdata[32:27],wdata[25:18],wdata[16:9],wdata[7:0]}),
+        .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
+        .DIPBDIP({1'b0,wdata[26],wdata[17],wdata[8]}),
+        .DOADO({\genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_4 ,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_5 ,rdata[32:27],rdata[25:18],rdata[16:9],rdata[7:0]}),
+        .DOBDO(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:0]),
+        .DOPADOP({\genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_68 ,rdata[26],rdata[17],rdata[8]}),
+        .DOPBDOP(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:0]),
+        .ECCPARITY(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
+        .ENARDEN(ren),
+        .ENBWREN(wen),
         .INJECTDBITERR(1'b0),
         .INJECTSBITERR(1'b0),
-        .RDADDRECC(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b0),
-        .REGCEB(1'b1),
+        .RDADDRECC(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
+        .REGCEAREGCE(1'b1),
+        .REGCEB(1'b0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
         .RSTREGB(1'b0),
-        .SBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
-        .WEA({1'b1,1'b1,1'b1,1'b1}),
-        .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
+        .SBITERR(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
+        .WEA({1'b0,1'b0,1'b0,1'b0}),
+        .WEBWE({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}));
 endmodule
 
-(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_TDP_MACRO" *) 
-module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_11
+(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_SDP_MACRO" *) 
+module pcie_controller_xil_internal_svlib_BRAM_SDP_MACRO_12
+   (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ,
+    pipe_userclk1_in,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 );
+  output [31:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  input pipe_userclk1_in;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
+  input [31:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 ;
+
+  wire [31:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
+  wire [31:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_4 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_5 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_6 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_68 ;
+  wire pipe_userclk1_in;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
+  wire [31:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
+  wire [3:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
+  wire [7:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
+  wire [8:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
+
+  (* BOX_TYPE = "PRIMITIVE" *) 
+  RAMB36E1 #(
+    .DOA_REG(1),
+    .DOB_REG(0),
+    .EN_ECC_READ("FALSE"),
+    .EN_ECC_WRITE("FALSE"),
+    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_10(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_11(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_12(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_13(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_14(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_15(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_16(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_17(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_18(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_19(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_23(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_24(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_25(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_26(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_27(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_28(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_29(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_30(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_31(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_32(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_34(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_35(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_36(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_37(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_38(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_39(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_40(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_41(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_42(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_43(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_44(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_45(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_46(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_47(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_48(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_49(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_50(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_51(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_52(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_53(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_54(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_55(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_56(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_57(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_58(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_59(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_60(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_61(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_62(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_63(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_64(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_65(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_66(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_67(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_68(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_69(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_70(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_71(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_72(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_73(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_74(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_75(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_76(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_77(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_78(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_79(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_A(36'h000000000),
+    .INIT_B(36'h000000000),
+    .INIT_FILE("NONE"),
+    .IS_CLKARDCLK_INVERTED(1'b0),
+    .IS_CLKBWRCLK_INVERTED(1'b0),
+    .IS_ENARDEN_INVERTED(1'b0),
+    .IS_ENBWREN_INVERTED(1'b0),
+    .IS_RSTRAMARSTRAM_INVERTED(1'b0),
+    .IS_RSTRAMB_INVERTED(1'b0),
+    .IS_RSTREGARSTREG_INVERTED(1'b0),
+    .IS_RSTREGB_INVERTED(1'b0),
+    .RAM_EXTENSION_A("NONE"),
+    .RAM_EXTENSION_B("NONE"),
+    .RAM_MODE("TDP"),
+    .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
+    .READ_WIDTH_A(36),
+    .READ_WIDTH_B(0),
+    .RSTREG_PRIORITY_A("RSTREG"),
+    .RSTREG_PRIORITY_B("RSTREG"),
+    .SIM_COLLISION_CHECK("ALL"),
+    .SIM_DEVICE("7SERIES"),
+    .SRVAL_A(36'h000000000),
+    .SRVAL_B(36'h000000000),
+    .WRITE_MODE_A("WRITE_FIRST"),
+    .WRITE_MODE_B("WRITE_FIRST"),
+    .WRITE_WIDTH_A(0),
+    .WRITE_WIDTH_B(36)) 
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl 
+       (.ADDRARDADDR({1'b1,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .ADDRBWRADDR({1'b1,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CASCADEINA(1'b0),
+        .CASCADEINB(1'b0),
+        .CASCADEOUTA(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
+        .CASCADEOUTB(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
+        .CLKARDCLK(pipe_userclk1_in),
+        .CLKBWRCLK(pipe_userclk1_in),
+        .DBITERR(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .DIBDI({1'b0,1'b0,1'b0,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [31:27],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [25:18],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [16:9],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [7:0]}),
+        .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
+        .DIPBDIP({1'b0,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [26],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [17],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [8]}),
+        .DOADO({\genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_4 ,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_5 ,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_6 ,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [31:27],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [25:18],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [16:9],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [7:0]}),
+        .DOBDO(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:0]),
+        .DOPADOP({\genblk3_0.bram36_dp_bl.bram36_tdp_bl_n_68 ,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [26],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [17],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [8]}),
+        .DOPBDOP(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:0]),
+        .ECCPARITY(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
+        .ENARDEN(\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ),
+        .ENBWREN(\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ),
+        .INJECTDBITERR(1'b0),
+        .INJECTSBITERR(1'b0),
+        .RDADDRECC(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
+        .REGCEAREGCE(1'b1),
+        .REGCEB(1'b0),
+        .RSTRAMARSTRAM(1'b0),
+        .RSTRAMB(1'b0),
+        .RSTREGARSTREG(1'b0),
+        .RSTREGB(1'b0),
+        .SBITERR(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
+        .WEA({1'b0,1'b0,1'b0,1'b0}),
+        .WEBWE({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}));
+endmodule
+
+(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_SDP_MACRO" *) 
+module pcie_controller_xil_internal_svlib_BRAM_SDP_MACRO_13
+   (\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ,
+    pipe_userclk1_in,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ,
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 );
+  output [35:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  input pipe_userclk1_in;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  input \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  input [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
+  input [35:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 ;
+
+  wire [35:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ;
+  wire \genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ;
+  wire [9:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ;
+  wire [35:0]\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 ;
+  wire pipe_userclk1_in;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
+  wire [31:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
+  wire [3:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
+  wire [7:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
+  wire [8:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
+
+  (* BOX_TYPE = "PRIMITIVE" *) 
+  RAMB36E1 #(
+    .DOA_REG(1),
+    .DOB_REG(0),
+    .EN_ECC_READ("FALSE"),
+    .EN_ECC_WRITE("FALSE"),
+    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_10(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_11(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_12(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_13(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_14(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_15(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_16(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_17(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_18(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_19(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_1F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_23(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_24(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_25(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_26(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_27(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_28(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_29(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_2F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_30(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_31(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_32(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_34(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_35(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_36(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_37(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_38(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_39(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_3F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_40(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_41(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_42(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_43(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_44(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_45(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_46(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_47(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_48(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_49(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_4F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_50(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_51(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_52(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_53(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_54(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_55(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_56(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_57(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_58(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_59(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_5F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_60(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_61(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_62(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_63(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_64(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_65(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_66(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_67(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_68(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_69(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_6F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_70(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_71(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_72(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_73(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_74(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_75(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_76(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_77(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_78(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_79(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7A(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7B(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7C(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7D(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7E(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_7F(256'h0000000000000000000000000000000000000000000000000000000000000000),
+    .INIT_A(36'h000000000),
+    .INIT_B(36'h000000000),
+    .INIT_FILE("NONE"),
+    .IS_CLKARDCLK_INVERTED(1'b0),
+    .IS_CLKBWRCLK_INVERTED(1'b0),
+    .IS_ENARDEN_INVERTED(1'b0),
+    .IS_ENBWREN_INVERTED(1'b0),
+    .IS_RSTRAMARSTRAM_INVERTED(1'b0),
+    .IS_RSTRAMB_INVERTED(1'b0),
+    .IS_RSTREGARSTREG_INVERTED(1'b0),
+    .IS_RSTREGB_INVERTED(1'b0),
+    .RAM_EXTENSION_A("NONE"),
+    .RAM_EXTENSION_B("NONE"),
+    .RAM_MODE("TDP"),
+    .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
+    .READ_WIDTH_A(36),
+    .READ_WIDTH_B(0),
+    .RSTREG_PRIORITY_A("RSTREG"),
+    .RSTREG_PRIORITY_B("RSTREG"),
+    .SIM_COLLISION_CHECK("ALL"),
+    .SIM_DEVICE("7SERIES"),
+    .SRVAL_A(36'h000000000),
+    .SRVAL_B(36'h000000000),
+    .WRITE_MODE_A("WRITE_FIRST"),
+    .WRITE_MODE_B("WRITE_FIRST"),
+    .WRITE_WIDTH_A(0),
+    .WRITE_WIDTH_B(36)) 
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl 
+       (.ADDRARDADDR({1'b1,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_3 ,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .ADDRBWRADDR({1'b1,\genblk3_0.bram36_dp_bl.bram36_tdp_bl_4 ,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .CASCADEINA(1'b0),
+        .CASCADEINB(1'b0),
+        .CASCADEOUTA(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
+        .CASCADEOUTB(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
+        .CLKARDCLK(pipe_userclk1_in),
+        .CLKBWRCLK(pipe_userclk1_in),
+        .DBITERR(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .DIBDI({\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [34:27],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [25:18],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [16:9],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [7:0]}),
+        .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
+        .DIPBDIP({\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [35],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [26],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [17],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_5 [8]}),
+        .DOADO({\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [34:27],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [25:18],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [16:9],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [7:0]}),
+        .DOBDO(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:0]),
+        .DOPADOP({\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [35],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [26],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [17],\genblk3_0.bram36_dp_bl.bram36_tdp_bl_0 [8]}),
+        .DOPBDOP(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:0]),
+        .ECCPARITY(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
+        .ENARDEN(\genblk3_0.bram36_dp_bl.bram36_tdp_bl_1 ),
+        .ENBWREN(\genblk3_0.bram36_dp_bl.bram36_tdp_bl_2 ),
+        .INJECTDBITERR(1'b0),
+        .INJECTSBITERR(1'b0),
+        .RDADDRECC(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
+        .REGCEAREGCE(1'b1),
+        .REGCEB(1'b0),
+        .RSTRAMARSTRAM(1'b0),
+        .RSTRAMB(1'b0),
+        .RSTREGARSTREG(1'b0),
+        .RSTREGB(1'b0),
+        .SBITERR(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
+        .WEA({1'b0,1'b0,1'b0,1'b0}),
+        .WEBWE({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}));
+endmodule
+
+(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_SDP_MACRO" *) 
+module pcie_controller_xil_internal_svlib_BRAM_SDP_MACRO_9
    (rdata,
     pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
+    ren,
+    wen,
+    raddr,
+    waddr,
     wdata);
-  output [17:0]rdata;
+  output [35:0]rdata;
   input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
-  input [17:0]wdata;
+  input ren;
+  input wen;
+  input [9:0]raddr;
+  input [9:0]waddr;
+  input [35:0]wdata;
 
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 ;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
   wire pipe_userclk1_in;
-  wire [17:0]rdata;
-  wire [17:0]wdata;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
-  wire [7:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
-  wire [8:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
+  wire [9:0]raddr;
+  wire [35:0]rdata;
+  wire ren;
+  wire [9:0]waddr;
+  wire [35:0]wdata;
+  wire wen;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
+  wire \NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
+  wire [31:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
+  wire [3:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
+  wire [7:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
+  wire [8:0]\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
 
   (* BOX_TYPE = "PRIMITIVE" *) 
   RAMB36E1 #(
-    .DOA_REG(0),
-    .DOB_REG(1),
+    .DOA_REG(1),
+    .DOB_REG(0),
     .EN_ECC_READ("FALSE"),
     .EN_ECC_WRITE("FALSE"),
     .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -110684,1657 +112854,51 @@ module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_11
     .RAM_EXTENSION_B("NONE"),
     .RAM_MODE("TDP"),
     .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
-    .READ_WIDTH_A(18),
-    .READ_WIDTH_B(18),
+    .READ_WIDTH_A(36),
+    .READ_WIDTH_B(0),
     .RSTREG_PRIORITY_A("RSTREG"),
     .RSTREG_PRIORITY_B("RSTREG"),
     .SIM_COLLISION_CHECK("ALL"),
     .SIM_DEVICE("7SERIES"),
     .SRVAL_A(36'h000000000),
     .SRVAL_B(36'h000000000),
-    .WRITE_MODE_A("NO_CHANGE"),
+    .WRITE_MODE_A("WRITE_FIRST"),
     .WRITE_MODE_B("WRITE_FIRST"),
-    .WRITE_WIDTH_A(18),
-    .WRITE_WIDTH_B(18)) 
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl 
-       (.ADDRARDADDR({1'b1,MIMTXWADDR,1'b1,1'b1,1'b1,1'b1}),
-        .ADDRBWRADDR({1'b1,MIMTXRADDR,1'b1,1'b1,1'b1,1'b1}),
+    .WRITE_WIDTH_A(0),
+    .WRITE_WIDTH_B(36)) 
+    \genblk3_0.bram36_dp_bl.bram36_tdp_bl 
+       (.ADDRARDADDR({1'b1,raddr,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .ADDRBWRADDR({1'b1,waddr,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .CASCADEINA(1'b0),
         .CASCADEINB(1'b0),
-        .CASCADEOUTA(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
-        .CASCADEOUTB(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
+        .CASCADEOUTA(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
+        .CASCADEOUTB(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
         .CLKARDCLK(pipe_userclk1_in),
         .CLKBWRCLK(pipe_userclk1_in),
-        .DBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
-        .DIADI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED [31:16],wdata[16:9],wdata[7:0]}),
-        .DIBDI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED [31:16],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIPADIP({1'b0,1'b0,wdata[17],wdata[8]}),
-        .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
-        .DOADO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 }),
-        .DOBDO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:16],rdata[16:9],rdata[7:0]}),
-        .DOPADOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 }),
-        .DOPBDOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:2],rdata[17],rdata[8]}),
-        .ECCPARITY(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
-        .ENARDEN(mim_tx_wen),
-        .ENBWREN(mim_tx_ren),
+        .DBITERR(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
+        .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .DIBDI({wdata[34:27],wdata[25:18],wdata[16:9],wdata[7:0]}),
+        .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
+        .DIPBDIP({wdata[35],wdata[26],wdata[17],wdata[8]}),
+        .DOADO({rdata[34:27],rdata[25:18],rdata[16:9],rdata[7:0]}),
+        .DOBDO(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:0]),
+        .DOPADOP({rdata[35],rdata[26],rdata[17],rdata[8]}),
+        .DOPBDOP(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:0]),
+        .ECCPARITY(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
+        .ENARDEN(ren),
+        .ENBWREN(wen),
         .INJECTDBITERR(1'b0),
         .INJECTSBITERR(1'b0),
-        .RDADDRECC(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b0),
-        .REGCEB(1'b1),
+        .RDADDRECC(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
+        .REGCEAREGCE(1'b1),
+        .REGCEB(1'b0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
         .RSTREGB(1'b0),
-        .SBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
-        .WEA({1'b1,1'b1,1'b1,1'b1}),
-        .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
-endmodule
-
-(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_TDP_MACRO" *) 
-module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_12
-   (rdata,
-    pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
-    wdata);
-  output [17:0]rdata;
-  input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
-  input [17:0]wdata;
-
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 ;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
-  wire pipe_userclk1_in;
-  wire [17:0]rdata;
-  wire [17:0]wdata;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
-  wire [7:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
-  wire [8:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
-
-  (* BOX_TYPE = "PRIMITIVE" *) 
-  RAMB36E1 #(
-    .DOA_REG(0),
-    .DOB_REG(1),
-    .EN_ECC_READ("FALSE"),
-    .EN_ECC_WRITE("FALSE"),
-    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_10(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_11(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_12(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_13(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_14(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_15(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_16(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_17(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_18(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_19(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_23(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_24(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_25(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_26(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_27(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_28(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_29(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_30(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_31(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_32(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_34(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_35(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_36(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_37(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_38(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_39(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_40(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_41(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_42(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_43(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_44(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_45(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_46(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_47(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_48(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_49(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_50(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_51(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_52(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_53(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_54(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_55(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_56(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_57(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_58(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_59(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_60(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_61(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_62(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_63(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_64(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_65(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_66(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_67(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_68(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_69(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_70(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_71(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_72(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_73(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_74(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_75(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_76(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_77(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_78(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_79(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_A(36'h000000000),
-    .INIT_B(36'h000000000),
-    .INIT_FILE("NONE"),
-    .IS_CLKARDCLK_INVERTED(1'b0),
-    .IS_CLKBWRCLK_INVERTED(1'b0),
-    .IS_ENARDEN_INVERTED(1'b0),
-    .IS_ENBWREN_INVERTED(1'b0),
-    .IS_RSTRAMARSTRAM_INVERTED(1'b0),
-    .IS_RSTRAMB_INVERTED(1'b0),
-    .IS_RSTREGARSTREG_INVERTED(1'b0),
-    .IS_RSTREGB_INVERTED(1'b0),
-    .RAM_EXTENSION_A("NONE"),
-    .RAM_EXTENSION_B("NONE"),
-    .RAM_MODE("TDP"),
-    .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
-    .READ_WIDTH_A(18),
-    .READ_WIDTH_B(18),
-    .RSTREG_PRIORITY_A("RSTREG"),
-    .RSTREG_PRIORITY_B("RSTREG"),
-    .SIM_COLLISION_CHECK("ALL"),
-    .SIM_DEVICE("7SERIES"),
-    .SRVAL_A(36'h000000000),
-    .SRVAL_B(36'h000000000),
-    .WRITE_MODE_A("NO_CHANGE"),
-    .WRITE_MODE_B("WRITE_FIRST"),
-    .WRITE_WIDTH_A(18),
-    .WRITE_WIDTH_B(18)) 
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl 
-       (.ADDRARDADDR({1'b1,MIMTXWADDR,1'b1,1'b1,1'b1,1'b1}),
-        .ADDRBWRADDR({1'b1,MIMTXRADDR,1'b1,1'b1,1'b1,1'b1}),
-        .CASCADEINA(1'b0),
-        .CASCADEINB(1'b0),
-        .CASCADEOUTA(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
-        .CASCADEOUTB(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
-        .CLKARDCLK(pipe_userclk1_in),
-        .CLKBWRCLK(pipe_userclk1_in),
-        .DBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
-        .DIADI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED [31:16],wdata[16:9],wdata[7:0]}),
-        .DIBDI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED [31:16],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIPADIP({1'b0,1'b0,wdata[17],wdata[8]}),
-        .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
-        .DOADO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 }),
-        .DOBDO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:16],rdata[16:9],rdata[7:0]}),
-        .DOPADOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 }),
-        .DOPBDOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:2],rdata[17],rdata[8]}),
-        .ECCPARITY(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
-        .ENARDEN(mim_tx_wen),
-        .ENBWREN(mim_tx_ren),
-        .INJECTDBITERR(1'b0),
-        .INJECTSBITERR(1'b0),
-        .RDADDRECC(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b0),
-        .REGCEB(1'b1),
-        .RSTRAMARSTRAM(1'b0),
-        .RSTRAMB(1'b0),
-        .RSTREGARSTREG(1'b0),
-        .RSTREGB(1'b0),
-        .SBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
-        .WEA({1'b1,1'b1,1'b1,1'b1}),
-        .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
-endmodule
-
-(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_TDP_MACRO" *) 
-module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_13
-   (rdata,
-    pipe_userclk1_in,
-    mim_tx_wen,
-    mim_tx_ren,
-    MIMTXWADDR,
-    MIMTXRADDR,
-    wdata);
-  output [17:0]rdata;
-  input pipe_userclk1_in;
-  input mim_tx_wen;
-  input mim_tx_ren;
-  input [10:0]MIMTXWADDR;
-  input [10:0]MIMTXRADDR;
-  input [17:0]wdata;
-
-  wire [10:0]MIMTXRADDR;
-  wire [10:0]MIMTXWADDR;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 ;
-  wire mim_tx_ren;
-  wire mim_tx_wen;
-  wire pipe_userclk1_in;
-  wire [17:0]rdata;
-  wire [17:0]wdata;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
-  wire [7:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
-  wire [8:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
-
-  (* BOX_TYPE = "PRIMITIVE" *) 
-  RAMB36E1 #(
-    .DOA_REG(0),
-    .DOB_REG(1),
-    .EN_ECC_READ("FALSE"),
-    .EN_ECC_WRITE("FALSE"),
-    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_10(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_11(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_12(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_13(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_14(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_15(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_16(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_17(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_18(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_19(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_23(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_24(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_25(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_26(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_27(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_28(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_29(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_30(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_31(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_32(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_34(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_35(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_36(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_37(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_38(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_39(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_40(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_41(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_42(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_43(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_44(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_45(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_46(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_47(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_48(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_49(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_50(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_51(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_52(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_53(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_54(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_55(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_56(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_57(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_58(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_59(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_60(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_61(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_62(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_63(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_64(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_65(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_66(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_67(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_68(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_69(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_70(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_71(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_72(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_73(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_74(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_75(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_76(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_77(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_78(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_79(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_A(36'h000000000),
-    .INIT_B(36'h000000000),
-    .INIT_FILE("NONE"),
-    .IS_CLKARDCLK_INVERTED(1'b0),
-    .IS_CLKBWRCLK_INVERTED(1'b0),
-    .IS_ENARDEN_INVERTED(1'b0),
-    .IS_ENBWREN_INVERTED(1'b0),
-    .IS_RSTRAMARSTRAM_INVERTED(1'b0),
-    .IS_RSTRAMB_INVERTED(1'b0),
-    .IS_RSTREGARSTREG_INVERTED(1'b0),
-    .IS_RSTREGB_INVERTED(1'b0),
-    .RAM_EXTENSION_A("NONE"),
-    .RAM_EXTENSION_B("NONE"),
-    .RAM_MODE("TDP"),
-    .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
-    .READ_WIDTH_A(18),
-    .READ_WIDTH_B(18),
-    .RSTREG_PRIORITY_A("RSTREG"),
-    .RSTREG_PRIORITY_B("RSTREG"),
-    .SIM_COLLISION_CHECK("ALL"),
-    .SIM_DEVICE("7SERIES"),
-    .SRVAL_A(36'h000000000),
-    .SRVAL_B(36'h000000000),
-    .WRITE_MODE_A("NO_CHANGE"),
-    .WRITE_MODE_B("WRITE_FIRST"),
-    .WRITE_WIDTH_A(18),
-    .WRITE_WIDTH_B(18)) 
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl 
-       (.ADDRARDADDR({1'b1,MIMTXWADDR,1'b1,1'b1,1'b1,1'b1}),
-        .ADDRBWRADDR({1'b1,MIMTXRADDR,1'b1,1'b1,1'b1,1'b1}),
-        .CASCADEINA(1'b0),
-        .CASCADEINB(1'b0),
-        .CASCADEOUTA(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
-        .CASCADEOUTB(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
-        .CLKARDCLK(pipe_userclk1_in),
-        .CLKBWRCLK(pipe_userclk1_in),
-        .DBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
-        .DIADI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED [31:16],wdata[16:9],wdata[7:0]}),
-        .DIBDI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED [31:16],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIPADIP({1'b0,1'b0,wdata[17],wdata[8]}),
-        .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
-        .DOADO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 }),
-        .DOBDO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:16],rdata[16:9],rdata[7:0]}),
-        .DOPADOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 }),
-        .DOPBDOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:2],rdata[17],rdata[8]}),
-        .ECCPARITY(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
-        .ENARDEN(mim_tx_wen),
-        .ENBWREN(mim_tx_ren),
-        .INJECTDBITERR(1'b0),
-        .INJECTSBITERR(1'b0),
-        .RDADDRECC(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b0),
-        .REGCEB(1'b1),
-        .RSTRAMARSTRAM(1'b0),
-        .RSTRAMB(1'b0),
-        .RSTREGARSTREG(1'b0),
-        .RSTREGB(1'b0),
-        .SBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
-        .WEA({1'b1,1'b1,1'b1,1'b1}),
-        .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
-endmodule
-
-(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_TDP_MACRO" *) 
-module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_18
-   (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ,
-    pipe_userclk1_in,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 );
-  output [13:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  input pipe_userclk1_in;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [13:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 ;
-
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [13:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire [13:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_52 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_53 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_54 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_74 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
-  wire pipe_userclk1_in;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
-  wire [7:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
-  wire [8:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
-
-  (* BOX_TYPE = "PRIMITIVE" *) 
-  RAMB36E1 #(
-    .DOA_REG(0),
-    .DOB_REG(1),
-    .EN_ECC_READ("FALSE"),
-    .EN_ECC_WRITE("FALSE"),
-    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_10(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_11(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_12(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_13(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_14(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_15(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_16(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_17(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_18(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_19(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_23(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_24(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_25(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_26(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_27(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_28(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_29(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_30(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_31(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_32(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_34(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_35(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_36(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_37(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_38(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_39(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_40(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_41(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_42(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_43(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_44(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_45(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_46(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_47(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_48(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_49(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_50(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_51(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_52(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_53(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_54(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_55(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_56(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_57(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_58(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_59(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_60(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_61(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_62(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_63(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_64(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_65(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_66(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_67(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_68(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_69(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_70(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_71(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_72(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_73(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_74(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_75(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_76(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_77(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_78(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_79(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_A(36'h000000000),
-    .INIT_B(36'h000000000),
-    .INIT_FILE("NONE"),
-    .IS_CLKARDCLK_INVERTED(1'b0),
-    .IS_CLKBWRCLK_INVERTED(1'b0),
-    .IS_ENARDEN_INVERTED(1'b0),
-    .IS_ENBWREN_INVERTED(1'b0),
-    .IS_RSTRAMARSTRAM_INVERTED(1'b0),
-    .IS_RSTRAMB_INVERTED(1'b0),
-    .IS_RSTREGARSTREG_INVERTED(1'b0),
-    .IS_RSTREGB_INVERTED(1'b0),
-    .RAM_EXTENSION_A("NONE"),
-    .RAM_EXTENSION_B("NONE"),
-    .RAM_MODE("TDP"),
-    .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
-    .READ_WIDTH_A(18),
-    .READ_WIDTH_B(18),
-    .RSTREG_PRIORITY_A("RSTREG"),
-    .RSTREG_PRIORITY_B("RSTREG"),
-    .SIM_COLLISION_CHECK("ALL"),
-    .SIM_DEVICE("7SERIES"),
-    .SRVAL_A(36'h000000000),
-    .SRVAL_B(36'h000000000),
-    .WRITE_MODE_A("NO_CHANGE"),
-    .WRITE_MODE_B("WRITE_FIRST"),
-    .WRITE_WIDTH_A(18),
-    .WRITE_WIDTH_B(18)) 
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl 
-       (.ADDRARDADDR({1'b1,MIMRXWADDR,1'b1,1'b1,1'b1,1'b1}),
-        .ADDRBWRADDR({1'b1,MIMRXRADDR,1'b1,1'b1,1'b1,1'b1}),
-        .CASCADEINA(1'b0),
-        .CASCADEINB(1'b0),
-        .CASCADEOUTA(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
-        .CASCADEOUTB(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
-        .CLKARDCLK(pipe_userclk1_in),
-        .CLKBWRCLK(pipe_userclk1_in),
-        .DBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
-        .DIADI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED [31:16],1'b0,1'b0,1'b0,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [13:9],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [7:0]}),
-        .DIBDI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED [31:16],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIPADIP({1'b0,1'b0,1'b0,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [8]}),
-        .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
-        .DOADO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 }),
-        .DOBDO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_52 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_53 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_54 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [13:9],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [7:0]}),
-        .DOPADOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 }),
-        .DOPBDOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_74 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [8]}),
-        .ECCPARITY(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
-        .ENARDEN(mim_rx_wen),
-        .ENBWREN(mim_rx_ren),
-        .INJECTDBITERR(1'b0),
-        .INJECTSBITERR(1'b0),
-        .RDADDRECC(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b0),
-        .REGCEB(1'b1),
-        .RSTRAMARSTRAM(1'b0),
-        .RSTRAMB(1'b0),
-        .RSTREGARSTREG(1'b0),
-        .RSTREGB(1'b0),
-        .SBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
-        .WEA({1'b1,1'b1,1'b1,1'b1}),
-        .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
-endmodule
-
-(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_TDP_MACRO" *) 
-module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_19
-   (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ,
-    pipe_userclk1_in,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 );
-  output [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  input pipe_userclk1_in;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 ;
-
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
-  wire pipe_userclk1_in;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
-  wire [7:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
-  wire [8:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
-
-  (* BOX_TYPE = "PRIMITIVE" *) 
-  RAMB36E1 #(
-    .DOA_REG(0),
-    .DOB_REG(1),
-    .EN_ECC_READ("FALSE"),
-    .EN_ECC_WRITE("FALSE"),
-    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_10(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_11(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_12(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_13(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_14(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_15(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_16(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_17(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_18(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_19(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_23(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_24(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_25(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_26(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_27(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_28(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_29(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_30(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_31(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_32(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_34(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_35(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_36(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_37(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_38(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_39(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_40(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_41(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_42(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_43(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_44(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_45(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_46(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_47(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_48(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_49(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_50(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_51(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_52(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_53(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_54(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_55(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_56(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_57(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_58(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_59(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_60(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_61(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_62(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_63(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_64(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_65(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_66(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_67(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_68(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_69(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_70(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_71(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_72(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_73(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_74(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_75(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_76(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_77(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_78(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_79(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_A(36'h000000000),
-    .INIT_B(36'h000000000),
-    .INIT_FILE("NONE"),
-    .IS_CLKARDCLK_INVERTED(1'b0),
-    .IS_CLKBWRCLK_INVERTED(1'b0),
-    .IS_ENARDEN_INVERTED(1'b0),
-    .IS_ENBWREN_INVERTED(1'b0),
-    .IS_RSTRAMARSTRAM_INVERTED(1'b0),
-    .IS_RSTRAMB_INVERTED(1'b0),
-    .IS_RSTREGARSTREG_INVERTED(1'b0),
-    .IS_RSTREGB_INVERTED(1'b0),
-    .RAM_EXTENSION_A("NONE"),
-    .RAM_EXTENSION_B("NONE"),
-    .RAM_MODE("TDP"),
-    .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
-    .READ_WIDTH_A(18),
-    .READ_WIDTH_B(18),
-    .RSTREG_PRIORITY_A("RSTREG"),
-    .RSTREG_PRIORITY_B("RSTREG"),
-    .SIM_COLLISION_CHECK("ALL"),
-    .SIM_DEVICE("7SERIES"),
-    .SRVAL_A(36'h000000000),
-    .SRVAL_B(36'h000000000),
-    .WRITE_MODE_A("NO_CHANGE"),
-    .WRITE_MODE_B("WRITE_FIRST"),
-    .WRITE_WIDTH_A(18),
-    .WRITE_WIDTH_B(18)) 
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl 
-       (.ADDRARDADDR({1'b1,MIMRXWADDR,1'b1,1'b1,1'b1,1'b1}),
-        .ADDRBWRADDR({1'b1,MIMRXRADDR,1'b1,1'b1,1'b1,1'b1}),
-        .CASCADEINA(1'b0),
-        .CASCADEINB(1'b0),
-        .CASCADEOUTA(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
-        .CASCADEOUTB(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
-        .CLKARDCLK(pipe_userclk1_in),
-        .CLKBWRCLK(pipe_userclk1_in),
-        .DBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
-        .DIADI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [16:9],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [7:0]}),
-        .DIBDI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED [31:16],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIPADIP({1'b0,1'b0,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [17],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [8]}),
-        .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
-        .DOADO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 }),
-        .DOBDO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [16:9],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [7:0]}),
-        .DOPADOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 }),
-        .DOPBDOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [17],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [8]}),
-        .ECCPARITY(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
-        .ENARDEN(mim_rx_wen),
-        .ENBWREN(mim_rx_ren),
-        .INJECTDBITERR(1'b0),
-        .INJECTSBITERR(1'b0),
-        .RDADDRECC(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b0),
-        .REGCEB(1'b1),
-        .RSTRAMARSTRAM(1'b0),
-        .RSTRAMB(1'b0),
-        .RSTREGARSTREG(1'b0),
-        .RSTREGB(1'b0),
-        .SBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
-        .WEA({1'b1,1'b1,1'b1,1'b1}),
-        .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
-endmodule
-
-(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_TDP_MACRO" *) 
-module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_20
-   (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ,
-    pipe_userclk1_in,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 );
-  output [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  input pipe_userclk1_in;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 ;
-
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
-  wire pipe_userclk1_in;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
-  wire [7:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
-  wire [8:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
-
-  (* BOX_TYPE = "PRIMITIVE" *) 
-  RAMB36E1 #(
-    .DOA_REG(0),
-    .DOB_REG(1),
-    .EN_ECC_READ("FALSE"),
-    .EN_ECC_WRITE("FALSE"),
-    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_10(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_11(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_12(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_13(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_14(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_15(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_16(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_17(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_18(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_19(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_23(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_24(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_25(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_26(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_27(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_28(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_29(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_30(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_31(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_32(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_34(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_35(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_36(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_37(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_38(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_39(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_40(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_41(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_42(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_43(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_44(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_45(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_46(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_47(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_48(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_49(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_50(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_51(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_52(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_53(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_54(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_55(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_56(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_57(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_58(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_59(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_60(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_61(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_62(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_63(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_64(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_65(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_66(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_67(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_68(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_69(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_70(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_71(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_72(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_73(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_74(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_75(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_76(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_77(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_78(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_79(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_A(36'h000000000),
-    .INIT_B(36'h000000000),
-    .INIT_FILE("NONE"),
-    .IS_CLKARDCLK_INVERTED(1'b0),
-    .IS_CLKBWRCLK_INVERTED(1'b0),
-    .IS_ENARDEN_INVERTED(1'b0),
-    .IS_ENBWREN_INVERTED(1'b0),
-    .IS_RSTRAMARSTRAM_INVERTED(1'b0),
-    .IS_RSTRAMB_INVERTED(1'b0),
-    .IS_RSTREGARSTREG_INVERTED(1'b0),
-    .IS_RSTREGB_INVERTED(1'b0),
-    .RAM_EXTENSION_A("NONE"),
-    .RAM_EXTENSION_B("NONE"),
-    .RAM_MODE("TDP"),
-    .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
-    .READ_WIDTH_A(18),
-    .READ_WIDTH_B(18),
-    .RSTREG_PRIORITY_A("RSTREG"),
-    .RSTREG_PRIORITY_B("RSTREG"),
-    .SIM_COLLISION_CHECK("ALL"),
-    .SIM_DEVICE("7SERIES"),
-    .SRVAL_A(36'h000000000),
-    .SRVAL_B(36'h000000000),
-    .WRITE_MODE_A("NO_CHANGE"),
-    .WRITE_MODE_B("WRITE_FIRST"),
-    .WRITE_WIDTH_A(18),
-    .WRITE_WIDTH_B(18)) 
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl 
-       (.ADDRARDADDR({1'b1,MIMRXWADDR,1'b1,1'b1,1'b1,1'b1}),
-        .ADDRBWRADDR({1'b1,MIMRXRADDR,1'b1,1'b1,1'b1,1'b1}),
-        .CASCADEINA(1'b0),
-        .CASCADEINB(1'b0),
-        .CASCADEOUTA(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
-        .CASCADEOUTB(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
-        .CLKARDCLK(pipe_userclk1_in),
-        .CLKBWRCLK(pipe_userclk1_in),
-        .DBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
-        .DIADI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [16:9],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [7:0]}),
-        .DIBDI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED [31:16],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIPADIP({1'b0,1'b0,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [17],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [8]}),
-        .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
-        .DOADO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 }),
-        .DOBDO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [16:9],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [7:0]}),
-        .DOPADOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 }),
-        .DOPBDOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [17],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [8]}),
-        .ECCPARITY(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
-        .ENARDEN(mim_rx_wen),
-        .ENBWREN(mim_rx_ren),
-        .INJECTDBITERR(1'b0),
-        .INJECTSBITERR(1'b0),
-        .RDADDRECC(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b0),
-        .REGCEB(1'b1),
-        .RSTRAMARSTRAM(1'b0),
-        .RSTRAMB(1'b0),
-        .RSTREGARSTREG(1'b0),
-        .RSTREGB(1'b0),
-        .SBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
-        .WEA({1'b1,1'b1,1'b1,1'b1}),
-        .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
-endmodule
-
-(* ORIG_REF_NAME = "xil_internal_svlib_BRAM_TDP_MACRO" *) 
-module pcie_controller_xil_internal_svlib_BRAM_TDP_MACRO_21
-   (\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ,
-    pipe_userclk1_in,
-    mim_rx_wen,
-    mim_rx_ren,
-    MIMRXWADDR,
-    MIMRXRADDR,
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 );
-  output [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  input pipe_userclk1_in;
-  input mim_rx_wen;
-  input mim_rx_ren;
-  input [10:0]MIMRXWADDR;
-  input [10:0]MIMRXRADDR;
-  input [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 ;
-
-  wire [10:0]MIMRXRADDR;
-  wire [10:0]MIMRXWADDR;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 ;
-  wire [17:0]\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ;
-  wire \genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 ;
-  wire mim_rx_ren;
-  wire mim_rx_wen;
-  wire pipe_userclk1_in;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ;
-  wire \NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED ;
-  wire [31:16]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED ;
-  wire [3:2]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED ;
-  wire [7:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED ;
-  wire [8:0]\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED ;
-
-  (* BOX_TYPE = "PRIMITIVE" *) 
-  RAMB36E1 #(
-    .DOA_REG(0),
-    .DOB_REG(1),
-    .EN_ECC_READ("FALSE"),
-    .EN_ECC_WRITE("FALSE"),
-    .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INITP_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_01(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_02(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_03(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_04(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_05(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_06(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_07(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_08(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_09(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_0F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_10(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_11(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_12(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_13(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_14(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_15(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_16(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_17(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_18(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_19(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_1F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_20(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_21(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_22(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_23(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_24(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_25(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_26(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_27(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_28(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_29(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_2F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_30(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_31(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_32(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_33(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_34(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_35(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_36(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_37(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_38(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_39(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_3F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_40(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_41(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_42(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_43(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_44(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_45(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_46(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_47(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_48(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_49(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_4F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_50(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_51(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_52(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_53(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_54(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_55(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_56(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_57(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_58(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_59(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_5F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_60(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_61(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_62(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_63(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_64(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_65(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_66(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_67(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_68(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_69(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_6F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_70(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_71(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_72(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_73(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_74(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_75(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_76(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_77(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_78(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_79(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7A(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7B(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7C(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7D(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7E(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_7F(256'h0000000000000000000000000000000000000000000000000000000000000000),
-    .INIT_A(36'h000000000),
-    .INIT_B(36'h000000000),
-    .INIT_FILE("NONE"),
-    .IS_CLKARDCLK_INVERTED(1'b0),
-    .IS_CLKBWRCLK_INVERTED(1'b0),
-    .IS_ENARDEN_INVERTED(1'b0),
-    .IS_ENBWREN_INVERTED(1'b0),
-    .IS_RSTRAMARSTRAM_INVERTED(1'b0),
-    .IS_RSTRAMB_INVERTED(1'b0),
-    .IS_RSTREGARSTREG_INVERTED(1'b0),
-    .IS_RSTREGB_INVERTED(1'b0),
-    .RAM_EXTENSION_A("NONE"),
-    .RAM_EXTENSION_B("NONE"),
-    .RAM_MODE("TDP"),
-    .RDADDR_COLLISION_HWCONFIG("DELAYED_WRITE"),
-    .READ_WIDTH_A(18),
-    .READ_WIDTH_B(18),
-    .RSTREG_PRIORITY_A("RSTREG"),
-    .RSTREG_PRIORITY_B("RSTREG"),
-    .SIM_COLLISION_CHECK("ALL"),
-    .SIM_DEVICE("7SERIES"),
-    .SRVAL_A(36'h000000000),
-    .SRVAL_B(36'h000000000),
-    .WRITE_MODE_A("NO_CHANGE"),
-    .WRITE_MODE_B("WRITE_FIRST"),
-    .WRITE_WIDTH_A(18),
-    .WRITE_WIDTH_B(18)) 
-    \genblk5_0.bram36_tdp_bl.bram36_tdp_bl 
-       (.ADDRARDADDR({1'b1,MIMRXWADDR,1'b1,1'b1,1'b1,1'b1}),
-        .ADDRBWRADDR({1'b1,MIMRXRADDR,1'b1,1'b1,1'b1,1'b1}),
-        .CASCADEINA(1'b0),
-        .CASCADEINB(1'b0),
-        .CASCADEOUTA(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTA_UNCONNECTED ),
-        .CASCADEOUTB(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_CASCADEOUTB_UNCONNECTED ),
-        .CLKARDCLK(pipe_userclk1_in),
-        .CLKBWRCLK(pipe_userclk1_in),
-        .DBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DBITERR_UNCONNECTED ),
-        .DIADI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIADI_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [16:9],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [7:0]}),
-        .DIBDI({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DIBDI_UNCONNECTED [31:16],1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .DIPADIP({1'b0,1'b0,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [17],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_1 [8]}),
-        .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
-        .DOADO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOADO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_20 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_21 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_22 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_23 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_24 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_25 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_26 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_27 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_28 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_29 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_30 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_31 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_32 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_33 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_34 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_35 }),
-        .DOBDO({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOBDO_UNCONNECTED [31:16],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [16:9],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [7:0]}),
-        .DOPADOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPADOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_70 ,\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_n_71 }),
-        .DOPBDOP({\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_DOPBDOP_UNCONNECTED [3:2],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [17],\genblk5_0.bram36_tdp_bl.bram36_tdp_bl_0 [8]}),
-        .ECCPARITY(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_ECCPARITY_UNCONNECTED [7:0]),
-        .ENARDEN(mim_rx_wen),
-        .ENBWREN(mim_rx_ren),
-        .INJECTDBITERR(1'b0),
-        .INJECTSBITERR(1'b0),
-        .RDADDRECC(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b0),
-        .REGCEB(1'b1),
-        .RSTRAMARSTRAM(1'b0),
-        .RSTRAMB(1'b0),
-        .RSTREGARSTREG(1'b0),
-        .RSTREGB(1'b0),
-        .SBITERR(\NLW_genblk5_0.bram36_tdp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
-        .WEA({1'b1,1'b1,1'b1,1'b1}),
-        .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
+        .SBITERR(\NLW_genblk3_0.bram36_dp_bl.bram36_tdp_bl_SBITERR_UNCONNECTED ),
+        .WEA({1'b0,1'b0,1'b0,1'b0}),
+        .WEBWE({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}));
 endmodule
 
 (* DEST_SYNC_FF = "2" *) (* INIT_SYNC_FF = "0" *) (* ORIG_REF_NAME = "xpm_cdc_single" *) 

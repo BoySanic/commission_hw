@@ -285,12 +285,12 @@ output wire tx_cfg_req;
 output wire tx_err_drop;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TREADY" *)
 (* X_INTERFACE_MODE = "slave" *)
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_axis_tx, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 4, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_axis_tx, TDATA_NUM_BYTES 16, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 4, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *)
 output wire s_axis_tx_tready;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TDATA" *)
-input wire [63 : 0] s_axis_tx_tdata;
+input wire [127 : 0] s_axis_tx_tdata;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TKEEP" *)
-input wire [7 : 0] s_axis_tx_tkeep;
+input wire [15 : 0] s_axis_tx_tkeep;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TLAST" *)
 input wire s_axis_tx_tlast;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s_axis_tx TVALID" *)
@@ -302,10 +302,10 @@ input wire [3 : 0] s_axis_tx_tuser;
 input wire tx_cfg_gnt;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TDATA" *)
 (* X_INTERFACE_MODE = "master" *)
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m_axis_rx, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 22, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *)
-output wire [63 : 0] m_axis_rx_tdata;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m_axis_rx, TDATA_NUM_BYTES 16, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 22, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 1, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0" *)
+output wire [127 : 0] m_axis_rx_tdata;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TKEEP" *)
-output wire [7 : 0] m_axis_rx_tkeep;
+output wire [15 : 0] m_axis_rx_tkeep;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TLAST" *)
 output wire m_axis_rx_tlast;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m_axis_rx TVALID" *)
@@ -613,8 +613,8 @@ output wire pcie_drp_rdy;
     .c_header_type("00"),
     .c_upstream_facing("TRUE"),
     .max_lnk_wdt("001000"),
-    .max_lnk_spd("1"),
-    .c_gen1(1'B0),
+    .max_lnk_spd("2"),
+    .c_gen1(1'B1),
     .pci_exp_int_freq(3),
     .c_pcie_fast_config(0),
     .bar_0("FFFFF804"),
@@ -626,7 +626,7 @@ output wire pcie_drp_rdy;
     .xrom_bar("00000000"),
     .cost_table(1),
     .ven_id("10EE"),
-    .dev_id("7018"),
+    .dev_id("7028"),
     .rev_id("00"),
     .subsys_ven_id("10EE"),
     .subsys_id("0007"),
@@ -634,8 +634,8 @@ output wire pcie_drp_rdy;
     .cardbus_cis_ptr("00000000"),
     .cap_ver("2"),
     .c_pcie_cap_slot_implemented("FALSE"),
-    .mps("010"),
-    .cmps("2"),
+    .mps("001"),
+    .cmps("1"),
     .ext_tag_fld_sup("FALSE"),
     .c_dev_control_ext_tag_default("FALSE"),
     .phantm_func_sup("00"),
@@ -649,18 +649,18 @@ output wire pcie_drp_rdy;
     .c_cpl_timeout_ranges_sup("2"),
     .c_buf_opt_bma("TRUE"),
     .c_perf_level_high("TRUE"),
-    .c_tx_last_tlp("29"),
-    .c_rx_ram_limit("7FF"),
+    .c_tx_last_tlp("28"),
+    .c_rx_ram_limit("3FF"),
     .c_fc_ph("32"),
-    .c_fc_pd("437"),
+    .c_fc_pd("181"),
     .c_fc_nph("12"),
     .c_fc_npd("24"),
     .c_fc_cplh("36"),
-    .c_fc_cpld("461"),
+    .c_fc_cpld("205"),
     .c_cpl_inf("TRUE"),
     .c_cpl_infinite("TRUE"),
     .c_dll_lnk_actv_cap("FALSE"),
-    .c_trgt_lnk_spd("0"),
+    .c_trgt_lnk_spd("2"),
     .c_hw_auton_spd_disable("FALSE"),
     .c_de_emph("FALSE"),
     .slot_clk("TRUE"),
@@ -800,7 +800,7 @@ output wire pcie_drp_rdy;
     .c_silicon_rev("2"),
     .c_aer_cap_optional_err_support("000000"),
     .LINK_CAP_MAX_LINK_WIDTH(8),
-    .C_DATA_WIDTH(64),
+    .C_DATA_WIDTH(128),
     .PIPE_SIM("FALSE"),
     .PCIE_EXT_CLK("TRUE"),
     .PCIE_EXT_GT_COMMON("FALSE"),
@@ -816,7 +816,7 @@ output wire pcie_drp_rdy;
     .CFG_FC_IF("TRUE"),
     .EXT_PIPE_INTERFACE("FALSE"),
     .EXT_STARTUP_PRIMITIVE("FALSE"),
-    .KEEP_WIDTH(8),
+    .KEEP_WIDTH(16),
     .PCIE_ASYNC_EN("FALSE"),
     .ENABLE_JTAG_DBG("FALSE"),
     .REDUCE_OOB_FREQ("FALSE")

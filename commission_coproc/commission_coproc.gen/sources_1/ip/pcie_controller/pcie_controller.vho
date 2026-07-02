@@ -77,14 +77,14 @@ COMPONENT pcie_controller
     tx_cfg_req : OUT STD_LOGIC;
     tx_err_drop : OUT STD_LOGIC;
     s_axis_tx_tready : OUT STD_LOGIC;
-    s_axis_tx_tdata : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
-    s_axis_tx_tkeep : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    s_axis_tx_tdata : IN STD_LOGIC_VECTOR(127 DOWNTO 0);
+    s_axis_tx_tkeep : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     s_axis_tx_tlast : IN STD_LOGIC;
     s_axis_tx_tvalid : IN STD_LOGIC;
     s_axis_tx_tuser : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
     tx_cfg_gnt : IN STD_LOGIC;
-    m_axis_rx_tdata : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
-    m_axis_rx_tkeep : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    m_axis_rx_tdata : OUT STD_LOGIC_VECTOR(127 DOWNTO 0);
+    m_axis_rx_tkeep : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
     m_axis_rx_tlast : OUT STD_LOGIC;
     m_axis_rx_tvalid : OUT STD_LOGIC;
     m_axis_rx_tready : IN STD_LOGIC;
