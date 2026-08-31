@@ -233,32 +233,5 @@ module XrsrRandom_seed_fork(
         r2_stages[1] <= l2h2 >> 47;
         r2_stages[2] <= r2_stages[0] | r2_stages[1];
     end
-    
-    
-    initial begin
-        integer index;
-        
-        for (index = 0; index < 17; index = index + 1) begin
-               h_stages[index] = 0;
-        end
-        for (index = 0; index < 4; index = index + 1) begin
-               h2_stages[index] = 0;
-        end
-        for (index = 0; index < 20; index = index + 1) begin
-               l_stages[index] = 0;
-        end
-        for (index = 0; index < 13; index = index + 1) begin
-               l2_stages[index] = 0;
-        end
-        for (index = 0; index < 30; index = index + 1) begin
-               r1_stages[index] = 0;
-        end
-        for (index = 0; index < 5; index = index + 1) begin
-               l2_stages[index] = 0;
-        end
-        seed_init = 64'd0;
-        lh = 64'd0;
-        l2h2 = 64'd0;
-        xoroshiro_state = 128'd0;
-    end
+
 endmodule

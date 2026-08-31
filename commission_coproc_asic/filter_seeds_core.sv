@@ -387,8 +387,4 @@ module filter_seeds_core(
             valid <= 1;
         end
     end
-
-    initial begin
-        seed_out = 64'd0;
-    end
 endmodule
