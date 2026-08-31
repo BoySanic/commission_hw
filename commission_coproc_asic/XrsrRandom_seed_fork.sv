@@ -19,12 +19,12 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-const longint XRSR_MIX1 = 64'hbf58476d1ce4e5b9;
-const longint XRSR_MIX2 = 64'h94d049bb133111eb;
-const longint XRSR_MIX1_INVERSE = 64'h96de1b173f119089;
-const longint XRSR_MIX2_INVERSE = 64'h319642b2d24d8ec3;
-const longint XRSR_SILVER_RATIO = 64'h6a09e667f3bcc909;
-const longint XRSR_GOLDEN_RATIO = 64'h9e3779b97f4a7c15;
+localparam XRSR_MIX1 = 64'hbf58476d1ce4e5b9;
+localparam XRSR_MIX2 = 64'h94d049bb133111eb;
+localparam XRSR_MIX1_INVERSE = 64'h96de1b173f119089;
+localparam XRSR_MIX2_INVERSE = 64'h319642b2d24d8ec3;
+localparam XRSR_SILVER_RATIO = 64'h6a09e667f3bcc909;
+localparam XRSR_GOLDEN_RATIO = 64'h9e3779b97f4a7c15;
 
 module XrsrRandom_seed_fork(
     input [63:0] seed,
