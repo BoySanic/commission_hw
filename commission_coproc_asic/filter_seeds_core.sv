@@ -38,35 +38,7 @@ module filter_seeds_core(
     reg  [31:0] c_0A_mask, c_0B_mask, c_1A_mask, c_1B_mask, c_2A_mask, c_2B_mask;
 
     reg  [63:0] prop_seed [300:0];
-    initial begin
-        integer index;
-        seed_fork = 128'd0;
-        noise_a_hi = 128'd0;
-        noise_b_hi = 128'd0;
-       
-        
-        c_0A_mask = 32'd0;
-        c_1A_mask = 32'd0;
-        c_2A_mask = 32'd0;
-        c_0B_mask = 32'd0;
-        c_1B_mask = 32'd0;
-        c_2B_mask = 32'd0;
-        for (index = 0; index < 100; index = index + 1) begin
-            noise_random[index] = 128'd0;
-            noise_a_yo_fork[index] = 128'd0;
-            noise_b_yo_fork[index] = 128'd0;
-            noise_a_fork_stages_lo[index] = 64'd0;
-            noise_a_fork_stages_hi[index] = 64'd0;
-            noise_b_fork_stages_lo[index] = 64'd0;
-            noise_b_fork_stages_hi[index] = 64'd0;
-            c_0A_yo[index] = 32'd0;
-            c_1A_yo[index] = 32'd0;
-            c_2A_yo[index] = 32'd0;
-            c_0B_yo[index] = 32'd0;
-            c_1B_yo[index] = 32'd0;
-            c_2B_yo[index] = 32'd0;
-        end
-    end
+
     // 88 clocks each iirc 
     XrsrRandom_seed_fork seed_forker (
         .seed (seed_in),
