@@ -21,24 +21,27 @@
 
 
 module top_level(
-        input clock, 
+    input clock, 
+    input [63:0] start_seed,
+    input reset,
 	output [63:0] output_seed,
 	output valid
     );
-        reg [63:0] start_seed;
-        wire [63:0] produced_seed;
-
+        reg [63:0] next_seed;
+        reg [63:0] provided_seed;
         filter_seeds_core fsc (
-            .seed_in (start_seed),
+            .seed_in (next_seed),
             .clock (clock),
-            .seed_out (produced_seed),
+            .seed_out (output_seed),
             .valid (valid)
         );
-
-        initial begin
-            start_seed = 64'd0;
+        always @(posedge reset) begin
+            next_seed <= start_seed;
         end
+
         always @(posedge clock)  begin
-            start_seed <= start_seed + 1;
+            if(!reset) begin
+                next_seed <= start_seed + 1;
+            end
         end
 endmodule
