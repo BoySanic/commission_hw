@@ -35,13 +35,12 @@ module top_level(
             .seed_out (output_seed),
             .valid (valid)
         );
-        always @(posedge reset) begin
+    
+    always @(posedge clock or posedge reset) begin
+        if (reset) begin
             next_seed <= start_seed;
+        end else begin
+            next_seed <= next_seed + 64'd1;
         end
-
-        always @(posedge clock)  begin
-            if(!reset) begin
-                next_seed <= next_seed + 1;
-            end
-        end
+    end
 endmodule
