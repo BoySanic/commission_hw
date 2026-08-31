@@ -1,9 +1,9 @@
 module add_u32 (
-    input  [31:0] A;
-    input  [31:0] B;
-    output [31:0] S;
-    input  clock;
-    input  CE;
+    input  [31:0] A,
+    input  [31:0] B,
+    output [31:0] S,
+    input  clock,
+    input  CE
 );
     reg [31:0] stages [6:0];
 
