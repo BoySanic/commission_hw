@@ -41,7 +41,7 @@ module top_level(
 
         always @(posedge clock)  begin
             if(!reset) begin
-                next_seed <= start_seed + 1;
+                next_seed <= next_seed + 1;
             end
         end
 endmodule
