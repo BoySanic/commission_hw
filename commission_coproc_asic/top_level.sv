@@ -24,8 +24,8 @@ module top_level(
     input clock, 
     input [63:0] start_seed,
     input reset,
-	output [63:0] output_seed,
-	output valid
+    output [63:0] output_seed,
+    output valid
     );
         reg [63:0] next_seed;
         reg [63:0] provided_seed;
@@ -36,7 +36,7 @@ module top_level(
             .valid (valid)
         );
     
-    always @(posedge clock or posedge reset) begin
+    always @(posedge clock) begin
         if (reset) begin
             next_seed <= start_seed;
         end else begin
