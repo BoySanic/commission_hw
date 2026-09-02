@@ -1,16 +1,23 @@
 create_clock -name clock -period 25.0000 [get_ports clock]
 
-# Setup margin: 25ns clock is comfortable for this design; keep a small
-# setup uncertainty so the resizer does not chase non-issues.
-set_clock_uncertainty -setup 0.2500 [get_clocks clock]
+# Uncertainty magnitudes are INVERSELY related to how hard the resizer works:
+#   * larger -setup  => tighter setup => more setup fixing
+#   * larger -hold   => tighter hold   => more hold-fix delay buffers
+# DPL-0036 ("Detailed placement failed") comes from repair_timing -hold
+# inserting so many delay buffers that local density overflows. The design is
+# latency-matched with long FF->FF staging chains, so it genuinely has plenty
+# of timing slack; declare small uncertainties so the resizer does not chase
+# phantom violations and bloat placement.
 
-# Hold margin: this design is heavily dominated by short FF->FF staging paths
-# (the latency-matched pipelines). Post-CTS repair_timing -hold was inserting
-# tens of thousands of delay buffers to fix hold, overflowing local density and
-# failing detailed placement (DPL-0036). Declaring reasonable hold budget here
-# sharply reduces the number of paths the resizer considers violating, so it
-# inserts far fewer buffers. Tune 0.5 up toward 1.0 if DPL-0036 still occurs.
-set_clock_uncertainty -hold 0.5000 [get_clocks clock]
+# Small setup uncertainty: 25ns period vs ~4ns critical path leaves huge
+# margin, so the resizer has almost nothing to fix on setup.
+set_clock_uncertainty -setup 0.0500 [get_clocks clock]
+
+# SMALL hold uncertainty. Raising this value makes hold stricter and causes the
+# resizer to insert MORE delay buffers (the root of DPL-0036). Keep it tiny so
+# only genuinely short/skewed paths get hold-fixed. Non-zero keeps a little
+# physical guard for a real tape-out.
+set_clock_uncertainty -hold 0.0500 [get_clocks clock]
 
 set_false_path -from [get_ports reset*]
 
