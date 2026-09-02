@@ -38,6 +38,7 @@ module filter_seeds_core(
     reg  [31:0] c_0A_mask, c_0B_mask, c_1A_mask, c_1B_mask, c_2A_mask, c_2B_mask;
 
     reg  [63:0] prop_seed [300:0];
+    reg  [7:0]  wr_ptr;
 
     // 88 clocks each iirc 
     XrsrRandom_seed_fork seed_forker (
@@ -248,7 +249,6 @@ module filter_seeds_core(
     always @(posedge clock) begin
         // seed_fork.from(hash_continentalness)
         noise_random[0] <= seed_fork ^ hash_continentalness;
-        prop_seed[0] <= seed_in;
     end
     
     always @(posedge clock) begin
@@ -257,10 +257,12 @@ module filter_seeds_core(
         integer b_fork_index;
         integer mask_index;
         integer seed_index;
-        for (seed_index = 1; seed_index < 211; seed_index = seed_index + 1) begin
-            prop_seed[seed_index] <= prop_seed[seed_index-1];
-        end
-        seed_out <= prop_seed[210];
+        
+        // Use circular memory instead of shift registers
+        prop_seed[wr_ptr] <= seed_in;
+        wr_ptr <= wr_ptr + 1;
+        seed_out <= prop_seed[wr_ptr - 210];
+        
         // Skip 18 cycles
         for (a_fork_index = 1; a_fork_index < 19; a_fork_index = a_fork_index + 1) begin
             noise_a_fork_stages_lo[a_fork_index] <= noise_a_fork_stages_lo[a_fork_index-1];
