@@ -91,6 +91,12 @@ if [ ! -f "$LIBRELANE_DIR/flake.nix" ]; then
     echo "FATAL: librelane tarball did not contain flake.nix at $LIBRELANE_DIR"; exit 1
 fi
 
+# Nix flakes resolve ".#colab-env" against the *Git trackbable* tree at $PWD.
+# librelane_ipynb/ is freshly extracted and untracked, so Nix refuses to read
+# its flake unless we mark the directory as intent-to-add in Git's index.
+echo ">> Marking $LIBRELANE_DIR intent-to-add so Nix can read its flake ..."
+git -C "$REPO_ABS" add -N librelane_ipynb 2>/dev/null || true
+
 echo ">> nix profile install .#colab-env (LibreLane toolchain) ..."
 ( cd "$LIBRELANE_DIR" && nix profile install ".#colab-env" ) || {
     echo "FATAL: nix profile install failed"; exit 1;
