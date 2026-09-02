@@ -1,7 +1,7 @@
 module add_u32 (
     input  [31:0] A,
     input  [31:0] B,
-    output [31:0] S,
+    output reg [31:0] S,
     input  CLK,
     input  CE
 );
