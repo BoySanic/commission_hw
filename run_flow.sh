@@ -205,7 +205,7 @@ VERILOG_FILES = [
 ]
 
 chain = [
-    ("Yosys.Synthesis", dict(VERILOG_FILES=VERILOG_FILES, state_in=State())),
+    ("Yosys.Synthesis", dict(VERILOG_FILES=VERILOG_FILES)),
     ("OpenROAD.Floorplan", {}),
     ("OpenROAD.TapEndcapInsertion", {}),
     ("OpenROAD.IOPlacement", {}),
