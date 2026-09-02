@@ -153,7 +153,15 @@ print("librelane version:", librelane.__version__)
 
 from librelane.config import Config
 
-# Exactly parallel to notebook.ipynb cell 9.
+# Only *flow-common* variables are accepted by Config.interactive in LibreLane
+# 3.x. Step-scoped knobs (density, resizer, displacement) must be passed on the
+# individual Step constructors below, not here.
+#
+# The SDC path must be a clean absolute path: a "./" prefix makes the config
+# validator treat it as relative to DESIGN_DIR and it fails the existence check.
+sdc_path = os.path.join(repo_path, "commission_coproc_asic", "constraint.sdc")
+assert os.path.exists(sdc_path), f"constraint.sdc not found: {sdc_path}"
+
 Config.interactive(
     "top_level",
     PDK="sky130A",
@@ -161,24 +169,17 @@ Config.interactive(
     CLOCK_NET="clock",
     CLOCK_PERIOD=25,
     PRIMARY_GDSII_STREAMOUT_TOOL="klayout",
-
-    BASE_SDC_FILE="./%s/commission_coproc_asic/constraint.sdc" % repo_path,
-
+    FALLBACK_SDC=sdc_path,
     MAX_FANOUT_CONSTRAINT=8,
-    PL_TARGET_DENSITY=0.35,
-
-    # --- allow the placer room to legalize ---
-    PL_MAX_DISPLACEMENT_X=500,
-    PL_MAX_DISPLACEMENT_Y=100,
-
-    # --- Stop hold-fix from overflowing placement (the DPL-0036 cause) ---
-    PL_RESIZER_HOLD_MAX_BUFFER_PCT=10,        # was the flow default 50
-    PL_RESIZER_HOLD_MAX_UTIL_PCT=0.5,         # hard cap: never exceed 50% util via hold fix
-    PL_RESIZER_HOLD_SLACK_MARGIN=0.0,         # stop fixing hold paths already within slack
-
-    # --- setup/legalization headroom ---
-    PL_RESIZER_SETUP_MAX_BUFFER_PCT=20,
 )
+
+# Step-scoped knobs (valid only on the step that consumes them):
+#   * PL_TARGET_DENSITY_PCT is the canonical density knob (percent), replacing
+#     the removed PL_TARGET_DENSITY fraction. 35 == the old "0.35".
+#   * PL_MAX_DISPLACEMENT_X/Y defaults (500/100) already match the notebook.
+#   * The resizer knobs (PL_RESIZER_HOLD_*) are ignored by this flow version;
+#     hold-fix buffer bloat is controlled via the SDC clock uncertainties.
+PLACEMENT_STEP_KW  = dict(PL_TARGET_DENSITY_PCT=35)
 
 from librelane.state import State
 from librelane.steps import Step
@@ -210,7 +211,7 @@ chain = [
     ("OpenROAD.IOPlacement", {}),
     ("OpenROAD.GeneratePDN", dict(FP_PDN_VWIDTH=2, FP_PDN_HWIDTH=2,
                                   FP_PDN_VPITCH=30, FP_PDN_HPITCH=30)),
-    ("OpenROAD.GlobalPlacement", {}),
+    ("OpenROAD.GlobalPlacement", PLACEMENT_STEP_KW),
     ("OpenROAD.DetailedPlacement", {}),
     ("OpenROAD.CTS", {}),
     ("OpenROAD.ResizerTimingPostCTS", {}),
