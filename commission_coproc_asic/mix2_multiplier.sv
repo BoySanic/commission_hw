@@ -1,12 +1,12 @@
 localparam XRSR_MIX2 = 64'h94d049bb133111eb;
 
 module mix2_multiplier (
-    input  [31:0] A,
-    output [31:0] P,
+    input  [63:0] A,
+    output [63:0] P,
     input  CLK,
     input  CE
 );
-    reg [31:0] stages [6:0];
+    reg [63:0] stages [6:0];
 
 always @(posedge CLK) begin
     stages[0] <= A * XRSR_MIX2;

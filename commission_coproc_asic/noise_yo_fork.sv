@@ -26,13 +26,13 @@ module noise_yo_fork(
     output reg [127:0] ret
     );
     
-    reg [127:0] l_states [32:0];
-    reg [127:0] h_states [32:0];
-    reg [127:0] hi_states [32:0];
-    reg [127:0] lo_states [32:0];
+    reg [127:0] l_states [3:0];
+    reg [127:0] h_states [3:0];
+    reg [127:0] hi_states [3:0];
+    reg [127:0] lo_states [3:0];
     initial begin
         integer index;
-        for (index = 0; index < 33; index = index + 1) begin
+        for (index = 0; index < 4; index = index + 1) begin
             l_states[index] = 128'd0;
             h_states[index] = 128'd0;
             hi_states[index] = 128'd0;

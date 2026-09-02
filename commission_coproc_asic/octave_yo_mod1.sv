@@ -28,9 +28,8 @@ module octave_yo_mod1(
         output reg [31:0] score_yo_mama 
     );
         reg  [127:0] hash_octave [2:0];
-        reg  [127:0] fork_hash;
-        reg  [63:0] l_stages[32:0], h_stages[32:0], lh_stages[6:0], lr_stages[6:0];
-        reg  [63:0] r_stages[32:0];
+        reg  [63:0] l_stages[8:0], h_stages[0:0], lh_stages[6:0], lr_stages[6:0];
+        reg  [63:0] r_stages[3:0];
         reg  [63:0] lh;
     
     // add_u64 add_lr (
@@ -59,11 +58,11 @@ module octave_yo_mod1(
     initial begin
         integer index;
         lh = 64'd0;
-        for (index = 0; index < 8; index = index + 1) begin
-            h_stages[index] = 64'd0;
+        for (index = 0; index < 9; index = index + 1)
             l_stages[index] = 64'd0;
+        h_stages[0] = 64'd0;
+        for (index = 0; index < 4; index = index + 1)
             r_stages[index] = 64'd0;
-        end
         score_yo_mama = 64'd0;
     end
     

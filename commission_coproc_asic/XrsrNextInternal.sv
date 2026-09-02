@@ -26,11 +26,11 @@ module XrsrNextInternal(
         (* mark_debug = "true" *) output reg [63:0] next_long,
         (* mark_debug = "true" *) output reg [127:0] xrsr_state_out
     );
-        reg [63:0] l_stages [32:0];
-        reg [63:0] h_stages [32:0];
-        reg [63:0] l2_stages [32:0];
+        reg [63:0] l_stages [14:0];
+        reg [63:0] h_stages [16:0];
+        reg [63:0] l2_stages [2:0];
         reg [63:0] h2_stages [1:0];
-        reg [63:0] r_stages [32:0];
+        reg [63:0] r_stages [5:0];
         reg [63:0] lr_stages [6:0];
         reg [63:0] lh_stages [6:0];
         reg [63:0] lh;

@@ -28,7 +28,6 @@ module top_level(
     output valid
     );
         reg [63:0] next_seed;
-        reg [63:0] provided_seed;
         filter_seeds_core fsc (
             .seed_in (next_seed),
             .clock (clock),

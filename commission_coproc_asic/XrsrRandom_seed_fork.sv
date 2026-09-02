@@ -31,14 +31,15 @@ module XrsrRandom_seed_fork(
     input clock,
     (* mark_debug = "true" *)  output reg [127:0] xoroshiro_state    
 );
-    reg [63:0] h_stages[17:0];
+    reg [63:0] h_stages[16:0];
     reg [63:0] h2_stages[2:0];
     reg [63:0] l_stages[19:0];
-    reg [63:0] l2_stages[12:0];
-    reg [63:0] r1_stages[23:0];
-    reg [63:0] r2_stages[4:0];
+    reg [63:0] l2_stages[11:0];
+    reg [63:0] r1_stages[14:0];
+    reg [63:0] r2_stages[3:0];
 
     reg [63:0] seed_init, lh, l2h2;
+    integer i;
     // 18 cycles
     mix1_multiplier mix64_1_l (
         .A (l_stages[1]),
@@ -116,74 +117,24 @@ module XrsrRandom_seed_fork(
     // Carry forward l
     
     always @(posedge clock) begin
-        // Delay, h has an extra add
-        l_stages[6] <= l_stages[5];
-        l_stages[7] <= l_stages[6];
-        l_stages[8] <= l_stages[7];
-        l_stages[9] <= l_stages[8];
-        l_stages[10] <= l_stages[9];
-        l_stages[11] <= l_stages[10];
-        
-        // Delay for add_l_plus_h
-        l_stages[12] <= l_stages[11];
-        l_stages[13] <= l_stages[12];
-        l_stages[14] <= l_stages[13];
-        l_stages[15] <= l_stages[14];
-        l_stages[16] <= l_stages[15];
-        l_stages[17] <= l_stages[16];
-        // Delay for lh rotl
-        l_stages[18] <= l_stages[17];
-        l_stages[19] <= l_stages[18];
-        // Use l_stages[19] in l2's rotl and then we're done with l_stages. Move onto l2_stages.
-        // xor with h
+        for (i = 6; i <= 19; i = i + 1)
+            l_stages[i] <= l_stages[i-1];
 
         l2_stages[3] <= l2_stages[2] ^ h_stages[16] ^ (h_stages[16] << 21);
-        // Delay 6 clocks for the add
-        l2_stages[4] <= l2_stages[3];
-        l2_stages[5] <= l2_stages[4];
-        l2_stages[6] <= l2_stages[5];
-        l2_stages[7] <= l2_stages[6];
-        l2_stages[8] <= l2_stages[7];
-        l2_stages[9] <= l2_stages[8];
-        // Delay 2 clocks for the rotl
-        l2_stages[10] <= l2_stages[9];
-        l2_stages[11] <= l2_stages[10];
-        
+        for (i = 4; i <= 11; i = i + 1)
+            l2_stages[i] <= l2_stages[i-1];
     end
     
     always @(posedge clock) begin
-        // Delay for add_l_plus_h
-        h_stages[7] <= h_stages[6];
-        h_stages[8] <= h_stages[7];
-        h_stages[9] <= h_stages[8];
-        h_stages[10] <= h_stages[9];
-        h_stages[11] <= h_stages[10];
-        h_stages[12] <= h_stages[11];
-        // Delay for lh rotl
-        h_stages[13] <= h_stages[12];
-        h_stages[14] <= h_stages[13];
-        // Xor with l_stages[19], then delay 1 extra cycle for xor with l2 stuff.
+        for (i = 7; i <= 14; i = i + 1)
+            h_stages[i] <= h_stages[i-1];
         h_stages[15] <= h_stages[14] ^ l_stages[19];
         h_stages[16] <= h_stages[15];
-        
     end
     
-    // Delaying r1_stages
     always @(posedge clock) begin
-        // stages[2] -> stages[3] via the add took 6 clocks.
-        // Clock count: 
-        // Delay However many clocks between r1 finished and r2 finished..?
-        r1_stages[4] <= r1_stages[3];
-        r1_stages[5] <= r1_stages[4];
-        r1_stages[6] <= r1_stages[5];
-        r1_stages[7] <= r1_stages[6];
-        r1_stages[8] <= r1_stages[7];
-        r1_stages[9] <= r1_stages[8];
-        r1_stages[10] <= r1_stages[9];
-        r1_stages[11] <= r1_stages[10];
-        r1_stages[12] <= r1_stages[11];
-        r1_stages[13] <= r1_stages[12];
-        r1_stages[14] <= r1_stages[13];
+        for (i = 4; i <= 14; i = i + 1)
+            r1_stages[i] <= r1_stages[i-1];
     end
     // Mix64 for l 
     always @(posedge clock) begin

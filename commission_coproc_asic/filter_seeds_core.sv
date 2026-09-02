@@ -29,16 +29,17 @@ module filter_seeds_core(
 
     localparam maxScore = 637534 * 100;
     reg  [127:0] hash_continentalness;
-    reg  [127:0] seed_fork, noise_a_hi, noise_b_hi;
+    reg  [127:0] seed_fork;
     reg  [127:0] noise_random[4:0];
-    reg  [127:0] noise_a_yo_fork[41:0], noise_b_yo_fork[2:0];
-    reg  [63:0] noise_a_fork_stages_lo[40:0], noise_a_fork_stages_hi[40:0];
-    reg  [63:0] noise_b_fork_stages_lo[40:0], noise_b_fork_stages_hi[40:0];
-    reg  [31:0] c_0A_yo[40:0], c_0B_yo[40:0], c_1A_yo[40:0], c_1B_yo[40:0], c_2A_yo[40:0], c_2B_yo[40:0];
+    reg  [127:0] noise_a_yo_fork[37:0], noise_b_yo_fork[2:0];
+    reg  [63:0] noise_a_fork_stages_lo[18:0], noise_a_fork_stages_hi[18:0];
+    reg  [63:0] noise_b_fork_stages_lo[18:0], noise_b_fork_stages_hi[18:0];
+    reg  [31:0] c_0A_yo[35:0], c_0B_yo[35:0], c_1A_yo[35:0], c_1B_yo[35:0], c_2A_yo[35:0], c_2B_yo[35:0];
     reg  [31:0] c_0A_mask, c_0B_mask, c_1A_mask, c_1B_mask, c_2A_mask, c_2B_mask;
 
-    reg  [63:0] prop_seed [300:0];
+    reg  [63:0] prop_seed [0:255];
     reg  [7:0]  wr_ptr;
+    reg  [7:0]  rd_ptr;
 
     // 88 clocks each iirc 
     XrsrRandom_seed_fork seed_forker (
@@ -242,12 +243,13 @@ module filter_seeds_core(
     );
 
     initial begin
-
         hash_continentalness = 128'hafa638a61b42e8ad83886c9d0ae3a662;
+        wr_ptr = 8'd0;
+        rd_ptr = 8'd0;
+        valid = 1'b0;
     end
     
     always @(posedge clock) begin
-        // seed_fork.from(hash_continentalness)
         noise_random[0] <= seed_fork ^ hash_continentalness;
     end
     
@@ -257,11 +259,12 @@ module filter_seeds_core(
         integer b_fork_index;
         integer mask_index;
         integer seed_index;
+        integer i;
         
-        // Use circular memory instead of shift registers
         prop_seed[wr_ptr] <= seed_in;
-        wr_ptr <= wr_ptr + 1;
-        seed_out <= prop_seed[wr_ptr - 210];
+        wr_ptr <= wr_ptr + 8'd1;
+        rd_ptr <= wr_ptr - 8'd210;
+        seed_out <= prop_seed[rd_ptr];
         
         // Skip 18 cycles
         for (a_fork_index = 1; a_fork_index < 19; a_fork_index = a_fork_index + 1) begin
@@ -325,36 +328,8 @@ module filter_seeds_core(
 //        c_2A_yo[11] <= c_2A_yo[10];
 //        c_2A_yo[12] <= c_2A_yo[11];
         c_0A_yo[5] <= c_0A_yo[4] + c_1A_yo[4] + c_2A_yo[4];
-        c_0A_yo[6] <= c_0A_yo[5];
-        c_0A_yo[7] <= c_0A_yo[6];
-        c_0A_yo[8] <= c_0A_yo[7];
-        c_0A_yo[9] <= c_0A_yo[8];
-        c_0A_yo[10] <= c_0A_yo[9];
-        c_0A_yo[11] <= c_0A_yo[10];
-        c_0A_yo[12] <= c_0A_yo[11];
-        c_0A_yo[13] <= c_0A_yo[12];
-        c_0A_yo[14] <= c_0A_yo[13];
-        c_0A_yo[15] <= c_0A_yo[14];
-        c_0A_yo[16] <= c_0A_yo[15];
-        c_0A_yo[17] <= c_0A_yo[16];
-        c_0A_yo[18] <= c_0A_yo[17];
-        c_0A_yo[19] <= c_0A_yo[18];
-        c_0A_yo[20] <= c_0A_yo[19];
-        c_0A_yo[21] <= c_0A_yo[20];
-        c_0A_yo[22] <= c_0A_yo[21];
-        c_0A_yo[23] <= c_0A_yo[22];
-        c_0A_yo[24] <= c_0A_yo[23];
-        c_0A_yo[25] <= c_0A_yo[24];
-        c_0A_yo[26] <= c_0A_yo[25];
-        c_0A_yo[27] <= c_0A_yo[26];
-        c_0A_yo[28] <= c_0A_yo[27];
-        c_0A_yo[29] <= c_0A_yo[28];
-        c_0A_yo[30] <= c_0A_yo[29];
-        c_0A_yo[31] <= c_0A_yo[30];
-        c_0A_yo[32] <= c_0A_yo[31];
-        c_0A_yo[33] <= c_0A_yo[32];
-        c_0A_yo[34] <= c_0A_yo[33];
-        c_0A_yo[35] <= c_0A_yo[34];
+        for (i = 6; i <= 35; i = i + 1)
+            c_0A_yo[i] <= c_0A_yo[i-1];
         if (c_0A_yo[35] > maxScore) begin
             valid <= 0;
         end else begin
