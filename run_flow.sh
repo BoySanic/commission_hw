@@ -151,6 +151,7 @@ logging.basicConfig(level=logging.WARNING)
 import librelane
 print("librelane version:", librelane.__version__)
 
+from decimal import Decimal
 from librelane.config import Config
 
 # Only *flow-common* variables are accepted by Config.interactive in LibreLane
@@ -204,6 +205,12 @@ VERILOG_FILES = [
     v("commission_coproc_asic/octave_yo_mod1.sv"),
 ]
 
+# Congestion relief: OpenROAD's default GRT_ADJUSTMENT=0.3 cuts global-routing
+# edge capacity by 30%, which trips GRT-0116 on this large sequential design
+# (160k nets). Lower it to 0.05 to hand the router most of the capacity. This is
+# a routing-step scoped knob, applied to the steps that actually run GRT.
+ROUTING_STEP_KW = dict(GRT_ADJUSTMENT=Decimal("0.05"))
+
 chain = [
     ("Yosys.Synthesis", dict(VERILOG_FILES=VERILOG_FILES)),
     ("OpenROAD.Floorplan", {}),
@@ -215,9 +222,9 @@ chain = [
     ("OpenROAD.DetailedPlacement", {}),
     ("OpenROAD.CTS", {}),
     ("OpenROAD.ResizerTimingPostCTS", {}),
-    ("OpenROAD.RepairDesignPostGRT", {}),
-    ("OpenROAD.GlobalRouting", {}),
-    ("OpenROAD.DetailedRouting", {}),
+    ("OpenROAD.RepairDesignPostGRT", ROUTING_STEP_KW),
+    ("OpenROAD.GlobalRouting", ROUTING_STEP_KW),
+    ("OpenROAD.DetailedRouting", ROUTING_STEP_KW),
     ("OpenROAD.FillInsertion", {}),
     ("OpenROAD.RCX", {}),
     ("OpenROAD.STAPostPNR", {}),
